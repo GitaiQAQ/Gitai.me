@@ -1,0 +1,65 @@
+<TITLE>gzip format</TITLE>
+<H1 ALIGN=CENTER>gzip format</H1>
+Byte order: Little-endian<P>
+
+<PRE>
+Offset   Length   Contents
+  0      2 bytes  magic header  0x1f, 0x8b (\037 \213)  
+  2      1 byte   compression method
+                     0: store (copied)
+                     1: compress
+                     2: pack
+                     3: lzh
+                     4..7: reserved
+                     8: deflate
+  3      1 byte   flags
+                     bit 0 set: file probably ascii text
+                     bit 1 set: continuation of multi-part gzip file, part number present
+                     bit 2 set: extra field present
+                     bit 3 set: original file name present
+                     bit 4 set: file comment present
+                     bit 5 set: file is encrypted, encryption header present
+                     bit 6,7:   reserved
+  4      4 bytes  file modification time in Unix format
+  8      1 byte   extra flags (depend on compression method)
+  9      1 byte   OS type
+[
+         2 bytes  optional part number (second part=1)
+]?
+[
+         2 bytes  optional extra field length (e)
+        (e)bytes  optional extra field
+]?
+[
+           bytes  optional original file name, zero terminated
+]?
+[
+           bytes  optional file comment, zero terminated
+]?
+[
+        12 bytes  optional encryption header
+]?
+           bytes  compressed data
+         4 bytes  crc32
+         4 bytes  uncompressed input size modulo 2^32
+</PRE>
+
+<B>OS type</B>:
+<TABLE BORDER>
+<TR><TH>ID<TH>OS
+<TR><TD>0x00<TD>FAT filesystem (MS-DOS, OS/2, NT/Win32)
+<TR><TD>0x01<TD>Amiga
+<TR><TD>0x02<TD>VMS (or OpenVMS)
+<TR><TD>0x03<TD>Unix
+<TR><TD>0x04<TD>VM/CMS
+<TR><TD>0x05<TD>Atari TOS
+<TR><TD>0x06<TD>HPFS filesystem (OS/2, NT)
+<TR><TD>0x07<TD>Macintosh
+<TR><TD>0x08<TD>Z-System
+<TR><TD>0x09<TD>CP/M
+<TR><TD>0x0a<TD>TOPS-20
+<TR><TD>0x0b<TD>NTFS filesystem (NT)
+<TR><TD>0x0c<TD>QDOS
+<TR><TD>0x0d<TD>Acorn RISCOS
+<TR><TD>0xff<TD>unknown
+</TABLE><P>

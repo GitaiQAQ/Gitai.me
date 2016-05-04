@@ -1,0 +1,38 @@
+<TITLE>MOD file</TITLE>
+<H1 ALIGN=CENTER>MOD file format</H1>
+Byte order: Big-endian<P>
+
+<PRE>
+Offset   Length   Contents
+  0     20 bytes  Song name
+[ // Sample informations
+        22 bytes  Sample name
+         2 bytes  Sample Length
+         1 byte   Fine tunning    (0..7 =&gt; 0..7, 8..15 =&gt; -8..-1)
+         1 byte   Volume [0..64]
+         2 bytes  Loop start
+         2 bytes  Loop length
+]{31}
+950      1 byte   Song length
+951      1 byte   ?? (I don't know what it is)
+952    128 bytes  Song positions
+1080     4 bytes  Magic
+                  "M.K."  // Protracker 4 channel
+                  "M!K!"  // Protracker 4 channel
+                  "FLT4"  // Startracker 4 channel
+                  "FLT8"  // Startracker 8 channel
+                  "4CHN"  // Fasttracker 4 channel
+                  "6CHN"  // Fasttracker 6 channel
+                  "8CHN"  // Fasttracker 8 channel
+                  "CD81"  // Atari oktalyzer 8 channel
+                  "OKTA"  // Atari oktalyzer 8 channel
+                  "16CN"  // Taketracker 16 channel
+                  "32CN"  // Taketracker 32 channel
+                  "    "  // 15-instrument 4 channel
+[ // Patterns
+  [ // Tracks
+         4 bytes  Data for pattern
+  ]{nchannels * 64}
+]{MAX Positions}
+        ?? bytes  Samples
+</PRE>

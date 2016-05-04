@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<TITLE>ogg format</TITLE>
+</HEAD>
+<BODY>
+<H1 ALIGN=CENTER>Ogg Vorbis File Format</H1>
+Byte order: Little-endian
+<PRE>
+Offset   Length   Contents
+[ 0      4 bytes  "OggS"
+  4      1 byte   Stream structure version (0x00)
+  5      1 byte   Packet flag:
+                    bit 0:  true if page continued
+                    bit 1:  true if first page
+                    bit 2:  true if last page
+                    bit 3..7: reserved
+  6      8 bytes  The end pcm sample position (64bit integer)
+ 14      4 bytes  Stream serial number
+ 18      4 bytes  Page number
+ 22      4 bytes  Check sum
+ 26      1 byte   Number of segments(s)
+ 27     (s)bytes  Sengment table
+ 27+(s) (b)bytes  Body (b := header[27] + header[27+1] + ... + header[27+s-1])
+]*
+</PRE>
+</BODY>

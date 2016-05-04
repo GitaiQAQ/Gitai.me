@@ -1,0 +1,51 @@
+<TITLE>AIFF - Audio Interchange File Format</TITLE>
+<H1 ALIGN=CENTER>AIFF</H1>
+Byte order: Big-endian
+<PRE>
+Offset   Length   Contents
+  0      4 bytes  "FORM"
+  4      4 bytes  &lt;File size - 8&gt;
+  8      4 bytes  "AIFF"
+[ // Chunks
+         4 bytes  &lt;Chunk magic&gt;
+         4 bytes  &lt;Chunk data size(x)&gt;
+        (x)bytes  &lt;Chunk data&gt;
+]*
+
+
+COMM chunk: <I>Must be defined</I>
+  0      4 bytes  "COMM"
+  4      4 bytes  &lt;COMM chunk size&gt;  // (=18)
+  8      2 bytes  &lt;Number of channels(c)&gt;
+ 10      4 bytes  &lt;Number of frames(f)&gt;
+ 14      2 bytes  &lt;bits/samples(b)&gt;  // 1..32
+ 16     10 bytes  &lt;Sample rate (<A HREF="ieee.c">Extended 80-bit floating-point format</A>)&gt;
+
+FORM chunk:
+  0      4 bytes  "FORM"
+  4      4 bytes  &lt;FORM chunk size(x)&gt;
+  8     (x)bytes  &lt;FORM chunk&gt;
+
+INST chunk:
+  0      4 bytes  "INST"
+  4      4 bytes  &lt;INST chunk size(x)&gt;
+  8     (x)bytes  &lt;INST chunk&gt;
+
+MARK chunk:
+  0      4 bytes  "MARK"
+  4      4 bytes  &lt;MARK chunk size(x)&gt;
+  8     (x)bytes  &lt;MARK chunk&gt;
+
+SKIP chunk:
+  0      4 bytes  "SKIP"
+  4      4 bytes  &lt;SKIP chunk size(x)&gt;
+  8     (x)bytes  &lt;SKIP chunk&gt;
+
+SSND chunk: <I>Must be defined</I>
+  0      4 bytes  "SSND"
+  4      4 bytes  &lt;Chunk size(x)&gt;
+  8      4 bytes  &lt;Offset(n)&gt;
+ 12      4 bytes  &lt;block size&gt;       // (=0)
+ 16     (n)bytes  Comment
+ 16+(n) (s)bytes  &lt;Sample data&gt;      // (s) := (x) - (n) - 8
+</PRE>

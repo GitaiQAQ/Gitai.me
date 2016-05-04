@@ -1,0 +1,206 @@
+<TITLE>LZH format</TITLE>
+<H1>LZH format</H1>
+Byte Order: Little-endian<BR>
+
+There are some types of LZH header, <B>level-0</B>, <B>level-1</B>, and <B>level-2</B>.
+
+<PRE>
+<B>level-0</B>
++------------+
+| LZH header |
++------------+
+| compressed |
+| data       |
++------------+
+| LZH header |
++------------+
+| compressed |
+| data       |
++------------+
+...
+
+<B>level-1</B>, <B>level-2</B>
++------------+
+| LZH header |
++------------+
+| extension  |
+| header     |
++------------+
+| extension  |
+| header     |
++------------+
+| ...        |
++------------+
+| compressed |
+| data       |
++------------+
+| LZH header |
++------------+
+| extension  |
+| header     |
++------------+
+| extension  |
+| header     |
++------------+
+| ...        |
++------------+
+| compressed |
+| data       |
++------------+
+...
+</PRE>
+
+<PRE>
+<B>level-0</B>
+Offset   Length   Contents
+  0      1 byte   Size of archived file header (h)
+  1      1 byte   Header checksum
+  2      5 bytes  Method ID
+  7      4 bytes  Compressed size (n)
+ 11      4 bytes  Uncompressed size
+ 15      4 bytes  Original file date/time (Generic time stamp)
+ 19      1 byte   File attribute
+ 20      1 byte   Level (0x00)
+ 21      1 byte   Filename / path length in bytes (f)
+ 22     (f)bytes  Filename / path
+ 22+(f)  2 bytes  CRC-16 of original file
+ 24+(f) (n)bytes  Compressed data
+
+
+<B>level-1</B>
+Offset   Length   Contents
+  0      1 byte   Size of archived file header (h)
+  1      1 byte   Header checksum
+  2      5 bytes  Method ID
+  7      4 bytes  Compressed size (n)
+ 11      4 bytes  Uncompressed size
+ 15      4 bytes  Original file date/time (Generic time stamp)
+ 19      1 byte   0x20
+ 20      1 byte   Level (0x01)
+ 21      1 byte   Filename / path length in bytes (f)
+ 22     (f)bytes  Filename / path
+ 22+(f)  2 bytes  CRC-16 of original file
+ 24+(f)  1 byte   OS ID
+ 25+(f)  2 bytes  Next header size(x) (0 means no extension header)
+[ // Extension headers
+         1 byte   Extension type
+     (x)-3 bytes  Extension fields
+         2 bytes  Next header size(x) (0 means no next extension header)
+]*
+        (n)bytes  Compressed data
+
+
+<B>level-2</B>
+Offset   Length   Contents
+  0      2 byte   Total size of archived file header (h)
+  2      5 bytes  Method ID
+  7      4 bytes  Compressed size (n)
+ 11      4 bytes  Uncompressed size
+ 15      4 bytes  Original file time stamp(UNIX type, seconds since 1970)
+ 19      1 byte   Reserved
+ 20      1 byte   Level (0x02)
+ 21      2 bytes  CRC-16 of original file
+ 23      1 byte   OS ID
+ 24      2 bytes  Next header size(x) (0 means no extension header)
+[
+         1 byte   Extension type
+     (x)-3 bytes  Extension fields
+         2 bytes  Next header size(x) (0 means no next extension header)
+]*
+        (n)bytes  Compressed data
+
+<B>Extension header</B>
+<B>Common header:</B>
+         1 byte   Extension type (0x00)
+         2 bytes  CRC-16 of header 
+        [1 bytes  Information] (Optional)
+         2 bytes  Next header size
+
+<B>File name header:</B>
+         1 byte   Extension type (0x01)
+         ? bytes  File name
+         2 bytes  Next header size
+
+<B>Directory name header:</B>
+         1 byte   Extension type (0x02)
+         ? bytes  Directory name
+         2 bytes  Next header size
+
+<B>Comment header:</B>
+         1 byte   Extension type (0x3f)
+         ? bytes  Comments
+         2 bytes  Next header size
+
+<B>UNIX file permission:</B>
+         1 byte   Extension type (0x50)
+         2 bytes  Permission value
+         2 bytes  Next header size
+
+<B>UNIX file group/user ID:</B>
+         1 byte   Extension type (0x51)
+         2 bytes  Group ID
+         2 bytes  User ID
+         2 bytes  Next header size
+
+<B>UNIX file group name:</B>
+         1 byte   Extension type (0x52)
+         ? bytes  Group name
+         2 bytes  Next header size
+
+<B>UNIX file user name:</B>
+         1 byte   Extension type (0x53)
+         ? bytes  User name
+         2 bytes  Next header size
+
+<B>UNIX file last modified time:</B>
+         1 byte   Extension type (0x54)
+         4 bytes  Last modified time in UNIX time
+         2 bytes  Next header size
+</PRE>
+
+<B>Method ID</B>
+<TABLE BORDER>
+<TR><TD><CODE>"-lh0-"</CODE><TD>No compression
+<TR><TD><CODE>"-lh1-"</CODE><TD>4k sliding dictionary(max 60 bytes) + dynamic Huffman + fixed encoding of position
+<TR><TD><CODE>"-lh2-"</CODE><TD>8k sliding dictionary(max 256 bytes) + dynamic Huffman (Obsoleted)
+<TR><TD><CODE>"-lh3-"</CODE><TD>8k sliding dictionary(max 256 bytes) + static Huffman (Obsoleted)
+<TR><TD><CODE>"-lh4-"</CODE><TD>4k sliding dictionary(max 256 bytes) + static Huffman + improved encoding of position and trees
+<TR><TD><CODE>"-lh5-"</CODE><TD>8k sliding dictionary(max 256 bytes) + static Huffman + improved encoding of position and trees
+<TR><TD><CODE>"-lzs-"</CODE><TD>2k sliding dictionary(max 17 bytes)
+<TR><TD><CODE>"-lz4-"</CODE><TD>No compression
+<TR><TD><CODE>"-lh6-"</CODE><TD>32k sliding dictionary(max 256 bytes) + static Huffman + improved encoding of position and trees
+<TR><TD><CODE>"-lh7-"</CODE><TD>64k sliding dictionary + static Huffman
+<TR><TD><CODE>"-lhd-"</CODE><TD>Directory (no compressed data)
+</TABLE><P>
+
+<PRE>
+<B>Generic time stamp:</B>
+ 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16
+|&lt;------ year ------&gt;|&lt;- month -&gt;|&lt;---- day ---&gt;|
+
+ 15 14 13 12 11 10  9  8  7  6  5  4  3  2  1  0
+|&lt;--- hour ---&gt;|&lt;---- minute ---&gt;|&lt;- second/2 -&gt;|
+
+Offset   Length   Contents
+ 0       7 bits   year     years since 1980
+ 7       4 bits   month    [1..12]
+11       5 bits   day      [1..31]
+16       5 bits   hour     [0..23]
+21       6 bits   minite   [0..59]
+27       5 bits   second/2 [0..29]
+</PRE>
+<P>
+<B>OS ID</B>
+<TABLE BORDER>
+<TR><TD><CODE>'M'</CODE><TD>MS-DOS
+<TR><TD><CODE>'2'</CODE><TD>OS/2
+<TR><TD><CODE>'9'</CODE><TD>OS9
+<TR><TD><CODE>'K'</CODE><TD>OS/68K
+<TR><TD><CODE>'3'</CODE><TD>OS/386
+<TR><TD><CODE>'H'</CODE><TD>HUMAN
+<TR><TD><CODE>'U'</CODE><TD>UNIX
+<TR><TD><CODE>'C'</CODE><TD>CP/M
+<TR><TD><CODE>'F'</CODE><TD>FLEX
+<TR><TD><CODE>'m'</CODE><TD>Mac
+<TR><TD><CODE>'R'</CODE><TD>Runser
+</TABLE>

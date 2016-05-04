@@ -1,0 +1,45 @@
+<TITLE>au format</TITLE>
+<H1 ALIGN=CENTER>au format</H1>
+Byte order: Big-endian
+<PRE>
+Offset   Length   Contents
+  0      4 bytes  ".snd"
+  4      4 bytes  &lt;Header size (h)&gt;
+  8      4 bytes  &lt;Sample data size (s)&gt;
+ 12      4 bytes  &lt;Audio file encoding&gt;
+ 16      4 bytes  &lt;Sample rate&gt;
+ 20      4 bytes  &lt;Number of channels&gt;
+ 24  (h-24)bytes  &lt;Comment&gt;
+(h)     (s)bytes  &lt;Sample data&gt;
+
+
+/* Sun Audio File Encoding Tags */
+#define SUN_AUDIO_MAGIC			0x2e736e64
+#define AUDIO_FILE_ENCODING_MULAW_8     1      /* 8-bit ISDN u-law */
+#define AUDIO_FILE_ENCODING_LINEAR_8    2      /* 8-bit linear PCM */
+#define AUDIO_FILE_ENCODING_LINEAR_16   3      /* 16-bit linear PCM */
+#define AUDIO_FILE_ENCODING_LINEAR_24   4      /* 24-bit linear PCM */
+#define AUDIO_FILE_ENCODING_LINEAR_32   5      /* 32-bit linear PCM */
+#define AUDIO_FILE_ENCODING_FLOAT       6      /* 32-bit IEEE floating point */
+#define AUDIO_FILE_ENCODING_DOUBLE      7      /* 64-bit IEEE floating point */
+#define AUDIO_FILE_ENCODING_INDIRECT    8      /* fragmented sampled data
+#define AUDIO_FILE_ENCODING_NESTED      9      /* ? */
+#define AUDIO_FILE_ENCODING_DSP_CORE   10      /* DSP program */
+#define AUDIO_FILE_ENCODING_DSP_DATA_8 11      /* 8-bit fixed-point samples */
+#define AUDIO_FILE_ENCODING_DSP_DATA_16 12     /* 16-bit fixed-point samples */
+#define AUDIO_FILE_ENCODING_DSP_DATA_24 13     /* 24-bit fixed-point samples */
+#define AUDIO_FILE_ENCODING_DSP_DATA_32 14     /* 32-bit fixed-point samples */
+#define AUDIO_FILE_ENCODING_15		15	/* ? */
+#define AUDIO_FILE_ENCODING_DISPLAY     16     /* non-audio display data */
+#define AUDIO_FILE_ENCODING_MULAW_SQUELCH 17   /* ? */
+#define AUDIO_FILE_ENCODING_EMPHASIZED 18      /* 16-bit linear with emphasis */
+#define AUDIO_FILE_ENCODING_COMPRESSED 19      /* 16-bit linear with compression */
+#define AUDIO_FILE_ENCODING_COMPRESSED_EMPHASIZED 20 /* A combination of the two above */
+#define AUDIO_FILE_ENCODING_DSP_COMMANDS 21    /*  Music Kit DSP commands */
+#define AUDIO_FILE_ENCODING_DSP_COMMANDS_SAMPLES 22 /* ? */
+#define AUDIO_FILE_ENCODING_ADPCM_G721  23     /* 4-bit CCITT g.721 ADPCM */
+#define AUDIO_FILE_ENCODING_ADPCM_G722  24     /* CCITT g.722 ADPCM */
+#define AUDIO_FILE_ENCODING_ADPCM_G723_3 25    /* CCITT g.723 3-bit ADPCM */
+#define AUDIO_FILE_ENCODING_ADPCM_G723_5 26    /* CCITT g.723 5-bit ADPCM */
+#define AUDIO_FILE_ENCODING_ALAW_8      27     /* 8-bit ISDN A-law */
+</PRE>

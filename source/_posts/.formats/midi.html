@@ -1,0 +1,45 @@
+<TITLE>MIDI</TITLE>
+<H1>Standard MIDI File Format</H1>
+Byte order: Big-endian
+
+<PRE>
+Offset   Length   Contents
+  0      4 bytes  "MThd"
+  4      4 bytes  Header data size (6)
+  8      2 bytes  Format
+                    0: 	The file contains a single multi-channel track
+                    1:  The file contains one or more simultaneous
+                        tracks (or MIDI outputs) of a sequence
+                    2:  The file contains one or more sequentially
+                        independent single-track patterns
+  10     2 bytes  Number of tracks (n)
+  12     2 bytes  Divisions
+[ // Tracks
+         4 bytes  "MTrk"
+         4 bytes  Track data size (t)
+        (t)bytes  Track data
+]{n}
+</PRE>
+
+<B>Track data:</B>
+<PRE>
+&lt;track-data&gt;  ::= &lt;MTrk-event&gt;+
+&lt;MTrk-event&gt;  ::= &lt;Delta-time&gt; &lt;Event&gt;
+&lt;Event&gt;       ::= &lt;<A HREF="midi-event.html">MIDI-event</A>&gt; | &lt;<A HREF="smf006.html#sysex">SysEx</A>&gt; | &lt;<A HREF="smf006.html#meta">Meta-event</A>&gt;
+&lt;MIDI-event&gt;  ::= &lt;status-byte&gt; &lt;data-byte&gt;*
+&lt;status-byte&gt; ::= [\x80-\xFF]
+&lt;data-byte&gt;   ::= [\x00-\x7F]
+&lt;<A HREF="smf006.html#meta">Meta-event</A>&gt;  ::= 0xFF &lt;Meta-type&gt; &lt;Length&gt; &lt;Meta-data&gt;
+&lt;<A HREF="smf006.html#sysex">SysEx</A>&gt;       ::= (0xF0|0xF7) &lt;Length&gt; &lt;SysEx-message&gt;
+&lt;Delta-time&gt;  ::= [\x80-\xFF]*[\x00-\x7F]     # <A HREF="smf006.html#vlq">Variable-length quantity</A>
+&lt;Length&gt;      ::= [\x80-\xFF]*[\x00-\x7F]     # <A HREF="smf006.html#vlq">Variable-length quantity</A>
+</PRE>
+
+<HR>
+<B>Appendix:</B><BR>
+<UL>
+<LI><A HREF="smf006.html">Standard MIDI Files 0.06</A>
+<LI><A HREF="midi-notefreq.html">MIDI Note Numbers</A>
+<LI><A HREF="midi-instmap.html">MIDI Instrument Map</A>
+<LI><A HREF="midi-drummap.html">MIDI Percussion Map</A>
+</UL>

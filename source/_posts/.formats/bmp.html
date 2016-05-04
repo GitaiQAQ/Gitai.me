@@ -1,0 +1,41 @@
+<TITLE>BMP file fromat</TITLE>
+<H1>BMP - Microsoft Windows bitmap image file</H1>
+Byte Order: Little-endian<BR>
+<A NAME="header"></A>
+
+<PRE>
+Offset   Length   Contents
+  0      2 bytes  "BM"
+  2      4 bytes  Total size included "BM" magic (s)
+  6      2 bytes  Reserved1
+  8      2 bytes  Reserved2
+ 10      4 bytes  Offset bits
+ 14      4 bytes  Header size (n)
+ 18    n-4 bytes  <B>Header</B> (See bellow)
+ 14+n .. s-1      Image data
+</PRE>
+
+<H2>Header: n==12 (Old BMP image file format, Used OS/2)</H2>
+<PRE>
+Offset   Length   Contents
+ 18      2 bytes  Width
+ 20      2 bytes  Height
+ 22      2 bytes  Planes
+ 24      2 bytes  Bits per Pixel
+</PRE>
+
+<H2>Header: n&gt;12 (Microsoft Windows BMP image file)</H2>
+<PRE>
+Offset   Length   Contents
+ 18      4 bytes  Width
+ 22      4 bytes  Height
+ 26      2 bytes  Planes
+ 28      2 bytes  Bits per Pixel
+ 30      4 bytes  Compression
+ 34      4 bytes  Image size
+ 38      4 bytes  X Pixels per meter
+ 42      4 bytes  Y Pixels per meter
+ 46      4 bytes  Number of Colors
+ 50      4 bytes  Colors Important
+ 54 (n-40) bytes  OS/2 new extentional fields??
+</PRE>

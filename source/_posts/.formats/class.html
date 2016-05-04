@@ -1,0 +1,119 @@
+<TITLE>Java Class File</TITLE>
+<H1>Java Class File</H1>
+Byte Order: Big-endian<BR>
+
+<PRE>
+Offset   Length   Contents
+  0      4 bytes  Java Class File Magic (0xcafebabe)
+  4      2 bytes  Minor version
+  6      2 bytes  Major version
+  8      2 bytes  Number of constant pools (c)
+[ // Constant pools
+         1 byte   Constant tag
+         ? bytes  Constant pools
+]{c}
+         2 bytes  Access flags
+         2 bytes  This class index
+         2 bytes  Super class index
+         2 bytes  Number of interfaces (i)
+[ // Interfaces
+         2 bytes  Interface index
+]{i}
+         2 bytes  Number of field (f)
+[ // Fields ]{f}
+         2 bytes  Number of methods (m)
+[ // Methods ]{m}
+         2 bytes  Number of class attribute informations (a)
+[ // Class attribute informations]{a}
+</PRE>
+
+<H2>Constant Pool</H2>
+<PRE>
+<B>Constant Asciz:</B>
+         1 byte   Constant tag (0x01)
+         2 bytes  Length (n)
+        (n)bytes  Asciz
+
+<B>Constant Unicode:</B>
+         1 byte   Constant tag (0x02)
+        (?)bytes  Unicode
+
+<B>Constant Integer value:</B>
+         1 byte   Constant tag (0x03)
+         4 bytes  Inveger value
+
+<B>Constant Floating value:</B>
+         1 byte   Constant tag (0x04)
+         4 bytes  Floating value
+
+<B>Constant Long Floating point value:</B>
+         1 byte   Constant tag (0x05)
+         4 bytes  High Floating value bytes
+         4 bytes  Low  Floating value bytes
+
+<B>Constant Double Floating point value:</B>
+         1 byte   Constant tag (0x06)
+         4 bytes  High bytes of double
+         4 bytes  Low  bytes of double
+
+<B>Constant Class:</B>
+         1 byte   Constant tag (0x07)
+         2 bytes  Name index
+
+<B>Constant String:</B>
+         1 byte   Constant tag (0x08)
+         2 bytes  String index
+
+<B>Constant Field Reference:</B>
+         1 byte   Constant tag (0x09)
+         2 bytes  Class index
+         2 bytes  Name and Type index
+
+<B>Constant Method Reference:</B>
+         1 byte   Constant tag (0x0a)
+         2 bytes  Class index
+         2 bytes  Name and Type index
+
+<B>Constant Interface Method Reference:</B>
+         1 byte   Constant tag (0x0b)
+         2 bytes  Class index
+         2 bytes  Name and Type index
+
+<B>Constant Name and Type:</B>
+         1 byte   Constant tag (0x0c)
+         2 bytes  Name index
+         2 bytes  Signature index
+</PRE>
+
+<H2>Field</H2>
+<PRE>
+         2 bytes  Access flags
+         2 bytes  Name index
+         2 bytes  Signature index
+         2 bytes  Number of field attributes (f)
+[ // Field attributes
+         2 bytes  Attribute name index
+         4 bytes  Field Attribute length (n)
+        (n)bytes  Field Attribute
+]{f}
+</PRE>
+
+<H2>Method</H2>
+<PRE>
+         2 bytes  Access flags
+         2 bytes  Name index
+         2 bytes  Signature index
+         2 bytes  Number of method attributes (m)
+[ // Method attributes
+         2 bytes  Attribute name index
+         4 bytes  Method attribute length (n)
+        (n)bytes  Method attribute
+]{m}
+</PRE>
+
+<H2>Class attribute information</H2>
+<PRE>
+         2 bytes  Attribute name index
+         4 bytes  Class attribute  length(n)
+        (n)bytes  Class attribute
+</PRE>
