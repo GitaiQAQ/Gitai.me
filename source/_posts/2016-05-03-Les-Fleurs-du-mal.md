@@ -21,7 +21,7 @@ categories:
 本文用于索引相关事件内容，并不发表个人看法，请先接受以下建议.
 1. **尊重逝者，切勿提及**
 2. **切勿盲目相信任何媒体，公众号，专家，但亦不可反智。**
-3.![It`s Media](http://ww1.sinaimg.cn/large/690c6f7cgw1f3igwi53akj20qo0q040q.jpg)
+3. ![It`s Media](http://ww1.sinaimg.cn/large/690c6f7cgw1f3igwi53akj20qo0q040q.jpg)
 
 ## 魏则西事件
 
