@@ -12,7 +12,7 @@ tags:
 
 
 > And in the naked light I saw ten thousand people, maybe more. People talking without speaking, people hearing without listening. People writing songs that voices never shared, no one dared disturb the sound of silenc.
-> <span style="display: block;text-align: right;"> —— The Sound Of Silence</span>
+> <author>The Sound Of Silence</author>
 
 <!--more-->
 

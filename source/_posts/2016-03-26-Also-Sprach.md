@@ -12,7 +12,7 @@ tags:
 
 ---
 
-> Share our collection of inspirational and famous quotes by authors you know and love. @BrainyQuote
+> Share our collection of inspirational and famous quotes by authors you know and love. <author>BrainyQuote</author>
 
 * Version: `0.2.4`
 * Total: `415405`
@@ -60,7 +60,7 @@ function quote(data) {
 	if (title.length > "title='".length) {span += title + "'>"}
 	span += "<a href='http://quote.gitai.me/" + data.objectId + "' target='_blank'>" + ((data.lang=="en")?"「" + data.title + "」":"『" + data.title + "』") + "</a>";
 	span += "<a href='http://api.gitai.me/quote/" + data.objectId + "/up' target='_blank'>+</a>/<a href='http://api.gitai.me/quote/" + data.objectId + "/down' target='_blank'>-</a>"
-	if (data.author) {span += "&#10;<span style=\"display: block;text-align: right;\"> —— " + data.author + "</span>"}
+	if (data.author) {span += "&#10;<author>" + data.author + "</author>"}
 	span += "</span>"
 	return span;
 }

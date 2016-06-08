@@ -25,3 +25,5 @@ applicationId: "me.gitai.hostseditor"
 ---
 
 {% github GitaiQAQ Hosts-Studio-Android c95e58 [auto_expand = true | false] [width = 100%] %}
+
+<!--more-->

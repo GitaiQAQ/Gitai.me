@@ -18,6 +18,8 @@ githubRepo: gitaiQAQ/Node-Coding
 
 Coding.net API Nodejs library.
 
+<!--more-->
+
 ```
 .
 ├── package.json

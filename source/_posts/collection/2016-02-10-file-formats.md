@@ -27,3 +27,4 @@ categories:
 |[tar](http://www.onicos.com/staff/iz/formats/tar.html) - Tape ARchiver								|.tar
 |[wav](http://www.onicos.com/staff/iz/formats/wav.html) - Windows Wave File Format					|.wav
 |[zip](http://www.onicos.com/staff/iz/formats/zip.html)											|.zip
+<!--more-->

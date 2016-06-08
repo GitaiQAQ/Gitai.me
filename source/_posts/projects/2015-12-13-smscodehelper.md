@@ -26,10 +26,10 @@ applicationId: "me.gitai.smscodehelper"
 
 验证码处理工具,检查短信中的验证码并给予在通知栏和Toast显示,输出至剪贴板等操作
 
-<!--more-->
-
 
 {% github GitaiQAQ SMSCodeHelper  06c400c [auto_expand = true | false] [width = 100%] %}
+
+<!--more-->
 
 > 本项目为 [RikkaW/SmsCodeHelper](https://github.com/RikkaW/SmsCodeHelper) 的二次开发的完全不同画风版,主要变化为高度自定义的更多配置项,第三方 `sdk` 的使用
 
