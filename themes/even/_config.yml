@@ -1,0 +1,37 @@
+# navbar
+menu:
+  Home: /
+  Archives: /archives/
+  Tags: /tags/
+  About: /about/
+
+# site icon
+favicon: /favicon.ico
+
+# comments
+comments:
+  post: true
+  about: true
+
+# Analytics
+## Baidu Analytics
+baidu_analytics: 9e0cbea7d3319c6c94c71dfb93c151b8
+## Google Analytics
+google_analytics: UA-74273646-1
+
+# Comments
+## Duoshuo
+# duoshuo_shortname: ahonn
+## Disqus
+disqus_shortname: ahonn
+
+# Social links
+social:
+  email: mailto:ahonn95@outlook.com
+  # stack-overflow:
+  # twitter:
+  # facebook:
+  github: https://github.com/ahonn
+  weibo: http://weibo.com/ahonn
+  zhihu: https://www.zhihu.com/people/ahonn
+  rss: /atom.xml
