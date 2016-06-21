@@ -1,0 +1,162 @@
+// ============================================================================
+// COLORS
+// ============================================================================
+$ax-primary-color = ax-color("blue", "500")
+$ax-primary-color-dark = ax-color("blue", "700")
+$ax-primary-color-light = ax-color("blue", "300")
+$ax-accent-color = ax-color("pink", "A200")
+$ax-accent-color-dark = ax-color("pink", "A400")
+$ax-accent-color-light = ax-color("pink", "A100")
+$ax-danger-color = ax-color("red", "500")
+// ============================================================================
+// MEDIA QUERY BREAKPOINTS
+// ============================================================================
+$ax-screen-xs = 480px
+$ax-screen-sm-min = 768px
+$ax-screen-md-min = 992px
+$ax-screen-lg-min = 1200px
+
+$ax-screen-xs-max = $ax-screen-sm-min - 1
+$ax-screen-sm-max = $ax-screen-md-min - 1
+$ax-screen-md-max = $ax-screen-lg-min - 1
+// ============================================================================
+// GRID SYSTEM
+// ============================================================================
+$ax-grid-columns = 12
+$ax-grid-gutter-width = 30px
+$ax-grid-float-breakpoint = $ax-screen-sm-min
+// ============================================================================
+// CONTAINER SIZES
+// ============================================================================
+$ax-container-sm = 100%
+$ax-container-md = 800px
+$ax-container-lg = 800px
+// ============================================================================
+// SCAFFOLDING
+// ============================================================================
+$ax-body-bg-color = ax-color("white")
+$ax-link-font-color = $ax-primary-color
+$ax-link-text-decoration = none
+$ax-link-font-color-hover = $ax-primary-color-dark
+$ax-link-text-decoration-hover = underline
+$ax-hr-color = ax-color("black-alpha-12")
+$ax-abbr-border-color = $ax-primary-color
+$ax-cursor-disabled = not-allowed
+$ax-border-radius-default = 2px
+// ============================================================================
+// TYPOGRAPHY
+// ============================================================================
+$ax-font-color = ax-color("black-alpha-87")
+$ax-font-family = "Helvetica Neue", Helvetica, Arial, Verdana, "Trebuchet MS"
+$ax-font-size = 14px
+$ax-font-weight = 400
+$ax-line-height = 1.429
+$ax-font-smoothing = false
+// ============================================================================
+// BUTTONS
+// ============================================================================
+$ax-btn-height = 36px
+$ax-btn-height-sm = $ax-btn-height * 0.85
+$ax-btn-height-lg = $ax-btn-height * 1.5
+$ax-btn-border-radius = $ax-border-radius-default
+$ax-btn-padding-horizontal = 26px
+$ax-btn-padding-horizontal-sm = 16px
+$ax-btn-padding-horizontal-lg = $ax-btn-padding-horizontal
+$ax-btn-font-size = 14px
+$ax-btn-font-size-sm = 13px
+$ax-btn-font-size-lg = $ax-btn-font-size
+$ax-btn-fab-diameter = 55px
+$ax-btn-fab-diameter-sm = 44px
+$ax-btn-fab-diameter-lg = 75px
+$ax-btn-margin-vertical = 6px
+$ax-btn-spacing-horizontal = 8px
+// ----------------------------------------------------------------------------
+// COLORS
+// ----------------------------------------------------------------------------
+$ax-btn-default-bg-color = ax-color("white")
+$ax-btn-default-font-color = $ax-font-color
+$ax-btn-default-ripple-color = darken(ax-color("white"), 35%)
+$ax-btn-primary-bg-color = $ax-primary-color
+$ax-btn-primary-font-color = ax-color("white")
+$ax-btn-primary-ripple-color = ax-color("white")
+$ax-btn-danger-bg-color = $ax-danger-color
+$ax-btn-danger-font-color = ax-color("white")
+$ax-btn-danger-ripple-color = ax-color("white")
+$ax-btn-dark-bg-color = ax-color("grey", "800")
+$ax-btn-dark-font-color = ax-color("white")
+$ax-btn-dark-ripple-color = ax-color("white")
+$ax-btn-accent-bg-color = $ax-accent-color
+$ax-btn-accent-font-color = ax-color("white")
+$ax-btn-accent-ripple-color = ax-color("white")
+$ax-btn-flat-bg-color = transparent
+$ax-btn-flat-bg-color-hover = darken(ax-color("white"), 5%)
+$ax-btn-flat-ripple-color = darken(ax-color("white"), 35%)
+// ============================================================================
+// FORMS
+// ============================================================================
+$ax-input-bg-color = transparent
+$ax-input-bg-color-disabled = transparent
+$ax-input-font-color = $ax-font-color
+$ax-input-font-size = 16px
+$ax-input-height = 32px
+$ax-input-placeholder-color = ax-color("black-alpha-26")
+$ax-input-border-color = $ax-input-placeholder-color
+$ax-input-border-color-focus = $ax-primary-color
+$ax-textarea-height = 64px
+$ax-label-font-size = 12px
+$ax-label-font-color = ax-color("black-alpha-54")
+$ax-label-margin-bottom = 3px
+$ax-legend-font-size = $ax-font-size * 1.5
+$ax-legend-font-color = $ax-font-color
+$ax-form-group-margin-bottom = 20px
+// ============================================================================
+// PANELS
+// ============================================================================
+$ax-panel-bg-color = ax-color("white")
+$ax-panel-padding = 15px
+$ax-panel-border-radius = 0
+// ============================================================================
+// DIVIDERS
+// ============================================================================
+$ax-divider-color = ax-color("black-alpha-12")
+// ============================================================================
+// DROPDOWNS
+// ============================================================================
+$ax-dropdown-bg-color = ax-color("white")
+$ax-dropdown-border-color = $ax-divider-color
+$ax-dropdown-border-radius = $ax-border-radius-default
+$ax-dropdown-link-font-color = $ax-font-color
+$ax-dropdown-link-font-color-hover = darken($ax-dropdown-link-font-color, 5%)
+$ax-dropdown-link-font-color-active = $ax-accent-color
+$ax-dropdown-link-font-color-disabled = ax-color("grey", "200")
+$ax-dropdown-link-bg-color-hover = ax-color("grey", "200")
+$ax-dropdown-link-bg-color-active = ax-color("white")
+// ============================================================================
+// APPBAR
+// ============================================================================
+$ax-appbar-height = 64px
+$ax-appbar-height-xs-portrait = 56px
+$ax-appbar-height-xs-landscape = 48px
+$ax-appbar-bg-color = $ax-primary-color
+$ax-appbar-font-color = ax-color("white")
+// ============================================================================
+// TABLES
+// ============================================================================
+$ax-table-cell-padding = 10px
+$ax-table-border-color = $ax-divider-color
+// ============================================================================
+// TABS
+// ============================================================================
+$ax-tab-font-color = $ax-font-color
+$ax-tab-font-color-active = $ax-primary-color
+$ax-tab-border-color-active = $ax-primary-color
+// ============================================================================
+// CARET
+// ============================================================================
+$ax-caret-width = 4px
+// ============================================================================
+// OVERLAY
+// ============================================================================
+$ax-overlay-bg-color = rgba(ax-color("black"), 0.2)
+
+$ax-line-height-computed = floor($ax-font-size * $ax-line-height)

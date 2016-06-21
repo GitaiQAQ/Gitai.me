@@ -1,0 +1,121 @@
+.home
+    .post-item
+        margin-top:2em;
+        margin-bottom:2em;
+
+        padding-top:1em;
+        padding-bottom:2em;
+        border-bottom:1px solid #ddd
+
+.archive
+    max-width:500px;
+    margin:5em auto
+    .post-item
+        padding-top:5px;
+        padding-left:10px;
+        border-left:1px solid #ddd
+        .post-info
+            color: #7f8c8d;
+    .post-item:hover
+        padding-left:13px;
+        border-left:3px solid $ax-primary-color;
+        transition:.2s ease-out
+    .post-time
+        display:inline-block;
+        width:60px;
+        margin-right:10px;
+        margin-left:10px;
+        color:#7f8c8d
+    .post-time.tag
+        width:100px
+    .post-title-link
+        color:$ax-primary-color
+        &:hover
+            border-bottom:0
+    .post-item,.archive
+        .post-title-link
+            font-size:1rem
+.post
+    padding-top:1em
+    .post-title
+        margin: 0;
+    .post-info
+        color: #7f8c8d;
+        .post-from::before
+            content:" | ";
+    .post-content
+        h2
+            font-size:24px
+        h3
+            font-size:20px
+        h4
+            font-size:18px
+        h5
+            font-size:16px
+        .headerlink
+            &:hover
+                border-bottom:none
+            &::before
+                content:"#";
+                position:relative;
+                top:2px;
+                margin-right:5px;
+                font-size:1.3em
+        a
+            color:$ax-primary-color
+            &:hover
+                border-bottom:1px solid $ax-primary-color-dark
+        img
+            display:inherit;
+            max-width:100%;
+            margin:auto
+        ul
+            display:block;
+            max-width:100%;
+            margin:1em auto
+            img
+                display:block;
+                margin:1em auto
+    .post-content-preview
+        font-size:14px;
+        font-style:italic;
+        color:#a3a3a3
+        a
+            color:$ax-primary-color-light
+        h2
+            font-size:20px
+            margin:0
+        h3
+            font-size:18px
+        h4
+            font-size:16px
+        h5
+            font-size:14px
+
+    //.read-more
+        
+
+.hexo-github
+    a
+        color:#FFF!important
+
+.tags 
+    margin-top:35px;
+    padding-top:20px;
+    border-top:1px solid #ddd
+    a
+        margin-right:10px
+        &::before
+            content:'#';
+            margin:0 1px
+.tagcloud
+    margin:5em 1em
+    a
+        display:inline-block;
+        margin:5px;
+        word-wrap:break-word
+    .tags-total
+        p
+            width:90px;
+            margin:auto
+        

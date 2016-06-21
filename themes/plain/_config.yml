@@ -1,0 +1,36 @@
+# navbar
+menu:
+  Archives: /archives/
+  Tags: /tags/
+  About: /about/
+
+# site icon
+favicon: /favicon.ico
+
+# comments
+comments:
+  post: true
+  about: true
+
+# Analytics
+## Baidu Analytics
+#baidu_analytics: 9e0cbea7d3319c6c94c71dfb93c151b8
+## Google Analytics
+#google_analytics: UA-74273646-1
+
+# Comments
+## Duoshuo
+# duoshuo_shortname: ahonn
+## Disqus
+disqus_shortname: gitaisblog
+
+# Social links
+social:
+  email: mailto:i@gitai.me
+  # stack-overflow:
+  twitter: _gitai
+  # facebook:
+  github: https://github.com/gitaiQAQ
+  # weibo: http://weibo.com/ahonn
+  zhihu: https://www.zhihu.com/people/gitai
+  rss: /atom.xml
