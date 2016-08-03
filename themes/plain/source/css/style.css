@@ -318,11 +318,6 @@ header .nav .nav-link a {
     padding: 1em;
   }
 }
-@media (min-width: 768px) {
-  .container {
-    width: 100%;
-  }
-}
 @media (min-width: 992px) {
   .container {
     width: 800px;
@@ -403,10 +398,9 @@ footer #back2top {
   right: 20px;
   bottom: 20px;
   z-index: 10;
+  cursor: pointer;
 }
 .home .post-item {
-  margin-top: 2em;
-  margin-bottom: 2em;
   padding-top: 1em;
   padding-bottom: 2em;
   border-bottom: 1px solid #ddd;

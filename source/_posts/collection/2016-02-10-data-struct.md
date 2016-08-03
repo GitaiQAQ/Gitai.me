@@ -1,7 +1,7 @@
 ---
 
 layout:     post
-title:      "File 格式"
+title:      "数据结构说明"
 date:       2016-02-10 15:39:05
 author:     "Gitai"
 source: "http://www.onicos.com/staff/iz/amuse/whois.html"
@@ -9,6 +9,7 @@ categories:
     - 收集
 
 ---
+
 
 | File Format  | Ext.
 | :------------- | :-------------:
@@ -27,4 +28,5 @@ categories:
 |[tar](http://www.onicos.com/staff/iz/formats/tar.html) - Tape ARchiver								|.tar
 |[wav](http://www.onicos.com/staff/iz/formats/wav.html) - Windows Wave File Format					|.wav
 |[zip](http://www.onicos.com/staff/iz/formats/zip.html)											|.zip
+
 <!--more-->
