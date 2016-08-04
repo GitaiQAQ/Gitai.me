@@ -10,7 +10,7 @@ tags:
 
 ## [CommonMark](http://commonmark.org/)
 
-<table class="markdown-reference">
+<!--table class="markdown-reference">
     <thead>
         <tr>
             <th>Type</th>
@@ -196,11 +196,11 @@ tags:
             </td>
         </tr>                    
     </tbody>
-</table>
+</table-->
 
 ## [GitHub Flavored Markdown](https://help.github.com/articles/basic-writing-and-formatting-syntax/)
 
-<table class="markdown-reference">
+<!--table class="markdown-reference">
     <thead>
         <tr>
             <th>Type</th>
@@ -306,7 +306,7 @@ tags:
             </td>
         </tr>    
     </tbody>
-</table>
+</table-->
 
 ## [PHP Markdown Extra](https://michelf.ca/projects/php-markdown/extra/)
 
@@ -414,3 +414,9 @@ That's some text with a footnote.[^1]
 * 引用文章
 * 引用资源
 * Raw
+
+## Ref
+
+[^1]: http://commonmark.org/ "CommonMark"
+[^2]: https://segmentfault.com/a/1190000000601562 "Markdown的各种扩展"
+[^3]: https://hexo.io/ "Hexo"
