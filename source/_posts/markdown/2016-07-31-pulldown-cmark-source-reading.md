@@ -23,6 +23,8 @@ tags:
 * Versatile;in particular source-maps are supported
 * 准确; 以 100% 遵守 CommonMark 为目标
 
+<!--more-->
+
 ## Pull 解析
 
 XML 文档常用的解析器，基于事件驱动的 Pull 解析器与SAX解析器，基于文档结构的DOM。

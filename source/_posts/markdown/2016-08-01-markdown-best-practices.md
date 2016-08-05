@@ -16,11 +16,11 @@ tags:
 
 在此将 Markdown 语法分为以下三部分：
 
-* Common： 以 CommonMark[^1] 所提供的若干种基础语法为核心
-* Extra： 其他让文档更富表现力的语法
-* Pack： 应用级的封装
+* 标准： 以 CommonMark[^1] 所提供的若干种基础语法为核心
+* 拓展： 其他让文档更富表现力的语法
+* 封装： 应用级的封装
 
-## Common
+## 标准
 
 #### Headings
 
@@ -33,6 +33,13 @@ tags:
 ###### Heading 6
 ```
 
+# Heading 1
+## Heading 2
+### Heading 3
+#### Heading 4
+##### Heading 5
+###### Heading 6
+
 或者
 
 ```
@@ -42,6 +49,14 @@ Heading 1
 Heading 2
 ———
 ```
+
+Heading 1
+=========
+
+Heading 2
+———
+
+---
 
 #### Text
 
@@ -57,25 +72,60 @@ Heading 2
 ==Highlights==
 
 x^{y_z}
+```
 
+
+*Italic*  _Italic_
+
+**Bold**  __Bold__
+
+***Bold-italic***
+
+~~Strike-throughs~~
+
+==Highlights==
+
+x^{y_z}
+
+---
+
+```
 [link](http://example.com)
 
 [Link][1]
-⋮
+[1]: http://example.com
+```
+
+[Link](http://example.com)
+
+[Link][1]
 [1]: http://example.com
 
+---
 
+```
 :Emoji:
+```
 
+:smile:
 
+---
+
+```
+**The quick brown [fox][1], jumped over the lazy [dog][2].**
+
+[1]: https://en.wikipedia.org/wiki/Fox "Wikipedia: Fox"
+[2]: https://en.wikipedia.org/wiki/Dog "Wikipedia: Dog"
+```
 
 **The quick brown [fox][1], jumped over the lazy [dog][2].**
 
 [1]: https://en.wikipedia.org/wiki/Fox "Wikipedia: Fox"
 [2]: https://en.wikipedia.org/wiki/Dog "Wikipedia: Dog"
 
+---
 
-
+```
 The quick brown fox[^1] jumped over the lazy dog[^2].
 
 [^1]: Foxes are red
@@ -83,15 +133,28 @@ The quick brown fox[^1] jumped over the lazy dog[^2].
 
 ```
 
+The quick brown fox[^fox] jumped over the lazy dog[^fox].
+
+[^fox]: Foxes are red
+[^fox]: Dogs are usually not red
+
+---
+
 #### Images
 
 ```
 ![m'lady](http://i.imgur.com/v8IVDka.jpg)
 
 ![Image][1]
-⋮
 [1]: http://i.imgur.com/v8IVDka.jpg
 ```
+
+![markdown](http://commonmark.org/help/images/favicon.png)
+
+![markdown][markdown]
+[markdown]: http://commonmark.org/help/images/favicon.png
+
+---
 
 #### Block
 
@@ -102,20 +165,52 @@ The quick brown fox[^1] jumped over the lazy dog[^2].
 * Bread
     * Wholegrain
 * Butter
+```
+
+* Milk
+* Bread
+    * Wholegrain
+* Butter
+
+---
+
+```
+- Milk
+- Bread
+    - Wholegrain
+- Butter
+```
 
 - Milk
 - Bread
     - Wholegrain
 - Butter
 
+---
+
+```
+1. Tidy the kitchen
+2. Prepare ingredients
+3. Cook delicious things
+```
+
 1. Tidy the kitchen
 2. Prepare ingredients
 3. Cook delicious things
 
+---
+
+```
 1) Tidy the kitchen
 2) Prepare ingredients
 3) Cook delicious things
 ```
+
+1) Tidy the kitchen
+2) Prepare ingredients
+3) Cook delicious things
+
+---
 
 ##### Definition Lists
 
@@ -128,6 +223,15 @@ Orange
 :   The fruit of an evergreen tree of the genus Citrus.
 ```
 
+Apple
+:   Pomaceous fruit of plants of the genus Malus in 
+    the family Rosaceae.
+
+Orange
+:   The fruit of an evergreen tree of the genus Citrus.
+
+---
+
 ##### Table
 
 ```
@@ -135,13 +239,27 @@ First Header  | Second Header
 ------------- | -------------
 Content Cell  | Content Cell
 Content Cell  | Content Cell
+```
 
+First Header  | Second Header
+------------- | -------------
+Content Cell  | Content Cell
+Content Cell  | Content Cell
 
+```
 | First Header  | Second Header |
 | ------------- | ------------- |
 | Content Cell  | Content Cell  |
 | Content Cell  | Content Cell  |
 ```
+
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+
+
+---
 
 ##### Quotes
 
@@ -149,14 +267,24 @@ Content Cell  | Content Cell
 > To be or not to be, that is the question.
 ```
 
+> To be or not to be, that is the question.
+
+---
+
 ##### Code Snippets & Syntax Highlighting
 
 ```
-\`\`\`css
+\```css
 .my-link {
         text-decoration: underline;
 }
-\`\`\`
+\```
+```
+
+```css
+.my-link {
+        text-decoration: underline;
+}
 ```
 
 #### Abbreviations
@@ -169,11 +297,19 @@ is maintained by the W3C.
 *[W3C]:  World Wide Web Consortium
 ```
 
+The HTML specification
+is maintained by the W3C.
+
+*[HTML]: Hyper Text Markup Language
+*[W3C]:  World Wide Web Consortium
+
 #### Escaping
 
 ```
 \*literally\*
 ```
+
+\*literally\*
 
 #### Embedding HTML
 
@@ -181,23 +317,39 @@ is maintained by the W3C.
 <button class="button-save large">Big Fat Button</button>
 ```
 
+<button class="large">Big Button</button>
+
 #### Horizontal Rules
 
 ```
 * * *
+```
+* * *
 
+```
+***
+```
 ***
 
+```
+*****
+```
 *****
 
+```
+- - -
+```
 - - -
 
+```
 -----------
 ```
+-----------
 
-### Extra
 
-#### Id & Class & Attribute
+## 拓展
+
+### Id & Class & Attribute
 
 ```
 {#header1 .main lang=fr}
@@ -205,15 +357,7 @@ is maintained by the W3C.
 
 没什么用，删去
 
-#### Code Snippets with line number
-
-```
-\`\`\`[lang]:n
-[...]
-\`\`\`
-```
-
-#### File
+### File
 
 ```
 ![](./includes/head.jade)
@@ -221,18 +365,18 @@ is maintained by the W3C.
 
 伴随后缀解析成 `<audio>`, `<video>`, `<map>`, `<img>` 等对象
 
-#### Include
+### Include
 
 ```
 !include ./includes/head.jade
 ```
 
-#### 内容块
+### 内容块
 
 *没找到合适标记*
 
 
-## Pack
+## 封装
 
 ### Front-matter
 
@@ -278,7 +422,7 @@ $\int_0^1 x^2 {\rm d}x$
 
 $\lim_{n \rightarrow +\infty} \frac{1}{n(n+1)}$
 
-$$	x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
+$$  x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
 ```
 
 ### Gist & Youtube & Vimeo & jsfiddle
@@ -292,6 +436,14 @@ $$	x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
 
 +jsfiddle shorttag [tabs] [skin] [width] [height] 
 ```
+
++gist gist_id [filename]
+
++youtube video_id
+
++vimeo video_id
+
++jsfiddle shorttag [tabs] [skin] [width] [height] 
 
 ## Ref
 
