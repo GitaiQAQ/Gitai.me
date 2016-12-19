@@ -237,19 +237,6 @@ table thead th {
 table tbody tr:nth-child(2n) {
   background-color: #eee;
 }
-code,
-pre {
-  background-color: rgba(0,0,0,0.04);
-  font-size: 0.8em;
-  font-family: "Source Code Pro", Consolas, Monaco, Menlo, Consolas, monospace;
-}
-code {
-  color: #f92672;
-  border-radius: 4px;
-  margin: 0 2px;
-  padding: 3px 5px;
-  white-space: inherit;
-}
 a {
   background-color: transparent;
   margin: 2px 0;
@@ -547,12 +534,15 @@ footer #back2top {
 code {
   color: #f92672;
   border-radius: 4px;
+  margin: 0 2px;
+  padding: 2px 4px;
+  white-space: inherit;
 }
 code,
 pre {
   background-color: rgba(0,0,0,0.04);
   font-size: 0.8em;
-  font-family: "Source Code Pro", Consolas, Monaco, Menlo, Consolas, monospace;
+  font-family: "Source Code Pro", monospace, Consolas, Monaco, Menlo, Consolas;
 }
 .highlight {
   position: relative;
@@ -566,15 +556,17 @@ pre {
 .highlight table,
 .highlight td,
 .highlight tr {
-  width: 100%;
+  width: auto;
   border-collapse: collapse;
   padding: 0;
   margin: 0;
 }
 .highlight .gutter {
-  display: none;
+  color: #6a6a6a;
+  border-right: 1px solid #333;
+  text-align: center;
 }
-.highlight .code pre {
+.highlight pre {
   padding: 30px 14px 14px;
   line-height: 1.5em;
   background-color: rgba(0,0,0,0);
@@ -639,6 +631,15 @@ pre {
 }
 .cpp::after {
   content: 'C++';
+}
+pre {
+  padding: 10px 15px;
+}
+pre code {
+  background-color: rgba(0,0,0,0);
+  color: rgba(0,0,0,0.87);
+  margin: 0;
+  padding: 0;
 }
 pre .constant,
 pre .function .keyword {

@@ -8,7 +8,7 @@ mixin home()
             a.post-link(href=url_for(item.path))
               != item.title
           span.post-info
-            != full_date(item.data, 'll')
+            != full_date(item.date, 'll')
             - if (item.from)
               a.post-from(href= item.from) original source
           div.post-content.post-content-preview
@@ -23,7 +23,12 @@ mixin post()
     h1.post-title
       != page.title
     span.post-info
-      != full_date(page.data, 'll')
+      != full_date(page.date, 'll')
+    if config.sidebar && toc(page.content)
+      hr
+      .post-sidebar#sidebar
+        != toc(page.content, {list_number: false})
+      hr
     .post-content
       != page.content
   

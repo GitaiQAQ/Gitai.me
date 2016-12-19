@@ -1,11 +1,14 @@
 code
-    color:#F92672;
-    border-radius:4px
+  color: #F92672;
+  border-radius: 4px;
+  margin: 0 2px;
+  padding: 2px 4px;
+  white-space: inherit;
     
 code,pre
     background-color:rgba(0,0,0,.04);
     font-size:.8em;
-    font-family:"Source Code Pro",Consolas,Monaco,Menlo,Consolas,monospace
+    font-family:"Source Code Pro",monospace,Consolas,Monaco,Menlo,Consolas
 
 .highlight 
     position:relative;
@@ -17,15 +20,17 @@ code,pre
     color:#FFF
 
 .highlight table,.highlight td,.highlight tr {
-    width:100%;
+    width:auto;
     border-collapse:collapse;
     padding:0;
     margin:0
 }
 .highlight .gutter {
-    display:none
+    color: #6a6a6a;
+    border-right: 1px solid #333;
+    text-align: center;
 }
-.highlight .code pre {
+.highlight pre {
     padding:30px 14px 14px;
     line-height:1.5em;
     background-color:rgba(0,0,0,0);
@@ -91,6 +96,14 @@ code,pre
 .cpp::after {
     content:'C++'
 }
+pre
+    padding: 10px 15px;
+pre code
+    background-color:rgba(0,0,0,0);
+    color: $ax-font-color;
+    margin: 0
+    padding: 0;
+
 pre .constant,pre .function .keyword {
     color:#0092db
 }

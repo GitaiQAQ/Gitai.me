@@ -71,7 +71,8 @@ tag_generator:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: plain
+theme: plain #hexo-theme-material #plain
+sidebar: true
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html

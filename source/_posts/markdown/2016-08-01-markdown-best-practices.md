@@ -118,7 +118,7 @@ x^{y_z}
 [2]: https://en.wikipedia.org/wiki/Dog "Wikipedia: Dog"
 ```
 
-**The quick brown [fox][1], jumped over the lazy [dog][2].**
+**The quick brown [fox1][1], jumped over the lazy [dog][2].**
 
 [1]: https://en.wikipedia.org/wiki/Fox "Wikipedia: Fox"
 [2]: https://en.wikipedia.org/wiki/Dog "Wikipedia: Dog"
@@ -133,10 +133,10 @@ The quick brown fox[^1] jumped over the lazy dog[^2].
 
 ```
 
-The quick brown fox[^fox] jumped over the lazy dog[^fox].
+The quick brown fox[^fox1] jumped over the lazy dog[^fox2].
 
-[^fox]: Foxes are red
-[^fox]: Dogs are usually not red
+[^fox1]: Foxes are red
+[^fox2]: Dogs are usually not red
 
 ---
 
