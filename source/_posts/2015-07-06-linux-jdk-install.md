@@ -9,6 +9,8 @@ tags:
 
 Java is a programming technology originally developed by Sun Microsystems and later acquired by Oracle. Oracle Java is a proprietary implementation for Java that is free to download and use for commercial use, but not to redistribute, therefore it is not included in a officially maintained repository.
 
+<!--more-->
+
 ## Uninstall OpenJDK
 
 ```

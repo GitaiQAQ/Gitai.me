@@ -23,6 +23,8 @@ $ ip addr
        valid_lft forever preferred_lft forever
 ```
 
+<!--more-->
+
 然而外面完全无法链接
 
 ![disconnect](https://ws4.sinaimg.cn/large/690c6f7cgw1fb2tgu4ctaj211y0lcn32.jpg)
