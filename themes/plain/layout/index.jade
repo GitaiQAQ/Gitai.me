@@ -1,12 +1,12 @@
-extends partial/layout
+extends _partial/layout
 
-include mixins/container
-include mixins/paginator
+include _widget/container
+include _widget/paginator
 
 block title
   title= config.title
 
-block container
+block content
   +home()
 
 block pagination

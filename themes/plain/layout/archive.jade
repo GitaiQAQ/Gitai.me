@@ -1,6 +1,7 @@
-extends partial/layout
-include mixins/container
-include mixins/paginator
+extends _partial/layout
+
+include _widget/container
+include _widget/paginator
 
 block title
   title
@@ -9,7 +10,7 @@ block title
     if page.tag
         != page.tag + " · " + config.title
         
-block container
+block content
   if page.tag
       +tag()
   if page.archive

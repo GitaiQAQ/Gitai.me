@@ -1,37 +1,59 @@
 # navbar
-menu:
+navbar:
   Archives: /archives/
   Tags: /tags/
   Tools: /tools/
   About: /about/
 
-# site icon
-favicon: /favicon.ico
+# copyright
+since: 2011
+
+# site
+description: A simple theme for Hexo. 
+language: en
+
+theme_color: "#ffffff"
+
+# author
+author: 
+  - name: Gitai
+  - bio: Less is more.
+  - headimg: /5354788.png
+
+# search
+search: 
+    enable: false
+    placeholder: Enter Key...
+
+# sidebar
+sidebar: 
+  enable: false
+  menus:
+    -
+      name: Gitai
+      link: https://gitai.me/
+      target: _blank
 
 # comments
 comments:
   post: true
   about: true
+  #duoshuo_username:  yumemor
+  #disqus_username: yumemor
 
-# Analytics
-## Baidu Analytics
-#baidu_analytics: 9e0cbea7d3319c6c94c71dfb93c151b8
-## Google Analytics
-#google_analytics: UA-74273646-1
-
-# Comments
-## Duoshuo
-# duoshuo_shortname: ahonn
-## Disqus
-disqus_shortname: gitaisblog
-
+# accounts support weibo/github/zhihu/twitter/douban/G+/facebook 
 # Social links
 social:
   email: mailto:i@gitai.me
   # stack-overflow:
-  twitter: _gitai
+  weibo: http://weibo.com/dphdjy/
+  twitter: https://twitter.com/_gitai
   # facebook:
-  github: https://github.com/gitaiQAQ
+  github: https://github.com/GitaiQAQ
   # weibo: http://weibo.com/ahonn
   zhihu: https://www.zhihu.com/people/gitai
   rss: /atom.xml
+
+analytics:
+  baidu: false
+  google: false

@@ -1,0 +1,18 @@
+doctype
+html(lang = config.lang || config.language || theme.lang || theme.language || "en")
+  head
+    include head
+    block head
+  body
+    header
+      include header
+    section.container
+      block banner
+      block content
+      block tags
+      block pagination
+      block comment
+    footer
+      include footer
+      block footer
+  include script

@@ -1,8 +1,8 @@
-extends partial/layout
-include mixins/tags
+extends _partial/layout
+include _widget/tags
 
 block title
   title= __('Tags') + ' · ' + config.title
   
-block container
+block content
   +tagcloud()
