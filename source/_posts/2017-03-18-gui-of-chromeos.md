@@ -6,7 +6,6 @@ date:       2017-03-18
 author:     "Gitai"
 categories:
     - ChomeOS
-    - 翻译
 tags:
     - ChomeOS
 

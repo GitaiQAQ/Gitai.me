@@ -38,8 +38,8 @@ sidebar:
 comments:
   post: true
   about: true
-  #duoshuo_username:  yumemor
-  #disqus_username: yumemor
+  #duoshuo_shortname:  yumemor
+  disqus_shortname: gitaisblog
 
 # accounts support weibo/github/zhihu/twitter/douban/G+/facebook 
 # Social links
@@ -55,5 +55,6 @@ social:
   rss: /atom.xml
 
 analytics:
+  cnzz: true
   baidu: false
   google: false

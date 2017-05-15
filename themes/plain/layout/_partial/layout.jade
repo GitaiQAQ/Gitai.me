@@ -1,3 +1,5 @@
+include ../_widget/analytics
+
 doctype
 html(lang = config.lang || config.language || theme.lang || theme.language || "en")
   head
@@ -15,4 +17,5 @@ html(lang = config.lang || config.language || theme.lang || theme.language || "e
     footer
       include footer
       block footer
+      +analytics()
   include script

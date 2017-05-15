@@ -1,3 +1,17 @@
+mixin analytics()
+  if theme.analytics.cnzz
+    +cnzz_analytics()
+  else if theme.analytics.baidu
+    +baidu_analytics()
+  else if theme.analytics.google
+    +google_analytics()
+
+//- CNZZ analytics
+mixin cnzz_analytics()
+    script(type="text/javascript").
+        var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cspan id='cnzz_stat_icon_1261952685'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1261952685%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));
+
 //- Baidu analytics
 mixin baidu_analytics()
     script(type="text/javascript").

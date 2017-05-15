@@ -2,13 +2,12 @@
 
 layout:     post
 title:      "从 0 开始的 IoT 学习小记"
-subtitle:   "Re:Zero Starting in IoT"
 date:       2017-04-13
 author:     "Gitai"
 categories:
     - IoT
 tags:
-    - Starting
+    - 记录
 
 ---
 
@@ -22,16 +21,14 @@ WoT.City 将 IoT 开发平台分为以下 3 种：
 
 一般来说，不同类型的 IoT 开发平台，也会有不同的 IoT Cloud 架构，以及不同的 IoT Diagram（Use Scenario）。WoT.City 的 Web of Things Framework 就是依靠不同 IoT 类型，设计出不同的 WoT Server 架构。
 
+Device Types of IoT Node
 | IoT Node (Device Type)	| Solution Platform	| IoT Diagram (Use Scenario)
 | - | - |-
 | Single Board Computer (SBC) | Intel Edison、Qualcomm Dragonboard 410c etc. | IoT Router etc.
 | High Performance MCU | ARM mbed OS、Neuclio | Sensor hub (Time-series Data Type) etc.
 | WiFi MCU | ESP8266、NodeMCU、EMW3165 etc.	| Sensor hub (Interrupt Type)、Network controller etc.
 
-: Device Types of IoT Node
-
-
-<!-- more -->
+<!--more-->
 
 ## 简介
 
@@ -53,21 +50,28 @@ NodeMCU 开发板 = ESP8266 模组 + USB to serial 芯片 + NodeMCU firmware
 
 ## ESP8266 模组[^ESP8266_mod]
 
-[![][1]][2]
-![esp8266][3]
+模组有很多版本，官方国内代理有个列表[^ESP8266]
+
+![esp8266_module_list.png](https://ooo.0o0.ooo/2017/05/15/5919b298c877d.png)
+[![esp8266-esp12e-pinout][1]][2]
+![esp8266-esp12e][3]
 
 由于小巧，设计合理，可以很容易嵌入到你的开发板中，不过如果作为开发板使用，还是需要外部焊接一些基础电路的，比如复位电路，指示灯作用的LED等。
 
-![][4]
-![][5]
-
-如果你把排针全部焊接，通常如下图样式。其中两边对称的焊接向下，方便插入面包板或接入自己的电路板。顶端的6针焊接向上，方便直接连接串口调试或学习。
-
-![][6]
-
 另外套件仅仅这些，如果需要跟电脑通信还需要自己准备一条 TTL232 线。官方建议的学习方式如下图所示：
 
-![][7]
+![ttl232][7]
+
+我选的是据说稳定一些的 CP2102 芯片的转换器，但是没有全 IO 导出，并不是很好用，以下为接线图
+
+![Flashing-The-ESP8266-ESP201-Module-Board-With-TTL-UART.jpg](https://ooo.0o0.ooo/2017/05/15/5919b297cceff.jpg)
+
+然后没成功，就入了 nodeMCU
+
+![esp8266-nodemcu-pinout][4]
+![esp8266-nodemcu][5]
+
+如果你把排针全部焊接，通常如下图样式。其中两边对称的焊接向下，方便插入面包板或接入自己的电路板。顶端的6针焊接向上，方便直接连接串口调试或学习。
 
 ## 集成开发板选购
 
@@ -131,35 +135,41 @@ NodeMCU 在 Facebook 上张贴了一张照片，显示官方和非官方的 V2 �
   
 ## 配件
 
+以下为个人顺手弄回来的配件
+
 MB-102 830 Point Solderless PCB Breadboard:
 
-Quantity: 1 Pc
-Model: MB-102
-Dimension: 16.7 x 5.7 x 1cm
-Tie Points: 830 tie points (consists of: 630 tie-point terminal strip, 200 tie-point distribution strips)
-Matrix: 126 separate 5 point terminals, plus 4 horizontal bus lines (Power Lines) of 50 test points each
-Wire size: Suitable for 20~29 AWG (0.3mm ~ 0.8mm) wires
+* Quantity: 1 Pc
+* Model: MB-102
+* Dimension: 16.7 x 5.7 x 1cm
+* Tie Points: 830 tie points (consists of: 630 tie-point terminal strip, 200 tie-point distribution strips)
+* Matrix: 126 separate 5 point terminals, plus 4 horizontal bus lines (Power Lines) of 50 test points each
+* Wire size: Suitable for 20~29 AWG (0.3mm ~ 0.8mm) wires
 
 MB-102 Power Supply Module:
 
-Input voltage: 6.5V ~ 12 V DC / USB power supply
-Output voltage: 3.3V / 5V can switch over
-Maximum output current: <700mA
-Fluctuation two road independent control, can switch over to 0V, 3.3V, 5V
-On-board two groups of 3.3V, 5V DC output plug pin, convenient external lead use
-Size: 5.3 x 3.2 x 2.5cm
+* Input voltage: 6.5V ~ 12 V DC / USB power supply
+* Output voltage: 3.3V / 5V can switch over
+* Maximum output current: <700mA
+* Fluctuation two road independent control, can switch over to 0V, 3.3V, 5V
+* On-board two groups of 3.3V, 5V DC output plug pin, convenient external lead use
+* Size: 5.3 x 3.2 x 2.5cm
 
 Note: If using the USB can not work, please use DC power.
 
+但是咱漏了个适配器，USB 是母端口的，不知道咋用
+
 Jump Cable Wires:
 
-Breadboard jumper cable wires
-Typically used for electronics projects
-Wires are flexible, durable, reusable, easy to trace
-Easy to connect and disconnect
-Quantity: 65 Pcs
+* Breadboard jumper cable wires
+* Typically used for electronics projects
+* Wires are flexible, durable, reusable, easy to trace
+* Easy to connect and disconnect
+* Quantity: 65 Pcs
 
 ## 参考[^esp8266-nodemcu-iot-starter]
+
+[^ESP8266]: [ESP8266 系列模组专题](http://wiki.ai-thinker.com/esp8266)
 
 [^ESP8266_mod]: [ESP8266也可以用Lua脚本玩——NodeMCU ESP8266评测](http://www.21ic.com/eva/Expansion/201608/683416.htm)
 
@@ -168,17 +178,17 @@ Quantity: 65 Pcs
 [^esp8266-nodemcu-iot-starter]: [ESP8266 & NodeMCU 開發入門](https://wotcity.com/blog/2015/08/31/esp8266-nodemcu-iot-starter-part-1/)
 
 
-  [1]: http://www.kloppenborg.net/images/blog/esp8266/esp8266-esp12e-pinout.png
+  [1]: https://ooo.0o0.ooo/2017/05/15/5919b29810464.png
   [2]: http://www.kloppenborg.net/blog/microcontrollers/2016/08/02/getting-started-with-the-esp8266
-  [3]: https://blog.adafruit.com/wp-content/uploads/2015/11/2-esp8266.jpg
-  [4]: http://www.kloppenborg.net/images/blog/esp8266/esp8266-node-mcu-pinout.png
-  [5]: http://www.21ic.com/d/file/201608/d9cf5b6b6aac454920d40ffacb626b6f.jpg
-  [6]: http://www.21ic.com/d/file/201608/adfe92560c85abaa8e375760e065c6ed.jpg
-  [7]: http://www.21ic.com/d/file/201608/5101b2e823debf51df2d8c4debc04bca.jpg
-  [8]: http://img3.banggood.com/thumb/large/2014/xiemeijuan/05/SKU226184/SKU226184-2.jpg
-  [9]: https://dziadalnfpolx.cloudfront.net/blog/wp-content/uploads/2015/09/esp8266-nodemcu-dev-kit-v1-pins.png
-  [10]: https://dziadalnfpolx.cloudfront.net/blog/wp-content/uploads/2015/09/esp8266-nodemcu-dev-kit-v2-300x269.jpg
-  [11]: https://dziadalnfpolx.cloudfront.net/blog/wp-content/uploads/2015/09/esp8266-nodemcu-dev-kit-v2-pins.png
-  [12]: https://dziadalnfpolx.cloudfront.net/blog/wp-content/uploads/2015/09/esp8266-nodemcu-dev-kit-v3-pins.jpg
-  [13]: http://img1.banggood.com/thumb/large/oaupload/banggood/images/6B/97/3cda1ef7-adef-92d8-f26b-9c047864b814.jpg
-  [14]: https://dziadalnfpolx.cloudfront.net/blog/wp-content/uploads/2015/09/official-nodemcu-development-board-300x200.jpg
+  [3]: https://ooo.0o0.ooo/2017/05/15/5919b3694804a.jpg
+  [4]: https://ooo.0o0.ooo/2017/05/15/5919b29836076.png
+  [5]: https://ooo.0o0.ooo/2017/05/15/5919b3e46cd2b.jpg
+  [6]: https://ooo.0o0.ooo/2017/05/15/5919b29836076.png
+  [7]: https://ooo.0o0.ooo/2017/05/15/5919b4af650ec.jpg
+  [8]: https://ooo.0o0.ooo/2017/05/15/5919b5bba8580.jpg
+  [9]: https://ooo.0o0.ooo/2017/05/15/5919b60c12935.png
+  [10]: https://ooo.0o0.ooo/2017/05/15/5919b628b0fe8.jpg
+  [11]: https://ooo.0o0.ooo/2017/05/15/5919b6570c8aa.png
+  [12]: https://ooo.0o0.ooo/2017/05/15/5919b66ea74cc.jpg
+  [13]: https://ooo.0o0.ooo/2017/05/15/5919b6894c12b.jpg
+  [14]: https://ooo.0o0.ooo/2017/05/15/5919b6b09d6f2.jpg

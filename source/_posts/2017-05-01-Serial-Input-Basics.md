@@ -2,7 +2,7 @@
 
 layout:     post
 title:      "串口通讯基础"
-source: http://forum.arduino.cc/index.php?topic=396450
+from:       "http://forum.arduino.cc/index.php?topic=396450"
 date:       2017-02-10
 author:     "Gitai"
 categories:

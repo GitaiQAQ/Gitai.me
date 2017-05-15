@@ -1,24 +1,25 @@
 //- Comment
 mixin comment()
-  if theme.disqus_shortname
+  if theme.comments.disqus_shortname
     section#comments
-      div#disqus_thread
+      div#disqus_thread 
+        .placeholder(style="text-align: center;") 评论由 Disqus 驱动，若显示本段内容，请检查与 Disqus 连接是否正常。
     script(type="text/javascript").
       (function() {
       var d = document, s = d.createElement('script');
 
-      s.src = '//#{theme.disqus_shortname}.disqus.com/embed.js';
+      s.src = '//#{theme.comments.disqus_shortname}.disqus.com/embed.js';
 
       s.setAttribute('data-timestamp', +new Date());
       (d.head || d.body).appendChild(s);
       })();
 
-  else if theme.duoshuo_shortname
+  else if theme.comments.duoshuo_shortname
     section#comments
       .ds-thread(data-thread-key=url data-title=page.title data-url=url)
 
       script(type="text/javascript").
-        var duoshuoQuery = {short_name: "#{theme.duoshuo_shortname}" };
+        var duoshuoQuery = {short_name: "#{theme.comments.duoshuo_shortname}" };
         (function() {
             var ds = document.createElement('script');
             ds.type = 'text/javascript';ds.async = true;

@@ -2,7 +2,7 @@
 
 layout:     post
 title:      "Docker 下运行 Apache Beam 的例子"
-source: https://medium.com/@0x0ece/a-quick-demo-of-apache-beam-with-docker-da98b99a502a
+from: 		"https://medium.com/@0x0ece/a-quick-demo-of-apache-beam-with-docker-da98b99a502a"
 date:       2017-04-23
 author:     "Gitai"
 categories:
