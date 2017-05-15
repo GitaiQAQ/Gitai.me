@@ -8,6 +8,7 @@ author:     "Gitai"
 from: 		"https://coreos.com/os/docs/latest/sdk-tips-and-tricks.html"
 categories:
     - CoreOS
+    - 翻译
 tags:
     - CoreOS
     - Docker

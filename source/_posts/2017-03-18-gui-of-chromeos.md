@@ -2,10 +2,11 @@
 
 layout:     post
 title:      "ChomeOS 的 GUI"
-date:       2016-01-31 10:23:52
+date:       2017-03-18
 author:     "Gitai"
 categories:
     - ChomeOS
+    - 翻译
 tags:
     - ChomeOS
 

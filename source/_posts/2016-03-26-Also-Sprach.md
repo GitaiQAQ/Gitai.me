@@ -21,6 +21,8 @@ tags:
 
 [Quote REST Api](http://api.gitai.me/quote)
 
+> 接口已经失效，如果有谁需要后端源码，发邮件啊～
+
 <!--more-->
 
 <script type="text/javascript">

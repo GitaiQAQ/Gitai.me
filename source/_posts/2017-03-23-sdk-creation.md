@@ -8,6 +8,7 @@ author:     "Gitai"
 from: 		"https://www.chromium.org/chromium-os/build/sdk-creation"
 categories:
     - ChromiumOS
+    - 翻译
 tags:
     - ChromiumOS
     - 记录
