@@ -4,7 +4,8 @@ date: 2015-07-06
 categories:
     - Linux
 tags:
-    - 记录
+    - Linux
+    - Java
 ---
 
 Java is a programming technology originally developed by Sun Microsystems and later acquired by Oracle. Oracle Java is a proprietary implementation for Java that is free to download and use for commercial use, but not to redistribute, therefore it is not included in a officially maintained repository.

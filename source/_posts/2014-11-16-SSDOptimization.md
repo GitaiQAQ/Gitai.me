@@ -7,7 +7,7 @@ author:     "Gitai"
 categories:
     - Linux
 tags:
-    - 记录
+    - Linux
 
 ---
 

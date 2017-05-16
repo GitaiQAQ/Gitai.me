@@ -6,9 +6,7 @@ date:       2016-03-26 18:15:36
 author:     "Gitai"
 tags:
     - Api
-    - Android
     - REST
-    - 记录
 
 ---
 

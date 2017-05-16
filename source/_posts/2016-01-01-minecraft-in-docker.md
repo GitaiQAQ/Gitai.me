@@ -12,7 +12,6 @@ categories:
 tags:
     - Minecraft
     - Docker
-    - 记录
 
 ---
 
