@@ -7,13 +7,15 @@ body
     position: relative;
     font-size: 16px;
     line-height: 1.6;
-    font-family: Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: Lato, Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
 
 body,a
     color: #34495e;
   
+/*
 h1, h2, h3, h4, h5, h6, header
   font-family: 'PT Serif',STZhongsong,'Microsoft Yahei',serif;
+*/
 
 blockquote
   margin-top: 2em;
@@ -52,8 +54,17 @@ a
         border-bottom: 2px solid $ax-primary-color;
 
 header
-    height:60px
-    padding:20px 100px
+    height:80px
+    padding: 3em 2em 1em 2em
+    
+    @media (max-width: $ax-screen-sm-max)
+        padding: 1em;
+    @media (min-width: $ax-screen-sm-min)
+        //width: $ax-container-sm
+    @media (min-width: $ax-screen-md-min)
+        width: $ax-container-md
+    @media (min-width: $ax-screen-lg-min)
+        width: $ax-container-lg
     .logo
         float: left;
         font-size: 48px;
@@ -89,7 +100,7 @@ header
         
 
 .container
-    border-top: 1px solid #ddd;
+    border-top: 5px dotted #eee;
     padding: 2em;
     
     @media (max-width: $ax-screen-sm-max)
@@ -104,7 +115,8 @@ header
         margin: 0;
         padding: 0;
         list-style-type: none;
-
+    @media (max-width: $ax-screen-sm-max)
+        border-top: 1px solid #ddd;
     .paginator
         margin-top: 2em;
         margin-bottom: 4em;
