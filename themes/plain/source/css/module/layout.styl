@@ -12,10 +12,12 @@ body
 body,a
     color: #34495e;
   
-/*
-h1, h2, h3, h4, h5, h6, header
-  font-family: 'PT Serif',STZhongsong,'Microsoft Yahei',serif;
-*/
+
+h1, h2, h3
+  &::before
+    margin-right: 8px
+    content: "#"
+    color: $ax-primary-color
 
 blockquote
   margin-top: 2em;
