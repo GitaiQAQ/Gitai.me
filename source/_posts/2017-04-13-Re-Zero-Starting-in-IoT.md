@@ -21,12 +21,12 @@ WoT.City 将 IoT 开发平台分为以下 3 种：
 
 一般来说，不同类型的 IoT 开发平台，也会有不同的 IoT Cloud 架构，以及不同的 IoT Diagram（Use Scenario）。WoT.City 的 Web of Things Framework 就是依靠不同 IoT 类型，设计出不同的 WoT Server 架构。
 
-Device Types of IoT Node
 | IoT Node (Device Type)	| Solution Platform	| IoT Diagram (Use Scenario)
 | - | - |-
 | Single Board Computer (SBC) | Intel Edison、Qualcomm Dragonboard 410c etc. | IoT Router etc.
 | High Performance MCU | ARM mbed OS、Neuclio | Sensor hub (Time-series Data Type) etc.
 | WiFi MCU | ESP8266、NodeMCU、EMW3165 etc.	| Sensor hub (Interrupt Type)、Network controller etc.
+: Device Types of IoT Node
 
 <!--more-->
 
