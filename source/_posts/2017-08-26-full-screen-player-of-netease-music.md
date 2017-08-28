@@ -15,6 +15,8 @@ categories:
 
 配合 [User CSS](https://chrome.google.com/webstore/detail/user-css/okpjlejfhacmgjkmknjhadmkdbcldfcb) 食用，估计没什么问题。
 
+<!-- more -->
+
 ```css
 #g_playlist {
     position: fixed !important;

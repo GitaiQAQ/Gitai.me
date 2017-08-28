@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "hexo": {
-    "version": "3.3.1"
+    "version": "3.3.8"
   },
   "dependencies": {
     "color-themes-for-google-code-prettify": "^2.0.4",
