@@ -10,6 +10,7 @@ navbar:
 since: 2011
 
 # site
+logo: /logo.png
 description: A simple theme for Hexo. 
 language: en
 

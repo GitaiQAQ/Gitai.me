@@ -26,7 +26,7 @@ permalink: /about/
 1. `Debian 8(jessie) Linux 3.16.0-4-amd64 amd64`
 2. `Sublime`
 3. `Gradle v2.4.4` / `gcc v4.9.2` / `gulp`
-4. `fish`
+4. `zsh`
 5. `Python v2.7.9`
 6. `Node.js v6.2.1`
 7. `CyanogenMod 13.0`
