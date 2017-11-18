@@ -334,7 +334,7 @@ https://ctrl.blog/entry/how-to-x-on-wsl?ts=sb
 
 
   [1]: https://i0.wp.com/upload.wikimedia.org/wikipedia/commons/thumb/0/03/X_client_server_example.svg/284px-X_client_server_example.svg.png
-  [2]: http://rancher.com/wp-content/themes/rancher-2016/assets/images/rancheros-containers.png
+  [2]: https://rancher.com/wp-content/themes/rancher-2016/assets/images/rancheros-containers.png
   [3]: https://www.diigo.com/file/image/ssdarodzdrrcodpdszcraqpcor/capture+image.jpg
   [4]: https://pbs.twimg.com/media/CgrYS2JWIAAARwp.jpg
   [5]: https://pbs.twimg.com/media/CgrW3oeWgAA7Jow.jpg

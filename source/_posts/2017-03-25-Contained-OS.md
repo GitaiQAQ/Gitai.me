@@ -1,14 +1,12 @@
 ---
 
 layout:     post
-title:      "Lattice OS"
+title:      "容器化系统实践"
 date:       2017-03-25
 author:     "Gitai"
-categories:
-    - Lattice OS
 tags:
-    - Docker
-    - Lattice OS
+    - 容器化
+    - Contained OS
     - 记录
 
 ---

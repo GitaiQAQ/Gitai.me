@@ -9,7 +9,7 @@ categories:
 
 ---
 
-![glyphrstudio.png](https://i.loli.net/2017/10/28/59f42a350e2fd.png)
+![Glyphr Studio](https://i.loli.net/2017/10/28/59f42a350e2fd.png)
 
 编程作业中难免不出现做计算器这种然并卵，但是涉及知识复杂，又难拔高的任务。
 

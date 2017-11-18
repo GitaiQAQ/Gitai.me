@@ -11,7 +11,6 @@ tags:
 
 ---
 
-
 入了个 nodemcu 来记一段初始化过程遇上的坑
 
 先插线，恩，卖家送了根很粗的烧录线。
@@ -167,7 +166,7 @@ gpio.write(0, gpio.HIGH)
 
 还有个基于 `atom` 可以放在 `vscode` 的物联网开发环境 [`PlatformIO`](http://platformio.org/)
 
-[![PlatformIO](http://cdn.platformio.org/images/platformio-ide-for-atom.c6645c5e.png)]((http://platformio.org/))
+[![PlatformIO](https://i.loli.net/2017/10/28/59f44fe4d7f2d.png)]((http://platformio.org/))
 
 先安装依赖
 

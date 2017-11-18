@@ -11,7 +11,7 @@ categories:
 
 服务商为了安利客户端，简直丧心病，比如网易云音乐，无论移动设备还是 PC，总有那么点反人类的地方。遂随手改个 CSS 姑且算是增加了全屏显示歌词之类的。
 
-![netease_music_full_player.png](https://i.loli.net/2017/08/26/59a12932b29f9.png)
+![全屏预览 - 网易云音乐](https://i.loli.net/2017/08/26/59a12932b29f9.png)
 
 配合 [User CSS](https://chrome.google.com/webstore/detail/user-css/okpjlejfhacmgjkmknjhadmkdbcldfcb) 食用，估计没什么问题。
 

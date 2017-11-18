@@ -74,6 +74,7 @@ tag_generator:
 ## Themes: https://hexo.io/themes/
 theme: plain #hexo-theme-material #plain
 sidebar: true
+animation: false
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
