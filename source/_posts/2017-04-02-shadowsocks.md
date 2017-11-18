@@ -26,7 +26,7 @@ GUI Client
 * Shadowsocks-Qt5:  [Github](https://github.com/shadowsocks/shadowsocks-qt5/releases)
 * shadowsocks-C#（**推荐**）
     * [Github](https://github.com/shadowsocks/shadowsocks-windows/releases)
-    * [mirrors](https://www.kansusu.com/ssr-download/ssr-win.7z)
+    * [mirrors](/file/Shadowsocks-4.0.6.zip)
 
 命令行
 
@@ -38,7 +38,7 @@ GUI Client
 
 * ShadowsocksX-NG
     * [GitHub](https://github.com/shadowsocks/ShadowsocksX-NG/releases)
-    * [mirrors](https://www.kansusu.com/ssr-download/ssr-mac.dmg)
+    * [mirrors](/file/ShadowsocksX-NG.1.6.1.zip)
 
 命令行
 
@@ -63,7 +63,7 @@ Command-line Client
 * shadowsocks-android:
     * [Github](https://github.com/shadowsocks/shadowsocks-android/releases)
     * [Google Play (beta)](https://play.google.com/store/apps/details?id=com.github.shadowsocks)
-    * [mirrors](https://www.kansusu.com/ssr-download/ssr-android.apk)
+    * [mirrors](/file/shadowsocks-nightly-4.2.5.apk)
 
 ### iOS
 
