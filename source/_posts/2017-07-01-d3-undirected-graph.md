@@ -11,12 +11,11 @@ tags:
 
 ---
 
-
 这只是数据可视化的一个小例子，
 
 首先看看成品
 
-![wuxiangtu.png](https://ooo.0o0.ooo/2017/07/02/5957e4fd07313.png)
+![无向图](https://ooo.0o0.ooo/2017/07/02/5957e4fd07313.png)
 
 [戳进去](http://sandbox.runjs.cn/show/bkmdgig6)会动的～ 
 
@@ -217,80 +216,7 @@ $1 8 $10
 0 1 40
 0 2 60
 0 3 75
-0 4 90
-0 5 200
-0 6 100
-0 7 160
-0 8 80
-1 0 40
-1 1 0
-1 2 65
-1 3 40
-1 4 100
-1 5 50
-1 6 75
-1 7 110
-1 8 100
-2 0 60
-2 1 65
-2 2 0
-2 3 75
-2 4 100
-2 5 100
-2 6 75
-2 7 75
-2 8 75
-3 0 75
-3 1 40
-3 2 75
-3 3 0
-3 4 100
-3 5 50
-3 6 90
-3 7 90
-3 8 150
-4 0 90
-4 1 100
-4 2 100
-4 3 100
-4 4 0
-4 5 100
-4 6 75
-4 7 75
-4 8 100
-5 0 200
-5 1 50
-5 2 100
-5 3 50
-5 4 100
-5 5 0
-5 6 70
-5 7 90
-5 8 75
-6 0 100
-6 1 75
-6 2 75
-6 3 90
-6 4 75
-6 5 70
-6 6 0
-6 7 70
-6 8 100
-7 0 160
-7 1 110
-7 2 75
-7 3 90
-7 4 75
-7 5 90
-7 6 70
-7 7 0
-7 8 100
-8 0 80
-8 1 100
-8 2 75
-8 3 150
-8 4 100
-8 5 75
+...
 8 6 100
 8 7 100
 8 8 0
@@ -320,37 +246,7 @@ $1 8 $10
 {source: "0", target: "1", distance: 40},
 {source: "0", target: "2", distance: 60},
 {source: "0", target: "3", distance: 75},
-{source: "0", target: "4", distance: 90},
-{source: "0", target: "5", distance: 200},
-{source: "0", target: "6", distance: 100},
-{source: "0", target: "7", distance: 160},
-{source: "0", target: "8", distance: 80},
-{source: "1", target: "2", distance: 65},
-{source: "1", target: "3", distance: 40},
-{source: "1", target: "4", distance: 100},
-{source: "1", target: "5", distance: 50},
-{source: "1", target: "6", distance: 75},
-{source: "1", target: "7", distance: 110},
-{source: "1", target: "8", distance: 100},
-{source: "2", target: "3", distance: 75},
-{source: "2", target: "4", distance: 100},
-{source: "2", target: "5", distance: 100},
-{source: "2", target: "6", distance: 75},
-{source: "2", target: "7", distance: 75},
-{source: "2", target: "8", distance: 75},
-{source: "3", target: "4", distance: 100},
-{source: "3", target: "5", distance: 50},
-{source: "3", target: "6", distance: 90},
-{source: "3", target: "7", distance: 90},
-{source: "3", target: "8", distance: 150},
-{source: "4", target: "5", distance: 100},
-{source: "4", target: "6", distance: 75},
-{source: "4", target: "7", distance: 75},
-{source: "4", target: "8", distance: 100},
-{source: "5", target: "6", distance: 70},
-{source: "5", target: "7", distance: 90},
-{source: "5", target: "8", distance: 75},
-{source: "6", target: "7", distance: 70},
+...
 {source: "6", target: "8", distance: 100},
 {source: "7", target: "8", distance: 100}
 ```
@@ -373,72 +269,7 @@ $1 8 $10
 0 0 0
 0 1 40
 0 2 60
-0 3 75
-0 4 90
-0 5 200
-0 6 100
-0 7 160
-0 8 80
-1 0 0
-1 1 0
-1 2 65
-1 3 40
-1 4 100
-1 5 50
-1 6 75
-1 7 110
-1 8 100
-2 0 0
-2 1 0
-2 2 0
-2 3 75
-2 4 100
-2 5 100
-2 6 75
-2 7 75
-2 8 75
-3 0 0
-3 1 0
-3 2 0
-3 3 0
-3 4 100
-3 5 50
-3 6 90
-3 7 90
-3 8 150
-4 0 0
-4 1 0
-4 2 0
-4 3 0
-4 4 0
-4 5 100
-4 6 75
-4 7 75
-4 8 100
-5 0 0
-5 1 0
-5 2 0
-5 3 0
-5 4 0
-5 5 0
-5 6 70
-5 7 90
-5 8 75
-6 0 0
-6 1 0
-6 2 0
-6 3 0
-6 4 0
-6 5 0
-6 6 0
-6 7 70
-6 8 100
-7 0 0
-7 1 0
-7 2 0
-7 3 0
-7 4 0
-7 5 0
+...
 7 6 0
 7 7 0
 7 8 100
@@ -454,36 +285,7 @@ $1 8 $10
 0 1 40
 0 2 60
 0 3 75
-0 4 90
-0 5 200
-0 6 100
-0 7 160
-0 8 80
-1 2 65
-1 3 40
-1 4 100
-1 5 50
-1 6 75
-1 7 110
-1 8 100
-2 3 75
-2 4 100
-2 5 100
-2 6 75
-2 7 75
-2 8 75
-3 4 100
-3 5 50
-3 6 90
-3 7 90
-3 8 150
-4 5 100
-4 6 75
-4 7 75
-4 8 100
-5 6 70
-5 7 90
-5 8 75
+...
 6 7 70
 6 8 100
 7 8 100
@@ -558,4 +360,3 @@ svg_edges_texts
 不过在 D3js 的 4.x 版本之后，改了部分 API 暂时也只是发现，而并没有啥时间来重写这玩意。
 
 4.x 的方法，参见 https://bl.ocks.org/shimizu/e6209de87cdddde38dadbb746feaf3a3
-

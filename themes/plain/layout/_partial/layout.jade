@@ -6,7 +6,8 @@ html(lang = config.lang || config.language || theme.lang || theme.language || "e
     include head
     block head
   body
-    #particles-js
+    if config.animation
+      #particles-js
     header
       include header
     section.container.animated.fadeIn
