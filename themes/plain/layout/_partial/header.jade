@@ -1,6 +1,6 @@
 //- Logo
 a.logo(href=url_for('.'))
-  = config.title || theme.title
+  img(src=config.logo || theme.logo, alt=config.title || theme.title)
   
 //- Navbar
 ul.nav

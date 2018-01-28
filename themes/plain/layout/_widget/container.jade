@@ -2,7 +2,7 @@
 mixin home()
   ul.home
     - page.posts.each(function (item) {
-      li.post-item
+      li.post-item.wow.fadeInLeft
         article.post
           h1.post-title
             a.post-link(href=url_for(item.path))
@@ -16,7 +16,6 @@ mixin home()
           a.read-more(href=url_for(item.path))
             != __('more') 
     - })
-
 //- Post
 mixin post() 
   article.post
@@ -45,13 +44,12 @@ mixin archive()
       if change
         h2.year
           != year
-      .post-item
+      .post-item.wow.fadeInLeft
         .post-info
           != full_date(item.date, 'MMM D')
         a.post-link(href=url_for(item.path))
           != item.title
     - })
-
 //- Tag
 mixin tag()
   .archive
@@ -63,7 +61,6 @@ mixin tag()
           != full_date(item.date, 'll')
         a.post-link(href=url_for(item.path))
           != item.title    
-
 //- About
 mixin about()
   .post

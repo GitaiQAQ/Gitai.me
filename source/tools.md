@@ -13,7 +13,7 @@ permalink: /tools/
 2. [Html2MarkDown][Html2MarkDown]
 2. [to-markdown][http://domchristie.github.io/to-markdown/]
 2. [HTML表转换为Markdown表格 ][HTMLTable2MarkdownTable]
-3. [Git 参考手册][gitref]
+3. [Git 参考手册][gitref] 免费开源字体编辑器工具是一个基于HTML5的字体编辑器免费工具
 
 [AndroidDevTools]: http://www.androiddevtools.cn/
 [DevDocs]: https://devdocs.io

@@ -4,6 +4,7 @@
 
 # Site
 title: Gitai.me
+logo: /img/logo.png
 subtitle:
 description: "Just for fun"
 author: Gitai
@@ -44,7 +45,7 @@ relative_link: false
 future: true
 highlight:
   enable: true
-  line_number: true
+  line_number: false
   auto_detect: false
   tab_replace: 
 

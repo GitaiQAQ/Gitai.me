@@ -38,4 +38,12 @@ script(type="text/x-mathjax-config").
 	        all[i].SourceElement().parentNode.className += ' has-jax';
 	});
 
-script(src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
+script(src="//cdn.bootcss.com/wow/1.1.2/wow.min.js")
+script(src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
+script(src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js")
+
+script(type="text/javascript").
+	particlesJS.load('particles-js', '/particles.json', function() {
+	    console.log('callback - particles.js config loaded');
+	});
+	new WOW().init();
