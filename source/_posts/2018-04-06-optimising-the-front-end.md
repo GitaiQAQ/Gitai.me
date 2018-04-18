@@ -10,7 +10,7 @@
 
 > 原文： [前端性能优化常用总结](https://juejin.im/post/59e1bbc9f265da430f311fb1)
 
-![progressive-rendering]($res/progressive-rendering.png)
+![progressive-rendering](https://i.loli.net/2018/04/18/5ad7117710889.png)
 
 多数优化技巧并不是为了迅速提升产品本身性能，而是为了提升用户体验，如 MD 设计中对按钮的处理，只是为了给予用户一个有效的反馈。[^critical-rendering-path]
 

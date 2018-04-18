@@ -14,7 +14,7 @@ JavaScript 对于具有面向对象语言开发经验的人(Java or C++)来说�
 
 在准备这个话题[^Inheritance_and_the_prototype_chain]的时候发现几张图。
 
-![javascript_object_layout]($res/javascript_object_layout.jpg)
+![javascript_object_layout](https://i.loli.net/2018/04/18/5ad711ddb3958.jpg)
 
 所以以下内容就大概可以围绕上图种的几个关键词描述。
 
@@ -168,11 +168,11 @@ After: 2 -3
 ```
 在执行 `Before` 时，会创建 `[[scope]]` 如下所示：
 
-![Snipaste_2018-03-26_18-30-57]($res/Snipaste_2018-03-26_18-30-57.png)
+![Snipaste_2018-03-26_18-30-57](https://i.loli.net/2018/04/18/5ad711dd7feb7.png)
 
 当执行到 `After` 时，`b` 已经被赋值
 
-![Snipaste_2018-03-26_18-30-36]($res/Snipaste_2018-03-26_18-30-36.png)
+![Snipaste_2018-03-26_18-30-36](https://i.loli.net/2018/04/18/5ad711dd7e8d8.png)
 
 ## 闭包 **Closures**[^JavaScript-Object-Model-Execution-Model]
 
