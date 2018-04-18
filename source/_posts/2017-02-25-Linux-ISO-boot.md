@@ -11,7 +11,6 @@ tags:
 
 ---
 
-
 相比其他 Linux 发行版，Ubuntu 及其衍生版可以更容易的完成支持。
 
 * ISO 镜像只能通过 GNU GRUB 启动，所以需要在 Linux 环境下启动。
@@ -115,9 +114,9 @@ menuentry "Rancher OS v0.8.1" --class ubuntu {
 
 
 
-  [1]: https://www.howtogeek.com/wp-content/uploads/2014/09/xvmlinuz-and-initrd-file-locations.png.pagespeed.gp+jp+jw+pj+ws+js+rj+rp+rw+ri+cp+md.ic.hB1yMlHMr2.png
-  [2]: https://www.howtogeek.com/wp-content/uploads/2014/09/fdisk-l-command.png
-  [3]: https://www.howtogeek.com/wp-content/uploads/2014/09/add-custom-boot-menu-entries-to-grub.png
+  [1]: https://i.loli.net/2018/04/18/5ad762904414d.png
+  [2]: https://i.loli.net/2018/04/18/5ad762edd6440.png
+  [3]: https://i.loli.net/2018/04/18/5ad76303a179f.png
   [^1]: http://git.marmotte.net/git/glim/tree/grub2
   
   [^2]: https://github.com/rancher/os

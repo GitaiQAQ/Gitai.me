@@ -163,7 +163,7 @@ chroots require you to set a Chromium OS root password, but are still only as
 secure as the passphrases you assign to them.
 ```
 
-![](https://www.diigo.com/file/image/ssdarodzdrqeecdpazcradpocp/%E5%BE%AE%E4%BF%A1%E7%BD%91%E9%A1%B5%E7%89%88.jpg)
+![](https://i.loli.net/2018/04/18/5ad762142bde1.png)
 
 Install & Updata
 ```

@@ -133,7 +133,7 @@ print('Hello World');
 
 为了方便的开发，建议使用官方的 `ESPlorer`
 
-![ESPlorer](https://nodemcu.readthedocs.io/en/master/img/ESPlorer.jpg)
+![ESPlorer](https://i.loli.net/2018/04/18/5ad75d97d0d1b.jpg)
 
 可视化怎么来说也是非常棒的！（尤其咱这种手残，没有删除和修改，完全写不下去
 
