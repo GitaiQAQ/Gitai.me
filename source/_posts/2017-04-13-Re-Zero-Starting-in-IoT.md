@@ -135,7 +135,7 @@ NodeMCU 在 Facebook 上张贴了一张照片，显示官方和非官方的 V2 �
 这可能意味着 Amica 是“认可的”生产者，而 DOIT 和 LoLin 并不是。
 
 ### 备选的方案[^comparison-of-esp8266-nodemcu-development-boards]
-  
+
 ## 配件
 
 以下为个人顺手弄回来的配件
@@ -160,7 +160,7 @@ MB-102 Power Supply Module:
 
 Note: If using the USB can not work, please use DC power.
 
-但是咱漏了个适配器，USB 是母端口的，不知道咋用
+但是咱漏了个适配器，USB 是母端口的，不知道咋用（但是并不妨碍直接拿 2 接线柱给他强行通电
 
 Jump Cable Wires:
 
@@ -181,17 +181,17 @@ Jump Cable Wires:
 [^esp8266-nodemcu-iot-starter]: [ESP8266 & NodeMCU 開發入門](https://wotcity.com/blog/2015/08/31/esp8266-nodemcu-iot-starter-part-1/)
 
 
-  [1]: https://ooo.0o0.ooo/2017/05/15/5919b29810464.png
-  [2]: http://www.kloppenborg.net/blog/microcontrollers/2016/08/02/getting-started-with-the-esp8266
-  [3]: https://ooo.0o0.ooo/2017/05/15/5919b3694804a.jpg
-  [4]: https://ooo.0o0.ooo/2017/05/15/5919b29836076.png
-  [5]: https://ooo.0o0.ooo/2017/05/15/5919b3e46cd2b.jpg
-  [6]: https://ooo.0o0.ooo/2017/05/15/5919b29836076.png
-  [7]: https://ooo.0o0.ooo/2017/05/15/5919b4af650ec.jpg
-  [8]: https://ooo.0o0.ooo/2017/05/15/5919b5bba8580.jpg
-  [9]: https://ooo.0o0.ooo/2017/05/15/5919b60c12935.png
-  [10]: https://ooo.0o0.ooo/2017/05/15/5919b628b0fe8.jpg
-  [11]: https://ooo.0o0.ooo/2017/05/15/5919b6570c8aa.png
-  [12]: https://ooo.0o0.ooo/2017/05/15/5919b66ea74cc.jpg
-  [13]: https://ooo.0o0.ooo/2017/05/15/5919b6894c12b.jpg
-  [14]: https://ooo.0o0.ooo/2017/05/15/5919b6b09d6f2.jpg
+[1]: https://ooo.0o0.ooo/2017/05/15/5919b29810464.png
+[2]: http://www.kloppenborg.net/blog/microcontrollers/2016/08/02/getting-started-with-the-esp8266
+[3]: https://ooo.0o0.ooo/2017/05/15/5919b3694804a.jpg
+[4]: https://ooo.0o0.ooo/2017/05/15/5919b29836076.png
+[5]: https://ooo.0o0.ooo/2017/05/15/5919b3e46cd2b.jpg
+[6]: https://ooo.0o0.ooo/2017/05/15/5919b29836076.png
+[7]: https://ooo.0o0.ooo/2017/05/15/5919b4af650ec.jpg
+[8]: https://ooo.0o0.ooo/2017/05/15/5919b5bba8580.jpg
+[9]: https://ooo.0o0.ooo/2017/05/15/5919b60c12935.png
+[10]: https://ooo.0o0.ooo/2017/05/15/5919b628b0fe8.jpg
+[11]: https://ooo.0o0.ooo/2017/05/15/5919b6570c8aa.png
+[12]: https://ooo.0o0.ooo/2017/05/15/5919b66ea74cc.jpg
+[13]: https://ooo.0o0.ooo/2017/05/15/5919b6894c12b.jpg
+[14]: https://ooo.0o0.ooo/2017/05/15/5919b6b09d6f2.jpg

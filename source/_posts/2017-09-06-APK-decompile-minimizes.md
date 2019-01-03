@@ -1,7 +1,7 @@
 ---
 
 layout:     post
-title:      "APK 逆向精简"
+title:      "简单分析那些巨无霸 APP 是如何产生的？"
 date:       2017-09-06
 author:     "Gitai"
 categories:
@@ -43,7 +43,7 @@ PS: 虽然标题有逆向，但是并不打算写这部分，以及 smali 汇编
   * 第三方登录： 至少封装了微信，QQ一类的 SDK
   * 支付：微信，支付宝
   * 推送：并不会小
-  
+
 之后我们拆了软件，来精简一下
 
 ```shell
@@ -116,7 +116,7 @@ $ tree
   * `realm-jni`：数据库留着吧
   * `rsjni`：没啥用的图像处理
   * `RSSupport`：+1
-  
+
 ```shell
 $ du -h smali*
 448K    smali/com/chad/library

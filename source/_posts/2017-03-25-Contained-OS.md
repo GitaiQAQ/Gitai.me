@@ -35,7 +35,7 @@ curl http://isostore-1252924862.cosgz.myqcloud.com/cins/install.sh | bash
 
 ## On Linux distros without GUI
 
-只需要一个支持显卡驱动的内核，和 docker 运行环境。
+只需要一个支持显卡驱动的内核，和 Docker 运行环境。估摸着计蒜客的在线 Linux 沙盘，就是这个方案，不过那估计是整个系统放在一个容器里。而不是我这种应用打包的方式。
 
 ### 局部容器化
 
@@ -350,7 +350,7 @@ docker pull daocloud.io/dphdjy/docker-xfce4-material:latest
 
 RancherOS 在 0.8 将对桌面的支持加入内核[^add_desktop_kernel]
 
-[^add_desktop_kernel]:[Add desktop kernel ](https://github.com/rancher/os-kernel/pull/12)
+[^add_desktop_kernel]: [Add desktop kernel ](https://github.com/rancher/os-kernel/pull/12)
 
 ```
 # ros s enable kernel-extras
@@ -378,8 +378,8 @@ The new window manager, and other shell components extracted from Chrome live in
 
 [^dockerize-your-development-environment]: [Dockerize Your Development Environment](http://blog.vngrs.com/dockerize-your-development-environment/)
 
-  [1]: https://www.diigo.com/file/image/ssdarodzdrrsadqoazcrbboqbp/docker-libreoffice.jpg
-  [2]: https://www.diigo.com/file/image/ssdarodzdrrsaebpezcrbboqep/docker-flubox-libreoffice.jpg
-  [3]: https://github.com/rogaha/docker-desktop/blob/master/Dockerfile
-  [4]: https://blog.docker.com/2013/07/docker-desktop-your-desktop-over-ssh-running-inside-of-a-docker-container/
-  [5]: https://pbs.twimg.com/media/CgrYS2JWIAAARwp.jpg
+[1]: https://www.diigo.com/file/image/ssdarodzdrrsadqoazcrbboqbp/docker-libreoffice.jpg
+[2]: https://www.diigo.com/file/image/ssdarodzdrrsaebpezcrbboqep/docker-flubox-libreoffice.jpg
+[3]: https://github.com/rogaha/docker-desktop/blob/master/Dockerfile
+[4]: https://blog.docker.com/2013/07/docker-desktop-your-desktop-over-ssh-running-inside-of-a-docker-container/
+[5]: https://pbs.twimg.com/media/CgrYS2JWIAAARwp.jpg

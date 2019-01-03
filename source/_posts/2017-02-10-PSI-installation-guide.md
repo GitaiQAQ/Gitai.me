@@ -2,7 +2,7 @@
 
 layout:     post
 title:      "PSI installation Guide"
-date:       2017-02-10
+date:       2017-04-24
 author:     "Gitai"
 categories:
     - Uzuki
@@ -11,6 +11,7 @@ tags:
 
 ---
 
+>这其实是个外包，大概 $50
 
 * Ubuntu 14.04 x64
 
@@ -97,9 +98,3 @@ sudo service apache2 restart
 brower here: http://107.180.102.3/psi
 username: admin
 password: admin
-
-----
-
-By: Gitai 
-Email: i@gitai.me
-2017-4-24 12:15

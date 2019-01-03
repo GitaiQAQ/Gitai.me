@@ -7,64 +7,65 @@ Overall zipfile format:
 [Central directory]*
 [End of central directory record]
 
-<B>Local file header:</B>
+<B>Local file header/压缩的文件内容源数据:</B>
 Offset   Length   Contents
-  0      4 bytes  Local file header signature (0x04034b50)
-  4      2 bytes  Version needed to extract
-  6      2 bytes  General purpose bit flag
-  8      2 bytes  Compression method
- 10      2 bytes  Last mod file time
- 12      2 bytes  Last mod file date
- 14      4 bytes  CRC-32
- 18      4 bytes  Compressed size (n)
- 22      4 bytes  Uncompressed size
- 26      2 bytes  Filename length (f)
- 28      2 bytes  Extra field length (e)
-        (f)bytes  Filename
-        (e)bytes  Extra field
+  0      4 bytes  Local file header signature (0x04034b50)  文件头标识，值固定(0x04034b50)
+  4      2 bytes  Version needed to extract 解压文件所需 pkware最低 版本 
+  6      2 bytes  General purpose bit flag  通用位标记
+  8      2 bytes  Compression method  压缩方法
+ 10      2 bytes  Last mod file time  文件最后修改时间
+ 12      2 bytes  Last mod file date  文件最后修改时间
+ 14      4 bytes  CRC-32  说明采用的算法
+ 18      4 bytes  Compressed size (n) 压缩后的大小
+ 22      4 bytes  Uncompressed size   非压缩的大小
+ 26      2 bytes  Filename length (f)   文件名长度
+ 28      2 bytes  Extra field length (e)    扩展区长度
+ 30     (f)bytes  Filename    文件名
+        (e)bytes  Extra field   扩展区
         (n)bytes  Compressed data
 
-<B>Extended local header:</B>
+<B>Extended local header/Data descriptor:</B>
+用于标识该文件压缩结束，该结构只有在相应的header中通用标记字段的第３位设为１时才会出现，紧接在压缩文件源数据后。这个数据描述符只用在不能对输出的 ZIP 文件进行检索时使用。例如：在一个不能检索的驱动器（如：磁带机上）上的 ZIP 文件中。如果是磁盘上的ZIP文件一般没有这个数据描述符。
 Offset   Length   Contents
   0      4 bytes  Extended Local file header signature (0x08074b50)
   4      4 bytes  CRC-32
   8      4 bytes  Compressed size
  12      4 bytes  Uncompressed size
 
-<B>Central directory:</B>
+<B>Central directory/压缩的目录源数据:</B>
 Offset   Length   Contents
-  0      4 bytes  Central file header signature (0x02014b50)
-  4      2 bytes  Version made by
-  6      2 bytes  Version needed to extract
-  8      2 bytes  General purpose bit flag
- 10      2 bytes  Compression method
- 12      2 bytes  Last mod file time
- 14      2 bytes  Last mod file date
- 16      4 bytes  CRC-32
- 20      4 bytes  Compressed size
- 24      4 bytes  Uncompressed size
- 28      2 bytes  Filename length (f)
- 30      2 bytes  Extra field length (e)
- 32      2 bytes  File comment length (c)
- 34      2 bytes  Disk number start
- 36      2 bytes  Internal file attributes
- 38      4 bytes  External file attributes
- 42      4 bytes  Relative offset of local header
- 46     (f)bytes  Filename
-        (e)bytes  Extra field
-        (c)bytes  File comment
+  0      4 bytes  Central file header signature (0x02014b50)  压缩的文件内容源数据
+  4      2 bytes  Version made by   压缩所用的pkware版本
+  6      2 bytes  Version needed to extract   解压所需pkware的最低版本
+  8      2 bytes  General purpose bit flag  通用位标记
+ 10      2 bytes  Compression method  压缩方法
+ 12      2 bytes  Last mod file time  文件最后修改时间
+ 14      2 bytes  Last mod file date  文件最后修改日期
+ 16      4 bytes  CRC-32    CRC-32算法
+ 20      4 bytes  Compressed size   压缩后大小
+ 24      4 bytes  Uncompressed size   未压缩的大小
+ 28      2 bytes  Filename length (f)   文件名长度
+ 30      2 bytes  Extra field length (e)  扩展域长度
+ 32      2 bytes  File comment length (c)   文件注释长度
+ 34      2 bytes  Disk number start   文件开始位置的磁盘编号
+ 36      2 bytes  Internal file attributes  内部文件属性
+ 38      4 bytes  External file attributes  外部文件属性
+ 42      4 bytes  Relative offset of local header 本地文件header的相对位移
+ 46     (f)bytes  Filename  目录文件名
+        (e)bytes  Extra field   扩展域
+        (c)bytes  File comment  文件注释内容
 
-<B>End of central directory record:</B>
+<B>End of central directory record/目录结束标识结构:</B>
 Offset   Length   Contents
-  0      4 bytes  End of central dir signature (0x06054b50)
-  4      2 bytes  Number of this disk
-  6      2 bytes  Number of the disk with the start of the central directory
-  8      2 bytes  Total number of entries in the central dir on this disk
- 10      2 bytes  Total number of entries in the central dir
- 12      4 bytes  Size of the central directory
- 16      4 bytes  Offset of start of central directory with respect to the starting disk number
- 20      2 bytes  zipfile comment length (c)
- 22     (c)bytes  zipfile comment
+  0      4 bytes  End of central dir signature (0x06054b50) 核心目录结束标记（0x06054b50）
+  4      2 bytes  Number of this disk   当前磁盘编号
+  6      2 bytes  Number of the disk with the start of the central directory  核心目录开始位置的磁盘编号
+  8      2 bytes  Total number of entries in the central dir on this disk   该磁盘上所记录的核心目录数量
+ 10      2 bytes  Total number of entries in the central dir  核心目录结构总数
+ 12      4 bytes  Size of the central directory   核心目录的大小
+ 16      4 bytes  Offset of start of central directory with respect to the starting disk number   核心目录开始位置相对于archive开始的位移
+ 20      2 bytes  zipfile comment length (c)  注释长度
+ 22     (c)bytes  zipfile comment   注释内容
 
 
 
@@ -80,3 +81,262 @@ compression method: (2 bytes)
           7 - Reserved for Tokenizing compression algorithm
           8 - The file is Deflated
 </PRE>
+
+
+
+Files stored in arbitrary order.  Large .ZIP files can span multiple
+volumes or be split into user-defined segment sizes. All values
+are stored in little-endian byte order unless otherwise specified. 
+
+总览 .zip 文件格式：
+[文件标头 1]
+[文件数据 1]
+[数据描述符记录 1]
+.
+.
+.
+[文件标头 n]
+[文件数据 n]
+[数据描述符记录 n]
+[归档解密标头]
+[归档额外数据记录]
+[中央目录结构]
+[中央目录记录的 Zip64 结尾]
+[中央目录定位器的 Zip64 结尾]
+[中央目录记录的结尾]
+
+- A 文件标头 --------------------
+
+文件标头签名       4 字节 [开始 0] (0x04034b50)
+所需版本           2 字节 [开始 4]
+一般用途位标记     2 字节 [开始 6]
+压缩方法           2 字节 [开始 8] (8=DEFLATE; 0=UNCOMPRESSED)
+文件的最后修改时间 2 字节 [开始 10]
+文件的最后修改日期 2 字节 [开始 12]
+crc-32             4 字节 [开始 14]
+压缩后的大小       4 字节 [开始 18]
+解压缩后的大小     4 字节 [开始 22]
+文件名长度         2 字节 [开始 26]
+额外字段长度       2 字节 [开始 28]
+
+文件名             变量
+额外字段           变量
+
+
+
+- B 文件数据 --------------------
+
+紧接着文件标头就是已压缩的或未压缩的文件数据。
+在 zip 归档里面的每一个文件都是一系列重复的
+[文件标头][文件数据][数据描述符记录]。
+
+
+
+- C 数据描述符记录 --------------------
+
+  crc-32         4 字节 [开始 0]
+  压缩后的大小   4 字节 [开始 4]
+  解压缩后的大小 4 字节 [开始 8]
+
+      This descriptor exists only if bit 3 of the general
+      purpose bit flag is set (see below).  It is byte aligned
+      and immediately follows the last byte of compressed data.
+      This descriptor is used only when it was not possible to
+      seek in the output .ZIP file, e.g., when the output .ZIP file
+      was standard output or a non-seekable device.  For ZIP64(tm) format
+      archives, the compressed and uncompressed sizes are 8 bytes each.
+
+      When compressing files, compressed and uncompressed sizes 
+      should be stored in ZIP64 format (as 8 byte values) when a 
+      files size exceeds 0xFFFFFFFF.   However ZIP64 format may be 
+      used regardless of the size of a file.  When extracting, if 
+      the zip64 extended information extra field is present for 
+      the file the compressed and uncompressed sizes will be 8
+      byte values.  
+
+      Although not originally assigned a signature, the value 
+      0x08074b50 has commonly been adopted as a signature value 
+      for the data descriptor record.  Implementers should be 
+      aware that ZIP files may be encountered with or without this 
+      signature marking data descriptors and should account for
+      either case when reading ZIP files to ensure compatibility.
+      When writing ZIP files, it is recommended to include the
+      signature value marking the data descriptor record.  When
+      the signature is used, the fields currently defined for
+      the data descriptor record will immediately follow the
+      signature.
+
+      An extensible data descriptor will be released in a future
+      version of this APPNOTE.  This new record is intended to
+      resolve conflicts with the use of this record going forward,
+      and to provide better support for streamed file processing.
+
+      When the Central Directory Encryption method is used, the data
+      descriptor record is not required, but may be used.  If present,
+      and bit 3 of the general purpose bit field is set to indicate
+      its presence, the values in fields of the data descriptor
+      record should be set to binary zeros.
+
+
+- D 归档解密标头 --------------------
+
+      The Archive Decryption Header is introduced in version 6.2
+      of the ZIP format specification.  This record exists in support
+      of the Central Directory Encryption Feature implemented as part of 
+      the Strong Encryption Specification as described in this document.
+      When the Central Directory Structure is encrypted, this decryption
+      header will precede the encrypted data segment.  The encrypted
+      data segment will consist of the Archive extra data record (if
+      present) and the encrypted Central Directory Structure data.
+      The format of this data record is identical to the Decryption
+      header record preceding compressed file data.  If the central 
+      directory structure is encrypted, the location of the start of
+      this data record is determined using the Start of Central Directory
+      field in the Zip64 End of Central Directory record.  Refer to the 
+      section on the Strong Encryption Specification for information
+      on the fields used in the Archive Decryption Header record.
+
+
+- E 归档额外数据记录 --------------------
+
+  归档额外数据签名 4 字节 [开始 0] (0x08064b50)
+  额外字段长度     4 字节 [开始 4]
+  额外字段         4 字节 [开始 8]
+
+      The Archive Extra Data Record is introduced in version 6.2
+      of the ZIP format specification.  This record exists in support
+      of the Central Directory Encryption Feature implemented as part of 
+      the Strong Encryption Specification as described in this document.
+      When present, this record immediately precedes the central 
+      directory data structure.  The size of this data record will be
+      included in the Size of the Central Directory field in the
+      End of Central Directory record.  If the central directory structure
+      is compressed, but not encrypted, the location of the start of
+      this data record is determined using the Start of Central Directory
+      field in the Zip64 End of Central Directory record.  
+
+- F 中央目录结构 --------------------
+
+[文件标头 1]
+.
+.
+.
+[文件标头 n]
+[数字签名]
+
+文件标头:
+  中央文件标头签名   4 字节 [开始 0] (0x02014b50)
+  version made by    2 字节 [开始 4]
+  所需版本           2 字节 [开始 6]
+  一般用途位标记     2 字节 [开始 8]
+  压缩方法           2 字节 [开始 10] (8=DEFLATE; 0=UNCOMPRESSED)
+  文件的最后修改时间 2 字节 [开始 12]
+  文件的最后修改日期 2 字节 [开始 14]
+  crc-32             4 字节 [开始 16]
+  压缩后的大小       4 字节 [开始 20]
+  解压缩后的大小     4 字节 [开始 24]
+  文件名长度         2 字节 [开始 28]
+  额外字段长度       2 字节 [开始 30]
+  文件注释长度       2 字节 [开始 32]
+  磁盘开始号         2 字节 [开始 34]
+  内部文件属性       2 字节 [开始 36]
+  外部文件属性       4 字节 [开始 38]
+  相关的标头偏移量   4 字节 [开始 42]
+  
+  文件名             变量
+  额外字段           变量
+  文件注释           变量
+
+数字签名:
+  标头签名 4 字节 [开始 0] (0x05054b50)
+  数据大小 2 字节 [开始 4]
+  签名数据 变量
+
+      With the introduction of the Central Directory Encryption 
+      feature in version 6.2 of this specification, the Central 
+      Directory Structure may be stored both compressed and encrypted. 
+      Although not required, it is assumed when encrypting the
+      Central Directory Structure, that it will be compressed
+      for greater storage efficiency.  Information on the
+      Central Directory Encryption feature can be found in the section
+      describing the Strong Encryption Specification. The Digital 
+      Signature record will be neither compressed nor encrypted.
+
+- G 中央目录记录的 Zip64 结尾 --------------------
+
+中央目录的 Zip64 结尾签名       4 字节 [开始 0] (0x06064b50)
+中央目录记录的 Zip64 结尾大小   8 字节 [开始 4]
+version made by                 2 字节 [开始 12]
+所需版本                        2 字节 [开始 14]
+磁盘数目                        4 字节 [开始 16]
+number of the disk with the
+ start of the central directory 4 字节 [开始 20]
+total number of entries in the
+ central directory on this disk 8 字节 [开始 24]
+中央目录入口总数                8 字节 [开始 32]
+中央目录的大小                  8 字节 [开始 40]
+offset of start of central
+ directory with respect to
+ the starting disk number       8 字节 [开始 48]
+zip64 extensible data sector    变量   [开始 56]
+
+        The value stored into the "size of zip64 end of central
+        directory record" should be the size of the remaining
+        record and should not include the leading 12 bytes.
+  
+        Size = SizeOfFixedFields + SizeOfVariableData - 12.
+
+        The above record structure defines Version 1 of the 
+        zip64 end of central directory record. Version 1 was 
+        implemented in versions of this specification preceding 
+        6.2 in support of the ZIP64 large file feature. The 
+        introduction of the Central Directory Encryption feature 
+        implemented in version 6.2 as part of the Strong Encryption 
+        Specification defines Version 2 of this record structure. 
+        Refer to the section describing the Strong Encryption 
+        Specification for details on the version 2 format for 
+        this record.
+
+        Special purpose data may reside in the zip64 extensible data
+        sector field following either a V1 or V2 version of this
+        record.  To ensure identification of this special purpose data
+        it must include an identifying header block consisting of the
+        following:
+
+           Header ID  -  2 bytes
+           Data Size  -  4 bytes
+
+        The Header ID field indicates the type of data that is in the 
+        data block that follows.
+
+        Data Size identifies the number of bytes that follow for this
+        data block type.
+
+        Multiple special purpose data blocks may be present, but each
+        must be preceded by a Header ID and Data Size field.  Current
+        mappings of Header ID values supported in this field are as
+        defined in APPENDIX C.
+
+
+
+- H 中央目录定位器的 Zip64 结尾 --------------------
+
+中央目录定位器的 Zip64 结尾签名       4 字节 [开始 0] (0x07064b50)
+number of the disk with the
+ start of the zip64 end of 
+ central directory                    4 字节 [开始 4]
+相关的中央目录记录的 Zip64 结尾偏移量 8 字节 [开始 8]
+磁盘总数                              4 字节 [开始 16]
+
+
+- I 中央目录记录的结尾 --------------------
+
+中央目录记录签名                4 字节 [开始 0] (0x06054b50) 注：使用“冒泡”从文件尾追查上来，找到这个签名。
+磁盘编号                        2 字节 [开始 4]
+中央目录开始磁盘编号            2 字节 [开始 6]
+本磁盘上在中央目录里的入口总数  2 字节 [开始 8]
+中央目录里的入口总数            2 字节 [开始 10] 注：文件总数，文件夹也算一个文件。
+中央目录的大小                  4 字节 [开始 12]
+中央目录对第一张磁盘的偏移量    4 字节 [开始 16]
+.ZIP 文件注释长度               2 字节 [开始 20]
+.ZIP 文件注释                   变量   [开始 22] 注：此处需要使用ByteArray.readMultiByte()，在第二个参数里指明“gb2312”才能支持中文。

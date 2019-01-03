@@ -1,6 +1,5 @@
 # navbar
 navbar:
-  Wiki: https://wiki.gitai.me
   Archives: /archives/
   Tags: /tags/
   Tools: /tools/
@@ -48,12 +47,12 @@ comments:
 social:
   email: mailto:i@gitai.me
   # stack-overflow:
-  weibo: http://weibo.com/dphdjy/
-  twitter: https://twitter.com/_gitai
+  weibo: //weibo.com/dphdjy/
+  twitter: //twitter.com/_gitai
   # facebook:
-  github: https://github.com/GitaiQAQ
+  github: //github.com/GitaiQAQ
   # weibo: http://weibo.com/ahonn
-  zhihu: https://www.zhihu.com/people/gitai
+  zhihu: //www.zhihu.com/people/gitai
   rss: /atom.xml
 
 analytics:

@@ -12,10 +12,8 @@
 除了微博这个好图床，BAT 三家都有对应的防盗链机制。
 
 
-![](http://mmbiz.qpic.cn/mmbiz_png/XYVZfgnKcyjElWSLP2wIzbsIBibgWzzNThmHUFkuEiapBD4hmHm8k1QvdOqUo2ZCDZ9A0ZWicDHugCVrJRNHOs8jw/640)
-![](http://112.74.108.69:8000/mmbiz_png/XYVZfgnKcyjElWSLP2wIzbsIBibgWzzNThmHUFkuEiapBD4hmHm8k1QvdOqUo2ZCDZ9A0ZWicDHugCVrJRNHOs8jw/640)
-
-一般来说，上左图就会被 ban，而右侧就是反代成功的。
+![](https://i.loli.net/2019/01/03/5c2dcb995c37e.jpg)
+一般来说，上图就会被 Ban。
 
 我们能通过反代，很轻巧的解决这个问题，即使不说反盗链，反代还有其他用途。
 

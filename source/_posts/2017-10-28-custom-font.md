@@ -1,7 +1,7 @@
 ---
 
 layout:     post
-title:      "自定义字体的妙用（大概）"
+title:      "从自定义字体来看编码和显示的低耦合性"
 date:       2017-10-28
 author:     "Gitai"
 categories:
