@@ -4,7 +4,7 @@ title: 作为我是一种什么体验？
 permalink: /about/
 ---
 
-![6970ad11gy1fq7bjche4gj20ku0kljtl.jpg](https://i.loli.net/2019/01/03/5c2de3a794580.jpg)
+![](https://i.loli.net/2019/01/03/5c2de3a794580.jpg)
 
 # 谢邀
 

@@ -1,11 +1,13 @@
 ---
-
-  layout:     post
-  title:      "无脑的反代+缓存说明书"
-  date:       2018-04-13
-  author:     "Gitai"
-  categories:
-      - 小脚本
+layout:     post
+title:      "无脑的反代+缓存说明书"
+date:       2018-04-13
+author:     "Gitai"
+categories:
+	- 运维
+tags:
+	- Nginx
+	- 配置
 ---
 
 

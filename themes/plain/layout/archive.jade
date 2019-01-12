@@ -1,0 +1,20 @@
+extends _partial/layout
+
+include _widget/container
+include _widget/paginator
+
+block title
+  title
+    if page.archive
+        != __('Archive') + " · " + config.title
+    if page.tag
+        != page.tag + " · " + config.title
+        
+block content
+  if page.tag
+      +tag()
+  if page.archive
+      +archive()
+
+block pagination
+  +paginator('archive')

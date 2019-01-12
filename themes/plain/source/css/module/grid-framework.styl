@@ -1,0 +1,57 @@
+// Overrides bootstrap functions to add prfx support
+ax-make-grid-columns($i = 1, $list = ".ax-col-xs-"+$i", .ax-col-sm-" + $i + ", .ax-col-md-" + $i + ", .ax-col-lg-" + $i)
+    for $i in (1 + 1)..($ax-grid-columns)
+        $list = $list + ", .ax-col-xs-"+$i", .ax-col-sm-"+$i", .ax-col-md-"+$i", .ax-col-lg-"+$i
+
+    {$list}
+        // Prevent columns from collapsing when empty
+        min-height: 1px
+        
+        // Inner gutter via padding
+        padding-left: ($ax-grid-gutter-width / 2)
+        padding-right: ($ax-grid-gutter-width / 2)
+        
+ax-float-grid-columns($class, $i = 1, $list = ".ax-col-" + $class + "-"+$i)
+    for $i in (1 + 1)..($ax-grid-columns)
+        $list = $list", .ax-col-" + $class + "-"+$i
+    {$list}
+        float: left
+ax-calc-grid-column($i, $class, $type)
+    if $type == "width" and $i > 0
+        .ax-col-{$class}-{$i}
+            width: percentage($i / $ax-grid-columns)
+            
+    if $type == "push" and $i > 0
+        .ax-col-{$class}-push-{$i}
+            left: percentage($i / $ax-grid-columns)
+
+    if $type == "push" and $i == 0
+        .ax-col-{$class}-push-0
+            left: auto
+
+    if $type == "pull" and $i > 0
+        .ax-col-{$class}-pull-{$i}
+            right: percentage($i / $ax-grid-columns)
+
+    if $type == "pull" and $i > 0
+        .ax-col-{$class}-pull-{$i}
+            right: percentage($i / $ax-grid-columns)
+
+    if $type == "pull" and $i == 0
+        .ax-col-{$class}-pull-0
+            right: auto
+
+    if $type == "offset"
+        .ax-col-{$class}-offset-{$i}
+            margin-left: percentage($i / $ax-grid-columns)
+    
+ax-loop-grid-columns($columns, $class, $type)
+    for $i in (0)..($columns)
+        ax-calc-grid-column($i, $class, $type)
+
+ax-make-grid($class)
+    ax-float-grid-columns($class)
+    ax-loop-grid-columns($ax-grid-columns, $class, "width")
+    ax-loop-grid-columns($ax-grid-columns, $class, "pull")
+    ax-loop-grid-columns($ax-grid-columns, $class, "push")
+    ax-loop-grid-columns($ax-grid-columns, $class, "offset")

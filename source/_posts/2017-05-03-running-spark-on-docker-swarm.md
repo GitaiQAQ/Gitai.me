@@ -19,7 +19,7 @@ tags:
 
 ## 安装 docker 环境
 
-参见之前的容器化系统的初始化教程。
+参见之前的容器化系统的初始化教程。[^getting-started-with-spark-and-docker][^docker-spark]
 
 ```shell
 # curl -sSL get.docker.com | bash
@@ -102,7 +102,7 @@ worker1:
 
 > - [ ] TODO +1
 
-启动容器集群
+启动容器集群[^running-spark-on-docker-swarm]
 
 ```
 # docker-compose up
@@ -224,4 +224,4 @@ README.md  classes  simple-project_2.10-1.0.jar
 [^docker-spark]: [docker-sparkインストール手順](https://medium.com/@aoc/running-spark-on-docker-swarm-777b87b5aa3)
 
 
-  [1]: https://sparktutorials.github.io/img/posts/sparkDocker/sparkdocker.png
+[1]: https://sparktutorials.github.io/img/posts/sparkDocker/sparkdocker.png

@@ -1530,6 +1530,11 @@ hexo-renderer-marked@^0.3.2:
     object-assign "^4.1.1"
     strip-indent "^2.0.0"
 
+hexo-renderer-pandoc@^0.2.5:
+  version "0.2.5"
+  resolved "https://registry.npmjs.org/hexo-renderer-pandoc/-/hexo-renderer-pandoc-0.2.5.tgz#b0b7be7dd0cd4af42a2a1719e845f600e47c1e94"
+  integrity sha512-ZFzLBhxlfTprj+0dqU6rFn1VnWUD25OqUoX+aI1NQJZ0cV1Ubf+GcFWCs5p2mI0ipV99QPlpKQpKvQJGhAtnAw==
+
 hexo-renderer-stylus@^0.3.3:
   version "0.3.3"
   resolved "https://registry.npmjs.org/hexo-renderer-stylus/-/hexo-renderer-stylus-0.3.3.tgz#c54ea27e1fd8e3c8a9a7a84cfba8ad354122ca7f"

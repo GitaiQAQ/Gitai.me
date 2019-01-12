@@ -1,0 +1,23 @@
+include ../_widget/analytics
+
+doctype
+html(lang = config.lang || config.language || theme.lang || theme.language || "en", ⚡)
+  head
+    include head
+    block head
+  body
+    .wrap
+      if config.animation
+        #particles-js
+      header
+        include header
+      section.container.animated.fadeIn
+        block banner
+        block content
+        block tags
+        block pagination
+        block comment
+      footer
+        include footer
+        block footer
+  include script

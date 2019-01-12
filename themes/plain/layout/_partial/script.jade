@@ -1,0 +1,50 @@
+//- Back to top
+script(type="text/javascript").
+	window.onload = function() {
+	    var b2t = document.getElementById('back2top');
+	    var timer = null;
+	    var isTop = true;
+	    window.onscroll = function(){
+	    	if (!isTop) {
+	    		clearInterval(timer);
+	    	}
+	    	isTop = false;
+	    }
+	    b2t.onclick = function() {
+	        timer = setInterval(function() {
+	            var osTop = document.documentElement.scrollTop ||
+	                        document.body.scrollTop;
+	            var ispeed = Math.floor(-osTop / 5);
+	            document.documentElement.scrollTop = document.body.scrollTop = osTop + ispeed;
+	            isTop = true;
+	            if (osTop == 0) {
+	                clearInterval(timer);
+	            }
+	        }, 30)
+	    }
+	}
+
+script(type="text/x-mathjax-config").
+	MathJax.Hub.Config({
+	    tex2jax: {
+	        inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+	        processEscapes: true
+	    }
+	});
+	MathJax.Hub.Queue(function() {
+	    var all = MathJax.Hub.getAllJax();
+	    for (var i = 0; i < all.length; ++i)
+	        all[i].SourceElement().parentNode.className += ' has-jax';
+	});
+
+script(src="//cdn.bootcss.com/wow/1.1.2/wow.min.js")
+script(src="//cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
+script(src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js")
+
+if config.animation
+	script(type="text/javascript").
+		particlesJS.load('particles-js', '/particles.json', function() {
+			console.log('callback - particles.js config loaded');
+		});
+		new WOW().init();
