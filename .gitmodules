@@ -1,0 +1,3 @@
+[submodule "themes/themes/plain"]
+	path = themes/plain
+	url = https://github.com/GitaiQAQ/hexo-theme-Plain.git
