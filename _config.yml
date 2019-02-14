@@ -84,5 +84,5 @@ animation: false
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://git.coding.net/gitai/Gitai.git
-  branch: coding-pages
+  repo: https://github.com/GitaiQAQ/Gitai.me.git
+  branch: gh-pages

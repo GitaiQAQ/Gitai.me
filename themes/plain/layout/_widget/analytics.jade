@@ -8,14 +8,7 @@ mixin analytics()
 
 //- CNZZ analytics
 mixin cnzz_analytics()
-    script(type="text/javascript").
-        var _hmt = _hmt || [];
-        (function() {
-          var hm = document.createElement("script");
-          hm.src = "//s11.cnzz.com/z_stat.php?id=1261952685&online=1&show=line";
-          var s = document.getElementsByTagName("script")[0]; 
-          s.parentNode.insertBefore(hm, s);
-        })();
+    script(type="text/javascript", src="https://s11.cnzz.com/z_stat.php?id=1257093913&web_id=1257093913")
 
 //- Baidu analytics
 mixin baidu_analytics()

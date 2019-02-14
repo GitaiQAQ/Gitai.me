@@ -21,16 +21,16 @@ permalink: /about/
 3. 贫乳是稀缺资源
 4. 百合大法好
 5. ~~只要可爱，即使是 XX 也没关系~~
-6. 往后余生，表白静儿
+6. 静儿世界第一可爱
 
 # 安利
-
 
 
 1. `Debian 8(jessie) Linux 3.16.0-4-amd64 amd64`
 2. `Sublime` / VS Code
 3. `zsh` & Oh my zsh
 4. vim & Oh my vim
+5. [书单](/books)
 
 # 望周知
 

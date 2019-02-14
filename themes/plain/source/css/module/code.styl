@@ -20,6 +20,10 @@ code,pre
   color:#FFF
   text-align left
 
+  .gutter
+    user-select: none;
+    cursor: default;
+
   table, td, tr
     width: auto;
     border-collapse: collapse;
@@ -49,6 +53,9 @@ code,pre
     &::after
       content: "Html";
   &.js
+    &::after
+      content: "JS";
+  &.javascript
     &::after
       content: "JS";
   &.sh

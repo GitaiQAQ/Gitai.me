@@ -7,6 +7,10 @@ categories:
 	- JavaScript
 ---
 
+> 发现一个比我写的还多的文章[^interview]
+>
+> 顺手塞个大纲进来[世界顶级公司的前端面试都问些什么](https://juejin.im/post/5c414bbe518825247c724268)
+
 首先我要好好批判批判，是谁给我的勇气，3月份写了个 [JavaScript 原型和继承](http://gitai.me/2018/03/js-prototype/) 这篇智障文章出来。（大概就和每次重构代码一样的感觉。
 
 经过前些日子 BAM 的面试，发现我的确是个假前端，知识储备不足，经验也不够。真是浪费了大好的面试机会，不过经验还是有滴。至少知道了面经这种东西，只能作为提纲，如何细化还得自行揣度。
@@ -21,7 +25,7 @@ categories:
 
 ## 数据类型 & 内存堆（Memory Heap）
 
-先是数据类型，基本的 `boolean`，`number` 大家都有，被吐槽为设计失败的 `null` [^null]，被误以为可以修改而实际上只能重新分配的 `string`，还有无比强大的 `object`，以及在变量提升时会反复出现的`undefined`，和ES6 增加的表示独一无二的 `symbol`。
+先是数据类型，基本的 `boolean`，`number` 大家都有，被吐槽为设计失败的 `null` [^null]，被误以为可以修改而实际上只能重新分配的 `string`，还有无比强大的 `object`，以及在变量提升时会反复出现的`undefined`，和ES6 增加的表示独一无二的 `symbol`。类型检查使用 `typeof`，对象类型检查需要使用 `Object.prototype.toString` 因为如同 `Array` 会对从 `Object` 继承下来的该方法进行重写这样，大多数子对象都是无法通过`toString` 直接返回 `[object XXX]` 这样的类型标识的。
 
 让我们从内存模型来看这几个类型，先明确以下几点：
 
@@ -164,6 +168,8 @@ ChildObj.prototype.constructor = ChildObj;
 console.log(new ChildObj("childObj"));
 ```
 
+使用 `new TestObj()` 来构造原型是有问题滴，应该使用 `Object.create(TestObj.prototype)`，最好直接用 `Object.setPrototypeOf`（出自《你所不知的的 JavaScript》5.3 （原型）继承）
+
 ![Chrome DevTools - console](https://i.loli.net/2019/01/10/5c373da4971cc.png)
 
 蓝色线表示直接原型，而红色则是通过原型链产生的间接原型。其 instanceof 是通过递归检查原型链来判断继承关系的。
@@ -194,7 +200,7 @@ console.log(Function instanceof Object) // True
 
 至此，JS 的原型和继承就结束了，之前文章写的又杂又乱，啥都有就是自个都看不懂；尤其那张原型关系图，实际上就是几条规则，阐述一下就是上面这几个 Demo。（小声 BB，就假装我现在已经完全理解了。
 
-作用域链因为过于简单，就提一下 `var` 声明的变量会绑定到最近的作用域，而相对于 `var` 没有块级作用域，只有函数作用域；其次 `let` 对块级作用域提供了支持。
+作用域链是个大坑，自个都没整明白，最简单的就是 `var` 声明的变量会绑定到最近的作用域，而相对于 `var` 没有块级作用域，只有函数作用域；其次 `let` 对块级作用域提供了支持。以及 JS 使用的是静态词法分析作用域，其静态是相对于动态作用域而来的，详细参见《你所不知道的 JavaScript》的第二部分 1.3
 
 闭包即使立即执行，只有一个入口和返回值，通过匿名函数隔离外部环境，并且可以通过延申作用域来作为函数工厂生成函数。在 ES 5 增加的 `Function.prototype.bind` 就是把前一次传入的参数延申到闭包里面，生成一个构造方法；而其本质就是闭包 + `Function.prototype.call/apply`。
 
@@ -229,6 +235,8 @@ console.log(customBindFn());		// {name:"test", bind:"ok"}
 
 ## 并行 & 事件循环（Event Loop）
 
+> 理解不足，建议去看【朴灵评注】JavaScript 运行机制详解：再谈Event Loop
+
 先来了解程序的运行流程，有调度系统之前的程序设计就是个大 loop，可以参照一些单片机在 NoOS 下的写法，一个 sleep 就是多少个时钟周期的空循环，而这段时间内整个系统都停止不动了，这就是发生了阻塞。在这段 sleep 时的 CPU 资源就被浪费了；于是有了分时复用，在上面这个 sleep 发生时，将 CPU 资源交给另一个程序，而把 sleep 转化为定时器，由上层系统维护，其中 NoOS 则交由硬件定时器维护；等定时器清零，重新把 CPU 交给第一个程序。
 
 平时开发也可能调用到各种资源，比如读取一个文件，这个文件可能是在 6GB/s 读写的 PCIE/NVMe 的本地磁盘上，也可能通过 56Kbps 的拨号上网获取，总不能让系统吊死在这。
@@ -239,7 +247,7 @@ JS 引擎只是浏览器这个 loop 的一部分，所以浏览器会负责调�
 
 程序本身都是同步的，只是局限于特定的时空观下呈现出异步的特性[^bnsa]。
 
-异步的也不是 JS，是为了保障用户体验，将耗时操作交给浏览器，并由在结束时将控制权重新交给主线程的过程。
+异步的也不是 JS，是为了保障用户体验，将耗时操作交给浏览器，并由在结束时将控制权重新交给 JS。
 
 当算法复杂度足够高或者是个黑盒的时候，我们是无法简单的预测解决的时间，当这个算法被托管给浏览器，浏览器也不能保证其完成的时间，于是无法在程序上合适的位置作出处理，一不小心还会打乱现有的程序流程。
 
@@ -292,7 +300,7 @@ console.log(8);
 程序主体是当前栈的，在结束之前都不会执行任何异步任务；
 `setImmediate` 无论何时都是最后的，它需要等宏任务，微任务，JS 调用栈全部清空才会执行；`setTimeout` 会被加入宏队列，至少在所有的微任务和 JS 调用栈都完成，并且达到要求的延迟才会执行，其中最小的间隔为 4ms；
 `process.nextTick` 会插入下一个任务队列开头的位置；
-Promise 其实是一种语法糖，下面来用回调重新编写一下。（`async/await` 则是 Promise 的语法糖）
+Promise 其实是一种语法糖，下面来用回调重新编写一下。
 
 ```js
 function fn(resolve) {
@@ -333,6 +341,8 @@ console.log(6);
 测试输出：3, 4, 6, 5, 2, 1
 
 `requestAnimationFrame` 是个比较奇怪的事件[^requestAnimationFrame]，不过就当`setImmediate`用吧。
+
+写完这些东西，突然觉得之前听说的虚拟 DOM 比直接操作 DOM 快估计是谣言，于是求证了一下[^v-dom]；所以 v-dom 应该有其他价值，那就是加一层抽象，提供了跨平台这一特性；比如 Flipboard 的 `react-canvas` 为了提高移动端的用户体验；为什么不提 RN，因为官方的无论在哪一层做处理都不奇怪；但是优秀的解耦合可以让社区轻易的开发出对应的功能，这就厉害了。
 
 之后就得说说浏览器和 Node.js 环境的差异，Node.js 使用 libuv 作为事件驱动模型。
 
@@ -430,11 +440,68 @@ main(() => console.log("end"));
 
 又见到了许久未见的回调地狱，而 Promise 和  `async/await` 的好处不止如此，为了应对错误，还要在回调每一层加上错误处理，但是 Promise 内部已经将其封装在 `then` 的第二个方法，或者通过链式调用传递到最后的 `catch`。
 
-Generator 语法已经许久不见人提，当年 Koa 上可是风生水起，把程序通过 `yield` 拆分成几块，逐步递归调用，巧妙的实现了异步的同步写法。而随着  `async/await` 的出现，已经没有必要通过 Generator+Promise[^co] 这种方法来处理了。
+Generator 语法已经许久不见人提，当年 Koa 上可是风生水起，把程序通过 `yield` 拆分成几块，逐步递归调用，巧妙的实现了异步的同步写法。而随着  `async/await` 的出现，已经没有必要通过 Generator+Promise[^co] 这种方法来处理了。一直觉得生成器和迭代器有关系，毕竟接口一样，受到某本书的提点，果然有关系。[^Iterators_and_Generators]
 
 ## Web APIs
 
-// TODO: 待续
+这些 API 是浏览器（Browser）或者（Document），提供给 JS 引擎调用的，所以被称之为 BOM 和 DOM。
+
+而浏览器实际上是对硬件和主机的一层抽象，加上对窗口这一实体的状态控制，所以大概有这么几类接口。
+
+* 环境信息（系统，浏览器和插件的相关接口`screen`，`navigator`）
+* 窗口管理（窗口可能是标签或者 `frame`，`window`）
+* 浏览状态（`location`， `history`，`performance`）
+
+其中`screen`是和显示有关的一堆只读属性； `navigator` 常用于兼容性检查；`window`是环境，所有对象都是它的属性；`location` 是 URL 对象；`history` 是浏览过程的抽象，SPA 的路由就是框架操作他；`performance` 是性能监测的接口，用于分析，但是支持情况还不太好。
+
+而主要的就是 DOM（文档对象模型），用于操纵 DOM 和 CSSOM，从而影响渲染树，触发 `reflow` 和 `reprint`；所以盲目的修改 DOM 和 CSSOM 会导致性能急速下降。
+
+学习过 Java 的可能了解，Java 有非常详细的接口文档生成工具；但是暂时我还没找到类似的接口文档，只在 VSCode/WebStrom 上，使用 TypeScript 时会调用 TypeScript 的库，而它有个 `d.ts` 的定义文件，包含了接口，结构和函数的定义，在 IDE 上还可以使用 `Ctrl` 进行跳转。暂时也没弄明白 JS 的继承关系图咋生成，所以就直接看别人的吧。
+
+![对象继承关系](https://img-blog.csdn.net/20170621090720130?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaXRwaW5wYWk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+[`EventTarget`](https://github.com/Microsoft/TypeScript/blob/v3.2.2/lib/lib.dom.d.ts#L5058) 是所有浏览器内部对象的根对象，前面已经知道 JS 的原型链，通过反查也能发现这套继承关系。（有空整个脚本出来，生成继承关系图）
+
+![window 的原型链](https://i.loli.net/2019/01/13/5c3ac6f69742d.png)
+
+在此以 `window` 为例，它被封装了几层，暂时不知道干嘛的，其他只包含了一堆从其他对象上弄过来的 shortcode；然后从根元素开始看起。（UML 类图真方便，假装这里有图）
+
+[`EventTarget`](https://github.com/Microsoft/TypeScript/blob/v3.2.2/lib/lib.dom.d.ts#L5058) 提供了一个非常方便的，订阅/发布模型，通过 `addEventListener` 绑定监听器，并通过 `dispatchEvent` 触发事件；事件流（event-flow）有 2 个调用阶段，捕获的自上而下，冒泡的自下而上；因为继承自这个对象，浏览器中的所有对象都支持事件绑定。
+
+> `addEventListener` 的第三个参数是是否在捕获阶段调用，为 `false` 时，等效于 `attachEvent` 或者 `on*`。
+>
+> 但 `on*` 事件是 DOM 0 级，其只能定义一个回调，但是具有极好的兼容性。
+>
+> 这也是事件冒泡在 IE 和标准浏览器差异。
+
+事件委托其实就是只绑定父元素，让子元素的事件通过冒泡被父元素捕获，来减少资源使用；
+
+在 TS 的 `dom.d.ts` 里面搜索 `extends EventTarget` 会得到非常多的结果，只要是 JS 和其他东西有点交互的都有这东西；不过其中最为重要的可能是 `Node` 对象；这是生成节点树的基础，之后的 `Document`，`Element` 都是继承自它。
+
+它也提供了最基础的节点属性和操作方法，先是节点关系，有这么一张图
+
+![DOM 树关系](https://image-static.segmentfault.com/866/502/866502812-59e4b8fd9ec4e)
+
+`nodeName` 是节点的名字，后面继承会对其通过原型链进行覆盖，而 `nodeType` 是个枚举结构；包含定义的全部 Node 类型。
+
+Node 被 `CharacterData`，`Document`，`Element` 等对象继承； `CharacterData` 为后面的字符类型（`Text`，`Comment`）的对象定义了接口；`Document` 是对文档的抽象，包含了文档具有的属性和操作方法，以及必要的事件回调；`Element` 由于解析后的语法 差异分为 `HTMLElement` 和 `SVGElement`；`HTMLElement` 是所有 HTML 标签的原型对象，其增加了显示和交互上的属性；之后的节点就不必细说，上面提供的文档写的清清楚楚，MDN 介绍的更为详细。
+
+## 总结
+
+本文不过是通读《JavaScript 高级程序设计》，《你所不知道的 JavaScript》的粗俗总结。
+
+目前觉得弄明白这几点，对于前端本身只是唯手熟而了；但是这只是其他领域知识的在前端的运用，那么前端自己究竟有啥？
+
+之前的一个统计，名校的走前端的比较少，因为难度没那么高嘛？可能是因为前端本身被浏览器和服务器夹在中间，又因为底子不够厚实，所以偏向工程化，主要就是协调浏览器，服务器和用户。估计今年 WASM 得大火，先把 Rust 弄熟了再说。
+
+还有这几年特别流行加一层，为了抢占原生市场，RN和小程序啊都是前端的子集，加个抽象层处理跨平台问题。只说 JS 的预编译器和新语言能转化的 JS 轮子就是一堆，TS 已经站在风口，Dart 估计也快了。。。不过都是工程实践，切图仔已经变成泛前端，要是算上 WebGL ，WebRTC 这些东西。。。坑越来越大，慢慢学吧
+
+安利入门阅读顺序
+
+1. 《HTML5与CSS3权威指南》（通识）
+2. 《你不知道的JavaScript（下卷）》（配合其他 2 卷）
+3. 《JavaScript 高级程序设计》
+4. ...CSS + HTML 进阶的还没看
 
 ## 参考
 
@@ -457,3 +524,6 @@ Generator 语法已经许久不见人提，当年 Koa 上可是风生水起，�
 [^promises-book]: https://www.kancloud.cn/kancloud/promises-book/44233 4.4. Deferred和Promise
 [^co]: http://www.ruanyifeng.com/blog/2015/05/co.html co 函数库的含义和用法
 [^sec-4.3.4]: https://www.ecma-international.org/ecma-262/5.1/#sec-4.3.4 4.3.4 constructor
+[^v-dom]: https://www.zhihu.com/question/67479886 既然用 virtual dom 可以提高性能，为什么浏览器不直接自带这个功能呢？
+[^Iterators_and_Generators]: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Iterators_and_Generators 迭代器和生成器
+[^interview]: https://juejin.im/post/5ba34e54e51d450e5162789b 2万5千字大厂面经
