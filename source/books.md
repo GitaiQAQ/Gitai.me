@@ -15,6 +15,7 @@ permalink: /books/
 0. ~~CSS Secrets~~
 0. ~~高性能Docker~~（Docker 的书都是说明书，没啥意义）
 0. ~~现代 Javascript 教程~~
+0. 精通CSS：高级Web标准解决方案(第2版)
 0. 程序员的自我修养--链接、装载与库
 0. 深入 React 技术栈 
 0. JavaScript+权威指南（中文第6版）
@@ -63,5 +64,6 @@ permalink: /books/
 * [计算机书籍控](http://bestcbooks.com/recommend/most-influential-book/)
 * [周读](http://www.ireadweek.com/)
 * [**free-programming-books-zh_CN**](https://github.com/justjavac/free-programming-books-zh_CN)
+* [[资源] 前端相关开发书籍资源下载](http://udn.yyuap.com/forum.php?mod=viewthread&tid=55039&extra=page%3D1%26filter%3Ddigest%26digest%3D1)
 
 -->
