@@ -33,6 +33,8 @@ module.exports = {
 
 从 `webpack build` 开始都发生了什么，来从 `node_modules/webpack/bin/webpack` 开始看。
 
+<!--more-->
+
 因为里面没写啥，主要就是检查 `webpack-cli` 是否存在，然后调用它。
 
 从 `webpack` 的 `package.json` 也能发现最后暴露出来的的是 `lib/webpack.js`，所以`webpack-cli`做了执行目录下`webpack.config.js`的读取和转化，然后初始化编译器实例。
