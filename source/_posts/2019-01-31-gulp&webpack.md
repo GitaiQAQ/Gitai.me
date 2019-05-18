@@ -144,7 +144,7 @@ ES6 模块会调用 `__webpack_require__.r` ，会写入 `Object.prototype.toStr
 module.exports = {
     entry: './src/a.js',
 };
-···
+```
 
 源码有个这样的文件 `WebpackOptionsValidationError` 用来和定义的模式匹配，自动检查参数是否符合要求，所以这里的 `entry` 如果写错字符，或者写了一个未定义的属性，加载时都会被检测出来。参照错误报告也能快速弄明白咋配置。
 
