@@ -105,7 +105,7 @@ function gulpTest(...kwargs) {
 module.exports = gulpTest;
 ```
 
-最后这里有一份，[插件指南](https://github.com/lin-xin/blog/issues/2) 和[原理解析](https://segmentfault.com/a/1190000003770541)
+最后这里有几份，[use-gulp](https://github.com/Platform-CUF/use-gulp)，[插件指南](https://github.com/lin-xin/blog/issues/2) 和[原理解析](https://segmentfault.com/a/1190000003770541)
 
 ## Webpack
 
@@ -156,7 +156,7 @@ e 1 2 3 4
 ```
 
 Loader: e.arr
-```javascript
+​```javascript
 module.exports = function(source) {
     return "module.exports = " + JSON.stringify(source.split(" "));
 };

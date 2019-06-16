@@ -51,7 +51,7 @@ tags:
 
 或许会想到有个分离 CSS 的 Loader，为什么它可以那么操作？
 
-因为它有 Loader 和 Plugin 2 个部分，Loader 抽取 `require(xxx.css)` 这样的内容，通过 Plugin 合并导出为独立的样式表。
+因为它有 Loader 和 Plugin 2 个部分，Loader 抽取 `require(xxx.css)` 这样的内容，通过 Plugin 合并导出为独立的样式表文件，因为流程挂在 `main.js` 生成过程中，只是用 `emitFile` 把文件丢出来；所以实现起来并不优雅。
 
 简而言之就是之前对 Loader 和 Plugin 里理解有问题，Loader 是加载文件，转化成 JS 可以操作的内容（对象，字符串或者流）；而 Plugin 是提供了一个对流程的控制，甚至产生一个新的流程。
 
