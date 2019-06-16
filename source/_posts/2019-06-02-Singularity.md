@@ -1,4 +1,12 @@
-## Singularity
+---
+layout:     post
+title:      "Singularity —— HTTP API 类型系统的设计"
+date:       2019-05-11
+author:     "Gitai"
+tags:
+  - API
+  - 强类型
+---
 
 预示项目的起点，通过接口定义，完成前后端，测试的自动化。
 
