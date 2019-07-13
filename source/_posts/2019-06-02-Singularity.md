@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Singularity —— HTTP API 类型系统的设计"
-date:       2019-05-11
+date:       2019-06-02
 author:     "Gitai"
 tags:
   - API
@@ -424,6 +424,90 @@ function add(
 
 要是加上调试器，像 Postman 那样的更好。
 
+## 重大转折
+
+在开发完 Demo 之后，突然让我发现 [valory][^valory] 这个项目；顺藤摸瓜发现了 [tsoa][^tsoa]，让我们看看他的项目简介
+
+> * TypeScript controllers and models as the single source of truth for your API
+> * A valid swagger spec is generated from your controllers and models, including:
+>   * Paths (e.g. GET /Users)
+>   * Definitions based on **TypeScript interfaces (models)**
+>   * Parameters/model **properties marked as required or optional** based on TypeScript (e.g. myProperty?: string is optional in the Swagger spec)
+>   * **jsDoc supported** for object descriptions (most other metadata can be inferred from TypeScript types)
+> * Routes are generated for middleware of choice
+>   - Express, Hapi, and Koa currently supported, other middleware can be supported using a simple handlebars template
+>   - **Validate request payloads**
+
+上面划重点的几个关键词对比一下前面的描述！一模一样，但是人家都开发 3 年了，于是该项目搁浅的前半部分没必要开发。
+
+直接用它来接入就好了，而且估计他性能还会比我的高不少；因为我的通过 `tsdoc` 编译了很多无关的数据出来，虽然只是为了快速实现，但是还是浪费了不少资源。
+
+
+
+## 如何使用
+
+### 定义模型/数据结构/数据约束
+
+程序就是数据 + 算法，所以先得抽象必要的数据结构出来，定义合理的类型，便于复用和做接口测试。
+
+```ts
+// models/user.ts
+
+export interface User {
+    id: number;
+    email: string;
+    name: Name;
+    status?: status;
+    phoneNumbers: string[];
+}
+
+export type status = 'Happy' | 'Sad';
+
+export interface Name {
+    first: string;
+    last?: string;
+}
+
+export interface UserCreationRequest {
+    email: string;
+    name: Name;
+    phoneNumbers: string[];
+}
+```
+
+### 定义控制器/API 接口/HTTP 请求模式
+
+```ts
+// controllers/usersController.ts
+
+import {Get, Post, Route, Body, Query, Header, Path, SuccessResponse, Controller } from 'tsoa';
+import {UserService} from '../services/userService';
+import {User, UserCreationRequest} from '../models/user';
+
+@Route('Users')
+export class UsersController extends Controller {
+    @Get('{id}')
+    public async getUser(id: number, @Query() name: string): Promise<User> {
+        return await new UserService().get(id);
+    }
+
+    @SuccessResponse('201', 'Created') // Custom success response
+    @Post()
+    public async createUser(@Body() requestBody: UserCreationRequest): Promise<void> {
+        new UserService().create(request);
+        this.setStatus(201); // set return status 201
+        return Promise.resolve();
+    }
+
+    @Get('{id}')
+    public async getPrivateUser(@Path('id') ID: number, @Header('Authorization') authorization: string): Promise<User> {
+        return new UserService().get(id);
+    }
+}
+```
+
+
+
 
 
 [^swagger]: [The Best APIs are Built with Swagger Tools | Swagger](https://swagger.io/)
@@ -437,3 +521,5 @@ function add(
 [^typedoc]: [TYPEDOC - A documentation generator for TypeScript projects.](https://typedoc.org/)
 [^typescript-data-validation]:[Statically Typed Data Validation with JSON Schema and TypeScript](https://spin.atomicobject.com/2018/03/26/typescript-data-validation/)
 [^python-api-type-sysytem]: [Python API 类型系统的设计与演变](https://www.ibm.com/developerworks/cn/web/wa-lo-python-api-type-sysytem-design-evolution/index.html)
+[^valory]: [valory - A server agnostic web framework for creating bulletproof apis](https://github.com/valoryteam/valory)
+[^tsoa]: [tsoa - Build swagger-compliant REST APIs using TypeScript and Node](https://github.com/lukeautry/tsoa)
