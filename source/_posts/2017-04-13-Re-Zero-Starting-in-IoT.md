@@ -69,12 +69,16 @@ NodeMCU 开发板 = ESP8266 模组 + USB to serial 芯片 + NodeMCU firmware
 
 ![Flashing-The-ESP8266-ESP201-Module-Board-With-TTL-UART.jpg](https://ooo.0o0.ooo/2017/05/15/5919b297cceff.jpg)
 
+http://sky4s.blogspot.com/2015/11/esp8266-esp-201-x-arduino.html
+
 然后没成功，就入了 nodeMCU
 
 ![esp8266-nodemcu-pinout][4]
 ![esp8266-nodemcu][5]
 
 如果你把排针全部焊接，通常如下图样式。其中两边对称的焊接向下，方便插入面包板或接入自己的电路板。顶端的6针焊接向上，方便直接连接串口调试或学习。
+
+![ESP8266-pinout_1_.jpg](https://i.loli.net/2020/03/11/fiTruKgHVvPWM38.jpg)
 
 ## 集成开发板选购
 
