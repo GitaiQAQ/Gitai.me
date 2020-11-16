@@ -226,8 +226,11 @@ EOF
 
 ## 附加
 
+https://lastminuteengineers.com/esp8266-nodemcu-arduino-tutorial/
+
 2020-03-17 [最细致的 Flashing 指南](https://github.com/jeelabs/esp-link/blob/master/FLASHING.md)
 
 [^getting-started-with-nodemcu-board-powered-by-esp8266-wisoc]: [Getting Started with NodeMCU Board Powered by ESP8266 WiSoC](http://www.cnx-software.com/2015/10/29/getting-started-with-nodemcu-board-powered-by-esp8266-wisoc/)
 
 [^esp8266-nodemcu-iot-starter]: [ESP8266 & NodeMCU 開發入門 (Part 1) - Hello World](https://wotcity.com/blog/2015/08/31/esp8266-nodemcu-iot-starter-part-1/)
+
