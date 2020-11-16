@@ -4,7 +4,7 @@ title:      "前端打包常见工具"
 date:       2019-01-31
 author:     "Gitai"
 tags:
-	- JavaScript
+    - JavaScript
 ---
 
 之前简单提到前端工程化的工具，Gulp 和 Webpack。

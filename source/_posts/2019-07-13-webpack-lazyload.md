@@ -4,9 +4,9 @@ title:      "Webpack 动态 import 实现原理 —— 附：蹭个 PR"
 date:       2019-07-13
 author:     "Gitai"
 tags:
-	- JavaScript
-	- Webpack
-	- 优化
+    - JavaScript
+    - Webpack
+    - 优化
 ---
 
 本文主要因为以下这段代码并不符合预期，chunk 名字，没有生效

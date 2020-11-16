@@ -4,7 +4,7 @@ title:      "JavaScript 萌新指北"
 date:       2018-12-21
 author:     "Gitai"
 categories:
-	- JavaScript
+    - JavaScript
 ---
 
 > 发现一个比我写的还多的文章[^interview]

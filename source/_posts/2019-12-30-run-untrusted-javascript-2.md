@@ -5,8 +5,8 @@ subtitle:	"安全的 IO 隔离"
 date:       2020-01-01
 author:     "Gitai"
 tags:
-	- Saas
-	- 半虚拟化
+  - Saas
+  - 半虚拟化
 
 ---
 

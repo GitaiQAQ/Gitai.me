@@ -4,7 +4,7 @@ title:      "私有 Docker Registry 配置的一个小坑"
 date:       2018-09-21
 author:     "Gitai"
 tags:
-	- Docker
+    - Docker
 ---
 
 ```shell

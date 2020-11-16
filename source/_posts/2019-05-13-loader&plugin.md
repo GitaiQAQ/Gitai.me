@@ -4,7 +4,7 @@ title:      "Webpack Loader 和 Plugin"
 date:       2019-05-13
 author:     "Gitai"
 tags:
-  - 笔记
+     - 笔记
 ---
 
 想写个插件解析 JS 生成 JSON 的配置文件，其实就是 `JSON.stringify(require('./manifest.js'))`。这个简单的操作。

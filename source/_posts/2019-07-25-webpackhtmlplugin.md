@@ -4,8 +4,8 @@ title:      "HTMLWebpackPlugin 增加新模板会遇到的坑"
 date:       2019-07-25
 author:     "Gitai"
 tags:
-	- JavaScript
-	- Webpack
+    - JavaScript
+    - Webpack
 ---
 
 想用 Webpack 作为静态站点生成器，其优点不必多说，生态好。举个例子

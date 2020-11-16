@@ -4,8 +4,8 @@ title:      "Django 下同名 Cookies 的一个小问题"
 date:       2018-10-10
 author:     "Gitai"
 tags:
-	- Django
-	- Hack
+    - Django
+    - Hack
 ---
 
 Django 作为一个非常友好的框架，提供了各种层级的封装，基本上文档看完就能直接开发出很多有意思的东西。
