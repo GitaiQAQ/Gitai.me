@@ -80,23 +80,26 @@
   </div>
   <script src="/js/navicon-shift.js"></script>
 </section>
-<section class="section">
-  <div class="container">
-    <div class="subtitle tags is-6 is-pulled-right">
-      
-      
+<article>
+  <section class="left-menu ">
+</section>
+  <section class="section">
+    <div class="container">
+      <div class="subtitle tags is-6 is-pulled-right">
+        
+        
 <a class="subtitle is-6" href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>
 
 
 
 
+        
+      </div>
+      <h2 class="subtitle is-6">May 13, 2019</h2>
+      <h1 class="title">Webpack Loader 和 Plugin</h1>
       
-    </div>
-    <h2 class="subtitle is-6">May 13, 2019</h2>
-    <h1 class="title">Webpack Loader 和 Plugin</h1>
-    
-    <div class="content">
-      <p>想写个插件解析 JS 生成 JSON 的配置文件，其实就是 <code>JSON.stringify(require('./manifest.js'))</code>。这个简单的操作。</p>
+      <div class="content">
+        <p>想写个插件解析 JS 生成 JSON 的配置文件，其实就是 <code>JSON.stringify(require('./manifest.js'))</code>。这个简单的操作。</p>
 <p>找了个 SO 上面的回答，<a href="https://stackoverflow.com/questions/44232366/how-do-i-build-a-json-file-with-webpack">How do I build a JSON file with webpack?</a></p>
 <p>里面大概有 3 种看起来可行的方法，但是 <code>CopyWebpackPlugin</code> 这种太丑了，其实是没怎么用到 <code>webpack</code> 的东西（到最后就发现这才是最好用的方法</p>
 <p>那就看第一个 <code>manifest-loader.js</code>，相比他的 JSON to JSON，我们的 JS to JSON  是不是更复杂一点。</p>
@@ -143,18 +146,14 @@
 }])
 </code></pre></div><p>勉强算是解决了，虽然好丑啊</p>
 
-      
-      <div class="related">
+        
+        <div class="related">
 </div>
+        
+      </div>
       
     </div>
     
-  </div>
-</section>
-
-    <script src="/js/copycode.js"></script>
-
-
 <section class="section">
   <div class="container">
     <aside><div id="disqus_thread"></div></aside>
@@ -175,6 +174,24 @@
   </div>
 </section>
 
+
+  </section>
+  <section class="right-menu ">
+    <div class="TableOfContents">
+        
+            <label><svg style="height: 1.5em; vertical-align: middle;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M576 256 96 256C76.8 256 64 243.2 64 224s12.8-32 32-32l480 0c19.2 0 32 12.8 32 32S595.2 256 576 256z" p-id="2531" fill="#2c2c2c"></path><path d="M576 544 96 544c-19.2 0-32-12.8-32-32s12.8-32 32-32l480 0c19.2 0 32 12.8 32 32S595.2 544 576 544z" p-id="2532" fill="#2c2c2c"></path><path d="M928 832 96 832c-19.2 0-32-12.8-32-32s12.8-32 32-32l832 0c19.2 0 32 12.8 32 32S947.2 832 928 832z" p-id="2533" fill="#2c2c2c"></path><path d="M768 544c-9.6 0-16-3.2-22.4-9.6-12.8-12.8-9.6-32 3.2-44.8l134.4-121.6-134.4-121.6c-12.8-12.8-12.8-32-3.2-44.8 12.8-12.8 32-12.8 44.8-3.2l160 144c6.4 6.4 9.6 16 9.6 22.4s-3.2 19.2-9.6 22.4l-160 144C784 540.8 774.4 544 768 544z" p-id="2534" fill="#2c2c2c"></path></svg>&nbsp;&nbsp;What's on this page</label>
+            <div class="TableOfContents">
+                <nav id="TableOfContents">
+                    <nav id="TableOfContents"></nav>
+                </nav>
+            </div>
+        
+    </div>
+    
+</section>
+</article>
+
+    <script src="/js/copycode.js"></script>
 
 <section class="section">
   <div class="container has-text-centered">

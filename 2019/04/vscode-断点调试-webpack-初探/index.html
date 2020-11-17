@@ -97,11 +97,14 @@ module.exports = {
   </div>
   <script src="/js/navicon-shift.js"></script>
 </section>
-<section class="section">
-  <div class="container">
-    <div class="subtitle tags is-6 is-pulled-right">
-      
-      
+<article>
+  <section class="left-menu ">
+</section>
+  <section class="section">
+    <div class="container">
+      <div class="subtitle tags is-6 is-pulled-right">
+        
+        
 <a class="subtitle is-6" href="/tags/%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/">#原理分析</a>
 
 
@@ -111,13 +114,13 @@ module.exports = {
   
 
 
+        
+      </div>
+      <h2 class="subtitle is-6">April 25, 2019</h2>
+      <h1 class="title">VSCode 断点调试 &amp; Webpack 初探</h1>
       
-    </div>
-    <h2 class="subtitle is-6">April 25, 2019</h2>
-    <h1 class="title">VSCode 断点调试 &amp; Webpack 初探</h1>
-    
-    <div class="content">
-      <pre><code>  webpack
+      <div class="content">
+        <pre><code>  webpack
   |- package.json
   |- webpack.config.js
   |- /src
@@ -592,18 +595,14 @@ ok <span style="color:#ae81ff">3</span> should NOT be longer than <span style="c
 <p>本来准备用 AST 写个代码汉化的工具，然后想试试 Webpack。发现这封装逻辑，还是得自己从 AST 相关的库开始往上封装，不过这种插件思路可以借鉴。</p>
 <p>关于 AST 还有几个小工具，<a href="http://esprima.org/demo/parse.html">Esprima</a> 高性能的标准 ES 解析器；<a href="https://astexplorer.net/">AST Explorer</a> 是对多个解析式的整合，并写了个美观的可视化界面。</p>
 <p>至于其他阶段的例子，因为我暂时用不上，安利一个 <a href="http://www.alloyteam.com/2016/03/how-to-write-a-plug-in-webpack/">如何写一个webpack插件</a>，自个看吧。</p>
-      
-      <div class="related">
+        
+        <div class="related">
 </div>
+        
+      </div>
       
     </div>
     
-  </div>
-</section>
-
-    <script src="/js/copycode.js"></script>
-
-
 <section class="section">
   <div class="container">
     <aside><div id="disqus_thread"></div></aside>
@@ -624,6 +623,24 @@ ok <span style="color:#ae81ff">3</span> should NOT be longer than <span style="c
   </div>
 </section>
 
+
+  </section>
+  <section class="right-menu ">
+    <div class="TableOfContents">
+        
+            <label><svg style="height: 1.5em; vertical-align: middle;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M576 256 96 256C76.8 256 64 243.2 64 224s12.8-32 32-32l480 0c19.2 0 32 12.8 32 32S595.2 256 576 256z" p-id="2531" fill="#2c2c2c"></path><path d="M576 544 96 544c-19.2 0-32-12.8-32-32s12.8-32 32-32l480 0c19.2 0 32 12.8 32 32S595.2 544 576 544z" p-id="2532" fill="#2c2c2c"></path><path d="M928 832 96 832c-19.2 0-32-12.8-32-32s12.8-32 32-32l832 0c19.2 0 32 12.8 32 32S947.2 832 928 832z" p-id="2533" fill="#2c2c2c"></path><path d="M768 544c-9.6 0-16-3.2-22.4-9.6-12.8-12.8-9.6-32 3.2-44.8l134.4-121.6-134.4-121.6c-12.8-12.8-12.8-32-3.2-44.8 12.8-12.8 32-12.8 44.8-3.2l160 144c6.4 6.4 9.6 16 9.6 22.4s-3.2 19.2-9.6 22.4l-160 144C784 540.8 774.4 544 768 544z" p-id="2534" fill="#2c2c2c"></path></svg>&nbsp;&nbsp;What's on this page</label>
+            <div class="TableOfContents">
+                <nav id="TableOfContents">
+                    <nav id="TableOfContents"></nav>
+                </nav>
+            </div>
+        
+    </div>
+    
+</section>
+</article>
+
+    <script src="/js/copycode.js"></script>
 
 <section class="section">
   <div class="container has-text-centered">

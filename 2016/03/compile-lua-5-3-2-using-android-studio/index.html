@@ -82,23 +82,26 @@ Lua  是一门强大、快速、轻量的嵌入式脚本语言。它由巴西里
   </div>
   <script src="/js/navicon-shift.js"></script>
 </section>
-<section class="section">
-  <div class="container">
-    <div class="subtitle tags is-6 is-pulled-right">
-      
-      
+<article>
+  <section class="left-menu ">
+</section>
+  <section class="section">
+    <div class="container">
+      <div class="subtitle tags is-6 is-pulled-right">
+        
+        
 <a class="subtitle is-6" href="/tags/%E8%AE%B0%E5%BD%95/">#记录</a>
 
 
 
 
+        
+      </div>
+      <h2 class="subtitle is-6">March 14, 2016</h2>
+      <h1 class="title">Compile Lua 5.3.2 using Android Studio</h1>
       
-    </div>
-    <h2 class="subtitle is-6">March 14, 2016</h2>
-    <h1 class="title">Compile Lua 5.3.2 using Android Studio</h1>
-    
-    <div class="content">
-      <blockquote>
+      <div class="content">
+        <blockquote>
 <p><strong>Lua</strong>  是一门强大、快速、轻量的嵌入式脚本语言。它由巴西里约热内卢 Pontifical Catholic 大学的 PUC-Rio 团队 开发。 Lua 是一个 自由软件， 广泛应用于世界上无数产品和项目。(<a href="http://www.lua.org/">http://www.lua.org/</a>)</p>
 </blockquote>
 <h2 id="准备">准备</h2>
@@ -195,18 +198,14 @@ Log<span style="color:#f92672">.</span><span style="color:#a6e22e">e</span><span
 <li><a href="http://www.gnuoa.com/index.php/archives/592"><code>lua.c:67:31: fatal error: readline/readline.h: No such file or directory</code></a></li>
 <li><a href="https://github.com/mkottman/AndroLua/issues/18"><code>luajava.c:40:17: fatal error: lua.h: No such file or directory \n #include &quot;lua.h&quot;</code></a></li>
 </ol>
-      
-      <div class="related">
+        
+        <div class="related">
 </div>
+        
+      </div>
       
     </div>
     
-  </div>
-</section>
-
-    <script src="/js/copycode.js"></script>
-
-
 <section class="section">
   <div class="container">
     <aside><div id="disqus_thread"></div></aside>
@@ -227,6 +226,38 @@ Log<span style="color:#f92672">.</span><span style="color:#a6e22e">e</span><span
   </div>
 </section>
 
+
+  </section>
+  <section class="right-menu ">
+    <div class="TableOfContents">
+        
+            <label><svg style="height: 1.5em; vertical-align: middle;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M576 256 96 256C76.8 256 64 243.2 64 224s12.8-32 32-32l480 0c19.2 0 32 12.8 32 32S595.2 256 576 256z" p-id="2531" fill="#2c2c2c"></path><path d="M576 544 96 544c-19.2 0-32-12.8-32-32s12.8-32 32-32l480 0c19.2 0 32 12.8 32 32S595.2 544 576 544z" p-id="2532" fill="#2c2c2c"></path><path d="M928 832 96 832c-19.2 0-32-12.8-32-32s12.8-32 32-32l832 0c19.2 0 32 12.8 32 32S947.2 832 928 832z" p-id="2533" fill="#2c2c2c"></path><path d="M768 544c-9.6 0-16-3.2-22.4-9.6-12.8-12.8-9.6-32 3.2-44.8l134.4-121.6-134.4-121.6c-12.8-12.8-12.8-32-3.2-44.8 12.8-12.8 32-12.8 44.8-3.2l160 144c6.4 6.4 9.6 16 9.6 22.4s-3.2 19.2-9.6 22.4l-160 144C784 540.8 774.4 544 768 544z" p-id="2534" fill="#2c2c2c"></path></svg>&nbsp;&nbsp;What's on this page</label>
+            <div class="TableOfContents">
+                <nav id="TableOfContents">
+                    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#准备">准备</a></li>
+    <li><a href="#配置编译ndk">配置编译NDK</a>
+      <ul>
+        <li><a href="#q1">Q1</a></li>
+        <li><a href="#q2">Q2</a></li>
+        <li><a href="#q3">Q3</a></li>
+      </ul>
+    </li>
+    <li><a href="#使用">使用</a></li>
+    <li><a href="#移动平台的应用httpwwwibmcomdeveloperworkscnopensourceos-cn-luascriptindexhtml"><a href="http://www.ibm.com/developerworks/cn/opensource/os-cn-LUAScript/index.html">移动平台的应用</a></a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+                </nav>
+            </div>
+        
+    </div>
+    
+</section>
+</article>
+
+    <script src="/js/copycode.js"></script>
 
 <section class="section">
   <div class="container has-text-centered">

@@ -80,23 +80,26 @@
   </div>
   <script src="/js/navicon-shift.js"></script>
 </section>
-<section class="section">
-  <div class="container">
-    <div class="subtitle tags is-6 is-pulled-right">
-      
-      
+<article>
+  <section class="left-menu ">
+</section>
+  <section class="section">
+    <div class="container">
+      <div class="subtitle tags is-6 is-pulled-right">
+        
+        
 <a class="subtitle is-6" href="/tags/python/">#Python</a>
 
 
 
 
+        
+      </div>
+      <h2 class="subtitle is-6">January 16, 2019</h2>
+      <h1 class="title">遇上一个反直觉的 BUG</h1>
       
-    </div>
-    <h2 class="subtitle is-6">January 16, 2019</h2>
-    <h1 class="title">遇上一个反直觉的 BUG</h1>
-    
-    <div class="content">
-      <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+      <div class="content">
+        <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
 app <span style="color:#f92672">=</span> Celery(<span style="color:#e6db74">&#39;tasks&#39;</span>, backend<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;redis://localhost:6379/0&#39;</span>, broker<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;amqp://guest:guest@localhost:5672&#34;</span>)
 </code></pre></div><p>官网的 Demo 就是这样写的，但是突然发现如果正式使用中，接口没做好兼容处理，比如增加一个新的异步任务，但是没有在旧的 worker 进行更新。就会遇到一个查找不到的错误；或者压根不知道放在那个主机上，就发现任务分配总是有规律的漏了几个。</p>
 <p>这时候可以随便找个 worker 目录，用 <code>celery -A tasks status </code> 快速查看配置状态。</p>
@@ -111,18 +114,14 @@ app <span style="color:#f92672">=</span> Celery(<span style="color:#e6db74">&#39
 <p>emmm，为啥硬编码的 <code>broker_write_url</code> 和 <code>broker_url</code> 会被环境变量覆盖。。。这个逻辑不是很能理解。。。吐槽结束。。。</p>
 <p>哦 对了，还有个<code>async</code>命名冲突的问题，4.x 不打算修，5.x 才修。。。</p>
 
-      
-      <div class="related">
+        
+        <div class="related">
 </div>
+        
+      </div>
       
     </div>
     
-  </div>
-</section>
-
-    <script src="/js/copycode.js"></script>
-
-
 <section class="section">
   <div class="container">
     <aside><div id="disqus_thread"></div></aside>
@@ -143,6 +142,24 @@ app <span style="color:#f92672">=</span> Celery(<span style="color:#e6db74">&#39
   </div>
 </section>
 
+
+  </section>
+  <section class="right-menu ">
+    <div class="TableOfContents">
+        
+            <label><svg style="height: 1.5em; vertical-align: middle;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M576 256 96 256C76.8 256 64 243.2 64 224s12.8-32 32-32l480 0c19.2 0 32 12.8 32 32S595.2 256 576 256z" p-id="2531" fill="#2c2c2c"></path><path d="M576 544 96 544c-19.2 0-32-12.8-32-32s12.8-32 32-32l480 0c19.2 0 32 12.8 32 32S595.2 544 576 544z" p-id="2532" fill="#2c2c2c"></path><path d="M928 832 96 832c-19.2 0-32-12.8-32-32s12.8-32 32-32l832 0c19.2 0 32 12.8 32 32S947.2 832 928 832z" p-id="2533" fill="#2c2c2c"></path><path d="M768 544c-9.6 0-16-3.2-22.4-9.6-12.8-12.8-9.6-32 3.2-44.8l134.4-121.6-134.4-121.6c-12.8-12.8-12.8-32-3.2-44.8 12.8-12.8 32-12.8 44.8-3.2l160 144c6.4 6.4 9.6 16 9.6 22.4s-3.2 19.2-9.6 22.4l-160 144C784 540.8 774.4 544 768 544z" p-id="2534" fill="#2c2c2c"></path></svg>&nbsp;&nbsp;What's on this page</label>
+            <div class="TableOfContents">
+                <nav id="TableOfContents">
+                    <nav id="TableOfContents"></nav>
+                </nav>
+            </div>
+        
+    </div>
+    
+</section>
+</article>
+
+    <script src="/js/copycode.js"></script>
 
 <section class="section">
   <div class="container has-text-centered">

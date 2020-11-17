@@ -80,16 +80,19 @@
   </div>
   <script src="/js/navicon-shift.js"></script>
 </section>
-<section class="section">
-  <div class="container">
-    <div class="subtitle tags is-6 is-pulled-right">
+<article>
+  <section class="left-menu ">
+</section>
+  <section class="section">
+    <div class="container">
+      <div class="subtitle tags is-6 is-pulled-right">
+        
+      </div>
+      <h2 class="subtitle is-6">March 23, 2018</h2>
+      <h1 class="title">JavaScript 原型和继承</h1>
       
-    </div>
-    <h2 class="subtitle is-6">March 23, 2018</h2>
-    <h1 class="title">JavaScript 原型和继承</h1>
-    
-    <div class="content">
-      <p>JavaScript 对于具有面向对象语言开发经验的人(Java or C++)来说是非常容易的，只是它是动态的并且不在语言本身提供类(Class) 的支持，在 ES2015 实现了 Class 这个关键字，但是只是个基于原型的语法糖。本质区别是 JavaScript 基于内存结构的描述来实现继承，C++ 基于具体的内存块实现。</p>
+      <div class="content">
+        <p>JavaScript 对于具有面向对象语言开发经验的人(Java or C++)来说是非常容易的，只是它是动态的并且不在语言本身提供类(Class) 的支持，在 ES2015 实现了 Class 这个关键字，但是只是个基于原型的语法糖。本质区别是 JavaScript 基于内存结构的描述来实现继承，C++ 基于具体的内存块实现。</p>
 <!-- raw HTML omitted -->
 <p>在准备这个话题<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>的时候发现几张图。</p>
 <p><img src="https://i.loli.net/2018/04/18/5ad711ddb3958.jpg" alt="javascript_object_layout"></p>
@@ -256,18 +259,14 @@ After: 2 -3
 </ol>
 </section>
 
-      
-      <div class="related">
+        
+        <div class="related">
 </div>
+        
+      </div>
       
     </div>
     
-  </div>
-</section>
-
-    <script src="/js/copycode.js"></script>
-
-
 <section class="section">
   <div class="container">
     <aside><div id="disqus_thread"></div></aside>
@@ -288,6 +287,49 @@ After: 2 -3
   </div>
 </section>
 
+
+  </section>
+  <section class="right-menu ">
+    <div class="TableOfContents">
+        
+            <label><svg style="height: 1.5em; vertical-align: middle;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M576 256 96 256C76.8 256 64 243.2 64 224s12.8-32 32-32l480 0c19.2 0 32 12.8 32 32S595.2 256 576 256z" p-id="2531" fill="#2c2c2c"></path><path d="M576 544 96 544c-19.2 0-32-12.8-32-32s12.8-32 32-32l480 0c19.2 0 32 12.8 32 32S595.2 544 576 544z" p-id="2532" fill="#2c2c2c"></path><path d="M928 832 96 832c-19.2 0-32-12.8-32-32s12.8-32 32-32l832 0c19.2 0 32 12.8 32 32S947.2 832 928 832z" p-id="2533" fill="#2c2c2c"></path><path d="M768 544c-9.6 0-16-3.2-22.4-9.6-12.8-12.8-9.6-32 3.2-44.8l134.4-121.6-134.4-121.6c-12.8-12.8-12.8-32-3.2-44.8 12.8-12.8 32-12.8 44.8-3.2l160 144c6.4 6.4 9.6 16 9.6 22.4s-3.2 19.2-9.6 22.4l-160 144C784 540.8 774.4 544 768 544z" p-id="2534" fill="#2c2c2c"></path></svg>&nbsp;&nbsp;What's on this page</label>
+            <div class="TableOfContents">
+                <nav id="TableOfContents">
+                    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#必要的小知识">必要的小知识</a>
+      <ul>
+        <li><a href="#ecmascript-vs-javascript"><strong>ECMAScript</strong> vs <strong>JavaScript</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#基本对象创建objct">基本对象创建</a></li>
+    <li><a href="#自定义对象创建字面量">自定义对象创建</a></li>
+    <li><a href="#原型和继承---属性查找">原型和继承 - 属性查找</a>
+      <ul>
+        <li><a href="#构造函数">构造函数</a></li>
+      </ul>
+    </li>
+    <li><a href="#对象创建过程">对象创建过程</a></li>
+    <li><a href="#函数对象创建过程">函数对象创建过程</a></li>
+    <li><a href="#执行环境执行上下文execution-context"><strong>执行环境/执行上下文</strong>(Execution context)</a>
+      <ul>
+        <li><a href="#基本原理">基本原理</a></li>
+      </ul>
+    </li>
+    <li><a href="#作用域链和预编译js_scope">作用域链和预编译</a></li>
+    <li><a href="#闭包-closuresjavascript-object-model-execution-model">闭包 <strong>Closures</strong></a></li>
+    <li><a href="#thisjavascript-interview-questions-event-delegation"><code>this</code></a></li>
+  </ul>
+</nav>
+                </nav>
+            </div>
+        
+    </div>
+    
+</section>
+</article>
+
+    <script src="/js/copycode.js"></script>
 
 <section class="section">
   <div class="container has-text-centered">

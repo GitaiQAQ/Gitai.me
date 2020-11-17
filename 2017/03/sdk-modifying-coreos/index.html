@@ -82,11 +82,14 @@
   </div>
   <script src="/js/navicon-shift.js"></script>
 </section>
-<section class="section">
-  <div class="container">
-    <div class="subtitle tags is-6 is-pulled-right">
-      
-      
+<article>
+  <section class="left-menu ">
+</section>
+  <section class="section">
+    <div class="container">
+      <div class="subtitle tags is-6 is-pulled-right">
+        
+        
 <a class="subtitle is-6" href="/tags/coreos/">#CoreOS</a>
 
 
@@ -98,13 +101,13 @@
   
 
 
+        
+      </div>
+      <h2 class="subtitle is-6">March 12, 2017</h2>
+      <h1 class="title">修改 CoreOS</h1>
       
-    </div>
-    <h2 class="subtitle is-6">March 12, 2017</h2>
-    <h1 class="title">修改 CoreOS</h1>
-    
-    <div class="content">
-      <p>这些是构建 Container Linux 本身的说明。 在本指南结束时，您将构建一个可以在 KVM 下运行的开发版映像，并具有用于更改代码的工具。</p>
+      <div class="content">
+        <p>这些是构建 Container Linux 本身的说明。 在本指南结束时，您将构建一个可以在 KVM 下运行的开发版映像，并具有用于更改代码的工具。</p>
 <p>容器 Linux 是一个开源项目。 所有的容器 Linux 的源都可以在 <a href="https://github.com/coreos/">github</a> 上。 如果您发现这些文档或代码的问题，请发送pull请求。</p>
 <p>直接发问题和建议到<a href="irc://irc.freenode.org:6667/#coreos">IRC频道</a>或<a href="https://groups.google.com/forum/#!forum/coreos-dev">邮件列表</a>。</p>
 <h2 id="开始">开始</h2>
@@ -222,18 +225,14 @@ chmod a+x ~/bin/repo
 <p>我们已经编制了一个<a href="https://coreos.com/os/docs/latest/sdk-tips-and-tricks.html">提示和技巧的列表</a>，可以使使用SDK更容易。</p>
 <h1 id="测试镜像">测试镜像</h1>
 <p><a href="https://coreos.com/os/docs/latest/sdk-testing-with-mantle.html">Mantle</a> 是用于测试和启动 SDK 图像的实用程序集合。</p>
-      
-      <div class="related">
+        
+        <div class="related">
 </div>
+        
+      </div>
       
     </div>
     
-  </div>
-</section>
-
-    <script src="/js/copycode.js"></script>
-
-
 <section class="section">
   <div class="container">
     <aside><div id="disqus_thread"></div></aside>
@@ -254,6 +253,55 @@ chmod a+x ~/bin/repo
   </div>
 </section>
 
+
+  </section>
+  <section class="right-menu ">
+    <div class="TableOfContents">
+        
+            <label><svg style="height: 1.5em; vertical-align: middle;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M576 256 96 256C76.8 256 64 243.2 64 224s12.8-32 32-32l480 0c19.2 0 32 12.8 32 32S595.2 256 576 256z" p-id="2531" fill="#2c2c2c"></path><path d="M576 544 96 544c-19.2 0-32-12.8-32-32s12.8-32 32-32l480 0c19.2 0 32 12.8 32 32S595.2 544 576 544z" p-id="2532" fill="#2c2c2c"></path><path d="M928 832 96 832c-19.2 0-32-12.8-32-32s12.8-32 32-32l832 0c19.2 0 32 12.8 32 32S947.2 832 928 832z" p-id="2533" fill="#2c2c2c"></path><path d="M768 544c-9.6 0-16-3.2-22.4-9.6-12.8-12.8-9.6-32 3.2-44.8l134.4-121.6-134.4-121.6c-12.8-12.8-12.8-32-3.2-44.8 12.8-12.8 32-12.8 44.8-3.2l160 144c6.4 6.4 9.6 16 9.6 22.4s-3.2 19.2-9.6 22.4l-160 144C784 540.8 774.4 544 768 544z" p-id="2534" fill="#2c2c2c"></path></svg>&nbsp;&nbsp;What's on this page</label>
+            <div class="TableOfContents">
+                <nav id="TableOfContents">
+                    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#开始">开始</a></li>
+    <li><a href="#先决条件">先决条件</a></li>
+    <li><a href="#选项1使用-cork">选项1：使用 Cork</a></li>
+    <li><a href="#选项2-repo-和-cros_sdk">选项2： <code>repo</code> 和 <code>cros_sdk</code></a>
+      <ul>
+        <li><a href="#安装-repo">安装 <code>Repo</code></a></li>
+        <li><a href="#引导sdk-chroot">引导SDK chroot</a></li>
+        <li><a href="#使用-cros_sdk-来配置-chroot">使用 <code>cros_sdk</code> 来配置 <code>chroot</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#使用-qemu-进行交叉编译">使用 QEMU 进行交叉编译</a>
+      <ul>
+        <li><a href="#为64位arm二进制文件配置qemu">为64位ARM二进制文件配置QEMU</a></li>
+      </ul>
+    </li>
+    <li><a href="#构建镜像">构建镜像</a>
+      <ul>
+        <li><a href="#选择要构建的体系结构">选择要构建的体系结构</a></li>
+        <li><a href="#编译和链接系统二进制文件">编译和链接系统二进制文件</a></li>
+        <li><a href="#渲染-coreos-容器-linux-映像">渲染 CoreOS 容器 Linux 映像</a></li>
+      </ul>
+    </li>
+    <li><a href="#启动">启动</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#git-和-repo">git 和 repo</a></li>
+    <li><a href="#更新-repo-清单">更新 repo 清单</a></li>
+  </ul>
+</nav>
+                </nav>
+            </div>
+        
+    </div>
+    
+</section>
+</article>
+
+    <script src="/js/copycode.js"></script>
 
 <section class="section">
   <div class="container has-text-centered">
