@@ -1,0 +1,25 @@
+
+<div class='container list-container'>
+    <ul class='list taxonomy-cloud'>
+        {{- $maxSize := 2.0 -}}
+        {{- $minSize := 1.0 -}}
+        {{- $sizeSpread := ( sub $maxSize $minSize ) -}}
+
+
+        <!-- {{ range $taxonomy_name, $taxonomy := .Site.Taxonomies.tags }}
+        {{ end }} -->
+
+        {{- $maxCount := ( index .Site.Taxonomies.tags.ByCount 0 ).Count -}}
+        {{- $minCount := ( index .Site.Taxonomies.tags.ByCount.Reverse 0 ).Count -}}
+        {{- $countSpread := ( sub $maxCount $minCount ) -}}
+
+        {{ range $key, $value := .Site.Taxonomies.tags }}
+        <li>
+            {{- $size := ( add $minSize ( mul 0.1 ( sub $value.Count $minCount ) ) ) -}}
+            <a href='{{ .Page.RelPermalink }}' style='font-size:{{ $size }}rem'>
+                {{- $key -}}
+            </a>
+        </li>
+        {{ end }}
+    </ul>
+</div>

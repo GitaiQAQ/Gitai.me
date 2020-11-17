@@ -1,0 +1,49 @@
+baseURL = "https://gitai.me/"
+languageCode = "zh-Hans-CN"
+title = "Gitai.me"
+theme = "kiss"
+copyright = "&copy; <a href=\"https://github.com/GitaiQAQ\">Gitai</a> 2011"
+disqusShortname = "gitaisblog"
+hasCJKLanguage = true
+
+[permalinks]
+posts = "/:year/:month/:filename/"
+
+[params]
+logo = "/img/logo.gif"
+
+# [params.sections]
+# [params.sections.left]
+# archives = "Archives"
+# tags = "Tags"
+
+# [params.sections.right]
+# about = "About"
+
+[params.info]
+adsense = "" # Adsense ID (ID only, without ca-pub-)
+enableSocial = true # Adds OpenGraph and Twitter cards
+homeTitle = "" # Title for home page
+poweredby = true # Adds powered by hugo and kiss below Copyright
+related = true # Includes related articles at the bottom of the article
+codeCopy = true # Add copy button above code blocks
+taxonomiesCount = true # Add taxonomies count
+
+[params.features]
+disqusOnDemand = false  # Load Disqus comments on click
+
+[params.social.config]
+platforms = ["github","twitter","email"]
+
+[params.social]
+twitter = "_gitai"
+github = "GitaiQAQ"
+email = "i@gitai.me"
+
+[taxonomies]
+category = "categories"
+series = "series"
+tags = "tags"
+
+[blackfriday]
+hrefTargetBlank = true

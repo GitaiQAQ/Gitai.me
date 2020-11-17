@@ -1,0 +1,71 @@
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="{{ .Site.BaseURL }}">
+          {{ if .Site.Params.logo }}
+            <img class="logo" src="{{ .Site.Params.logo }}" alt="{{ .Site.Title }}"/>
+          {{ else }}
+            <h1 id="nav-heading" class="title is-4">{{ .Site.Title }}</h1>
+          {{ end }}
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile">
+          {{- $social := ( .Site.Params.social ) -}}
+          {{- range $platform := $social.config.platforms -}}
+          {{- with $username := ( index $social $platform ) -}}
+          <a class="level-item" aria-label="{{ $platform }}" href='{{ print ( index $.Site.Data.theme.social.base $platform ) $username }}'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class>
+                {{- partial "svg/icons" $platform -}}
+              </i>
+            </span>
+          </a>
+          {{- end -}}
+          {{- end -}}
+        </nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    {{ if .Site.Params.sections }}
+      <nav class="nav">
+        {{ if .Site.Params.sections.left }}
+        <div class="nav-left">
+          {{- range $section, $printable := .Site.Params.sections.left -}}
+          {{- if $printable -}}
+          <a class="nav-item" href="{{$section}}">
+            <h2 class="title is-5">{{$printable}}</h2>
+          </a>
+          {{- end -}}
+          {{- end -}}
+        </div>
+        {{ end }}
+
+        {{ if .Site.Params.sections.right }}
+        <div class="nav-right">
+          {{- range $section, $printable := .Site.Params.sections.right -}}
+          {{- if $printable -}}
+          <a class="nav-item" href="{{$section}}">
+            <h2 class="title is-5">{{$printable}}</h2>
+          </a>
+          {{- end -}}
+          {{- end -}}
+        </div>
+        {{ end }}
+      </nav>
+    {{ end }}
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
