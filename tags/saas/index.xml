@@ -9,11 +9,11 @@
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
     <lastBuildDate>Wed, 01 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/saas/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>如何运行不可信代码？</title>
-      <link>https://gitai.me/2020/01/run-untrusted-javascript-2/</link>
+      <title>WIP: 安全的 IO 隔离</title>
+      <link>https://gitai.me/2020/01/access-of-sandbox/</link>
       <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://gitai.me/2020/01/run-untrusted-javascript-2/</guid>
+      <guid>https://gitai.me/2020/01/access-of-sandbox/</guid>
       <description>前一篇写了安全的 JavaScript 沙盘的分析，但是遗留了 IO 这个大问题，和内核调用会受到 ACL 的控制一样；我们平时瞎写的 JS 脚本中，总是缺少不了 fs, net 这些 IO 库的使用，</description>
     </item>
     

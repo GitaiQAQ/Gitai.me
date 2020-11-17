@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>WIP on Gitai.me</title>
+    <link>https://gitai.me/tags/wip/</link>
+    <description>Recent content in WIP on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Mon, 16 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/wip/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WIP: 另一种前后端同构</title>
+      <link>https://gitai.me/2020/11/actor-model-as-bus/</link>
+      <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2020/11/actor-model-as-bus/</guid>
+      <description>一般来说的前后端同构都是指用 React 之类的支持 SSR 的框架做服务端预渲染，然后直接混入进行 render 的一种提升用户体验的方式。 实际上在服务端本身就存在同构这种</description>
+    </item>
+    
+    <item>
+      <title>WIP: 安全的 IO 隔离</title>
+      <link>https://gitai.me/2020/01/access-of-sandbox/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2020/01/access-of-sandbox/</guid>
+      <description>前一篇写了安全的 JavaScript 沙盘的分析，但是遗留了 IO 这个大问题，和内核调用会受到 ACL 的控制一样；我们平时瞎写的 JS 脚本中，总是缺少不了 fs, net 这些 IO 库的使用，</description>
+    </item>
+    
+    <item>
+      <title>WIP: 写一个高性能的 Ucenter</title>
+      <link>https://gitai.me/2019/02/ucenter/</link>
+      <pubDate>Sun, 24 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/02/ucenter/</guid>
+      <description>&lt;p&gt;立项中。。。（立项一年了，还没动&lt;/p&gt;
+&lt;p&gt;主要是实现一个通用的鉴权和授权系统，以及一个非侵入式的转化中间层，提供对其他服务的账号系统的转化。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

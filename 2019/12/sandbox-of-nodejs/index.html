@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>NodeJS 沙盒技术一览 | Gitai.me</title>
+
+<meta property='og:title' content='NodeJS 沙盒技术一览 - Gitai.me'>
+<meta property='og:description' content='Module Secure Memory Limits Isolated Multithreaded Module Support Inspector Support vm ✅ ✅ worker_threads ✅ ✅ ✅ vm2 ✅ ✅ ✅ napajs ✅ ✅ Partial webworker-threads ✅ ✅ tiny-worker ✅ ✅ isolated-vm ✅ ✅ ✅ ✅ ✅ Secure: Safely run untrusted code Memory Limits: Possible to set memory limits / safe against heap overflow DoS attacks Isolated: Is garbage collection, heap, etc isolated from application Multithreaded: Run code on many'>
+<meta property='og:url' content='https://gitai.me/2019/12/sandbox-of-nodejs/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='JaveScipt'><meta property='article:tag' content='V8'><meta property='article:tag' content='不可信运行环境'><meta property='article:published_time' content='2019-12-30T00:00:00Z'/><meta property='article:modified_time' content='2019-12-30T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/>
+
+
+
+
+<link rel="canonical" href="https://gitai.me/2019/12/sandbox-of-nodejs/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  
+</section>
+<article>
+  <section class="left-menu ">
+</section>
+  <section class="section">
+    <div class="container">
+      <div class="subtitle tags is-6 is-pulled-right">
+        
+        
+<a class="subtitle is-6" href="/tags/javescipt/">#JaveScipt</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/v8/">#V8</a>
+  
+  | <a class="subtitle is-6" href="/tags/%E4%B8%8D%E5%8F%AF%E4%BF%A1%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83/">#不可信运行环境</a>
+  
+
+
+        
+      </div>
+      <h2 class="subtitle is-6">December 30, 2019</h2>
+      <h1 class="title">NodeJS 沙盒技术一览</h1>
+      
+      <div class="content">
+        <table>
+<thead>
+<tr>
+<th style="text-align:left">Module</th>
+<th>Secure</th>
+<th>Memory   Limits</th>
+<th>Isolated</th>
+<th>Multithreaded</th>
+<th>Module Support</th>
+<th>Inspector Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://nodejs.org/api/vm.html">vm</a></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://nodejs.org/api/worker_threads.html">worker_threads</a></td>
+<td></td>
+<td></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/patriksimek/vm2">vm2</a></td>
+<td>✅</td>
+<td></td>
+<td></td>
+<td></td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/Microsoft/napajs">napajs</a></td>
+<td></td>
+<td></td>
+<td>✅</td>
+<td>✅</td>
+<td>Partial</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/audreyt/node-webworker-threads">webworker-threads</a></td>
+<td></td>
+<td></td>
+<td>✅</td>
+<td>✅</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/avoidwork/tiny-worker">tiny-worker</a></td>
+<td></td>
+<td></td>
+<td>✅</td>
+<td></td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">isolated-vm</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td></td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Secure:      Safely run untrusted code</li>
+<li>Memory      Limits: Possible to set memory limits / safe against heap overflow DoS      attacks</li>
+<li>Isolated:      Is garbage collection, heap, etc isolated from application</li>
+<li>Multithreaded:      Run code on many threads from a single process</li>
+<li>Module      Support: Is require supported out of      the box</li>
+<li>Inspector      Support: Chrome DevTools supported</li>
+</ul>
+<p>来自 <a href="https://github.com/laverdet/isolated-vm#examples">https://github.com/laverdet/isolated-vm#examples</a></p>
+<!-- raw HTML omitted -->
+<h2 id="概览">概览</h2>
+<p>这是《如何运行不可信代码？》系列的第一篇，简述 JS 常见的沙盒，并选其一进行分析。</p>
+<p>先是简要分析头表</p>
+<p><code>vm</code> 只是改变了运行环境的上下文，所以官网说是不能用于执行不安全的代码</p>
+<p><code>vm2</code> 做了一些简单的覆盖，提升了安全性，因为公用同一个上下文，所以 loader 相同，存在对全局模块的修改问题</p>
+<p><a href="https://github.com/Houfeng/safeify/blob/master/DOC.md">https://github.com/Houfeng/safeify/blob/master/DOC.md</a></p>
+<p>随后就是多线程的实现</p>
+<p><code>webworker-threads</code> 早期的社区实现，无法 <code>require</code></p>
+<p><code>worker_threads</code> 官方实现的多线程，线程间的确是隔离的，但是无法对 io 操作进行限制</p>
+<p><code>tiny-worker</code> 对上面的一个包装</p>
+<p>最后就是</p>
+<p><code>napajs</code> 微软的并行计算环境，以后再分析</p>
+<p><code>isolated-vm</code> 下面要分析的</p>
+<p>至于闭包，Function或者 Proxy 这种就不赘述了</p>
+<h2 id="如何使用-ivm">如何使用 ivm</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// 创建一个内存限制 128MB 的隔离虚拟机
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ivm</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;isolated-vm&#39;</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">isolate</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ivm</span>.<span style="color:#a6e22e">Isolate</span>({
+    <span style="color:#a6e22e">memoryLimit</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">128</span>
+});
+
+<span style="color:#75715e">// 每个隔离虚拟机的上下文相互隔离
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">context</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">isolate</span>.<span style="color:#a6e22e">createContextSync</span>();
+
+<span style="color:#75715e">// 解除 global 的引用，传递给上一步创建的上下文
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">global</span>.<span style="color:#a6e22e">setSync</span>(<span style="color:#e6db74">&#39;global&#39;</span>, <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">global</span>.<span style="color:#a6e22e">derefInto</span>());
+
+<span style="color:#75715e">// 在上述上下文中执行，并解构结果
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> {
+    <span style="color:#a6e22e">result</span>
+} <span style="color:#f92672">=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">evalSync</span>(<span style="color:#e6db74">`(() =&gt; &#34;Hello world&#34;)()`</span>);
+
+<span style="color:#75715e">// &gt; hello world
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result</span>);
+
+</code></pre></div><p>划重点，这里有个多进程数据共享的模型，除了所有者可以直接修改，其他线程只能通过 <code>set</code> 代理进行修改，防止数据竟态。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">readonly</span> <span style="color:#66d9ef">global</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Reference</span>&lt;<span style="color:#f92672">Object</span>&gt;;
+</code></pre></div><p><code>context</code> 的 <code>global</code> 是个引用对象，是由 <code>context</code> 创建的，属于 <code>context</code> 线程的对象；所以我们在主实例中修改需要使用 <code>set</code> 方法。</p>
+<p>我们剥离他的实现，从最基本的引用对象（指针类型）来看这个问题，不过不同的是，现在的 <code>global</code> 所有权在主实例上，所以 <code>ivm</code> (<code>isolate-vm</code>) 中需要使用 <code>set</code> 方法修改，<code>get</code> 来读取。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// 引入当前环境的对象
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">global</span> <span style="color:#f92672">=</span> {};
+
+<span style="color:#75715e">// 创建对 global 的引用，传递给隔离虚拟机
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">global</span>.<span style="color:#a6e22e">setSync</span>(<span style="color:#e6db74">&#39;global&#39;</span>, <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Reference</span>(<span style="color:#a6e22e">global</span>));
+
+<span style="color:#75715e">// 在上述上下文中执行，并解构结果
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> {
+    <span style="color:#a6e22e">result</span>
+} <span style="color:#f92672">=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">evalSync</span>(<span style="color:#e6db74">`(() =&gt; {
+</span><span style="color:#e6db74">    // global: Reference&lt;Object&gt;
+</span><span style="color:#e6db74">    global.setSync(&#34;name&#34;, &#34;setSync&#34;);
+</span><span style="color:#e6db74">    global.name = &#34;assignment&#34;;
+</span><span style="color:#e6db74">    return global;
+</span><span style="color:#e6db74">})()`</span>);
+
+<span style="color:#75715e">// 输出 Global 对象
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">global</span>);
+<span style="color:#75715e">// =&gt; Object {name: &#34;setSync&#34;}
+</span></code></pre></div><p>因为上面的原因，在外部是<strong>原始对象</strong>，而传递进 <code>ivm</code> 内的是对其的引用，非原始类型在多个隔离区域内的传递，只能传递其引用，并且其存在的上下文，依然是创建时所在的环境。</p>
+<p>比如下面这个对于函数引用的例子</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// 引入当前环境的h函数
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">global</span> <span style="color:#f92672">=</span> () =&gt; {
+    <span style="color:#66d9ef">debugger</span>; <span style="color:#75715e">// 没有这个 debugger 可能啥都看不到
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">process</span>.<span style="color:#a6e22e">exit</span>()
+};
+
+<span style="color:#75715e">// 创建对 global 的引用，传递给隔离虚拟机
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">global</span>.<span style="color:#a6e22e">setSync</span>(<span style="color:#e6db74">&#39;exit&#39;</span>, <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Reference</span>(<span style="color:#a6e22e">global</span>));
+
+<span style="color:#75715e">// 在上述上下文中执行，并解构结果
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">evalSync</span>(<span style="color:#e6db74">`(() =&gt; {
+</span><span style="color:#e6db74">    // exit: Reference&lt;Function&gt;
+</span><span style="color:#e6db74">    exit.applySync();
+</span><span style="color:#e6db74">})()`</span>);
+</code></pre></div><p><img src="https://i.loli.net/2020/01/01/gbBf3TO6cGdemt9.png" alt=""></p>
+<p>经过几分钟的尝试，不难发现 ivm 只支持基本的 ES 特性，node 对 V8 的修改基本都是用不了的。</p>
+<p>比如当你使用 Buffer 的时候会发现</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">buf</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Buffer</span>([<span style="color:#ae81ff">0x62</span>, <span style="color:#ae81ff">0x75</span>, <span style="color:#ae81ff">0x66</span>, <span style="color:#ae81ff">0x66</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x72</span>]);
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">发生异常: ReferenceError
+ReferenceError: Buffer is not defined 
+</code></pre></div><p>类似的 CMD 加载器也是用不了的，<a href="https://github.com/laverdet/isolated-vm/issues/27"><strong>Access node&rsquo;s I/O from any Isolate</strong></a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">发生异常: ReferenceError
+ReferenceError: require is not defined 
+</code></pre></div><p>分析过 Webpack 或者用过 <a href="https://gitai.me/2019/06/rollup/">rollup</a> 的也许能想到 CMD 和 UMD 都是可以被<a href="https://gitai.me/2019/07/webpack-lazyload/">自己封装</a>出来的，比如 Webpack 的异步加载，或者 rollup 的单文件打包，这的确是个非常好的方法，并且 ivm 实现了一个叫 Module 的东西，恰好可以加载 rollup 生成的单文件包。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// rollup.config.js
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">resolve</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;rollup-plugin-node-resolve&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">commonjs</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;rollup-plugin-commonjs&#39;</span>;
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+    <span style="color:#a6e22e">input</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;index.js&#39;</span>,
+    <span style="color:#a6e22e">output</span><span style="color:#f92672">:</span> {
+        <span style="color:#a6e22e">format</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;esm&#39;</span>,
+        <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;uuid&#34;</span>,
+        <span style="color:#a6e22e">file</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;dist/uuid.js&#39;</span>
+    },
+    <span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> [
+        <span style="color:#a6e22e">resolve</span>(),
+        <span style="color:#a6e22e">commonjs</span>(),
+    ]
+}
+</code></pre></div><p>先用啥上面的 <code>rollup.config.js</code> 构造单文件的 ESM 模块，将生成的 <code>dist/uuid.js</code> 放到合适的位置</p>
+<p>但是没想到简简单单的 <strong>uuid</strong> 都有 <strong>crypto</strong> 的引入，不过好在就一个 <code>crypto.randomBytes</code></p>
+<p>替换为 <code>[0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef]</code></p>
+<p>随后按照 global 的挂载方式进行挂载</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">uuid</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">isolate</span>.<span style="color:#a6e22e">compileModuleSync</span>(
+	<span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFileSync</span>(<span style="color:#a6e22e">require</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#e6db74">&#34;./uuid.js&#34;</span>)).<span style="color:#a6e22e">toString</span>()
+);
+
+<span style="color:#a6e22e">uuid</span>.<span style="color:#a6e22e">evaluateSync</span>();
+
+<span style="color:#75715e">// 挂在 UUID
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">global</span>.<span style="color:#a6e22e">setSync</span>(<span style="color:#e6db74">&#39;uuid&#39;</span>, <span style="color:#a6e22e">uuid</span>.<span style="color:#a6e22e">namespace</span>.<span style="color:#a6e22e">derefInto</span>());
+</code></pre></div><p>随后就可以在代码中使用</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// 在上述上下文中执行，并解构结果
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> {
+    <span style="color:#a6e22e">result</span>
+} <span style="color:#f92672">=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">evalSync</span>(<span style="color:#e6db74">`(() =&gt; {
+</span><span style="color:#e6db74">    // uuid: { default: { v1: ..., v4: ... } }
+</span><span style="color:#e6db74">    return uuid.default.v1();
+</span><span style="color:#e6db74">})()`</span>);
+
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result</span>);
+<span style="color:#75715e">// &gt;= 0eb78440-2afa-11ea-afef-efefefefefef
+</span></code></pre></div><p>这里 Module 还有一个方法 <code>instantiateSync</code> 可以对 Module 的依赖进行注入，比如上面的 <code>crypto.randomBytes</code> 可以被下面的代码处理</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">uuid</span>.<span style="color:#a6e22e">instantiateSync</span>(<span style="color:#a6e22e">context</span>, <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">spec</span>) {
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">spec</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;crypto&#39;</span>) {
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">isolate</span>.<span style="color:#a6e22e">compileModuleSync</span>(<span style="color:#e6db74">`
+</span><span style="color:#e6db74">        export default {
+</span><span style="color:#e6db74">            randomBytes: () =&gt; {
+</span><span style="color:#e6db74">                return [0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef];
+</span><span style="color:#e6db74">            }
+</span><span style="color:#e6db74">        }
+</span><span style="color:#e6db74">        `</span>);
+    }
+});
+</code></pre></div><p>所以类似 Webpack 需要实现的 Loader 一样。</p>
+<p>但是这样有一个根本问题难以解决，恰好上面遇到了 <strong>crypto</strong> 这种内建依赖。什么是内建依赖？</p>
+<p>在 <strong>node</strong> 的 <a href="https://github.com/nodejs/node/blob/e4e5a835b8ced02ca6d08d7f44826e7617ec5e9e/lib/internal/bootstrap/loaders.js"><code>require</code></a> 所导入的依赖中，存在以下几类</p>
+<p>以 <strong>crypto</strong> 为例，先是外部通过 <code>require</code> 引入 <code>lib/crypto.js</code> ，而其中又通过</p>
+<p><code>internalBinding</code> 和 C++ 实现的 <strong>crypto</strong> 实现绑定。</p>
+<p>再看看 <strong>fs</strong>，在 <code>lib/fs.js</code> 中通过 <code>require</code> 引入必要的内建（build-in）工具类，又通过 <code>internalBinding</code> 绑定到 <code>libuv</code> 实现的 <code>fs</code>。详细参见：<a href="https://juejin.im/post/5dd0b1fff265da0bae519ed4">《nodejs是如何和libuv以及v8一起合作的？》</a></p>
+<p>所以这里的问题就是，ivm 中无法绑定到 <code>libuv</code>，无法实现对底层的控制；这里的话，就有了几种设想。</p>
+<ul>
+<li>隔离区域内调用主实例的方法，然后在主实例中完成对 <code>libuv</code> 的调用</li>
+<li>修改 ivm 的实现，看看能否在 C++ 层面绑定 <code>node.cc</code> 进去，因为前面已经分析过，v8 初始化之后加载 node 的绑定，以及各种依赖，构成的 node 环境，但是存在安全隐患。</li>
+</ul>
+<p>所以的确有人实现过这种东西，<strong>fly.io</strong> 也就是 ivm 下面的例子说的哪个，但是官网说明看起来已经切换到 <a href="https://github.com/firecracker-microvm/firecracker">Firecracker microVMs</a>.</p>
+<p>但是 fly 上代码明明用的是 ivm，而且在 <code>packages/core/src</code> 中实现了部分 node 和隔离区的桥，实现各种 io 操作。</p>
+<p>比如这个 <a href="https://github.com/superfly/fly/search?q=digestHash&amp;unscoped_q=digestHash">digestHash</a>，就是在主实例和 ivm 中，构造了一个桥，完成数据交换。</p>
+<h2 id="napajs-简单尝试">napajs 简单尝试</h2>
+<p>最后看一个 napajs 的例子</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">napa</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;napajs&#39;</span>);
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">zone1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">napa</span>.<span style="color:#a6e22e">zone</span>.<span style="color:#a6e22e">create</span>(<span style="color:#e6db74">&#39;zone1&#39;</span>, {
+    <span style="color:#a6e22e">workers</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span>
+});
+
+<span style="color:#75715e">// Broadcast code to all 4 workers in &#39;zone1&#39;.
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">zone1</span>.<span style="color:#a6e22e">broadcast</span>(<span style="color:#e6db74">`
+</span><span style="color:#e6db74">    // process.exit(0);
+</span><span style="color:#e6db74">    const fs = require(&#34;fs&#34;);
+</span><span style="color:#e6db74">    fs.name = (~~fs.name) + 1;
+</span><span style="color:#e6db74">    console.log(&#34;Zone end&#34;, fs.name);
+</span><span style="color:#e6db74">`</span>);
+
+<span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Main end&#34;</span>)
+}, <span style="color:#ae81ff">1000</span>);
+</code></pre></div><p>经过不完善不彻底的简单测试，<code>process.exit</code> 挂了。</p>
+<h2 id="v8-isolate-是啥东西">V8 Isolate 是啥东西？</h2>
+<blockquote>
+<p>A V8 Isolate is something that Node.js uses to run JS code.
+It consists (mostly) of a single JS heap, that is, JS values and code inside a single <code>Isolate</code> can refer to other values and pieces of code inside that <code>Isolate</code>, but not values from another <code>Isolate</code>.
+Practically speaking, Node.js uses 1 <code>Isolate</code> per thread; one, if you are only running the main thread, and an additional <code>Isolate</code> for each new Worker thread instance. That allows the different threads to run in parallel, but has the disadvantage that it forbids them from accessing each other’s contents directly.</p>
+</blockquote>
+<blockquote>
+<p>Maybe to disambiguate; when talking about the “heap”, there’s two things you could be referring to:</p>
+<ul>
+<li>The JS heap. This is a memory full of JS objects (and some JS-related objects, e.g. Contexts in V8, the microtask queue, etc.) – basically everything managed through the JS engine’s garbage collector. This is what people are usually referring to when talking about the “heap” in a Node.js context.</li>
+<li>The native heap. This is memory allocated directly C++ using e.g. malloc() or new Foo(). A lot of metadata that is about managing code, such as the V8 Isolate object itself, is allocated this way.</li>
+</ul>
+</blockquote>
+<p>上面一大段最重要的就是 Isolate 的确能构造安全的沙盘，然后我们通过对比 <code>node-worker</code>, <code>napajs</code> 和 <code>isolate-vm</code> 来理解 Isolate 用法以及实现的 JS 运行时差异。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// Node v13.5.0
+</span><span style="color:#75715e">// node_worker.cc
+</span><span style="color:#75715e">// https://github.com/nodejs/node/blob/v13.5.0/src/node_worker.cc#L228
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Worker<span style="color:#f92672">::</span>Run() {
+    <span style="color:#75715e">// WorkerThreadData
+</span><span style="color:#75715e"></span>    {
+        Isolate<span style="color:#f92672">::</span>CreateParams params;
+
+        Isolate<span style="color:#f92672">*</span> isolate <span style="color:#f92672">=</span> Isolate<span style="color:#f92672">::</span>Allocate();
+        Isolate<span style="color:#f92672">::</span>Initialize(isolate, params);
+    }
+
+    context <span style="color:#f92672">=</span> NewContext(isolate_);
+
+    <span style="color:#75715e">// 绑定 libuv 并加载 node 的环境
+</span><span style="color:#75715e"></span>    env_.reset(<span style="color:#66d9ef">new</span> Environment(data.isolate_data_.get(),
+                                   context,
+                                   std<span style="color:#f92672">::</span>move(argv_),
+                                   std<span style="color:#f92672">::</span>move(exec_argv_),
+                                   Environment<span style="color:#f92672">::</span>kNoFlags,
+                                   thread_id_));
+
+    env_<span style="color:#f92672">-&gt;</span>set_env_vars(std<span style="color:#f92672">::</span>move(env_vars_));
+    env_<span style="color:#f92672">-&gt;</span>set_abort_on_uncaught_exception(false);
+    env_<span style="color:#f92672">-&gt;</span>set_worker_context(<span style="color:#66d9ef">this</span>);
+
+    env_<span style="color:#f92672">-&gt;</span>InitializeLibuv(start_profiler_idle_notifier_);
+
+    env_<span style="color:#f92672">-&gt;</span>RunBootstrapping()
+}
+</code></pre></div><p>上面这是 Node 的环境初始化过程，先是创造 <code>Isolate</code> 环境，随后是绑定上下文，最后绑定 libuv 并通过 RunBootstrapping 绑定 JS 环境和 C++ 的底层操作，然后加载内置 JS 模块，对外用于用户使用。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// Isolate-VM
+</span><span style="color:#75715e">// environment.cc
+</span><span style="color:#75715e">// https://github.com/laverdet/isolated-vm/blob/v2.0.2/src/isolate/environment.cc#L610
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> IsolateEnvironment<span style="color:#f92672">::</span>IsolateCtor () {
+    Isolate<span style="color:#f92672">::</span>CreateParams create_params;
+
+    isolate <span style="color:#f92672">=</span> Isolate<span style="color:#f92672">::</span>New(create_params);
+    PlatformDelegate<span style="color:#f92672">::</span>RegisterIsolate(isolate, <span style="color:#f92672">&amp;</span>scheduler);
+
+    default_context.Reset(isolate, Context<span style="color:#f92672">::</span>New(isolate));
+}
+</code></pre></div><p>而这里的 <code>Isolate-VM</code>，只有上面的前 2 个阶段，并没有对于 libuv 和 C++ 绑定，加载 JS 依赖。</p>
+<p>所以我们使用的 Node.JS 环境实际上就是 v8 执行器 + libuv 的底层封装，然后加个 JS 接口层来弱化对底层的强依赖。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// napajs
+</span><span style="color:#75715e">// worker.cpp
+</span><span style="color:#75715e">// https://github.com/microsoft/napajs/blob/0.2.3/src/zone/worker.cpp#L112
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Worker<span style="color:#f92672">::</span>WorkerThreadFunc() {
+    <span style="color:#75715e">// CreateIsolate
+</span><span style="color:#75715e"></span>    {
+        v8<span style="color:#f92672">::</span>Isolate<span style="color:#f92672">::</span>CreateParams createParams;
+
+        <span style="color:#66d9ef">static</span> napa<span style="color:#f92672">::</span>v8_extensions<span style="color:#f92672">::</span>ArrayBufferAllocator commonAllocator;
+        createParams.array_buffer_allocator <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>commonAllocator;
+
+        <span style="color:#75715e">// Set the maximum V8 heap size.
+</span><span style="color:#75715e"></span>        createParams.constraints.set_max_old_space_size(settings.maxOldSpaceSize);
+        createParams.constraints.set_max_semi_space_size(settings.maxSemiSpaceSize);
+        createParams.constraints.set_max_executable_size(settings.maxExecutableSize);
+
+        isolate <span style="color:#f92672">=</span> v8<span style="color:#f92672">::</span>Isolate<span style="color:#f92672">::</span>New(createParams);
+    }
+
+    v8<span style="color:#f92672">::</span>Local<span style="color:#f92672">&lt;</span>v8<span style="color:#f92672">::</span>Context<span style="color:#f92672">&gt;</span> context <span style="color:#f92672">=</span> v8<span style="color:#f92672">::</span>Context<span style="color:#f92672">::</span>New(isolate);
+
+    <span style="color:#75715e">// We set an empty security token so callee can access caller&#39;s context.
+</span><span style="color:#75715e"></span>    context<span style="color:#f92672">-&gt;</span>SetSecurityToken(v8<span style="color:#f92672">::</span>Undefined(isolate));
+    <span style="color:#75715e">// v8::Context::Scope contextScope(context);
+</span><span style="color:#75715e"></span>
+    NAPA_DEBUG(<span style="color:#e6db74">&#34;Worker&#34;</span>, <span style="color:#e6db74">&#34;(id=%u) V8 Isolate created.&#34;</span>, _impl<span style="color:#f92672">-&gt;</span>id);
+}
+</code></pre></div><p>最后我们看看 <code>napajs</code> 是怎么实现不完整的 <code>require</code>。(不完整的原因我也不知道是啥，是在头表，也就是 isolate-vm 中说的部分实现)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// napajs
+</span><span style="color:#75715e">// napa-zone.cpp
+</span><span style="color:#75715e">// https://github.com/microsoft/napajs/blob/0.2.3/src/zone/napa-zone.cpp#L75
+</span><span style="color:#75715e"></span>NapaZone<span style="color:#f92672">::</span>NapaZone(<span style="color:#66d9ef">const</span> settings<span style="color:#f92672">::</span>ZoneSettings<span style="color:#f92672">&amp;</span> settings) <span style="color:#f92672">:</span> 
+    _settings(settings) {
+
+    <span style="color:#75715e">// Create the zone&#39;s scheduler.
+</span><span style="color:#75715e"></span>    _scheduler <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>make_unique<span style="color:#f92672">&lt;</span>Scheduler<span style="color:#f92672">&gt;</span>(_settings, [<span style="color:#66d9ef">this</span>](WorkerId id) {
+        <span style="color:#75715e">// Initialize the worker context TLS data
+</span><span style="color:#75715e"></span>        INIT_WORKER_CONTEXT();
+
+        <span style="color:#75715e">// Zone instance into TLS.
+</span><span style="color:#75715e"></span>        WorkerContext<span style="color:#f92672">::</span>Set(WorkerContextItem<span style="color:#f92672">::</span>ZONE, <span style="color:#66d9ef">reinterpret_cast</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span><span style="color:#f92672">*&gt;</span>(<span style="color:#66d9ef">this</span>));
+
+        <span style="color:#75715e">// Worker Id into TLS.
+</span><span style="color:#75715e"></span>        WorkerContext<span style="color:#f92672">::</span>Set(WorkerContextItem<span style="color:#f92672">::</span>WORKER_ID, <span style="color:#66d9ef">reinterpret_cast</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span><span style="color:#f92672">*&gt;</span>(<span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span>uintptr_t<span style="color:#f92672">&gt;</span>(id)));
+
+        <span style="color:#75715e">// Load module loader and built-in modules of require, console and etc.
+</span><span style="color:#75715e"></span>        CREATE_MODULE_LOADER();
+    });
+}
+</code></pre></div><p>经过一系列调用，最后会在这里出现 <a href="https://github.com/microsoft/napajs/blob/0.2.3/src/module/core-modules/napa/napa-binding.cpp#L51"><code>napa-binding.cpp</code></a></p>
+<p>然后 <code>require</code> 实际上在这里 <a href="https://github.com/microsoft/napajs/blob/0.2.3/src/module/loader/module-loader.cpp#L113"><code>ModuleLoader::CreateModuleLoader</code></a> —&gt; <a href="https://github.com/microsoft/napajs/blob/0.2.3/src/module/loader/module-loader.cpp#L362"><code>ModuleLoader::ModuleLoaderImpl::SetupRequire</code></a> 实现。</p>
+<p>THE END.</p>
+
+        
+        <div class="related">
+</div>
+        
+      </div>
+      
+    </div>
+    
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+  </section>
+  <section class="right-menu ">
+    <div class="TableOfContents">
+        
+            <label><svg style="height: 1.5em; vertical-align: middle;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M576 256 96 256C76.8 256 64 243.2 64 224s12.8-32 32-32l480 0c19.2 0 32 12.8 32 32S595.2 256 576 256z" p-id="2531" fill="#2c2c2c"></path><path d="M576 544 96 544c-19.2 0-32-12.8-32-32s12.8-32 32-32l480 0c19.2 0 32 12.8 32 32S595.2 544 576 544z" p-id="2532" fill="#2c2c2c"></path><path d="M928 832 96 832c-19.2 0-32-12.8-32-32s12.8-32 32-32l832 0c19.2 0 32 12.8 32 32S947.2 832 928 832z" p-id="2533" fill="#2c2c2c"></path><path d="M768 544c-9.6 0-16-3.2-22.4-9.6-12.8-12.8-9.6-32 3.2-44.8l134.4-121.6-134.4-121.6c-12.8-12.8-12.8-32-3.2-44.8 12.8-12.8 32-12.8 44.8-3.2l160 144c6.4 6.4 9.6 16 9.6 22.4s-3.2 19.2-9.6 22.4l-160 144C784 540.8 774.4 544 768 544z" p-id="2534" fill="#2c2c2c"></path></svg>&nbsp;&nbsp;What's on this page</label>
+            <div class="TableOfContents">
+                <nav id="TableOfContents">
+                    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#概览">概览</a></li>
+    <li><a href="#如何使用-ivm">如何使用 ivm</a></li>
+    <li><a href="#napajs-简单尝试">napajs 简单尝试</a></li>
+    <li><a href="#v8-isolate-是啥东西">V8 Isolate 是啥东西？</a></li>
+  </ul>
+</nav>
+                </nav>
+            </div>
+        
+    </div>
+    
+</section>
+</article>
+
+    <script src="/js/copycode.js"></script>
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

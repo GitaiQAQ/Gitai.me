@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>日語 on Gitai.me</title>
+    <link>https://gitai.me/tags/%E6%97%A5%E8%AA%9E/</link>
+    <description>Recent content in 日語 on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Sat, 17 Dec 2016 19:29:12 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/%E6%97%A5%E8%AA%9E/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>五十音</title>
+      <link>https://gitai.me/2016/12/kana/</link>
+      <pubDate>Sat, 17 Dec 2016 19:29:12 +0000</pubDate>
+      
+      <guid>https://gitai.me/2016/12/kana/</guid>
+      <description>&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;\&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;a&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;i&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;u&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;e&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;o&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;a&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$あ_ア$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$い_イ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$う_ウ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$え_エ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$お_オ$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;k&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$か_カ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$き_キ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$く_ク$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$け_ケ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$こ_コ$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;s&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$さ_サ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$し_シ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$す_ス$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$せ_セ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$そ_ソ$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;t&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$た_タ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$ち_チ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$つ_ツ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$て_テ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$と_ト$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;n&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$な_ナ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$に_ニ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$ぬ_ヌ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$ね_ネ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$の_ノ$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;h&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$は_ハ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$ひ_ヒ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$ふ_フ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$へ_ヘ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$ほ_ホ$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;m&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$ま_マ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$み_ミ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$む_ム$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$め_メ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$も_モ$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;y&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$や_ヤ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$ゆ_ユ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$よ_ヨ$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;r&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$ら_ラ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$り_リ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$む_ル$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$め_レ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$ろ_ロ$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;w&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$わ_ワ$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$を_ヲ$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;: 五十音圖（5 段 10 行） 45 个音，90 个假名&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;汉字&lt;/dt&gt;
+&lt;dd&gt;名词，形容词，动词词干&lt;/dd&gt;
+&lt;dt&gt;平假名&lt;/dt&gt;
+&lt;dd&gt;形容词，动词词尾；
+助词，副词，助动词；
+无汉字或汉字难读难写的单词&lt;/dd&gt;
+&lt;dt&gt;片假名&lt;/dt&gt;
+&lt;dd&gt;外来词；
+拟声、拟态词；
+强调&lt;/dd&gt;
+&lt;dt&gt;罗马字&lt;/dt&gt;
+&lt;dd&gt;用拉丁字母标注的日语读音
+多用于人名，地名，公司名，产品名等&lt;/dd&gt;
+&lt;/dl&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

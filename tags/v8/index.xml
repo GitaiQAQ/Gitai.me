@@ -9,11 +9,11 @@
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
     <lastBuildDate>Mon, 30 Dec 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/v8/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>如何运行不可信代码？</title>
-      <link>https://gitai.me/2019/12/run-untrusted-javascript/</link>
+      <title>NodeJS 沙盒技术一览</title>
+      <link>https://gitai.me/2019/12/sandbox-of-nodejs/</link>
       <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://gitai.me/2019/12/run-untrusted-javascript/</guid>
+      <guid>https://gitai.me/2019/12/sandbox-of-nodejs/</guid>
       <description>Module Secure Memory Limits Isolated Multithreaded Module Support Inspector Support vm ✅ ✅ worker_threads ✅ ✅ ✅ vm2 ✅ ✅ ✅ napajs ✅ ✅ Partial webworker-threads ✅ ✅ tiny-worker ✅ ✅ isolated-vm ✅ ✅ ✅ ✅ ✅ Secure: Safely run untrusted code Memory Limits: Possible to set memory limits / safe against heap overflow DoS attacks Isolated: Is garbage collection, heap, etc isolated from application Multithreaded: Run code on many</description>
     </item>
     
