@@ -6,9 +6,9 @@ date:       2016-03-14 11:51:36
 author:     "Gitai"
 categories:
     - Lua
-tags:
-    - Lua
     - Android
+tags:
+    - 记录
 
 ---
 

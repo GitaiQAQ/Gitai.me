@@ -4,7 +4,8 @@ title:      "Chrome 插件&离线应用开发的坑"
 date:       2019-05-11
 author:     "Gitai"
 tags:
-     - 笔记
+    - 记录
+    - Chrome
 ---
 
 因为 Chrome 的那些接口又臭又长，而且都是异步回调，所以很适合练手 Promise/async 这些东西，但是遇到一个很奇怪的问题

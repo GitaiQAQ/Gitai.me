@@ -5,9 +5,7 @@ categories:
     - Android
 tags:
     - 记录
-    - Build
-    - Compilation
-    - Process
+    - 原理分析
 ---
 
 这篇文章是解释Android程序如何被编译和执行的概述。

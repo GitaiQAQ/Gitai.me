@@ -6698,3 +6698,94 @@ div.subtitle.tags {
   white-space: nowrap;
   overflow: hidden;
 }
+
+body > article > * {
+  margin: 0 24px;
+}
+
+body >article {
+  display: flex;
+  max-width: 1400px;
+  margin: auto;
+}
+
+body >article > section.section {
+  margin: auto;
+}
+
+section.right-menu, section.left-menu {
+  flex: 1;
+}
+
+body article > section.right-menu {
+  position: sticky;
+  padding: 3.5rem 0 3.5rem 0;
+  font-size: 14px;
+  line-height: 20px;
+  padding-left: 2px;
+}
+
+@media (max-width: 1160px) {
+  body >article {
+    display: block;
+  }
+  section.right-menu, section.left-menu  {
+    display: none;
+  }
+}
+
+
+body article section.right-menu > div {
+  margin-bottom: 2em;
+}
+
+body article section.right-menu > div > * {
+  margin-left: 5px;
+}
+
+body article section.right-menu > div label {
+  font-weight: 700;
+  letter-spacing: -1px;
+  display: block;
+  margin-bottom: 14px;
+  border-bottom: 1px dotted #999999;
+  color: #333333;
+  font-variant: small-caps;
+}
+
+body article section.right-menu > div nav > ul {
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+}
+
+body article section.right-menu > div nav > ul ul {
+  padding: 0px 0px 0px 14px;
+  margin: 0px 0px 0px 0px;
+  border-left: 1px solid #e6e6e6;
+}
+
+body article section.right-menu > div nav > ul ul li {
+  font-size: 90%;
+}
+
+body article section.right-menu > div ul {
+  list-style-type: none;
+}
+
+body article section.right-menu > div li {
+  padding: 8px 0px 8px 0px;
+  font-weight: 300;
+  border-bottom: 1px solid transparent;
+}
+
+body article section.right-menu > div li.active {
+  border-bottom: 1px dashed #999999;
+}
+
+body article section.right-menu > div li a {
+  padding-left: 2px;
+}
+
+body article section.right-menu .Actions {
+    font-size: 75%;
+}

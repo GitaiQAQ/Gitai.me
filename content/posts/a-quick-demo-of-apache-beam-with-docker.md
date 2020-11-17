@@ -5,12 +5,10 @@ title:      "Docker 下运行 Apache Beam 的例子"
 from: 		"https://medium.com/@0x0ece/a-quick-demo-of-apache-beam-with-docker-da98b99a502a"
 date:       2017-04-23
 author:     "Gitai"
-categories:
-    - Docker
-    - 翻译
 tags:
-    - 记录
-
+  - 记录
+  - Docker
+  - 翻译
 ---
 
 Apache Beam 是一个标准的编程模块，用于创建批处理和流式数据处理管道。

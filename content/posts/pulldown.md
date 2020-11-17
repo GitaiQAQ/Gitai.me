@@ -1,15 +1,10 @@
 ---
-title: Pulldown-cmark 分析
+title: WIP：Pulldown-cmark 分析
 date: 2016-07-31
-categories:
-    - Rust
 tags:
-    - Rust
-    - Markdown
-    - Parsing
-    - Pull
-    - XML
-    - 记录
+  - Rust
+  - Markdown
+  - Parsing
 ---
 
 ## Pulldown-cmark

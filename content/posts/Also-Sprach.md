@@ -4,10 +4,11 @@ layout:     post
 title:      "Also Sprach"
 date:       2016-03-26 18:15:36
 author:     "Gitai"
+categories:
+  - 轮子
 tags:
-    - Api
-    - REST
-
+  - Open API
+  - 操作手册
 ---
 
 > Share our collection of inspirational and famous quotes by authors you know and love. <author>BrainyQuote</author>

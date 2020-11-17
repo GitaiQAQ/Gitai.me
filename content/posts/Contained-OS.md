@@ -5,8 +5,7 @@ title:      "容器化系统实践"
 date:       2017-03-25
 author:     "Gitai"
 tags:
-    - 容器化
-    - Contained OS
+    - Docker
     - 记录
 
 ---

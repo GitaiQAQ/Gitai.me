@@ -4,8 +4,9 @@ layout:     post
 title:      "通用项目容器化小记"
 date:       2017-08-28
 author:     "Gitai"
-categories:
-    - 杂项
+tags:
+    - Docker
+    - 记录
 
 ---
 

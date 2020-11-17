@@ -1,6 +1,11 @@
+---
 title:   ChromeBook 开放外网访问
 date: 2016-12-25 10:10:36
+categories:
+    - ChromeOS
 tags:
+    - 记录
+    - Debug
 ---
 
 尝试在 Dell ChromeBook 11 i3 版本塞了一个不是那么大的 MC 服务器。 

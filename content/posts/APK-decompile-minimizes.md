@@ -5,8 +5,10 @@ title:      "简单分析那些巨无霸 APP 是如何产生的？"
 date:       2017-09-06
 author:     "Gitai"
 categories:
-    - 杂项
-
+    - Android
+tags:
+    - 原理分析
+    - 记录
 ---
 
 最近学校出现一台自助打印机，然后配套 APK 居然有 39 MB，遂我们来分析一下里面塞了啥？

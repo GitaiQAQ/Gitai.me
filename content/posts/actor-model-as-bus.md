@@ -3,6 +3,11 @@ layout:     post
 title:      "WIP: 另一种前后端同构"
 date:       2020-11-16
 author:     "Gitai"
+categories:
+  - 轮子
+tags:
+  - 造轮子
+  - Demo
 ---
 
 <!-- > 基于 Actor 模型的前后端同构的边缘计算方案的设计和实现 -->

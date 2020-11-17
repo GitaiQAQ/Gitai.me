@@ -3,8 +3,14 @@ layout:     post
 title:      "AST: 换个角度看结构化文本"
 date:       2019-05-17
 author:     "Gitai"
+categories:
+    - 轮子
 tags:
-    - 笔记
+    - 原理分析
+    - 记录
+    - 造轮子
+    - AST
+    - VSCode
 ---
 
 ![](https://i.loli.net/2019/06/21/5d0baee2b2e1c71323.png)
