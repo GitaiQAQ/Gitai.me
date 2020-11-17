@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>生态 on Gitai.me</title>
+    <link>https://gitai.me/tags/%E7%94%9F%E6%80%81/</link>
+    <description>Recent content in 生态 on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Thu, 25 Jul 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/%E7%94%9F%E6%80%81/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HTMLWebpackPlugin 增加新模板会遇到的坑</title>
+      <link>https://gitai.me/2019/07/webpack-html-plugin/</link>
+      <pubDate>Thu, 25 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/07/webpack-html-plugin/</guid>
+      <description>想用 Webpack 作为静态站点生成器，其优点不必多说，生态好。举个例子 多种多样的模板引擎，互相嵌套 JS/CSS 的各种预处理 资源文件的统一化？无论远程还是本地资源，</description>
+    </item>
+    
+  </channel>
+</rss>

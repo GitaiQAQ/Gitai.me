@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans-CN</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
-    <lastBuildDate>Fri, 21 Dec 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 16 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>轮子</title>
+      <link>https://gitai.me/categories/%E8%BD%AE%E5%AD%90/</link>
+      <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/%E8%BD%AE%E5%AD%90/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>JavaScript</title>
       <link>https://gitai.me/categories/javascript/</link>
@@ -41,6 +50,15 @@
       <pubDate>Sat, 28 Oct 2017 00:00:00 +0000</pubDate>
       
       <guid>https://gitai.me/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Android</title>
+      <link>https://gitai.me/categories/android/</link>
+      <pubDate>Wed, 06 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/android/</guid>
       <description></description>
     </item>
     
@@ -90,15 +108,6 @@
     </item>
     
     <item>
-      <title>翻译</title>
-      <link>https://gitai.me/categories/%E7%BF%BB%E8%AF%91/</link>
-      <pubDate>Sun, 23 Apr 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://gitai.me/categories/%E7%BF%BB%E8%AF%91/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>LatticeOS</title>
       <link>https://gitai.me/categories/latticeos/</link>
       <pubDate>Tue, 28 Mar 2017 00:00:00 +0000</pubDate>
@@ -113,6 +122,15 @@
       <pubDate>Thu, 23 Mar 2017 00:00:00 +0000</pubDate>
       
       <guid>https://gitai.me/categories/chromiumos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>翻译</title>
+      <link>https://gitai.me/categories/%E7%BF%BB%E8%AF%91/</link>
+      <pubDate>Thu, 23 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/%E7%BF%BB%E8%AF%91/</guid>
       <description></description>
     </item>
     
@@ -198,11 +216,11 @@
     </item>
     
     <item>
-      <title>Android</title>
-      <link>https://gitai.me/categories/android/</link>
-      <pubDate>Wed, 22 Jun 2016 00:00:00 +0000</pubDate>
+      <title>ChromeOS</title>
+      <link>https://gitai.me/categories/chromeos/</link>
+      <pubDate>Sun, 25 Dec 2016 10:10:36 +0000</pubDate>
       
-      <guid>https://gitai.me/categories/android/</guid>
+      <guid>https://gitai.me/categories/chromeos/</guid>
       <description></description>
     </item>
     
@@ -254,7 +272,7 @@
     <item>
       <title>Minecraft</title>
       <link>https://gitai.me/categories/minecraft/</link>
-      <pubDate>Sun, 31 Jan 2016 10:23:52 +0000</pubDate>
+      <pubDate>Fri, 01 Jan 2016 01:06:19 +0000</pubDate>
       
       <guid>https://gitai.me/categories/minecraft/</guid>
       <description></description>

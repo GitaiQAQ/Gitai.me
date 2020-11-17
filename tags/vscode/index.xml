@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>VSCode on Gitai.me</title>
+    <link>https://gitai.me/tags/vscode/</link>
+    <description>Recent content in VSCode on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Fri, 17 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/vscode/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AST: 换个角度看结构化文本</title>
+      <link>https://gitai.me/2019/05/astselector/</link>
+      <pubDate>Fri, 17 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/05/astselector/</guid>
+      <description>如果想要选中上述代码中的黄色部分也就是所有的字符串类型的值，无论是正则还是啥方法，都是基本无法完成的；所以我们需要引入 AST 换个角度分析问题。 居</description>
+    </item>
+    
+  </channel>
+</rss>

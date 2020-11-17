@@ -82,10 +82,10 @@
     
     <item>
       <title>HTMLWebpackPlugin 增加新模板会遇到的坑</title>
-      <link>https://gitai.me/2019/07/webpackhtmlplugin/</link>
+      <link>https://gitai.me/2019/07/webpack-html-plugin/</link>
       <pubDate>Thu, 25 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://gitai.me/2019/07/webpackhtmlplugin/</guid>
+      <guid>https://gitai.me/2019/07/webpack-html-plugin/</guid>
       <description>想用 Webpack 作为静态站点生成器，其优点不必多说，生态好。举个例子 多种多样的模板引擎，互相嵌套 JS/CSS 的各种预处理 资源文件的统一化？无论远程还是本地资源，</description>
     </item>
     
@@ -228,10 +228,10 @@
     
     <item>
       <title>用 SVG &#43; Canvas &#43; WASM 实现低性能下发图</title>
-      <link>https://gitai.me/2019/04/%E4%B8%8B%E5%8F%91%E5%9B%BE/</link>
+      <link>https://gitai.me/2019/04/wasm-%E5%AE%9E%E7%8E%B0%E4%B8%8B%E5%8F%91%E5%9B%BE/</link>
       <pubDate>Wed, 24 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://gitai.me/2019/04/%E4%B8%8B%E5%8F%91%E5%9B%BE/</guid>
+      <guid>https://gitai.me/2019/04/wasm-%E5%AE%9E%E7%8E%B0%E4%B8%8B%E5%8F%91%E5%9B%BE/</guid>
       <description>&lt;p&gt;V2 上面看到个推分享的&lt;a href=&#34;https://www.v2ex.com/t/556279&#34;&gt;数据可视化之下发图实践&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://diycode.b0.upaiyun.com/photo/2019/c8bf9ab0e153ea3d4e8e96af221ea252.gif&#34; alt=&#34;下发图 Demo&#34;&gt;&lt;/p&gt;
 &lt;p&gt;觉得挺有意思的，但是没用 Demo，所以在此尝试实现一下，并觉得他们的技术选型有问题。&lt;/p&gt;
@@ -896,6 +896,31 @@ php7.0-fpm/xenial-security,xenial-updates,now 7.0.15-0ubuntu0.16.04.4 amd64
     </item>
     
     <item>
+      <title>ChromeBook 开放外网访问</title>
+      <link>https://gitai.me/2016/12/chromebook-iptables/</link>
+      <pubDate>Sun, 25 Dec 2016 10:10:36 +0000</pubDate>
+      
+      <guid>https://gitai.me/2016/12/chromebook-iptables/</guid>
+      <description>&lt;p&gt;尝试在 Dell ChromeBook 11 i3 版本塞了一个不是那么大的 MC 服务器。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ ip addr
+1: lo: &amp;lt;LOOPBACK,UP,LOWER_UP&amp;gt; mtu &lt;span style=&#34;color:#ae81ff&#34;&gt;65536&lt;/span&gt; qdisc noqueue state UNKNOWN group default 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: wlan0: &amp;lt;BROADCAST,MULTICAST,UP,LOWER_UP&amp;gt; mtu &lt;span style=&#34;color:#ae81ff&#34;&gt;1500&lt;/span&gt; qdisc mq state UP group default qlen &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;
+    link/ether 34:68:95:82:e5:cd brd ff:ff:ff:ff:ff:ff
+    inet 192.168.10.139/24 brd 192.168.10.255 scope global wlan0
+    inet6 fdd4:64d:dd09:0:511b:d75b:e0f:b043/64 scope global temporary dynamic 
+       valid_lft 603780sec preferred_lft 84780sec
+    inet6 fdd4:64d:dd09:0:3668:95ff:fe82:e5cd/64 scope global dynamic 
+       valid_lft forever preferred_lft forever
+    inet6 fe80::3668:95ff:fe82:e5cd/64 scope link 
+       valid_lft forever preferred_lft forever
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
       <title>WIP：Pulldown-cmark 分析</title>
       <link>https://gitai.me/2016/07/pulldown/</link>
       <pubDate>Sun, 31 Jul 2016 00:00:00 +0000</pubDate>
@@ -1058,18 +1083,6 @@ php7.0-fpm/xenial-security,xenial-updates,now 7.0.15-0ubuntu0.16.04.4 amd64
     </item>
     
     <item>
-      <title>使用 Bluemix、Docker 和 Watson 为 Minecraft 创建认知插件</title>
-      <link>https://gitai.me/2016/01/cl-bluemix-minecraft-plugins-trs/</link>
-      <pubDate>Sun, 31 Jan 2016 10:23:52 +0000</pubDate>
-      
-      <guid>https://gitai.me/2016/01/cl-bluemix-minecraft-plugins-trs/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;哪个 Java™ 程序的使用频率比其他任何 Java 程序高整整一个数量级？ 提示： 自 2009 年发布 beta 版本以来，该程序已售出了 7000 多万个副本。Microsoft 最近以 25 亿美元收购了创建这个程序的公司。围绕此程序已经形成了一个庞大的开发生态系统，而且数十万的人受到鼓励开始学习 Java 编程 — 以便可以开发此程序的扩展版本。
-您从标题中可能已经猜到，这个程序就是 Minecraft 游戏，令人惊奇的是，这数十万开发人员主要是儿童和青少年。Minecraft 已成为市场上的一次现象级成功，部分原因在于它的独特结构：您可以通过商业渠道购买客户端（游戏的外观），但服务器可以自由扩展。任何人都可以启动自己的游戏服务器，这使得人们在根据自己的兴趣和好恶在网络上建立独特的 Minecraft 构建者社区时，拥有数千种不同的选择。&lt;/p&gt;
-&lt;/blockquote&gt;</description>
-    </item>
-    
-    <item>
       <title>如何在「Docker」环境构建「Minecraft」Server？</title>
       <link>https://gitai.me/2016/01/minecraft-in-docker/</link>
       <pubDate>Fri, 01 Jan 2016 01:06:19 +0000</pubDate>
@@ -1159,34 +1172,6 @@ php7.0-fpm/xenial-security,xenial-updates,now 7.0.15-0ubuntu0.16.04.4 amd64
 &lt;p&gt;&lt;a href=&#34;https://www.smartmontools.org/&#34;&gt;Smartmontools&lt;/a&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;sudo apt-get install smartmontools
 &lt;/code&gt;&lt;/pre&gt;</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://gitai.me/1/01/chromebook-iptables/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://gitai.me/1/01/chromebook-iptables/</guid>
-      <description>&lt;h2 id=&#34;tags&#34;&gt;title:   ChromeBook 开放外网访问
-date: 2016-12-25 10:10:36
-tags:&lt;/h2&gt;
-&lt;p&gt;尝试在 Dell ChromeBook 11 i3 版本塞了一个不是那么大的 MC 服务器。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ ip addr
-1: lo: &amp;lt;LOOPBACK,UP,LOWER_UP&amp;gt; mtu &lt;span style=&#34;color:#ae81ff&#34;&gt;65536&lt;/span&gt; qdisc noqueue state UNKNOWN group default 
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    inet 127.0.0.1/8 scope host lo
-    inet6 ::1/128 scope host 
-       valid_lft forever preferred_lft forever
-2: wlan0: &amp;lt;BROADCAST,MULTICAST,UP,LOWER_UP&amp;gt; mtu &lt;span style=&#34;color:#ae81ff&#34;&gt;1500&lt;/span&gt; qdisc mq state UP group default qlen &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;
-    link/ether 34:68:95:82:e5:cd brd ff:ff:ff:ff:ff:ff
-    inet 192.168.10.139/24 brd 192.168.10.255 scope global wlan0
-    inet6 fdd4:64d:dd09:0:511b:d75b:e0f:b043/64 scope global temporary dynamic 
-       valid_lft 603780sec preferred_lft 84780sec
-    inet6 fdd4:64d:dd09:0:3668:95ff:fe82:e5cd/64 scope global dynamic 
-       valid_lft forever preferred_lft forever
-    inet6 fe80::3668:95ff:fe82:e5cd/64 scope link 
-       valid_lft forever preferred_lft forever
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -1309,15 +1294,6 @@ tags:
 &lt;dd&gt;用拉丁字母标注的日语读音
 多用于人名，地名，公司名，产品名等&lt;/dd&gt;
 &lt;/dl&gt;</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://gitai.me/1/01/%E6%B8%85%E7%90%86%E8%84%9A%E6%9C%AC/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://gitai.me/1/01/%E6%B8%85%E7%90%86%E8%84%9A%E6%9C%AC/</guid>
-      <description>脚本有2 种用法，添加 install 参数表示安装（会指导用户添加计划任务），其余均通过管道读取配置；所以需要通过如下命令运行： cat clean.conf | ./clean.sh 正常状态会获得如下输</description>
     </item>
     
     <item>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Open API on Gitai.me</title>
+    <link>https://gitai.me/tags/open-api/</link>
+    <description>Recent content in Open API on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Sat, 26 Mar 2016 18:15:36 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/open-api/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Also Sprach</title>
+      <link>https://gitai.me/2016/03/also-sprach/</link>
+      <pubDate>Sat, 26 Mar 2016 18:15:36 +0000</pubDate>
+      
+      <guid>https://gitai.me/2016/03/also-sprach/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Share our collection of inspirational and famous quotes by authors you know and love. &lt;!-- raw HTML omitted --&gt;BrainyQuote&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Version: &lt;code&gt;0.2.4&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Total: &lt;code&gt;415405&lt;/code&gt;
+&lt;ul&gt;
+&lt;li&gt;zh-CN: &lt;code&gt;175706&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;en: &lt;code&gt;239699&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&#34;http://api.gitai.me/quote&#34;&gt;Quote REST Api&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;接口已经失效，如果有谁需要后端源码，发邮件啊～&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

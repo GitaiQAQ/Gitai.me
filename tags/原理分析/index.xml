@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>原理分析 on Gitai.me</title>
+    <link>https://gitai.me/tags/%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/</link>
+    <description>Recent content in 原理分析 on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Wed, 07 Aug 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>按需加载和自定义 require</title>
+      <link>https://gitai.me/2019/08/webpack-loadable/</link>
+      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/08/webpack-loadable/</guid>
+      <description>Webpack 都写了那么多篇了，发现还有一些东西没写，所以这里补一篇。关于 Webpack 的按需加载，以及和他没啥关系的自定义 require 过程。 按需加载 先说按需加载，Webpa</description>
+    </item>
+    
+    <item>
+      <title>Webpack 动态 import 实现原理 —— 附：蹭个 PR</title>
+      <link>https://gitai.me/2019/07/webpack-lazyload/</link>
+      <pubDate>Sat, 13 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/07/webpack-lazyload/</guid>
+      <description>本文主要因为以下这段代码并不符合预期，chunk 名字，没有生效 // @ts-ignore import( /* webpackChunkName: &amp;#34;[request]&amp;#34; */ &amp;#34;../docs/parcel.md&amp;#34; ).then( ({ default: html }) =&amp;gt; {} ); 但是下面这样就可以生效了 let parcel = &amp;#34;parcel&amp;#34;; import( /* webpackChunkName: &amp;#34;[request]&amp;#34; */ &amp;#34;../docs/&amp;#34; +</description>
+    </item>
+    
+    <item>
+      <title>AST: 换个角度看结构化文本</title>
+      <link>https://gitai.me/2019/05/astselector/</link>
+      <pubDate>Fri, 17 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/05/astselector/</guid>
+      <description>如果想要选中上述代码中的黄色部分也就是所有的字符串类型的值，无论是正则还是啥方法，都是基本无法完成的；所以我们需要引入 AST 换个角度分析问题。 居</description>
+    </item>
+    
+    <item>
+      <title>VSCode 断点调试 &amp; Webpack 初探</title>
+      <link>https://gitai.me/2019/04/vscode-%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95-webpack-%E5%88%9D%E6%8E%A2/</link>
+      <pubDate>Thu, 25 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/04/vscode-%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95-webpack-%E5%88%9D%E6%8E%A2/</guid>
+      <description>&lt;pre&gt;&lt;code&gt;  webpack
+  |- package.json
+  |- webpack.config.js
+  |- /src
+  |  |- index.js
+  |- /dist
+    |- index.js
+&lt;/code&gt;&lt;/pre&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;path&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;require&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;path&amp;#39;&lt;/span&gt;);
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;module&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;exports&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;entry&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;./src/index.js&amp;#39;&lt;/span&gt;,
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;output&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;filename&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;index.js&amp;#39;&lt;/span&gt;,
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;path&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;path&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;resolve&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;__dirname&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;dist&amp;#39;&lt;/span&gt;)
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这是一个最简单的 Webpack Demo，如果参照官方的教程（写的一塌糊涂），可能还在 &lt;code&gt;package.json&lt;/code&gt; 的 &lt;code&gt;script&lt;/code&gt; 定义了 &lt;code&gt;build&lt;/code&gt; 命令。&lt;/p&gt;
+&lt;p&gt;从 &lt;code&gt;webpack build&lt;/code&gt; 开始都发生了什么，来从 &lt;code&gt;node_modules/webpack/bin/webpack&lt;/code&gt; 开始看。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>简单分析那些巨无霸 APP 是如何产生的？</title>
+      <link>https://gitai.me/2017/09/apk-decompile-minimizes/</link>
+      <pubDate>Wed, 06 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/09/apk-decompile-minimizes/</guid>
+      <description>最近学校出现一台自助打印机，然后配套 APK 居然有 39 MB，遂我们来分析一下里面塞了啥？ PS: 虽然标题有逆向，但是并不打算写这部分，以及 smali 汇编语法也不做</description>
+    </item>
+    
+    <item>
+      <title>Android 主题引擎</title>
+      <link>https://gitai.me/2016/06/android-theme-engine/</link>
+      <pubDate>Tue, 21 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2016/06/android-theme-engine/</guid>
+      <description>&lt;p&gt;目前只有关于图标包的制作方法&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://gitai.me/img/Android-icon-packs-Google-Play-Store.png&#34; alt=&#34;Android-icon-packs-Google-Play-Store&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Android 打包流程</title>
+      <link>https://gitai.me/2016/06/android-application-build-or-compilation-process/</link>
+      <pubDate>Mon, 20 Jun 2016 07:04:34 +0000</pubDate>
+      
+      <guid>https://gitai.me/2016/06/android-application-build-or-compilation-process/</guid>
+      <description>&lt;p&gt;这篇文章是解释Android程序如何被编译和执行的概述。&lt;/p&gt;
+&lt;p&gt;因为 Android 应用程序的执行过程包括像 DEX，APK，dx tool，aapt tool和javac等各种术语.所以我会先尝试各种工具并参与编译和构建一个 Android 应用程序。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://gitai.me/img/android-application-build-process-diagram.png&#34; alt=&#34;android-application-build-process-diagram&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;.java&lt;/code&gt;: Java 文件拓展名&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.class&lt;/code&gt;: Java 文件编译后，一种8位字节的二进制流文件， 各个数据项按顺序紧密的从前向后排列， 相邻的项之间没有间隙， 这样可以使得class文件非常紧凑， 体积轻巧， 可以被JVM快速的加载至内存， 并且占据较少的内存空间。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DEX&lt;/code&gt;: Dalvik EXecutable file. 所有的.class文件内容整合到一个.dex文件&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;JVM&lt;/code&gt;: Java Virtual Machine. 基于虚拟栈的虚拟机&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DVM&lt;/code&gt;: Dalvik Virtual Machine. 基于寄存器的虚拟机&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;AIDL&lt;/code&gt;: Android Interface Definition Language&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;apk&lt;/code&gt;: Android Application Package file.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;aidl&lt;/code&gt;: converts all AIDL files into .java files.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dx&lt;/code&gt;: convert all .class files into a single DEX file.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;apkbuilder&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;zipalign&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

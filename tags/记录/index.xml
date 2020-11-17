@@ -7,7 +7,52 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans-CN</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
-    <lastBuildDate>Tue, 02 May 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/%E8%AE%B0%E5%BD%95/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 17 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/%E8%AE%B0%E5%BD%95/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AST: 换个角度看结构化文本</title>
+      <link>https://gitai.me/2019/05/astselector/</link>
+      <pubDate>Fri, 17 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/05/astselector/</guid>
+      <description>如果想要选中上述代码中的黄色部分也就是所有的字符串类型的值，无论是正则还是啥方法，都是基本无法完成的；所以我们需要引入 AST 换个角度分析问题。 居</description>
+    </item>
+    
+    <item>
+      <title>Chrome 插件&amp;离线应用开发的坑</title>
+      <link>https://gitai.me/2019/05/chrome.runtime.onmessage/</link>
+      <pubDate>Sat, 11 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/05/chrome.runtime.onmessage/</guid>
+      <description>因为 Chrome 的那些接口又臭又长，而且都是异步回调，所以很适合练手 Promise/async 这些东西，但是遇到一个很奇怪的问题 const onMessage = (asyncFunc) =&amp;gt; chrome.runtime.onMessage.addListener ((msg, sender, sendResponse) =&amp;gt; { sendResponse (msg); }); 上面是一般操作，但</description>
+    </item>
+    
+    <item>
+      <title>从自定义字体来看编码和显示的低耦合性</title>
+      <link>https://gitai.me/2017/10/custom-font/</link>
+      <pubDate>Sat, 28 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/10/custom-font/</guid>
+      <description>编程作业中难免不出现做计算器这种然并卵，但是涉及知识复杂，又难拔高的任务。 对于本文，不过就是我在这瞎说，给这个月凑一篇，不过也希望可以产生新</description>
+    </item>
+    
+    <item>
+      <title>简单分析那些巨无霸 APP 是如何产生的？</title>
+      <link>https://gitai.me/2017/09/apk-decompile-minimizes/</link>
+      <pubDate>Wed, 06 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/09/apk-decompile-minimizes/</guid>
+      <description>最近学校出现一台自助打印机，然后配套 APK 居然有 39 MB，遂我们来分析一下里面塞了啥？ PS: 虽然标题有逆向，但是并不打算写这部分，以及 smali 汇编语法也不做</description>
+    </item>
+    
+    <item>
+      <title>通用项目容器化小记</title>
+      <link>https://gitai.me/2017/08/containerized/</link>
+      <pubDate>Mon, 28 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/08/containerized/</guid>
+      <description>Linux 容器(LXC) 和 Docker 技术可以提供一致的和可扩展的环境。 低损耗的运行环境带来微服务化和云端迁移的快速普及。但是多数应用和所属生态并不能直接迁移</description>
+    </item>
+    
     <item>
       <title>ESP8266 的小探针</title>
       <link>https://gitai.me/2017/05/esp8266-sniffer/</link>
@@ -423,6 +468,31 @@ php7.0-fpm/xenial-security,xenial-updates,now 7.0.15-0ubuntu0.16.04.4 amd64
     </item>
     
     <item>
+      <title>ChromeBook 开放外网访问</title>
+      <link>https://gitai.me/2016/12/chromebook-iptables/</link>
+      <pubDate>Sun, 25 Dec 2016 10:10:36 +0000</pubDate>
+      
+      <guid>https://gitai.me/2016/12/chromebook-iptables/</guid>
+      <description>&lt;p&gt;尝试在 Dell ChromeBook 11 i3 版本塞了一个不是那么大的 MC 服务器。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ ip addr
+1: lo: &amp;lt;LOOPBACK,UP,LOWER_UP&amp;gt; mtu &lt;span style=&#34;color:#ae81ff&#34;&gt;65536&lt;/span&gt; qdisc noqueue state UNKNOWN group default 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: wlan0: &amp;lt;BROADCAST,MULTICAST,UP,LOWER_UP&amp;gt; mtu &lt;span style=&#34;color:#ae81ff&#34;&gt;1500&lt;/span&gt; qdisc mq state UP group default qlen &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;
+    link/ether 34:68:95:82:e5:cd brd ff:ff:ff:ff:ff:ff
+    inet 192.168.10.139/24 brd 192.168.10.255 scope global wlan0
+    inet6 fdd4:64d:dd09:0:511b:d75b:e0f:b043/64 scope global temporary dynamic 
+       valid_lft 603780sec preferred_lft 84780sec
+    inet6 fdd4:64d:dd09:0:3668:95ff:fe82:e5cd/64 scope global dynamic 
+       valid_lft forever preferred_lft forever
+    inet6 fe80::3668:95ff:fe82:e5cd/64 scope link 
+       valid_lft forever preferred_lft forever
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
       <title>聚合 Android 主题</title>
       <link>https://gitai.me/2016/06/merge-android-theme/</link>
       <pubDate>Wed, 22 Jun 2016 00:00:00 +0000</pubDate>
@@ -483,6 +553,17 @@ php7.0-fpm/xenial-security,xenial-updates,now 7.0.15-0ubuntu0.16.04.4 amd64
     </item>
     
     <item>
+      <title>Compile Lua 5.3.2 using Android Studio</title>
+      <link>https://gitai.me/2016/03/compile-lua-5-3-2-using-android-studio/</link>
+      <pubDate>Mon, 14 Mar 2016 11:51:36 +0000</pubDate>
+      
+      <guid>https://gitai.me/2016/03/compile-lua-5-3-2-using-android-studio/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Lua&lt;/strong&gt;  是一门强大、快速、轻量的嵌入式脚本语言。它由巴西里约热内卢 Pontifical Catholic 大学的 PUC-Rio 团队 开发。 Lua 是一个 自由软件， 广泛应用于世界上无数产品和项目。(&lt;a href=&#34;http://www.lua.org/&#34;&gt;http://www.lua.org/&lt;/a&gt;)&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
       <title>如何构建「tasker」插件？</title>
       <link>https://gitai.me/2016/02/plugin-for-tasker/</link>
       <pubDate>Sun, 07 Feb 2016 13:22:51 +0000</pubDate>
@@ -490,18 +571,6 @@ php7.0-fpm/xenial-security,xenial-updates,now 7.0.15-0ubuntu0.16.04.4 amd64
       <guid>https://gitai.me/2016/02/plugin-for-tasker/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Tasker绝对称得上是Android系统的神器之一，与Auto Memory Manager不同，Tasker不是加速型的软件，而是系统增强型的软件，由于有众多系统状态可控制，故使得Tasker一跃成为Android系统中最闪亮的明星。但Tasker也无疑是最难使用的软件，由于可以控制的地方太多，反而让人觉得有些无所适从，不知道要从哪开始下手，大家看教程吧，市场里售价6.3美金，准5星级评价。@CoolAPK&lt;/p&gt;
-&lt;/blockquote&gt;</description>
-    </item>
-    
-    <item>
-      <title>使用 Bluemix、Docker 和 Watson 为 Minecraft 创建认知插件</title>
-      <link>https://gitai.me/2016/01/cl-bluemix-minecraft-plugins-trs/</link>
-      <pubDate>Sun, 31 Jan 2016 10:23:52 +0000</pubDate>
-      
-      <guid>https://gitai.me/2016/01/cl-bluemix-minecraft-plugins-trs/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;哪个 Java™ 程序的使用频率比其他任何 Java 程序高整整一个数量级？ 提示： 自 2009 年发布 beta 版本以来，该程序已售出了 7000 多万个副本。Microsoft 最近以 25 亿美元收购了创建这个程序的公司。围绕此程序已经形成了一个庞大的开发生态系统，而且数十万的人受到鼓励开始学习 Java 编程 — 以便可以开发此程序的扩展版本。
-您从标题中可能已经猜到，这个程序就是 Minecraft 游戏，令人惊奇的是，这数十万开发人员主要是儿童和青少年。Minecraft 已成为市场上的一次现象级成功，部分原因在于它的独特结构：您可以通过商业渠道购买客户端（游戏的外观），但服务器可以自由扩展。任何人都可以启动自己的游戏服务器，这使得人们在根据自己的兴趣和好恶在网络上建立独特的 Minecraft 构建者社区时，拥有数千种不同的选择。&lt;/p&gt;
 &lt;/blockquote&gt;</description>
     </item>
     

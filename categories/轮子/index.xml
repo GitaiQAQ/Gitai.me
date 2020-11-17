@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>轮子 on Gitai.me</title>
+    <link>https://gitai.me/categories/%E8%BD%AE%E5%AD%90/</link>
+    <description>Recent content in 轮子 on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Mon, 16 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/categories/%E8%BD%AE%E5%AD%90/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WIP: 另一种前后端同构</title>
+      <link>https://gitai.me/2020/11/actor-model-as-bus/</link>
+      <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2020/11/actor-model-as-bus/</guid>
+      <description>一般来说的前后端同构都是指用 React 之类的支持 SSR 的框架做服务端预渲染，然后直接混入进行 render 的一种提升用户体验的方式。 实际上在服务端本身就存在同构这种</description>
+    </item>
+    
+    <item>
+      <title>AST: 换个角度看结构化文本</title>
+      <link>https://gitai.me/2019/05/astselector/</link>
+      <pubDate>Fri, 17 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/05/astselector/</guid>
+      <description>如果想要选中上述代码中的黄色部分也就是所有的字符串类型的值，无论是正则还是啥方法，都是基本无法完成的；所以我们需要引入 AST 换个角度分析问题。 居</description>
+    </item>
+    
+    <item>
+      <title>使用 Promise 实现的单元测试框架</title>
+      <link>https://gitai.me/2019/04/%E4%BD%BF%E7%94%A8-promise-%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/</link>
+      <pubDate>Thu, 25 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/04/%E4%BD%BF%E7%94%A8-promise-%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/</guid>
+      <description>&lt;p&gt;写完才发现，到底是单元测试框架还是单元测试函数，是个问题？毕竟才&lt;/p&gt;
+&lt;p&gt;不到 50 行。&lt;/p&gt;
+&lt;p&gt;上一篇看 Webpack 源码的然后写了个仿 &lt;code&gt;tape&lt;/code&gt;，这里来理理如何用 Promise 实现单元测试。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;test&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;A passing test&amp;#39;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;assert&lt;/span&gt;) =&amp;gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;assert&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;pass&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;This test will pass.&amp;#39;&lt;/span&gt;);
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;assert&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;end&lt;/span&gt;();
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;例子是这样的，有那么一个 &lt;code&gt;test&lt;/code&gt; 方法，接受一个 Label 和函数作为参数。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>用 SVG &#43; Canvas &#43; WASM 实现低性能下发图</title>
+      <link>https://gitai.me/2019/04/wasm-%E5%AE%9E%E7%8E%B0%E4%B8%8B%E5%8F%91%E5%9B%BE/</link>
+      <pubDate>Wed, 24 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/04/wasm-%E5%AE%9E%E7%8E%B0%E4%B8%8B%E5%8F%91%E5%9B%BE/</guid>
+      <description>&lt;p&gt;V2 上面看到个推分享的&lt;a href=&#34;https://www.v2ex.com/t/556279&#34;&gt;数据可视化之下发图实践&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://diycode.b0.upaiyun.com/photo/2019/c8bf9ab0e153ea3d4e8e96af221ea252.gif&#34; alt=&#34;下发图 Demo&#34;&gt;&lt;/p&gt;
+&lt;p&gt;觉得挺有意思的，但是没用 Demo，所以在此尝试实现一下，并觉得他们的技术选型有问题。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://diycode.b0.upaiyun.com/photo/2019/c5bb8be7371282d71c7f808433cafb50.png&#34; alt=&#34;两款技术栈的具体性能对比&#34;&gt;&lt;/p&gt;
+&lt;p&gt;首先，SVG 非原生的动画，实现上频繁触发 DOM 操作，要不然 SVG 本身性能应该不会比 Canvas 差。&lt;/p&gt;
+&lt;p&gt;所以我准备复合上述 2 种方案，并且引入 WASM 优化计算逻辑，直接调用 Canvas。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Also Sprach</title>
+      <link>https://gitai.me/2016/03/also-sprach/</link>
+      <pubDate>Sat, 26 Mar 2016 18:15:36 +0000</pubDate>
+      
+      <guid>https://gitai.me/2016/03/also-sprach/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Share our collection of inspirational and famous quotes by authors you know and love. &lt;!-- raw HTML omitted --&gt;BrainyQuote&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Version: &lt;code&gt;0.2.4&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Total: &lt;code&gt;415405&lt;/code&gt;
+&lt;ul&gt;
+&lt;li&gt;zh-CN: &lt;code&gt;175706&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;en: &lt;code&gt;239699&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&#34;http://api.gitai.me/quote&#34;&gt;Quote REST Api&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;接口已经失效，如果有谁需要后端源码，发邮件啊～&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Cli-Coding</title>
+      <link>https://gitai.me/2015/10/cli-coding/</link>
+      <pubDate>Mon, 26 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2015/10/cli-coding/</guid>
+      <description>&lt;h1 id=&#34;cli-coding&#34;&gt;Cli-Coding&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&#34;https://img.shields.io/dub/l/vibe-d.svg&#34; alt=&#34;MIT&#34;&gt;&lt;/p&gt;
+&lt;p&gt;A simple command-line tool for coding.net by nodejs&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

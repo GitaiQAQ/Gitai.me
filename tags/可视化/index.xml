@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>可视化 on Gitai.me</title>
+    <link>https://gitai.me/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/</link>
+    <description>Recent content in 可视化 on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Wed, 24 Apr 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>用 SVG &#43; Canvas &#43; WASM 实现低性能下发图</title>
+      <link>https://gitai.me/2019/04/wasm-%E5%AE%9E%E7%8E%B0%E4%B8%8B%E5%8F%91%E5%9B%BE/</link>
+      <pubDate>Wed, 24 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/04/wasm-%E5%AE%9E%E7%8E%B0%E4%B8%8B%E5%8F%91%E5%9B%BE/</guid>
+      <description>&lt;p&gt;V2 上面看到个推分享的&lt;a href=&#34;https://www.v2ex.com/t/556279&#34;&gt;数据可视化之下发图实践&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://diycode.b0.upaiyun.com/photo/2019/c8bf9ab0e153ea3d4e8e96af221ea252.gif&#34; alt=&#34;下发图 Demo&#34;&gt;&lt;/p&gt;
+&lt;p&gt;觉得挺有意思的，但是没用 Demo，所以在此尝试实现一下，并觉得他们的技术选型有问题。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://diycode.b0.upaiyun.com/photo/2019/c5bb8be7371282d71c7f808433cafb50.png&#34; alt=&#34;两款技术栈的具体性能对比&#34;&gt;&lt;/p&gt;
+&lt;p&gt;首先，SVG 非原生的动画，实现上频繁触发 DOM 操作，要不然 SVG 本身性能应该不会比 Canvas 差。&lt;/p&gt;
+&lt;p&gt;所以我准备复合上述 2 种方案，并且引入 WASM 优化计算逻辑，直接调用 Canvas。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

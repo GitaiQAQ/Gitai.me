@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ChromeOS on Gitai.me</title>
+    <link>https://gitai.me/categories/chromeos/</link>
+    <description>Recent content in ChromeOS on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Sun, 25 Dec 2016 10:10:36 +0000</lastBuildDate><atom:link href="https://gitai.me/categories/chromeos/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ChromeBook 开放外网访问</title>
+      <link>https://gitai.me/2016/12/chromebook-iptables/</link>
+      <pubDate>Sun, 25 Dec 2016 10:10:36 +0000</pubDate>
+      
+      <guid>https://gitai.me/2016/12/chromebook-iptables/</guid>
+      <description>&lt;p&gt;尝试在 Dell ChromeBook 11 i3 版本塞了一个不是那么大的 MC 服务器。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ ip addr
+1: lo: &amp;lt;LOOPBACK,UP,LOWER_UP&amp;gt; mtu &lt;span style=&#34;color:#ae81ff&#34;&gt;65536&lt;/span&gt; qdisc noqueue state UNKNOWN group default 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: wlan0: &amp;lt;BROADCAST,MULTICAST,UP,LOWER_UP&amp;gt; mtu &lt;span style=&#34;color:#ae81ff&#34;&gt;1500&lt;/span&gt; qdisc mq state UP group default qlen &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;
+    link/ether 34:68:95:82:e5:cd brd ff:ff:ff:ff:ff:ff
+    inet 192.168.10.139/24 brd 192.168.10.255 scope global wlan0
+    inet6 fdd4:64d:dd09:0:511b:d75b:e0f:b043/64 scope global temporary dynamic 
+       valid_lft 603780sec preferred_lft 84780sec
+    inet6 fdd4:64d:dd09:0:3668:95ff:fe82:e5cd/64 scope global dynamic 
+       valid_lft forever preferred_lft forever
+    inet6 fe80::3668:95ff:fe82:e5cd/64 scope link 
+       valid_lft forever preferred_lft forever
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

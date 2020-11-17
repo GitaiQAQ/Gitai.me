@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Webpack | Gitai.me</title>
+
+<meta property='og:title' content='Webpack - Gitai.me'>
+<meta property='og:description' content=''>
+<meta property='og:url' content='https://gitai.me/series/webpack/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='website'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Series'><meta property='og:updated_time' content='2020-11-16T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/series/webpack/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    
+    <article>
+      <div class="subtitle tags is-6 is-pulled-right">
+        
+        
+<a class="subtitle is-6" href="/tags/%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/">#原理分析</a>
+
+
+
+
+        
+      </div>
+      <h2 class="subtitle is-6 date">August 7, 2019</h2>
+      <h1 class="title"><a href="https://gitai.me/2019/08/webpack-loadable/">按需加载和自定义 require
+
+  
+    
+  
+    
+  
+    
+  
+</a></h1>
+      <div class="content">
+        Webpack 都写了那么多篇了，发现还有一些东西没写，所以这里补一篇。关于 Webpack 的按需加载，以及和他没啥关系的自定义 require 过程。 按需加载 先说按需加载，Webpa
+        
+        <a class="button is-link" href="https://gitai.me/2019/08/webpack-loadable/" style="height:28px">
+          Read more
+        </a>
+        
+      </div>
+    </article>
+    
+    <article>
+      <div class="subtitle tags is-6 is-pulled-right">
+        
+        
+<a class="subtitle is-6" href="/tags/%E7%94%9F%E6%80%81/">#生态</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/%E6%8F%92%E4%BB%B6/">#插件</a>
+  
+
+
+        
+      </div>
+      <h2 class="subtitle is-6 date">July 25, 2019</h2>
+      <h1 class="title"><a href="https://gitai.me/2019/07/webpack-html-plugin/">HTMLWebpackPlugin 增加新模板会遇到的坑
+
+  
+    
+  
+    
+  
+    
+  
+</a></h1>
+      <div class="content">
+        想用 Webpack 作为静态站点生成器，其优点不必多说，生态好。举个例子 多种多样的模板引擎，互相嵌套 JS/CSS 的各种预处理 资源文件的统一化？无论远程还是本地资源，
+        
+        <a class="button is-link" href="https://gitai.me/2019/07/webpack-html-plugin/" style="height:28px">
+          Read more
+        </a>
+        
+      </div>
+    </article>
+    
+    <article>
+      <div class="subtitle tags is-6 is-pulled-right">
+        
+        
+<a class="subtitle is-6" href="/tags/%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/">#原理分析</a>
+
+
+
+
+        
+      </div>
+      <h2 class="subtitle is-6 date">July 13, 2019</h2>
+      <h1 class="title"><a href="https://gitai.me/2019/07/webpack-lazyload/">Webpack 动态 import 实现原理 —— 附：蹭个 PR
+
+  
+    
+  
+    
+  
+    
+  
+</a></h1>
+      <div class="content">
+        本文主要因为以下这段代码并不符合预期，chunk 名字，没有生效 // @ts-ignore import( /* webpackChunkName: &quot;[request]&quot; */ &quot;../docs/parcel.md&quot; ).then( ({ default: html }) =&gt; {} ); 但是下面这样就可以生效了 let parcel = &quot;parcel&quot;; import( /* webpackChunkName: &quot;[request]&quot; */ &quot;../docs/&quot; +
+        
+        <a class="button is-link" href="https://gitai.me/2019/07/webpack-lazyload/" style="height:28px">
+          Read more
+        </a>
+        
+      </div>
+    </article>
+    
+    <article>
+      <div class="subtitle tags is-6 is-pulled-right">
+        
+        
+<a class="subtitle is-6" href="/tags/%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/">#原理分析</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/debug/">#Debug</a>
+  
+
+
+        
+      </div>
+      <h2 class="subtitle is-6 date">April 25, 2019</h2>
+      <h1 class="title"><a href="https://gitai.me/2019/04/vscode-%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95-webpack-%E5%88%9D%E6%8E%A2/">VSCode 断点调试 &amp; Webpack 初探
+
+  
+    
+  
+    
+  
+    
+  
+</a></h1>
+      <div class="content">
+        <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p><!-- raw HTML omitted -->module<!-- raw HTML omitted -->.<!-- raw HTML omitted -->exports<!-- raw HTML omitted --> <!-- raw HTML omitted -->=<!-- raw HTML omitted --> {
+<!-- raw HTML omitted -->entry<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> <!-- raw HTML omitted -->'./src/index.js'<!-- raw HTML omitted -->,
+<!-- raw HTML omitted -->output<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> {
+<!-- raw HTML omitted -->filename<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> <!-- raw HTML omitted -->'index.js'<!-- raw HTML omitted -->,
+<!-- raw HTML omitted -->path<!-- raw HTML omitted --><!-- raw HTML omitted -->:<!-- raw HTML omitted --> <!-- raw HTML omitted -->path<!-- raw HTML omitted -->.<!-- raw HTML omitted -->resolve<!-- raw HTML omitted -->(<!-- raw HTML omitted -->__dirname<!-- raw HTML omitted -->, <!-- raw HTML omitted -->'dist'<!-- raw HTML omitted -->)
+}
+};
+<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->这是一个最简单的 Webpack Demo，如果参照官方的教程（写的一塌糊涂），可能还在 <!-- raw HTML omitted -->package.json<!-- raw HTML omitted --> 的 <!-- raw HTML omitted -->script<!-- raw HTML omitted --> 定义了 <!-- raw HTML omitted -->build<!-- raw HTML omitted --> 命令。<!-- raw HTML omitted --></p>
+<!-- raw HTML omitted -->
+        
+        <a class="button is-link" href="https://gitai.me/2019/04/vscode-%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95-webpack-%E5%88%9D%E6%8E%A2/" style="height:28px">
+          Read more
+        </a>
+        
+      </div>
+    </article>
+    
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <nav class="level is-mobile">
+      <div class="level-left">
+        <div class="level-item">
+          
+        </div>
+      </div>
+      <div class="level-right is-marginless">
+        <div class="level-item">
+          
+        </div>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+
+

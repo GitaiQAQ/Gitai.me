@@ -7,7 +7,25 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans-CN</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
-    <lastBuildDate>Thu, 25 Apr 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/%E9%80%A0%E8%BD%AE%E5%AD%90/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 16 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/%E9%80%A0%E8%BD%AE%E5%AD%90/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WIP: 另一种前后端同构</title>
+      <link>https://gitai.me/2020/11/actor-model-as-bus/</link>
+      <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2020/11/actor-model-as-bus/</guid>
+      <description>一般来说的前后端同构都是指用 React 之类的支持 SSR 的框架做服务端预渲染，然后直接混入进行 render 的一种提升用户体验的方式。 实际上在服务端本身就存在同构这种</description>
+    </item>
+    
+    <item>
+      <title>AST: 换个角度看结构化文本</title>
+      <link>https://gitai.me/2019/05/astselector/</link>
+      <pubDate>Fri, 17 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/05/astselector/</guid>
+      <description>如果想要选中上述代码中的黄色部分也就是所有的字符串类型的值，无论是正则还是啥方法，都是基本无法完成的；所以我们需要引入 AST 换个角度分析问题。 居</description>
+    </item>
+    
     <item>
       <title>使用 Promise 实现的单元测试框架</title>
       <link>https://gitai.me/2019/04/%E4%BD%BF%E7%94%A8-promise-%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/</link>
@@ -22,6 +40,17 @@
     &lt;span style=&#34;color:#a6e22e&#34;&gt;assert&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;end&lt;/span&gt;();
 });
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;例子是这样的，有那么一个 &lt;code&gt;test&lt;/code&gt; 方法，接受一个 Label 和函数作为参数。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Cli-Coding</title>
+      <link>https://gitai.me/2015/10/cli-coding/</link>
+      <pubDate>Mon, 26 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2015/10/cli-coding/</guid>
+      <description>&lt;h1 id=&#34;cli-coding&#34;&gt;Cli-Coding&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&#34;https://img.shields.io/dub/l/vibe-d.svg&#34; alt=&#34;MIT&#34;&gt;&lt;/p&gt;
+&lt;p&gt;A simple command-line tool for coding.net by nodejs&lt;/p&gt;</description>
     </item>
     
   </channel>

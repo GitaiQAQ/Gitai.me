@@ -28,17 +28,6 @@
     </item>
     
     <item>
-      <title>Compile Lua 5.3.2 using Android Studio</title>
-      <link>https://gitai.me/2016/03/compile-lua-5-3-2-using-android-studio/</link>
-      <pubDate>Mon, 14 Mar 2016 11:51:36 +0000</pubDate>
-      
-      <guid>https://gitai.me/2016/03/compile-lua-5-3-2-using-android-studio/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Lua&lt;/strong&gt;  是一门强大、快速、轻量的嵌入式脚本语言。它由巴西里约热内卢 Pontifical Catholic 大学的 PUC-Rio 团队 开发。 Lua 是一个 自由软件， 广泛应用于世界上无数产品和项目。(&lt;a href=&#34;http://www.lua.org/&#34;&gt;http://www.lua.org/&lt;/a&gt;)&lt;/p&gt;
-&lt;/blockquote&gt;</description>
-    </item>
-    
-    <item>
       <title>Captchas Tool</title>
       <link>https://gitai.me/2015/12/smscodehelper/</link>
       <pubDate>Sun, 13 Dec 2015 00:00:00 +0000</pubDate>

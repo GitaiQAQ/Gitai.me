@@ -18,12 +18,54 @@
     </item>
     
     <item>
+      <title>通用项目容器化小记</title>
+      <link>https://gitai.me/2017/08/containerized/</link>
+      <pubDate>Mon, 28 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/08/containerized/</guid>
+      <description>Linux 容器(LXC) 和 Docker 技术可以提供一致的和可扩展的环境。 低损耗的运行环境带来微服务化和云端迁移的快速普及。但是多数应用和所属生态并不能直接迁移</description>
+    </item>
+    
+    <item>
       <title>Docker 运行 Spark 集群</title>
       <link>https://gitai.me/2017/05/running-spark-on-docker-swarm/</link>
       <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
       
       <guid>https://gitai.me/2017/05/running-spark-on-docker-swarm/</guid>
       <description>安装 docker 环境 参见之前的容器化系统的初始化教程。12 # curl -sSL get.docker.com | bash # pip install docker-compose $ git clone https://github.com/gettyimages/docker-spark.git . ├── conf │ ├── master │ │ └── spark-defaults.conf │ └── worker │ └── spark-defaults.conf ├── data ├─</description>
+    </item>
+    
+    <item>
+      <title>Docker 下运行 Apache Beam 的例子</title>
+      <link>https://gitai.me/2017/04/a-quick-demo-of-apache-beam-with-docker/</link>
+      <pubDate>Sun, 23 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/04/a-quick-demo-of-apache-beam-with-docker/</guid>
+      <description>&lt;p&gt;Apache Beam 是一个标准的编程模块，用于创建批处理和流式数据处理管道。&lt;/p&gt;
+&lt;p&gt;简言之,这是一个 Java SDK，我们可以使用它来开发分析管道，如计算用户或事件，提取热门话题，或者分析用户会话。&lt;/p&gt;
+&lt;p&gt;在这篇文章中，将说明如何在数分钟内启动一个 Apache Beam 的 demo ，得益于 docker 预打包的 Apache Flink 和 Beam。&lt;/p&gt;
+&lt;p&gt;开始创建梁管道的 demo 也可以在 &lt;a href=&#34;https://github.com/ecesena/beam-starter&#34;&gt;Github&lt;/a&gt; 上找到。&lt;/p&gt;
+&lt;p&gt;为了运行这个 demo， 我没需要 docker 和 docker-compose，为了运行 Beam 我们还需要 Java 和 Maven。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>容器化系统实践</title>
+      <link>https://gitai.me/2017/03/contained-os/</link>
+      <pubDate>Sat, 25 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/03/contained-os/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;App Sandbox is an access control technology provided in OS X, enforced at the kernel level. Its strategy is twofold:
+App Sandbox enables you to describe how your app interacts with the system. The system then grants your app the access it needs to get its job done, and no more.
+App Sandbox provides a last line of defense against the theft, corruption, or deletion of user data if an attacker successfully exploits security holes in your app or the frameworks it is linked against.
+— Apple About App Sandbox[^2.1]&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Containers Are the Next Package Manager &lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;quick-start&#34;&gt;Quick Start&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;curl http://isostore-1252924862.cosgz.myqcloud.com/cins/install.sh | bash
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -98,18 +140,6 @@
       <description>&lt;p&gt;这些是构建 Container Linux 本身的说明。 在本指南结束时，您将构建一个可以在 KVM 下运行的开发版映像，并具有用于更改代码的工具。&lt;/p&gt;
 &lt;p&gt;容器 Linux 是一个开源项目。 所有的容器 Linux 的源都可以在 &lt;a href=&#34;https://github.com/coreos/&#34;&gt;github&lt;/a&gt; 上。 如果您发现这些文档或代码的问题，请发送pull请求。&lt;/p&gt;
 &lt;p&gt;直接发问题和建议到&lt;a href=&#34;irc://irc.freenode.org:6667/#coreos&#34;&gt;IRC频道&lt;/a&gt;或&lt;a href=&#34;https://groups.google.com/forum/#!forum/coreos-dev&#34;&gt;邮件列表&lt;/a&gt;。&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>使用 Bluemix、Docker 和 Watson 为 Minecraft 创建认知插件</title>
-      <link>https://gitai.me/2016/01/cl-bluemix-minecraft-plugins-trs/</link>
-      <pubDate>Sun, 31 Jan 2016 10:23:52 +0000</pubDate>
-      
-      <guid>https://gitai.me/2016/01/cl-bluemix-minecraft-plugins-trs/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;哪个 Java™ 程序的使用频率比其他任何 Java 程序高整整一个数量级？ 提示： 自 2009 年发布 beta 版本以来，该程序已售出了 7000 多万个副本。Microsoft 最近以 25 亿美元收购了创建这个程序的公司。围绕此程序已经形成了一个庞大的开发生态系统，而且数十万的人受到鼓励开始学习 Java 编程 — 以便可以开发此程序的扩展版本。
-您从标题中可能已经猜到，这个程序就是 Minecraft 游戏，令人惊奇的是，这数十万开发人员主要是儿童和青少年。Minecraft 已成为市场上的一次现象级成功，部分原因在于它的独特结构：您可以通过商业渠道购买客户端（游戏的外观），但服务器可以自由扩展。任何人都可以启动自己的游戏服务器，这使得人们在根据自己的兴趣和好恶在网络上建立独特的 Minecraft 构建者社区时，拥有数千种不同的选择。&lt;/p&gt;
-&lt;/blockquote&gt;</description>
     </item>
     
     <item>

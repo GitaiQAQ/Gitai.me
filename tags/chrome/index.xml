@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Chrome on Gitai.me</title>
+    <link>https://gitai.me/tags/chrome/</link>
+    <description>Recent content in Chrome on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Sat, 11 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/chrome/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Chrome 插件&amp;离线应用开发的坑</title>
+      <link>https://gitai.me/2019/05/chrome.runtime.onmessage/</link>
+      <pubDate>Sat, 11 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/05/chrome.runtime.onmessage/</guid>
+      <description>因为 Chrome 的那些接口又臭又长，而且都是异步回调，所以很适合练手 Promise/async 这些东西，但是遇到一个很奇怪的问题 const onMessage = (asyncFunc) =&amp;gt; chrome.runtime.onMessage.addListener ((msg, sender, sendResponse) =&amp;gt; { sendResponse (msg); }); 上面是一般操作，但</description>
+    </item>
+    
+  </channel>
+</rss>

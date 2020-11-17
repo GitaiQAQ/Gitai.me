@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>HTMLWebpackPlugin 增加新模板会遇到的坑 | Gitai.me</title>
+
+<meta property='og:title' content='HTMLWebpackPlugin 增加新模板会遇到的坑 - Gitai.me'>
+<meta property='og:description' content='想用 Webpack 作为静态站点生成器，其优点不必多说，生态好。举个例子 多种多样的模板引擎，互相嵌套 JS/CSS 的各种预处理 资源文件的统一化？无论远程还是本地资源，'>
+<meta property='og:url' content='https://gitai.me/2019/07/webpack-html-plugin/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='生态'><meta property='article:tag' content='插件'><meta property='article:published_time' content='2019-07-25T00:00:00Z'/><meta property='article:modified_time' content='2019-07-25T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2019/07/webpack-html-plugin/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/%E7%94%9F%E6%80%81/">#生态</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/%E6%8F%92%E4%BB%B6/">#插件</a>
+  
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">July 25, 2019</h2>
+    <h1 class="title">HTMLWebpackPlugin 增加新模板会遇到的坑</h1>
+    
+    <div class="content">
+      <p>想用 Webpack 作为静态站点生成器，其优点不必多说，生态好。举个例子</p>
+<ul>
+<li>多种多样的模板引擎，互相嵌套</li>
+<li>JS/CSS 的各种预处理</li>
+<li>资源文件的统一化？无论远程还是本地资源，都能以合适的方式进行打包</li>
+</ul>
+<p>但是 Webpack SPA 用的比较多，MPA 这种传统用法，轮子还真少。要想生成静态页，还要带模板特性的比登天还难。故踩了几天坑，留下此文。</p>
+<p>首先理一下需求，多页的静态站，比如这个 Blog，自然没必要用 SPA 那种 JS 组件化和运行时生成 HTML 的方案，无意义的资源浪费。</p>
+<p>或许稍微看过文档的都知道，有多 Entry 的实现方式，配合对应的导出插件，可以实现多页的 SPA；为啥叫多页的 SPA，因为虽然有多个 HTML 入口，但是其依然是万物都来自 JS 的思想，使用 JS 组件化的相关方案；和传统后端写模板页面的逻辑完全不是一码事，传统模板页面组件细化程度，没这么夸张。但是它的每个页面都是一个静态的 URL 地址，比如：<code>/model/resID</code> 然后会出现对应的 ID 地址下的 HTML 文件。</p>
+<p>至于为什么要实现这个鬼东西，因为这是一套几年前的旧项目，抽离组件化太困难了，还是求其次，弄模板化和预编译进来比较省事。</p>
+<!-- raw HTML omitted -->
+<h2 id="预研">预研</h2>
+<p>所以抽象到 Webpack 有以下 2 种方案</p>
+<ul>
+<li>多 entry + 模板，最后输出多个 HTML 入口，引用自身需要的 chunk</li>
+<li>SSR，对 SPA 做预渲染，结果导出来</li>
+</ul>
+<p>而 SSR 没玩过，暂时不去尝试，而且也需要框架支持，不适合这个老项目。</p>
+<p>那么默认 Webpack 把模板也打包在 JS 文件中，这就得借助 ExtractTextPlugin 或者 HtmlWebpackPlugin 实现了。</p>
+<p>这里我们需要提个非常重要的概念，和 Gulp 不同的是，Webpack 的文件实体在处理过程中均是作为 JS 模块来处理的。比如下面这个例子</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown"># Test
+Just a test
+</code></pre></div><p>如果上面内容，通过 raw-loader 导入就会变成下面这个对象</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">module</span>.<span style="color:#66d9ef">export</span> <span style="color:#f92672">=</span> {
+	<span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;# Test\nJust a test&#34;</span>;
+}
+</code></pre></div><p>若通过 markdown-loader 导入则会变成</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">h1</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;test&#34;</span>&gt;Test&lt;/<span style="color:#f92672">h1</span>&gt;
+&lt;<span style="color:#f92672">p</span>&gt;Just a test&lt;/<span style="color:#f92672">p</span>&gt;
+</code></pre></div><p>所以会提示 <code>You may need an additional loader to handle the result of these loaders.</code></p>
+<p>因为上面的内容是 HTML，自然我们需要一个把 HTML 转化成 JS 模块的 Loader，也就是 html-loader</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&lt;h1 id=\&#34;test\&#34;&gt;Test&lt;/h1&gt;\n&lt;p&gt;Just a test&lt;/p&gt;\n&#34;</span>;
+</code></pre></div><p>这样这个 HTML 或者其他杂七杂八的模板文件就能被 JS 调用了，并且通过 import 进来的还是个字符串，能直接进行其他操作的。</p>
+<p>同理 CSS 也是这么个操作，但是我们一般还会用 ExtractTextPlugin 把 CSS 单独抽离成文件，那也只是把这个返回内容暂存，loader 链置空，并在 HTMLWebpackPlugin 生成一个资源引用。</p>
+<p>而 url-loader 会读取文件，如果小的转化成 base64 可以直接读取，要不转化为 url，并转存文件；实际上 base64 编码的也是一个 URL，被称之为 DataUrl。</p>
+<p>说到这里最重要的就是 loader 最终需要返回一个可以让链继续下去的格式，于是有 html-loader 和 apply-loader 这对互逆操作。</p>
+<p>apply-loader 会把函数求值，对于上面的 html-loader 生成的就会把 html 取出来。</p>
+<p>然后回到开始的 ExtractTextPlugin 和 HtmlWebpackPlugin</p>
+<ul>
+<li>ExtractTextPlugin 可以把对应 entry 下所有符合规则的文件都合并导出到目标文件，不能产生符合预期的文件</li>
+<li>HtmlWebpackPlugin 则和传统的后端模板渲染一样，但是还包括了 JS/CSS 等资源的预处理</li>
+</ul>
+<p>到此就是方案的初步设计了，但是后面全是坑</p>
+<h2 id="完备的模板引擎">完备的模板引擎</h2>
+<p>因为 HtmlWebpackPlugin 是使用 Webpack 的 loader 处理模板，但是正如上面说的 Loader 有返回<a href="https://github.com/jantimon/html-webpack-plugin/blob/master/index.js#L263">文本或者模块的形式</a>；而在 HtmlWebpackPlugin 中对于返回为文本的引擎，会直接作为模板导出，也就只包含注入标签的过程；而对于返回为函数的引擎，则会以一个特定上下文作为参数进行再次渲染。</p>
+<p>但是能完全兼容 HtmlWebpackPlugin 的默认 Loader 特性</p>
+<ul>
+<li>上下文</li>
+<li>配合 html-loader 实现资源抽取</li>
+</ul>
+<p>但是默认的引擎又没有提供继承，包含等常见引擎的语法，虽然有个 require 但是非常反人类的写法。其实也有简单的方法，通过默认的 loadsh 加载其他模板引擎的方式；或许可以简单实现，但是那不就没有造轮子的理由了吗？</p>
+<p>以上需求的模板引擎，我是一个都没看见，但是自己造轮子也得分析原因</p>
+<p>常见的模板引擎，ejs/jade 什么的，至于我为什么选了 njk，因为 egg.js 默认使用它，又发现是火狐的，觉得或许没什么坑；实际上，这是预研不够完善，这个模板引擎坑还是很多的，最后使用起来还不如 ejs 的感觉，但是最好用的还是 jade，如果不是无法兼容现有模板，不如自动转化一下？</p>
+<p>对比 njk 官方的 loader 能发现，问题其实就在于官方 loader 并没有实现导出为模块的支持。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// nunjucks-loader
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">compiledTemplate</span> <span style="color:#f92672">+=</span> <span style="color:#e6db74">`
+</span><span style="color:#e6db74">    let tmpl = shim(nunjucks, env, nunjucksPrecompiled[&#34;</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">name</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;] , dependencies);
+</span><span style="color:#e6db74">    let htmlPluginRender = function (templateParams) {
+</span><span style="color:#e6db74">        return tmpl.render(templateParams);
+</span><span style="color:#e6db74">    };
+</span><span style="color:#e6db74">    tmpl.__proto__.__proto__.__proto__ = htmlPluginRender.__proto__;
+</span><span style="color:#e6db74">    htmlPluginRender.__proto__ = tmpl;
+</span><span style="color:#e6db74">    module.exports =  htmlPluginRender;`</span>;
+
+<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">compiledTemplate</span>;
+</code></pre></div><p>就上面这段简单的代码就能完成需求，开始希望定制其他诸如 <code>nunjucks-webpack-loader</code> 这样的插件，但是发现实现模式都不一样。要点在于</p>
+<ul>
+<li>Webpack 每个模块返回的只能是模块的源码</li>
+<li>模块引用的复杂对象可能无法被序列化，所以只能储存在全局中</li>
+<li>最后是作为函数返回的模块，如果不保留原有的返回结构，会导致无法实现原有的导入语法，也就是上面一堆原型操作</li>
+</ul>
+<p>这样我们就能得到一个支持上面大多数特性的模板引擎。</p>
+<h2 id="资源预处理">资源预处理</h2>
+<p>因为开发阶段的资源可能不是合理的组织的，比如图片通过外连引入，但是最后我们需要产生一个对外发布的新地址，这时候就得用上 webpack 的 url-loader 之类的东西。</p>
+<p>但是上面实现的模板引擎并无法支持，比如下面这段源码</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;../ggg.gif&#34;</span>/&gt;
+</code></pre></div><p>如果直接编写 HTML 是可以被 html-laoder 处理的，但是因为这里的 HTML 会被 njk-loader 转化成返回 HTML 的函数。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">ERROR</span> <span style="color:#66d9ef">in</span>   Error<span style="color:#f92672">:</span> <span style="color:#a6e22e">Child</span> <span style="color:#a6e22e">compilation</span> <span style="color:#a6e22e">failed</span><span style="color:#f92672">:</span>
+  <span style="color:#a6e22e">Module</span> <span style="color:#a6e22e">not</span> <span style="color:#a6e22e">found</span><span style="color:#f92672">:</span> Error<span style="color:#f92672">:</span> <span style="color:#a6e22e">Can</span><span style="color:#e6db74">&#39;t resolve &#39;</span>.<span style="color:#f92672">/</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34;../ggg.gif\&#34;/&#39; in &#39;C:\Users\gitai\Desktop\wp\src\pages\b&#39;:
+</span><span style="color:#e6db74">  Error: Can&#39;t resolve &#39;./\&#34;../ggg.gif\&#34;</span><span style="color:#f92672">/</span><span style="color:#e6db74">&#39; in &#39;</span><span style="color:#a6e22e">C</span><span style="color:#f92672">:</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Users</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">gitai</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Desktop</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">wp</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">src</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">pages</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">b</span><span style="color:#960050;background-color:#1e0010">&#39;</span>
+</code></pre></div><p>所以 fastparse 无法对其解析出合适的结果，中间包含了一次转义，或许需要对解析器的规则进行一定的优化？增加双引号的情况进行处理？</p>
+<p>但是全部用单引号就能姑且算是解决了这个问题，那就不管它了，只要能识别出来，就能合理的做预处理了。</p>
+<h2 id="生成的是-js-文件">生成的是 JS 文件</h2>
+<p>这是因为 html-loader 会给前面模板引擎生成的字符串再次通过 exportsString 这个前缀包装一层，所以如果需要能被直接调用，需要 require 2 次。</p>
+<p>或者自己实现一个 html-loader，不进行包装，把 require 融入原有的编译阶段。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">requireFromString</span>(<span style="color:#a6e22e">src</span>, <span style="color:#a6e22e">filename</span>) {
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">Module</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">constructor</span>;
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">m</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Module</span>();
+  <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">_compile</span>(<span style="color:#a6e22e">src</span>, <span style="color:#a6e22e">filename</span>);
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">exports</span>;
+}
+
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">requireFromString</span>(<span style="color:#e6db74">&#39;module.exports = { test: 1}&#39;</span>));
+</code></pre></div><p>这样又会遇到另一个问题，当第一层模块被解析引入的时候，会触发 html-loader 实现的静态导入，</p>
+<p>// TODO: 暂时未解决的问题</p>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

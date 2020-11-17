@@ -23,30 +23,12 @@
     </item>
     
     <item>
-      <title>AST: 换个角度看结构化文本</title>
-      <link>https://gitai.me/2019/05/astselector/</link>
-      <pubDate>Fri, 17 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://gitai.me/2019/05/astselector/</guid>
-      <description>如果想要选中上述代码中的黄色部分也就是所有的字符串类型的值，无论是正则还是啥方法，都是基本无法完成的；所以我们需要引入 AST 换个角度分析问题。 居</description>
-    </item>
-    
-    <item>
       <title>Webpack Loader 和 Plugin</title>
       <link>https://gitai.me/2019/05/loaderplugin/</link>
       <pubDate>Mon, 13 May 2019 00:00:00 +0000</pubDate>
       
       <guid>https://gitai.me/2019/05/loaderplugin/</guid>
       <description>想写个插件解析 JS 生成 JSON 的配置文件，其实就是 JSON.stringify(require(&#39;./manifest.js&#39;))。这个简单的操作。</description>
-    </item>
-    
-    <item>
-      <title>Chrome 插件&amp;离线应用开发的坑</title>
-      <link>https://gitai.me/2019/05/chrome.runtime.onmessage/</link>
-      <pubDate>Sat, 11 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://gitai.me/2019/05/chrome.runtime.onmessage/</guid>
-      <description>因为 Chrome 的那些接口又臭又长，而且都是异步回调，所以很适合练手 Promise/async 这些东西，但是遇到一个很奇怪的问题 const onMessage = (asyncFunc) =&amp;gt; chrome.runtime.onMessage.addListener ((msg, sender, sendResponse) =&amp;gt; { sendResponse (msg); }); 上面是一般操作，但</description>
     </item>
     
   </channel>

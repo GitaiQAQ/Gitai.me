@@ -6,6 +6,25 @@
     <description>Recent content in Series on Gitai.me</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans-CN</language>
-    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright><atom:link href="https://gitai.me/series/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Wed, 07 Aug 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/series/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Webpack</title>
+      <link>https://gitai.me/series/webpack/</link>
+      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/series/webpack/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>VSCode</title>
+      <link>https://gitai.me/series/vscode/</link>
+      <pubDate>Thu, 25 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/series/vscode/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

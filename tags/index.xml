@@ -7,7 +7,25 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans-CN</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
-    <lastBuildDate>Sat, 21 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 16 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Demo</title>
+      <link>https://gitai.me/tags/demo/</link>
+      <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/demo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>造轮子</title>
+      <link>https://gitai.me/tags/%E9%80%A0%E8%BD%AE%E5%AD%90/</link>
+      <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/%E9%80%A0%E8%BD%AE%E5%AD%90/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>骚操作</title>
       <link>https://gitai.me/tags/%E9%AA%9A%E6%93%8D%E4%BD%9C/</link>
@@ -90,29 +108,38 @@
     </item>
     
     <item>
+      <title>原理分析</title>
+      <link>https://gitai.me/tags/%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/</link>
+      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>插件</title>
+      <link>https://gitai.me/tags/%E6%8F%92%E4%BB%B6/</link>
+      <pubDate>Thu, 25 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/%E6%8F%92%E4%BB%B6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>生态</title>
+      <link>https://gitai.me/tags/%E7%94%9F%E6%80%81/</link>
+      <pubDate>Thu, 25 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/%E7%94%9F%E6%80%81/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>JavaScript</title>
       <link>https://gitai.me/tags/javascript/</link>
-      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://gitai.me/tags/javascript/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Webpack</title>
-      <link>https://gitai.me/tags/webpack/</link>
-      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://gitai.me/tags/webpack/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>优化</title>
-      <link>https://gitai.me/tags/%E4%BC%98%E5%8C%96/</link>
       <pubDate>Sat, 13 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://gitai.me/tags/%E4%BC%98%E5%8C%96/</guid>
+      <guid>https://gitai.me/tags/javascript/</guid>
       <description></description>
     </item>
     
@@ -126,7 +153,7 @@
     </item>
     
     <item>
-      <title>Api</title>
+      <title>API</title>
       <link>https://gitai.me/tags/api/</link>
       <pubDate>Sun, 02 Jun 2019 00:00:00 +0000</pubDate>
       
@@ -153,11 +180,65 @@
     </item>
     
     <item>
+      <title>AST</title>
+      <link>https://gitai.me/tags/ast/</link>
+      <pubDate>Fri, 17 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/ast/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>VSCode</title>
+      <link>https://gitai.me/tags/vscode/</link>
+      <pubDate>Fri, 17 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/vscode/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>记录</title>
+      <link>https://gitai.me/tags/%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Fri, 17 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/%E8%AE%B0%E5%BD%95/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Chrome</title>
+      <link>https://gitai.me/tags/chrome/</link>
+      <pubDate>Sat, 11 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/chrome/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Overlay</title>
       <link>https://gitai.me/tags/overlay/</link>
       <pubDate>Sat, 11 May 2019 00:00:00 +0000</pubDate>
       
       <guid>https://gitai.me/tags/overlay/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Debug</title>
+      <link>https://gitai.me/tags/debug/</link>
+      <pubDate>Thu, 25 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/debug/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Promise</title>
+      <link>https://gitai.me/tags/promise/</link>
+      <pubDate>Thu, 25 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/promise/</guid>
       <description></description>
     </item>
     
@@ -171,11 +252,29 @@
     </item>
     
     <item>
-      <title>造轮子</title>
-      <link>https://gitai.me/tags/%E9%80%A0%E8%BD%AE%E5%AD%90/</link>
-      <pubDate>Thu, 25 Apr 2019 00:00:00 +0000</pubDate>
+      <title>Canvas</title>
+      <link>https://gitai.me/tags/canvas/</link>
+      <pubDate>Wed, 24 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://gitai.me/tags/%E9%80%A0%E8%BD%AE%E5%AD%90/</guid>
+      <guid>https://gitai.me/tags/canvas/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>WASM</title>
+      <link>https://gitai.me/tags/wasm/</link>
+      <pubDate>Wed, 24 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/wasm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>可视化</title>
+      <link>https://gitai.me/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/</link>
+      <pubDate>Wed, 24 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/</guid>
       <description></description>
     </item>
     
@@ -270,6 +369,15 @@
     </item>
     
     <item>
+      <title>自定义字体</title>
+      <link>https://gitai.me/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AD%97%E4%BD%93/</link>
+      <pubDate>Sat, 28 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AD%97%E4%BD%93/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>D3.js</title>
       <link>https://gitai.me/tags/d3.js/</link>
       <pubDate>Sat, 01 Jul 2017 00:00:00 +0000</pubDate>
@@ -288,11 +396,11 @@
     </item>
     
     <item>
-      <title>记录</title>
-      <link>https://gitai.me/tags/%E8%AE%B0%E5%BD%95/</link>
-      <pubDate>Tue, 02 May 2017 00:00:00 +0000</pubDate>
+      <title>翻译</title>
+      <link>https://gitai.me/tags/%E7%BF%BB%E8%AF%91/</link>
+      <pubDate>Sun, 23 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://gitai.me/tags/%E8%AE%B0%E5%BD%95/</guid>
+      <guid>https://gitai.me/tags/%E7%BF%BB%E8%AF%91/</guid>
       <description></description>
     </item>
     
@@ -320,24 +428,6 @@
       <pubDate>Tue, 28 Mar 2017 00:00:00 +0000</pubDate>
       
       <guid>https://gitai.me/tags/slide/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Contained OS</title>
-      <link>https://gitai.me/tags/contained-os/</link>
-      <pubDate>Sat, 25 Mar 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://gitai.me/tags/contained-os/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>容器化</title>
-      <link>https://gitai.me/tags/%E5%AE%B9%E5%99%A8%E5%8C%96/</link>
-      <pubDate>Sat, 25 Mar 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://gitai.me/tags/%E5%AE%B9%E5%99%A8%E5%8C%96/</guid>
       <description></description>
     </item>
     
@@ -432,33 +522,6 @@
     </item>
     
     <item>
-      <title>Build</title>
-      <link>https://gitai.me/tags/build/</link>
-      <pubDate>Mon, 20 Jun 2016 07:04:34 +0000</pubDate>
-      
-      <guid>https://gitai.me/tags/build/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Compilation</title>
-      <link>https://gitai.me/tags/compilation/</link>
-      <pubDate>Mon, 20 Jun 2016 07:04:34 +0000</pubDate>
-      
-      <guid>https://gitai.me/tags/compilation/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Process</title>
-      <link>https://gitai.me/tags/process/</link>
-      <pubDate>Mon, 20 Jun 2016 07:04:34 +0000</pubDate>
-      
-      <guid>https://gitai.me/tags/process/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Error</title>
       <link>https://gitai.me/tags/error/</link>
       <pubDate>Mon, 20 Jun 2016 00:00:00 +0000</pubDate>
@@ -495,20 +558,20 @@
     </item>
     
     <item>
-      <title>REST</title>
-      <link>https://gitai.me/tags/rest/</link>
+      <title>Open API</title>
+      <link>https://gitai.me/tags/open-api/</link>
       <pubDate>Sat, 26 Mar 2016 18:15:36 +0000</pubDate>
       
-      <guid>https://gitai.me/tags/rest/</guid>
+      <guid>https://gitai.me/tags/open-api/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Lua</title>
-      <link>https://gitai.me/tags/lua/</link>
-      <pubDate>Mon, 14 Mar 2016 11:51:36 +0000</pubDate>
+      <title>操作手册</title>
+      <link>https://gitai.me/tags/%E6%93%8D%E4%BD%9C%E6%89%8B%E5%86%8C/</link>
+      <pubDate>Sat, 26 Mar 2016 18:15:36 +0000</pubDate>
       
-      <guid>https://gitai.me/tags/lua/</guid>
+      <guid>https://gitai.me/tags/%E6%93%8D%E4%BD%9C%E6%89%8B%E5%86%8C/</guid>
       <description></description>
     </item>
     
@@ -540,74 +603,11 @@
     </item>
     
     <item>
-      <title>Bluemix</title>
-      <link>https://gitai.me/tags/bluemix/</link>
-      <pubDate>Sun, 31 Jan 2016 10:23:52 +0000</pubDate>
-      
-      <guid>https://gitai.me/tags/bluemix/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Disease</title>
-      <link>https://gitai.me/tags/disease/</link>
-      <pubDate>Sun, 31 Jan 2016 10:23:52 +0000</pubDate>
-      
-      <guid>https://gitai.me/tags/disease/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Java</title>
-      <link>https://gitai.me/tags/java/</link>
-      <pubDate>Sun, 31 Jan 2016 10:23:52 +0000</pubDate>
-      
-      <guid>https://gitai.me/tags/java/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Minecraft</title>
       <link>https://gitai.me/tags/minecraft/</link>
-      <pubDate>Sun, 31 Jan 2016 10:23:52 +0000</pubDate>
+      <pubDate>Fri, 01 Jan 2016 01:06:19 +0000</pubDate>
       
       <guid>https://gitai.me/tags/minecraft/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Spigot</title>
-      <link>https://gitai.me/tags/spigot/</link>
-      <pubDate>Sun, 31 Jan 2016 10:23:52 +0000</pubDate>
-      
-      <guid>https://gitai.me/tags/spigot/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Watson</title>
-      <link>https://gitai.me/tags/watson/</link>
-      <pubDate>Sun, 31 Jan 2016 10:23:52 +0000</pubDate>
-      
-      <guid>https://gitai.me/tags/watson/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>容器</title>
-      <link>https://gitai.me/tags/%E5%AE%B9%E5%99%A8/</link>
-      <pubDate>Sun, 31 Jan 2016 10:23:52 +0000</pubDate>
-      
-      <guid>https://gitai.me/tags/%E5%AE%B9%E5%99%A8/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>插件</title>
-      <link>https://gitai.me/tags/%E6%8F%92%E4%BB%B6/</link>
-      <pubDate>Sun, 31 Jan 2016 10:23:52 +0000</pubDate>
-      
-      <guid>https://gitai.me/tags/%E6%8F%92%E4%BB%B6/</guid>
       <description></description>
     </item>
     
@@ -626,6 +626,15 @@
       <pubDate>Mon, 26 Oct 2015 00:00:00 +0000</pubDate>
       
       <guid>https://gitai.me/tags/nodejs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java</title>
+      <link>https://gitai.me/tags/java/</link>
+      <pubDate>Mon, 06 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/java/</guid>
       <description></description>
     </item>
     

@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://gitai.me/categories/</loc>
+    <lastmod>2020-11-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/demo/</loc>
+    <lastmod>2020-11-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://gitai.me/</loc>
     <lastmod>2020-11-16T00:00:00+00:00</lastmod>
   </url>
@@ -13,13 +23,23 @@
   </url>
   
   <url>
+    <loc>https://gitai.me/tags/</loc>
+    <lastmod>2020-11-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://gitai.me/2020/11/actor-model-as-bus/</loc>
     <lastmod>2020-11-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://gitai.me/tags/</loc>
-    <lastmod>2020-03-21T00:00:00+00:00</lastmod>
+    <loc>https://gitai.me/categories/%E8%BD%AE%E5%AD%90/</loc>
+    <lastmod>2020-11-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/%E9%80%A0%E8%BD%AE%E5%AD%90/</loc>
+    <lastmod>2020-11-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -98,12 +118,17 @@
   </url>
   
   <url>
-    <loc>https://gitai.me/tags/javascript/</loc>
+    <loc>https://gitai.me/series/</loc>
     <lastmod>2019-08-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://gitai.me/tags/webpack/</loc>
+    <loc>https://gitai.me/series/webpack/</loc>
+    <lastmod>2019-08-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/</loc>
     <lastmod>2019-08-07T00:00:00+00:00</lastmod>
   </url>
   
@@ -113,17 +138,27 @@
   </url>
   
   <url>
-    <loc>https://gitai.me/2019/07/webpackhtmlplugin/</loc>
+    <loc>https://gitai.me/2019/07/webpack-html-plugin/</loc>
     <lastmod>2019-07-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://gitai.me/2019/07/webpack-lazyload/</loc>
+    <loc>https://gitai.me/tags/%E6%8F%92%E4%BB%B6/</loc>
+    <lastmod>2019-07-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/%E7%94%9F%E6%80%81/</loc>
+    <lastmod>2019-07-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/javascript/</loc>
     <lastmod>2019-07-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://gitai.me/tags/%E4%BC%98%E5%8C%96/</loc>
+    <loc>https://gitai.me/2019/07/webpack-lazyload/</loc>
     <lastmod>2019-07-13T00:00:00+00:00</lastmod>
   </url>
   
@@ -173,13 +208,33 @@
   </url>
   
   <url>
+    <loc>https://gitai.me/tags/ast/</loc>
+    <lastmod>2019-05-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://gitai.me/2019/05/astselector/</loc>
+    <lastmod>2019-05-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/vscode/</loc>
+    <lastmod>2019-05-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/%E8%AE%B0%E5%BD%95/</loc>
     <lastmod>2019-05-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://gitai.me/2019/05/loaderplugin/</loc>
     <lastmod>2019-05-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/chrome/</loc>
+    <lastmod>2019-05-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -198,6 +253,21 @@
   </url>
   
   <url>
+    <loc>https://gitai.me/tags/debug/</loc>
+    <lastmod>2019-04-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/promise/</loc>
+    <lastmod>2019-04-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/series/vscode/</loc>
+    <lastmod>2019-04-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://gitai.me/2019/04/vscode-%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95-webpack-%E5%88%9D%E6%8E%A2/</loc>
     <lastmod>2019-04-25T00:00:00+00:00</lastmod>
   </url>
@@ -213,12 +283,22 @@
   </url>
   
   <url>
-    <loc>https://gitai.me/tags/%E9%80%A0%E8%BD%AE%E5%AD%90/</loc>
-    <lastmod>2019-04-25T00:00:00+00:00</lastmod>
+    <loc>https://gitai.me/tags/canvas/</loc>
+    <lastmod>2019-04-24T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://gitai.me/2019/04/%E4%B8%8B%E5%8F%91%E5%9B%BE/</loc>
+    <loc>https://gitai.me/tags/wasm/</loc>
+    <lastmod>2019-04-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/</loc>
+    <lastmod>2019-04-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/04/wasm-%E5%AE%9E%E7%8E%B0%E4%B8%8B%E5%8F%91%E5%9B%BE/</loc>
     <lastmod>2019-04-24T00:00:00+00:00</lastmod>
   </url>
   
@@ -308,11 +388,6 @@
   </url>
   
   <url>
-    <loc>https://gitai.me/categories/</loc>
-    <lastmod>2018-12-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://gitai.me/categories/javascript/</loc>
     <lastmod>2018-12-21T00:00:00+00:00</lastmod>
   </url>
@@ -388,8 +463,18 @@
   </url>
   
   <url>
+    <loc>https://gitai.me/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AD%97%E4%BD%93/</loc>
+    <lastmod>2017-10-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://gitai.me/2017/09/ecs-example/</loc>
     <lastmod>2017-09-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/android/</loc>
+    <lastmod>2017-09-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -448,11 +533,6 @@
   </url>
   
   <url>
-    <loc>https://gitai.me/tags/%E8%AE%B0%E5%BD%95/</loc>
-    <lastmod>2017-05-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://gitai.me/categories/elk/</loc>
     <lastmod>2017-04-25T00:00:00+00:00</lastmod>
   </url>
@@ -478,7 +558,7 @@
   </url>
   
   <url>
-    <loc>https://gitai.me/categories/%E7%BF%BB%E8%AF%91/</loc>
+    <loc>https://gitai.me/tags/%E7%BF%BB%E8%AF%91/</loc>
     <lastmod>2017-04-23T00:00:00+00:00</lastmod>
   </url>
   
@@ -518,16 +598,6 @@
   </url>
   
   <url>
-    <loc>https://gitai.me/tags/contained-os/</loc>
-    <lastmod>2017-03-25T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gitai.me/tags/%E5%AE%B9%E5%99%A8%E5%8C%96/</loc>
-    <lastmod>2017-03-25T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://gitai.me/2017/03/contained-os/</loc>
     <lastmod>2017-03-25T00:00:00+00:00</lastmod>
   </url>
@@ -544,6 +614,11 @@
   
   <url>
     <loc>https://gitai.me/2017/03/sdk-creation/</loc>
+    <lastmod>2017-03-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/%E7%BF%BB%E8%AF%91/</loc>
     <lastmod>2017-03-23T00:00:00+00:00</lastmod>
   </url>
   
@@ -688,6 +763,16 @@
   </url>
   
   <url>
+    <loc>https://gitai.me/2016/12/chromebook-iptables/</loc>
+    <lastmod>2016-12-25T10:10:36+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/chromeos/</loc>
+    <lastmod>2016-12-25T10:10:36+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://gitai.me/tags/markdown/</loc>
     <lastmod>2016-07-31T00:00:00+00:00</lastmod>
   </url>
@@ -700,11 +785,6 @@
   <url>
     <loc>https://gitai.me/2016/07/pulldown/</loc>
     <lastmod>2016-07-31T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gitai.me/categories/android/</loc>
-    <lastmod>2016-06-22T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -724,21 +804,6 @@
   
   <url>
     <loc>https://gitai.me/2016/06/android-application-build-or-compilation-process/</loc>
-    <lastmod>2016-06-20T07:04:34+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gitai.me/tags/build/</loc>
-    <lastmod>2016-06-20T07:04:34+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gitai.me/tags/compilation/</loc>
-    <lastmod>2016-06-20T07:04:34+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gitai.me/tags/process/</loc>
     <lastmod>2016-06-20T07:04:34+00:00</lastmod>
   </url>
   
@@ -783,17 +848,17 @@
   </url>
   
   <url>
-    <loc>https://gitai.me/tags/rest/</loc>
+    <loc>https://gitai.me/tags/open-api/</loc>
+    <lastmod>2016-03-26T18:15:36+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/%E6%93%8D%E4%BD%9C%E6%89%8B%E5%86%8C/</loc>
     <lastmod>2016-03-26T18:15:36+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://gitai.me/2016/03/compile-lua-5-3-2-using-android-studio/</loc>
-    <lastmod>2016-03-14T11:51:36+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gitai.me/tags/lua/</loc>
     <lastmod>2016-03-14T11:51:36+00:00</lastmod>
   </url>
   
@@ -848,53 +913,13 @@
   </url>
   
   <url>
-    <loc>https://gitai.me/tags/bluemix/</loc>
-    <lastmod>2016-01-31T10:23:52+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gitai.me/tags/disease/</loc>
-    <lastmod>2016-01-31T10:23:52+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gitai.me/tags/java/</loc>
-    <lastmod>2016-01-31T10:23:52+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://gitai.me/tags/minecraft/</loc>
-    <lastmod>2016-01-31T10:23:52+00:00</lastmod>
+    <lastmod>2016-01-01T01:06:19+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://gitai.me/categories/minecraft/</loc>
-    <lastmod>2016-01-31T10:23:52+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gitai.me/tags/spigot/</loc>
-    <lastmod>2016-01-31T10:23:52+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gitai.me/tags/watson/</loc>
-    <lastmod>2016-01-31T10:23:52+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gitai.me/2016/01/cl-bluemix-minecraft-plugins-trs/</loc>
-    <lastmod>2016-01-31T10:23:52+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gitai.me/tags/%E5%AE%B9%E5%99%A8/</loc>
-    <lastmod>2016-01-31T10:23:52+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gitai.me/tags/%E6%8F%92%E4%BB%B6/</loc>
-    <lastmod>2016-01-31T10:23:52+00:00</lastmod>
+    <lastmod>2016-01-01T01:06:19+00:00</lastmod>
   </url>
   
   <url>
@@ -938,6 +963,11 @@
   </url>
   
   <url>
+    <loc>https://gitai.me/tags/java/</loc>
+    <lastmod>2015-07-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://gitai.me/2015/07/linux-jdk-install/</loc>
     <lastmod>2015-07-06T00:00:00+00:00</lastmod>
   </url>
@@ -948,19 +978,7 @@
   </url>
   
   <url>
-    <loc>https://gitai.me/1/01/chromebook-iptables/</loc>
-  </url>
-  
-  <url>
     <loc>https://gitai.me/1/01/kana/</loc>
-  </url>
-  
-  <url>
-    <loc>https://gitai.me/1/01/%E6%B8%85%E7%90%86%E8%84%9A%E6%9C%AC/</loc>
-  </url>
-  
-  <url>
-    <loc>https://gitai.me/series/</loc>
   </url>
   
   <url>

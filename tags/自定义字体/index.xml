@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>自定义字体 on Gitai.me</title>
+    <link>https://gitai.me/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AD%97%E4%BD%93/</link>
+    <description>Recent content in 自定义字体 on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Sat, 28 Oct 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AD%97%E4%BD%93/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>从自定义字体来看编码和显示的低耦合性</title>
+      <link>https://gitai.me/2017/10/custom-font/</link>
+      <pubDate>Sat, 28 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/10/custom-font/</guid>
+      <description>编程作业中难免不出现做计算器这种然并卵，但是涉及知识复杂，又难拔高的任务。 对于本文，不过就是我在这瞎说，给这个月凑一篇，不过也希望可以产生新</description>
+    </item>
+    
+  </channel>
+</rss>
