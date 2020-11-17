@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on Gitai.me</title>
+    <link>https://gitai.me/tags/python/</link>
+    <description>Recent content in Python on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Mon, 28 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>一个短路操作符失效的 BUG？</title>
+      <link>https://gitai.me/2019/01/stupid-bugs-python-stringify/</link>
+      <pubDate>Mon, 28 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/01/stupid-bugs-python-stringify/</guid>
+      <description>遇上一个百思不得其解的 BUG logger.debug(&amp;#34;%s%s&amp;#34;, test_case_id, test_case_info) test_case_id = test_case_id or md5(test_case_info) logger.debug(&amp;#34;MD5: %s%s&amp;#34;, test_case_id, md5(test_case_info)) 09:18 None {&amp;#39;test_cases&amp;#39;: [{&amp;#39;output&amp;#39;: &amp;#39;420&amp;#39;, &amp;#39;input&amp;#39;: &amp;#39;5 8&amp;#39;}]} 09:18 MD5: None b676c8555a8384fd346b062397524020 交代背景，这是通过 exec gunicorn --workers $n --threads $n --error-logfile /log/gunicorn.log --time 600 --bind 0.0.0.0:8080 server:app flask Web 服务调用的一个方法 class</description>
+    </item>
+    
+    <item>
+      <title>遇上一个反直觉的 BUG</title>
+      <link>https://gitai.me/2019/01/celery-4.x/</link>
+      <pubDate>Wed, 16 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/01/celery-4.x/</guid>
+      <description>app = Celery(&amp;#39;tasks&amp;#39;, backend=&amp;#39;redis://localhost:6379/0&amp;#39;, broker=&amp;#34;amqp://guest:guest@localhost:5672&amp;#34;) 官网的 Demo 就是这样写的，但是突然发现如果正式使用中，接口没做好兼容处理，比如增加一个新的异步任务，但是没有在旧的 worker 进行更新。就会遇到</description>
+    </item>
+    
+    <item>
+      <title>使用「Protobuf」</title>
+      <link>https://gitai.me/2016/02/use-protobuf/</link>
+      <pubDate>Mon, 08 Feb 2016 09:26:36 +0000</pubDate>
+      
+      <guid>https://gitai.me/2016/02/use-protobuf/</guid>
+      <description>&lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/google/protobuf&#34;&gt;protobuf@google&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;依赖&#34;&gt;依赖&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;autoconf&lt;/li&gt;
+&lt;li&gt;automake&lt;/li&gt;
+&lt;li&gt;libtool&lt;/li&gt;
+&lt;li&gt;curl (used to download gmock)&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

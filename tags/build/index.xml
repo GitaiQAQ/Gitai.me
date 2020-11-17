@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Build on Gitai.me</title>
+    <link>https://gitai.me/tags/build/</link>
+    <description>Recent content in Build on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Mon, 20 Jun 2016 07:04:34 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/build/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Android 打包流程</title>
+      <link>https://gitai.me/2016/06/android-application-build-or-compilation-process/</link>
+      <pubDate>Mon, 20 Jun 2016 07:04:34 +0000</pubDate>
+      
+      <guid>https://gitai.me/2016/06/android-application-build-or-compilation-process/</guid>
+      <description>&lt;p&gt;这篇文章是解释Android程序如何被编译和执行的概述。&lt;/p&gt;
+&lt;p&gt;因为 Android 应用程序的执行过程包括像 DEX，APK，dx tool，aapt tool和javac等各种术语.所以我会先尝试各种工具并参与编译和构建一个 Android 应用程序。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://gitai.me/img/android-application-build-process-diagram.png&#34; alt=&#34;android-application-build-process-diagram&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;.java&lt;/code&gt;: Java 文件拓展名&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.class&lt;/code&gt;: Java 文件编译后，一种8位字节的二进制流文件， 各个数据项按顺序紧密的从前向后排列， 相邻的项之间没有间隙， 这样可以使得class文件非常紧凑， 体积轻巧， 可以被JVM快速的加载至内存， 并且占据较少的内存空间。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DEX&lt;/code&gt;: Dalvik EXecutable file. 所有的.class文件内容整合到一个.dex文件&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;JVM&lt;/code&gt;: Java Virtual Machine. 基于虚拟栈的虚拟机&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DVM&lt;/code&gt;: Dalvik Virtual Machine. 基于寄存器的虚拟机&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;AIDL&lt;/code&gt;: Android Interface Definition Language&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;apk&lt;/code&gt;: Android Application Package file.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;aidl&lt;/code&gt;: converts all AIDL files into .java files.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dx&lt;/code&gt;: convert all .class files into a single DEX file.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;apkbuilder&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;zipalign&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

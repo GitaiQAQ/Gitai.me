@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>优化 on Gitai.me</title>
+    <link>https://gitai.me/tags/%E4%BC%98%E5%8C%96/</link>
+    <description>Recent content in 优化 on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Sat, 13 Jul 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/%E4%BC%98%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Webpack 动态 import 实现原理 —— 附：蹭个 PR</title>
+      <link>https://gitai.me/2019/07/webpack-lazyload/</link>
+      <pubDate>Sat, 13 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/07/webpack-lazyload/</guid>
+      <description>本文主要因为以下这段代码并不符合预期，chunk 名字，没有生效 // @ts-ignore import( /* webpackChunkName: &amp;#34;[request]&amp;#34; */ &amp;#34;../docs/parcel.md&amp;#34; ).then( ({ default: html }) =&amp;gt; {} ); 但是下面这样就可以生效了 let parcel = &amp;#34;parcel&amp;#34;; import( /* webpackChunkName: &amp;#34;[request]&amp;#34; */ &amp;#34;../docs/&amp;#34; +</description>
+    </item>
+    
+  </channel>
+</rss>

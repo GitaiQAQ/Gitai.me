@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>前端 on Gitai.me</title>
+    <link>https://gitai.me/tags/%E5%89%8D%E7%AB%AF/</link>
+    <description>Recent content in 前端 on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Fri, 13 Sep 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/%E5%89%8D%E7%AB%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>简单的搜索框</title>
+      <link>https://gitai.me/2019/09/searchbox/</link>
+      <pubDate>Fri, 13 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/09/searchbox/</guid>
+      <description>首先这几年各家都喜欢弄自己的 DSL（domain-specific language），尤其在大数据这块蛋糕上。 比如： SQL-on-Hadoop: 查询分析是大数据要解决</description>
+    </item>
+    
+  </channel>
+</rss>

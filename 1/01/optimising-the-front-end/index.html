@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>前端优化策略 | Gitai.me</title>
+
+<meta property='og:title' content='前端优化策略 - Gitai.me'>
+<meta property='og:description' content='原文： 前端性能优化常用总结 多数优化技巧并不是为了迅速提升产品本身性能，而是为了提升用户体验，如 MD 设计中对按钮的处理，只是为了给予用户一个有效'>
+<meta property='og:url' content='https://gitai.me/1/01/optimising-the-front-end/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/1/01/optimising-the-front-end/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+    </div>
+    
+    <h1 class="title">前端优化策略</h1>
+    
+    <div class="content">
+      <blockquote>
+<p>原文： <a href="https://juejin.im/post/59e1bbc9f265da430f311fb1">前端性能优化常用总结</a></p>
+</blockquote>
+<p><img src="https://i.loli.net/2018/04/18/5ad7117710889.png" alt="progressive-rendering"></p>
+<p>多数优化技巧并不是为了迅速提升产品本身性能，而是为了提升用户体验，如 MD 设计中对按钮的处理，只是为了给予用户一个有效的反馈。<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<!-- raw HTML omitted -->
+<h2 id="网络优化">网络优化</h2>
+<p>下述内容，多半可在 HTTP2.0 得到解决</p>
+<ul>
+<li>
+<p>减少 HTTP 请求数（并发请求数限制）</p>
+<ul>
+<li>资源打包</li>
+<li>雪碧图（<strong>CSS Sprites</strong>）</li>
+<li>内联图片（<strong>Base64编码</strong>）</li>
+</ul>
+</li>
+<li>
+<p>减少 DNS 查找</p>
+<ul>
+<li>域名收敛</li>
+<li>缩短解析路径</li>
+</ul>
+</li>
+<li>
+<p>减小资源体积</p>
+<ul>
+<li>gzip 压缩</li>
+<li>js 混淆</li>
+<li>css/图片压缩（<em>Media Queries</em>，Query 参数，差异分发，WebP 大势所趋）</li>
+</ul>
+</li>
+<li>
+<p>延迟加载</p>
+<ul>
+<li>按需加载</li>
+<li>滚动加载</li>
+<li>图片惰性加载</li>
+</ul>
+</li>
+<li>
+<p>预加载</p>
+<ul>
+<li>首屏加载</li>
+</ul>
+</li>
+<li>
+<p>跨域分离组件</p>
+<ul>
+<li>采用 CDN</li>
+<li>通过减少 Cookies 降低请求头体积</li>
+</ul>
+</li>
+<li>
+<p>缓存</p>
+<ul>
+<li>HTTP 缓存（延长缓存时间）</li>
+<li>DNS 缓存
+<ul>
+<li>参上[减少 DNS 查找 - 域名收敛]</li>
+<li>使用公用 CDN 仓库</li>
+<li>直接使用 IP</li>
+</ul>
+</li>
+<li>CDN 加速分发</li>
+</ul>
+</li>
+<li>
+<p>避免重定向和 404</p>
+</li>
+<li>
+<p>不滥用 WEB 字体</p>
+<ul>
+<li>SVG 了解一下</li>
+</ul>
+</li>
+<li>
+<p>首屏优化（数据小于 14kb）</p>
+<ul>
+<li>使用 Loading</li>
+<li>占位区块</li>
+</ul>
+</li>
+</ul>
+<h2 id="渲染优化">渲染优化</h2>
+<ul>
+<li>样式表放在顶部，JS 文件放在尾部或者异步</li>
+<li>避免使用滤镜
+<ul>
+<li>使用 Query 参数在 CDN 以至服务端预处理</li>
+</ul>
+</li>
+</ul>
+<h3 id="css">CSS</h3>
+<ul>
+<li>
+<p>使用预编译器和 autoprefixed 等插件</p>
+<ul>
+<li>在 CSS 属性为 0 时，去掉单位</li>
+<li>CSS 前缀的使用</li>
+<li>移除空的 CSS 规则</li>
+</ul>
+</li>
+<li>
+<p>减少css表达式的使用</p>
+</li>
+<li>
+<p>使用 CSS 动画，采用浏览器内部优化和 GPU 硬件加速（translateZ hack）</p>
+</li>
+<li>
+<p>复杂动画 canvas 和 Wasm 了解一下</p>
+</li>
+</ul>
+<p>避免浏览器，回流和重绘</p>
+<ul>
+<li>避免变更样式，只修改 class</li>
+<li>复杂的UI元素，设置 position 为 absolute 或 fixed
+<ul>
+<li>脱离文档流</li>
+</ul>
+</li>
+<li>频繁的 DOM 操作
+<ul>
+<li>虚拟 DOM 了解一下</li>
+</ul>
+</li>
+</ul>
+<h3 id="js">JS</h3>
+<ul>
+<li>长列表滚动优化（没看过，不知道）
+<ul>
+<li>防抖和节流</li>
+</ul>
+</li>
+<li>移动端使用 Zepto 替换 jQuery（无论是体积上还是模式上都更适合）</li>
+<li>预编译语言（Typescript 了解一下）</li>
+<li>事件委托（冒泡事件）</li>
+<li>降低复杂计算，_Web Worker_了解一下</li>
+</ul>
+<h3 id="其他">其他</h3>
+<ul>
+<li>保证所有组件都小于 25K</li>
+<li>配置 ETags</li>
+<li>数据埋点和统计</li>
+</ul>
+<h2 id="总结">总结</h2>
+<p>本文只是对原文的概括，列个列表并补充一点点关键词，细节还要自行 Google。</p>
+<p>其中很多内容可以参见相关领域的商业服务文档，比如使用 Query 参数处理图片和视频可以参见七牛或者又拍的说明。</p>
+<p>高性能 CSS 就可以参照其他的开源动画组件，而长列表滚动优化 Twitter 和微博这类服务就很早通过 pjax 和滚动加载解决这类问题，也很早就布局数据驱动和虚拟 DOM 之类的技术。</p>
+<p>而整体上的优化，国内大厂基本都有 UED 相关部门，对应的资料也是非常多。</p>
+<p>不过脱离本地提供一些拓展，纯粹的浏览器端，能做的已经非常少了。</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://developers.google.com/web/fundamentals/performance/critical-rendering-path/">关键渲染路径</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

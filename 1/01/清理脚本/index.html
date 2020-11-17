@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title> | Gitai.me</title>
+
+<meta property='og:title' content=' - Gitai.me'>
+<meta property='og:description' content='脚本有2 种用法，添加 install 参数表示安装（会指导用户添加计划任务），其余均通过管道读取配置；所以需要通过如下命令运行： cat clean.conf | ./clean.sh 正常状态会获得如下输'>
+<meta property='og:url' content='https://gitai.me/1/01/%E6%B8%85%E7%90%86%E8%84%9A%E6%9C%AC/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/1/01/%E6%B8%85%E7%90%86%E8%84%9A%E6%9C%AC/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+    </div>
+    
+    <h1 class="title"></h1>
+    
+    <div class="content">
+      <p>脚本有2 种用法，添加 install 参数表示安装（会指导用户添加计划任务），其余均通过管道读取配置；所以需要通过如下命令运行：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat clean.conf | ./clean.sh
+</code></pre></div><p>正常状态会获得如下输出</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">======================================================================</span>
+ Backup UNKNOWN - Tue May <span style="color:#ae81ff">14</span> 03:50:33 UTC 2019
+<span style="color:#f92672">======================================================================</span>
+Path /var/log/test1/comp1 of test1 is NOT EXIST
+Path /var/log/test1/comp2 of test1 is NOT EXIST
+Path /var/log/test2 of test2 is NOT EXIST
+Backup hdfs in /var/log/hdfs
+ - archive /var/log/hdfs/asdfas.log.1 to ./logs/2019-05-13/hdfs.tar
+   + asdfas.log.1
+ - delete /var/log/hdfs/asdfas.log.1
+Backup hdfs END
+Path ../log/yar of hdfs is NOT EXIST
+Backup yarn in /var/log/yarn
+Backup yarn END
+Backup hadoop in /var/log/hadoop
+ - move /var/log/hadoop/hadoop-2014-15-12.tar.gz to ./logs/2019-05-13
+ - move /var/log/hadoop/hadoop-2014-15-12.tgz to ./logs/2019-05-13
+ - archive /var/log/hadoop/adfa.log_2014_15_12 to ./logs/2019-05-13/hadoop.tar
+   + adfa.log_2014_15_12
+ - delete /var/log/hadoop/adfa.log_2014_15_12
+Backup hadoop END
+</code></pre></div><p>输出包含以下几个部分：</p>
+<ul>
+<li>标题：脚本说明，版本，执行日期</li>
+<li>处理的每个路径
+<ul>
+<li>文件夹是否存在</li>
+<li>使用的处理方式
+<ul>
+<li>对于归档压缩的操作会输出对应的文件信息，以及是创建压缩档案（<code>archive</code>），还是添加文件（<code>update</code>）</li>
+<li>对于删除会分为删除和清空，分别是 <code>delete</code> 和 <code>clean</code></li>
+</ul>
+</li>
+<li>每个组件结束会有结束的输出标记 <code>Backup xxx END</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="脚本可配置常量">脚本可配置常量</h4>
+<p><code>SCRIPT_COMMIT_SHA</code> : 脚本的对应的版本信息，会在输出中显示</p>
+<p><code>BACKUP_DIR</code>: 备份和定时清理的目标目录</p>
+<h4 id="整体流程">整体流程</h4>
+<h5 id="安装指引">安装指引</h5>
+<ol>
+<li>获取脚本路径，生成 <code>crontab</code> 表达式，并提示给用户</li>
+<li>打开 <code>crontab</code> 编辑页面，等待用户输入</li>
+<li>检查结果是否包含当前脚本，存在即判定成功</li>
+</ol>
+<h5 id="备份">备份</h5>
+<ol>
+<li>通过输入流，读取用户传递进来的内容</li>
+<li>逐行拆分成 <code>compName</code> 和 <code>paths</code> 部分，调用 <code>backup_comp_logs</code> 方法
+<ol>
+<li>加载对应组件的配置 <code>$compName.conf</code>，没有则使用 <code>default.conf</code> 作为配置</li>
+<li>解析配置文件，逐行处理为 <code>action</code> 和 <code>exps</code> 部分</li>
+<li>检查配置的组件目录是否存在</li>
+<li>存在则 <code>find_and_do</code>，传递上面获取的日志路径，<code>action</code>，<code>exps</code>
+<ol>
+<li>枚举 <code>exps</code> 数组，使用<code>find</code> 查找目标日志路径下所有符合要求的文件路径</li>
+<li>执行 <code>$action</code> 方法，传递必要的参数
+<ol>
+<li><code>action</code> 方法为预先定义的 <code>delete</code>, <code>move</code>, <code>archive</code> 方法</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h5 id="清理历史归档">清理历史归档</h5>
+<ol>
+<li>
+<p>在上述步骤完成之后，执行清理方法 <code>clear_logs</code>，并接受一个清理日期作为参数（默认 30天之前）</p>
+</li>
+<li>
+<p>从全局常量 <code>BACKUP_DIR</code> 中获取目录列表，内容为 <code>YYYY-MM-DD</code> 格式，日期满足字典序</p>
+</li>
+<li>
+<p>循环上述列表，直至目录名称大于或等于参数传递进来的日期。</p>
+</li>
+</ol>
+<h4 id="函数即参数说明">函数即参数说明</h4>
+<p><code>delete (path)</code></p>
+<p>递归删除目录下的文件，使用 <code>fuser</code> 检查占用情况，未占用会被删除，而占用的只会填写空字符串覆盖其内容</p>
+<p><code>move(path)</code></p>
+<p>移动参数中的路径到<code>BACKUP_DIR/$date</code> 下</p>
+<p><code>archive(path)</code></p>
+<p>会检查当前组件的归档目录是否存在，存在则直接添加，不存在创建新归档文件（<code>compName.tar</code>）</p>
+<p><code>find_and_do(action, path, ...regs)</code></p>
+<p>查找 <code>path</code> 下符合 <code>regs</code> 的所有文件，并调用 <code>action</code> 方法。</p>
+<p><code>backup_comp_logs(date, compName, ...paths)</code></p>
+<p>备份组件，<code>date</code> 是为了生成目标归档目录，<code>compName</code> 用于生成归档文件名，<code>...paths</code> 是通过 <code>clean.conf</code> 传递进来的组件对应的多个目录。</p>
+<p><code>clear_logs(date)</code></p>
+<p>遍历<code>BACKUP_DIR</code> 并删除早于 <code>date</code> 的所有文件，使用注意字典序，并不会检测文件名是否符合日期的标准。</p>
+<p><code>do_main</code></p>
+<p>归档和清理操作的入口</p>
+<p><code>do_install</code></p>
+<p>安装向导的入口</p>
+<h4 id="配置说明">配置说明</h4>
+<p><code>./clean.conf</code></p>
+<p>用于配置组件即组件对应多个待归档目录的映射关系</p>
+<pre><code class="language-conf" data-lang="conf"># compName path1 path2
+
+test1 /var/log/test1/comp1 /var/log/test1/comp2
+test2 /var/log/test2
+hdfs /var/log/hdfs ../log/yar
+yarn /var/log/yarn
+hadoop /var/log/hadoop
+</code></pre><p><code>./default.conf</code></p>
+<p>用于配置组件的归档方式，需要指定对应的正则表达式和执行的方法。</p>
+<p>正则表达式用于 <code>find</code> 方法匹配路径，<code>action</code> 用于调用脚本内部的几个指令；目前只支持 <code>move</code>, <code>archive</code>, <code>delete</code>。</p>
+<pre><code class="language-conf" data-lang="conf"># 指令
+#  move: 移动匹配的文件到当天的收集目录
+#  archive: 打包被匹配的文件到当天收集目录下的对应组件的压缩档案
+#  delete: 删除匹配的文件
+#
+# 表达式
+#  正则表达式
+#
+# 例子
+#  move *.tar.* *.tgz
+#  archive *.log *.out
+#  delete *.log
+
+move *.tar.*
+move *.tgz
+archive *.log
+archive *.log.*
+archive *.log_*
+archive *.out
+delete *.log
+delete *.out
+delete *.log.*
+delete *.log_*
+
+</code></pre>
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

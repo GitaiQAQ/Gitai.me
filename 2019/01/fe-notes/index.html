@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>前端杂谈 | Gitai.me</title>
+
+<meta property='og:title' content='前端杂谈 - Gitai.me'>
+<meta property='og:description' content='作用域和闭包：你知道JavaScript的词法作用域是基于编译器（而非解释器！）语义的吗？ 你能解释词法作用域和作为值的函数这两者的直接结果之'>
+<meta property='og:url' content='https://gitai.me/2019/01/fe-notes/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='JavaScript'><meta property='article:tag' content='CSS'><meta property='article:published_time' content='2019-01-22T00:00:00Z'/><meta property='article:modified_time' content='2019-01-22T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2019/01/fe-notes/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/javascript/">#JavaScript</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/css/">#CSS</a>
+  
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">January 22, 2019</h2>
+    <h1 class="title">前端杂谈</h1>
+    
+    <div class="content">
+      <blockquote>
+<p>作用域和闭包：你知道JavaScript的词法作用域是基于编译器（而非解释器！）语义的吗？ 你能解释词法作用域和作为值的函数这两者的直接结果之一就是闭包吗？</p>
+</blockquote>
+<blockquote>
+<p>this 和对象原型：你能复述 this 绑定的四条基本原则吗？你是否还在用 JavaScript 的 “伪”类应付了事，而没有采用更简洁的“行为委托”设计模式？你听说过连接到其他 对象的对象（objects linked to other objects，OLOO）吗？</p>
+</blockquote>
+<blockquote>
+<p>类型和语法：你了解 JavaScript 中的内置类型吗？更重要的是，你了解如何正确安全地使 用类型间强制转换吗？对于 JavaScript 语法 / 句法中的微妙细节，你的熟悉程度又如何？</p>
+</blockquote>
+<blockquote>
+<p>异步和性能：你还在使用回调管理异步吗？你能解释 promise 是什么以及它为什么 / 如 何能够解决“回调地狱”这个问题吗？你知道如何应用生成器来使得异步代码更加清晰 吗？对 JavaScript 程序和具体运算的深度优化到底由哪些方面构成？</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<p>实际上 《你所不知的的 JavaScript》的每一个小结整理下来就是 JS 入门到精通的关键点，也是面试能问的全部问题。《JavaScript 高级程序设计》虽然事无巨细，但是总感觉欠缺了点什么，或许是详略不够的当。《JavaScript 权威指南》看了就不如看 MDN，而很多细节看一下标题就够了。</p>
+<p>这部分选书的原则是，通识 JS 的基本操作，能讲清楚<strong>作用域</strong>，<strong>原型链</strong>和<strong>控制流</strong>这三个要点。</p>
+<p>所以个人感觉，先找个 Hello World 学会客户端的 JS 操作，然后写个 Express 的项目了解异步，之后过度到 Koa 会用生成器的洋葱模型。这时候开始看《你所不知的的 JavaScript》来解决前面遇到的各种疑问，会突然感觉之前 JS 都白学了，但是如果没前面试错的过程，直接看书会有种迷迷糊糊的感觉。等弄明白 JS 的基本类型，对象，异步和 ES6 ，这时候就得看看《JavaScript 高级程序设计》或者《JavaScript 权威指南》，因为 Web APIs 这部分只能在这看到。</p>
+<p>不过看完这些也不过是弄明白了个 JS，之后得去弄明白 CSS；哦对了，看本文之前假设都已经明白了 HTML，如果没明白，就去看看 《HTML5与CSS3权威指南》的前半部分。</p>
+<p>这时候网页能写，但是会对浏览器的渲染逻辑迷迷糊糊的；好了，《CSS 世界》或许适合现在的我（之前按推荐看了《CSS 揭秘》，但是这时候还不用不上这些技巧），目前我就到这了。。。</p>
+<p>而上面 CSS 阶段，主要是速记常用属性，之后理解<strong>盒模型</strong>和<strong>流布局</strong>。</p>
+<p>因为有几年陆陆续续的基础，看完 JS 那部分大概用了一个月，HTML 就没看了，毕竟都用过，CSS 打算用一周把之前遗留的问题解决。</p>
+<p>前端初级阶段大概就是这样，弄明白浏览器的渲染机制就行了；但是这只是前端巨坑的沧海一粟；先计划着，待我慢慢添加。</p>
+<h2 id="css-tips">CSS Tips</h2>
+<ol>
+<li>
+<p>锚点定位到元素的 border-box</p>
+</li>
+<li>
+<p>padding 百分比值相对于宽度计算</p>
+</li>
+<li>
+<p>如果使用数值作为line-height的属性值， 那么所有的子元素继承的都是这个值；但是，如果使用百分比值或者长度值作为属性值，那么所有 的子元素继承的是终的计算值。</p>
+</li>
+<li>
+<p>Facebook 的工程师 Stoyan 在他的博客中曾提过， 浏览器是聪明的，为了节约资源、不频繁触发 Repaint（重绘）、Reflow（重排），它会将一系列脚本中需要执行的 UI 改动放在一个队列中一起执行，而不是每个改动都单独执行从而引发无数次的 Repaint、Reflow。BUT！有一些操作会打乱它原有的 plan 和秩序：</p>
+<ol>
+<li>offsetWidth，offsetHeight，offsetTop，offsetLeft</li>
+<li>scrollTop, scrollLeft，scrollWidth, scrollHeight</li>
+<li>clientlTop, clientLeft，clientWidth, clientHeight</li>
+<li>getComputedStyle()，or currentStyle in IE</li>
+</ol>
+<p>浏览器对于这些操作，会“ 非常及时地 ”给予最准确实时的答案，因此会触发 Reflow，例如重新计算样式、更新图层等。要知道 Reflow 相比 Repaint 对渲染的影响更大、损耗更多。</p>
+</li>
+<li>
+<p>点太多。。。忘了</p>
+</li>
+</ol>
+<p>大佬整理的 CSS 技巧&amp;布局 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<h2 id="模块化">模块化</h2>
+<ol>
+<li>直接定义依赖，1999，写入全局变量，会被绑定到 windows 的属性上</li>
+<li>命名空间模式，2002，将所有方法写入上面的变量里，通过 ns.xxx 调用</li>
+<li><strong>闭包模块化模式</strong>，2003，最常见的前端模块化方式，闭包形成内部作用域，防止污染，如：jQuery</li>
+<li>YUI，命名空间+沙箱，模块开始被拆分，异步加载。</li>
+<li><strong>CommonJS规范</strong>，2009，Nodejs 引入，同步阻塞加载模块</li>
+<li>AMD 规范的 RequireJS，前置加载，直接导入当前作用域</li>
+<li>CMD 规范的 SeaJS<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>，国内的作品，正则分析代码，按需加载</li>
+<li>UMD 先判断 exports 对象是否存在，然后看 define 方法是否存在，都没就直接 IIFE</li>
+<li><strong>Browserify</strong>，2011，预打包，把 CMD 类似的分析过程提前到开发阶段，不过不是用正则，用 AST</li>
+<li><strong>ES 6  Modules</strong>，2015，<code>import/export</code> 关键字，原生模块化纳入日程，但是迫于兼容性，需要用下面提到的工程化工具预编译</li>
+</ol>
+<h2 id="组件化web-component">组件化<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></h2>
+<ol>
+<li>
+<p>工厂模式</p>
+</li>
+<li>
+<p><strong>Backbone</strong>，模板化</p>
+</li>
+<li>
+<p>angular-directive，自定义标签，双向绑定</p>
+</li>
+<li>
+<p>React，JSX，单项数据流，函数式</p>
+</li>
+</ol>
+<h2 id="工程化">工程化</h2>
+<ol>
+<li>
+<p>gulp 主要有任务（task）和文件，剩下的就是监控，把文件转化成 Transform Streams 丢给 task 的 pipe，<strong>并发</strong>执行，然后写出文件；改成同步需要使用 Promise。</p>
+</li>
+<li>
+<p>babel 是个生成 AST，调用插件修改 AST，重新生成兼容代码。</p>
+</li>
+<li>
+<p>webpack 是个打包工具<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>，内部通过 tapable 实现事件流，插件注册对应的事件。</p>
+<p>调用 babel，scss，tsc，PostCSS 之类的进行编译导入，这里对应 loader；最主要的是对 JS 的模块化处理，统一将 ES6 模块，AMD 转化为 CommonJS，因为 JS 全被打包进内存，所以不会被阻塞（未拆分的情况下）；拆分的话会定义 Promise，然后异步加载回调返回结果<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>；plugin 会注册进 webpack 里面的钩子，修改默认实现，比如内嵌 css 生成独立样式文件。</p>
+<p>热更新通过 event-stream 推送，webpack 会在每个模块上包装一个热更新的组件，在接收到推送后冒泡更新。css 直接替换样式表，vue 和 react 直接 hook render 函数。</p>
+<p>如果有 Nodejs 开发经验的，应该很容易发现 webpack 的配置模式，早在服务端广泛运用，不过加了 Promise 更有意思了。</p>
+</li>
+</ol>
+<blockquote>
+<p>Webpack 启动后会从 Entry 里配置的 Module 开始递归解析 Entry 依赖的所有 Module。 每找到一个 Module， 就会根据配置的 Loader 去找出对应的转换规则，对 Module 进行转换后，再解析出当前 Module 依赖的 Module。 这些模块会以 Entry 为单位进行分组，一个 Entry 和其所有依赖的 Module 被分到一个组也就是一个 Chunk。最后 Webpack 会把所有 Chunk 转换成文件输出。 在整个流程中 Webpack 会在恰当的时机执行 Plugin 里定义的逻辑。<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup></p>
+</blockquote>
+<h2 id="前端安全web-security">前端安全[^web-security]</h2>
+<ul>
+<li>XSS(Cross-Site Scripting) 跨站脚本攻击，利用未转义的输入输出运行不安全的脚本获取隐私数据。<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup></li>
+<li>CSRF(Cross Site Request Forgery)，跨站请求伪造，建立在 Cookies 被人拿走了的基础上。<sup id="fnref:8"><a href="#fn:8" class="footnote-ref" role="doc-noteref">8</a></sup></li>
+<li>点击劫持，你看见的不一定是真的，类似的点击穿透问题是个 BUG。[^w1]</li>
+<li>URL 跳转漏洞，短网址服务了解一下。</li>
+<li>SQL 注入，拼接 SQL 的都是 SB。</li>
+<li>exec 注入，有接口不用用 CMD，还不做权限限制。</li>
+</ul>
+<p>基本上都是注入型漏洞，因为前端三大块都是纯文本，有很大的操作空间；永远不要相信其他模块传来的数据。</p>
+<h2 id="学习的方向">学习的方向</h2>
+<h3 id="ast">AST</h3>
+<p>因为 JS 非常灵活，前端又都是纯文本，AST 在这大放异彩；最早的模板引擎，CSS 预编译器，JS 方言，兼容性转换。</p>
+<h3 id="函数式">函数式</h3>
+<p>从后端分布式和前端 React 开始再次火起来的函数式编程，解决了竞态问题，也提供了前端组件组合模式简单实践。</p>
+<h3 id="响应式reactivity">响应式（Reactivity）</h3>
+<p>MVVM，数据驱动，RXJS<sup id="fnref:9"><a href="#fn:9" class="footnote-ref" role="doc-noteref">9</a></sup>；都是响应式编程的一部分，参见附录 4，其实我没弄明白干嘛的</p>
+<h3 id="自动机">自动机</h3>
+<p>对于控制流的改变，协程和解决回调地狱</p>
+<h2 id="推荐">推荐</h2>
+<ol>
+<li><a href="https://zhuanlan.zhihu.com/p/46401520">我如何零基础转行成为一个自信的前端</a></li>
+<li><a href="https://frontendmasters.com/books/front-end-handbook/">Front-End Developer Handbook</a></li>
+<li><a href="https://medium.com/javascript-scene/composing-software-the-book-f31c77fc3ddc">Composing Software: The Book</a></li>
+<li><a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754">The introduction to Reactive Programming you&rsquo;ve been missing</a></li>
+<li><a href="https://www.w3cplus.com/relearn-the-front-end-techniques.html">聊聊《重学前端》</a></li>
+<li><a href="https://juejin.im/post/5aa5cb846fb9a028e25d2fb1">从输入URL到页面加载的过程？</a></li>
+<li><a href="https://juejin.im/post/5c64d15d6fb9a049d37f9c20">中高级前端大厂面试秘籍，为你保驾护航金三银四，直通大厂(上)</a></li>
+<li><a href="https://www.kancloud.cn/jaya1992/fe-notes/91190">Margin折叠，站在设计者的角度思考</a></li>
+</ol>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://chokcoco.github.io/CSS-Inspiration/">CSS Inspiration &ndash; CSS灵感</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p><a href="http://tinyambition.com/HelloSea.js/">Hello Sea.js</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p><a href="https://tech.youzan.com/web-component/">Web Component：过去、现在和未来</a> <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p><a href="https://zhaoda.net/webpack-handbook/">Webpack 中文指南</a> <a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5" role="doc-endnote">
+<p><a href="https://segmentfault.com/a/1190000010349749">webpack模块化原理-commonjs</a><a href="https://segmentfault.com/a/1190000010349749">https://segmentfault.com/a/1190000010349749</a>) <a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6" role="doc-endnote">
+<p><a href="http://webpack.wuhaolin.cn/">深入浅出 Webpack</a> <a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:7" role="doc-endnote">
+<p><a href="https://zoumiaojiang.com/article/common-web-security/">常见 Web 安全攻防总结</a> <a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:8" role="doc-endnote">
+<p><a href="https://segmentfault.com/a/1190000018073845">常见六大Web 安全攻防解析</a> <a href="#fnref:8" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:9" role="doc-endnote">
+<p><a href="https://rxjs-cn.github.io/learn-rxjs-operators/">学习 RxJS</a> <a href="#fnref:9" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

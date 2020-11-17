@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>工具 on Gitai.me</title>
+    <link>https://gitai.me/tags/%E5%B7%A5%E5%85%B7/</link>
+    <description>Recent content in 工具 on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Thu, 07 Apr 2016 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SMS Bomber</title>
+      <link>https://gitai.me/2016/04/smsbomb/</link>
+      <pubDate>Thu, 07 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2016/04/smsbomb/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Trick To Send Unlimited Messages.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;注意&lt;/code&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;只用于测试&lt;/li&gt;
+&lt;li&gt;请勿填写他人号码&lt;/li&gt;
+&lt;li&gt;引用数据均来自于互联网搜集&lt;/li&gt;
+&lt;li&gt;开发者并不保证其有效性和可靠性&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;使用本程序造成的一切后果由使用者自行承担&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Captchas Tool</title>
+      <link>https://gitai.me/2015/12/smscodehelper/</link>
+      <pubDate>Sun, 13 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2015/12/smscodehelper/</guid>
+      <description>&lt;p&gt;验证码处理工具,检查短信中的验证码并给予在通知栏和Toast显示,输出至剪贴板等操作&lt;/p&gt;
+&lt;p&gt;{% github GitaiQAQ SMSCodeHelper  06c400c auto_expand = true %}&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Hosts Editor</title>
+      <link>https://gitai.me/2015/07/hostseditor/</link>
+      <pubDate>Tue, 28 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2015/07/hostseditor/</guid>
+      <description>&lt;p&gt;{% github GitaiQAQ Hosts-Studio-Android c95e58 auto_expand = true}&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

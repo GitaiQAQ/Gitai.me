@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>骚操作 on Gitai.me</title>
+    <link>https://gitai.me/tags/%E9%AA%9A%E6%93%8D%E4%BD%9C/</link>
+    <description>Recent content in 骚操作 on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Sat, 21 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/%E9%AA%9A%E6%93%8D%E4%BD%9C/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>前端中的欧·亨利式笔法</title>
+      <link>https://gitai.me/2020/03/jiandaoyun/</link>
+      <pubDate>Sat, 21 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2020/03/jiandaoyun/</guid>
+      <description>简道云是帆软旗下的一个表单 SaaS，几年前调研自定义表单的时候发现的，在此之前还没人把 BaaS 和表单融合在一起；虽然基础原理简单，如果想实现 Demo 的话</description>
+    </item>
+    
+  </channel>
+</rss>

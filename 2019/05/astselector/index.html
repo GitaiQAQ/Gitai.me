@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>AST: 换个角度看结构化文本 | Gitai.me</title>
+
+<meta property='og:title' content='AST: 换个角度看结构化文本 - Gitai.me'>
+<meta property='og:description' content='如果想要选中上述代码中的黄色部分也就是所有的字符串类型的值，无论是正则还是啥方法，都是基本无法完成的；所以我们需要引入 AST 换个角度分析问题。 居'>
+<meta property='og:url' content='https://gitai.me/2019/05/astselector/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='笔记'><meta property='article:published_time' content='2019-05-17T00:00:00Z'/><meta property='article:modified_time' content='2019-05-17T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2019/05/astselector/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>
+
+
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">May 17, 2019</h2>
+    <h1 class="title">AST: 换个角度看结构化文本</h1>
+    
+    <div class="content">
+      <p><img src="https://i.loli.net/2019/06/21/5d0baee2b2e1c71323.png" alt=""></p>
+<p>如果想要选中上述代码中的黄色部分也就是所有的字符串类型的值，无论是正则还是啥方法，都是基本无法完成的；所以我们需要引入 AST 换个角度分析问题。</p>
+<p>居然 IDE 可以让其渲染成黄色？是不是意味着， IDE 有能力理解他，然后修改默认的渲染行为？这就是 AST，相比最为简单的关键字高亮，其是对代码结构的一种抽象表示，所以能获取更多代码的隐含意义。</p>
+<p>比如上面的黄色部分就可以理解为 <code>Property</code> 下面的 <code>Key</code> 和 <code>Value</code>，且其类型为 <code>String</code>。</p>
+<p>那么这种脱离整颗树，看待个别节点层级关系的方式是不是有些熟悉？这和 CSS 层叠样式表的选择器是不是极为相似？</p>
+<p>那么层叠样式表又具有什么样的特性？首先，划分层次，之后通过选择表达式来选取部分相互独立的节点。</p>
+<p>那如果将 AST 和 CSS Selector 柔和在一起能产生什么奇奇怪怪的东西？于是有了下面这个 AST Selector。</p>
+<p>对于造一个轮子我们先得知道他有什么现实价值？</p>
+<ul>
+<li>首先能学会 AST，了解语言的内在划分逻辑</li>
+<li>其次能了解 CSS 选择器的作用原理，尤其是为什么要把标签和类写在后面？</li>
+<li>最后，能获得一个更高效的文本处理方案，他不同于传统的标准结构化文本（XML 和 JSON），而是更加复杂和语义化的文本类型；如果自然语言什么时候能抽离出 AST，指不定他也能解释一下？</li>
+</ul>
+<p>为了更好的进行数据处理，我们有了各种各样的数据结构和模式。但是这些年 NoSQL 的爆发也说明了可结构化的数据只是冰山一角。虽然这个立意有点大，但是假装我们以及完成了极为丰富的非结构化数据的抽象，然后再来看这个工具。</p>
+<p>回到最开始的字符串选择？既然有了 <code>Property</code> 下面的 <code>Key</code> 和 <code>Value</code>，且其类型为 <code>String</code>，我们将其映射到 AST 上会有什么结果？</p>
+<blockquote>
+<p><code>Property</code> -&gt; <code>String</code>
+<code>PropertyAssignment &gt; StringLiteral</code></p>
+</blockquote>
+<p>是不是极为相似，随后我们就能实现一个满足上述要求的工具。</p>
+<p>之前分析 Webpack 也是为了干这个，结果发现 Webpack 和这个逻辑不一样；随换个思路，自己重写一个对 AST 的选择器工具。</p>
+<p>在 npm 额 Github 上摸了半天，也没找到合适的库。</p>
+<ul>
+<li><a href="https://github.com/css-modules/css-selector-tokenizer"><code>css-selector-tokenizer</code></a></li>
+<li><a href="https://github.com/poef/json-css">json-css</a></li>
+<li><a href="https://github.com/GistLabs/mechanize/wiki/CSS-Selectors-for-JSON">CSS-Selectors-for-JSON</a></li>
+<li><a href="https://www.npmjs.com/package/json-q">json-q</a></li>
+</ul>
+<p>唯一一个各方面都还行的，<code>json-q</code> 本身实现有问题，未处理存在自身引用的问题，会栈溢出；而且也和 CSS 选择器思路不太一样，学习成本高了点。</p>
+<p>于是换个思路，上面的 <code>json-css</code> 有点骚，把 JSON 转化成 DOM 结构，然后用原生的选择器。那么重新思考一下 AST 的数据结构，或许这才是更合适的方法；类似 XML 的 <code>tag</code>, <code>attrs</code>, <code>childs</code> ，对应 AST 的 <code>type</code>, <code>节点属性</code>, <code>子节点</code>。</p>
+<p>但是 nodejs 环境，没法整出来 DOM 环境，不过好在有个 <code>jsdom</code> 的库，提供了对浏览器下 DOM 的模拟；但是 AST -&gt; HTML -&gt; DOM 这个过程总感觉没什么意义，太冗杂了；想着去看看 React 这些，有个 vDOM 或许服务端渲染会用得上，打开源码的瞬间意识到，React 不直接操作 DOM，保存的是对 DOM 对象的引用，所以不存在选择器这种东西。</p>
+<!-- raw HTML omitted -->
+<p>最后还是回到 <code>jsdom</code> 上，看了看 <code>jsdom</code> 下 <a href="https://github.com/jsdom/jsdom/blob/812093c38f4ff009e22b8e8b066cbe2f50f80ec2/lib/jsdom/living/nodes/ParentNode-impl.js"><code>querySelectorAll</code></a> 是如何实现的</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">addNwsapi</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;../helpers/selectors&#34;</span>);
+
+<span style="color:#75715e">// Warning for internal users: this returns a NodeList containing IDL wrappers instead of impls
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">querySelectorAll</span>(<span style="color:#a6e22e">selectors</span>) {
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">shouldAlwaysSelectNothing</span>(<span style="color:#66d9ef">this</span>)) {
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">NodeList</span>.<span style="color:#a6e22e">create</span>([], { <span style="color:#a6e22e">nodes</span><span style="color:#f92672">:</span> [] });
+    }
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">matcher</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">addNwsapi</span>(<span style="color:#66d9ef">this</span>);
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">list</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">matcher</span>.<span style="color:#a6e22e">select</span>(<span style="color:#a6e22e">selectors</span>, <span style="color:#a6e22e">idlUtils</span>.<span style="color:#a6e22e">wrapperForImpl</span>(<span style="color:#66d9ef">this</span>));
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">NodeList</span>.<span style="color:#a6e22e">create</span>([], { <span style="color:#a6e22e">nodes</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">n</span> =&gt; <span style="color:#a6e22e">idlUtils</span>.<span style="color:#a6e22e">tryImplForWrapper</span>(<span style="color:#a6e22e">n</span>)) });
+}
+</code></pre></div><p>这里有一个 <a href="https://github.com/jsdom/jsdom/blob/812093c38f/lib/jsdom/living/helpers/selectors.js"><code>selectors</code></a> 里面用到了<a href="https://github.com/dperini/nwsapi"><code>Nwsapi</code></a>， 这是一个高性能的 CSS 选择器引擎，其传递了一个 <code>document</code> 对象的实现进去？所以按照我们的需求只要把 AST 转化成 document 就行了；何必走 HTML 这个标记语言的中间层。</p>
+<p>这个 CSS 选择器写的还是比较魔幻的，所以阅读起来有点恶心。而且实现完整的 <code>document</code> 其实没什么意义，他也不可能啥都用到的，这时候 ES6 的新特性 <code>Proxy</code> 就很方便了。它提供了对整个对象的代理，对其的所有操作都会被转化成几个处理函数，我们可以用它来记录 <code>nwsapi</code> 具体使用了那些接口和属性，然后针对性的实现他们。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">wrapper</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">item</span>) =&gt; <span style="color:#a6e22e">item</span> <span style="color:#66d9ef">instanceof</span> Object <span style="color:#f92672">?</span> <span style="color:#66d9ef">new</span> Proxy(<span style="color:#a6e22e">item</span>, {
+    <span style="color:#a6e22e">get</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">obj</span>, <span style="color:#a6e22e">key</span>) =&gt; {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">obj</span>) {
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">debug</span>(<span style="color:#a6e22e">obj</span>, <span style="color:#a6e22e">key</span>);
+        } <span style="color:#66d9ef">else</span> {
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">debug</span>(<span style="color:#a6e22e">obj</span>, <span style="color:#66d9ef">new</span> Error(<span style="color:#a6e22e">key</span>).<span style="color:#a6e22e">stack</span>);
+        }
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">wrapper</span>(<span style="color:#a6e22e">obj</span>[<span style="color:#a6e22e">key</span>]);
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
+    }
+}) <span style="color:#f92672">:</span> <span style="color:#a6e22e">item</span>;
+</code></pre></div><p>一个简单粗暴的包装函数，只要用他把需要处理的对象包裹一下，他就会递归处理所有的属性，存在的打印方法名，不存在的打印方法名和调用链，然后可以根据调用链，确定其作用以及来源。</p>
+<p><img src="https://i.loli.net/2019/05/18/5cdf9884c81e481835.png" alt="1557286766532.png"></p>
+<p>这样我们能针对性的模拟需要的属性，而不必完整的实现它。这个技巧在修改别人的项目上非常好用，之前做 ambari 的汉化，6k 多个文件，全理清除是很费时间的；直接包装一下，检查一下调用链，问题都解决了；甚至可以用来追踪 Promise 链（尚未成功）。思路应该是来源于黑盒测试，以及一些逆向的操作。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">node</span>) {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">doc</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">ownerDocument</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">node</span>;
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">doc</span>.<span style="color:#a6e22e">nodeType</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">9</span> <span style="color:#f92672">&amp;&amp;</span>
+        <span style="color:#75715e">// contentType not in IE &lt;= 11
+</span><span style="color:#75715e"></span>        <span style="color:#e6db74">&#39;contentType&#39;</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">doc</span> <span style="color:#f92672">?</span>
+        <span style="color:#a6e22e">doc</span>.<span style="color:#a6e22e">contentType</span>.<span style="color:#a6e22e">indexOf</span>(<span style="color:#e6db74">&#39;/html&#39;</span>) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">:</span>
+    <span style="color:#a6e22e">doc</span>.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;DiV&#39;</span>).<span style="color:#a6e22e">nodeName</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;DIV&#39;</span>;
+}
+</code></pre></div><p>最早是这块，判断传递进来的是不是一个 DOM 对象，我们加个 <code>nodeType:9</code> 和 <code>contentType:'/html'</code>来解决它。</p>
+<p>这时候 <code>vDocument</code>已经变成这样了；</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">vDocument</span> <span style="color:#f92672">=</span> {
+    <span style="color:#a6e22e">nodeType</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">9</span>,
+    <span style="color:#a6e22e">contentType</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;/html&#39;</span>
+}
+</code></pre></div><h3 id="fakedom">FakeDOM</h3>
+<p>类似的还要添加 <code>ownerDocument</code>，<code>documentElement</code> 这 2 个属性只是为了避免打印栈错误，其实没什么用。</p>
+<p>而最主要的是这 4 个方法 <code>getElementsByTagName</code>，<code>getElementsByClassName</code>，<code>getElementById</code>，<code>getAttribute</code>。假装实现了一下，的确可以用了。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> document <span style="color:#f92672">=</span> {
+    <span style="color:#a6e22e">nodeName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;p&#39;</span>,
+    <span style="color:#a6e22e">nodeType</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">9</span>,
+    <span style="color:#a6e22e">contentType</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;/html&#39;</span>,
+
+    <span style="color:#a6e22e">ownerDocument</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>,
+    <span style="color:#a6e22e">documentElement</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>,
+
+    <span style="color:#a6e22e">getElementsByTagName</span>(<span style="color:#a6e22e">tagName</span>) {
+        <span style="color:#66d9ef">return</span> Object.<span style="color:#a6e22e">assign</span>([<span style="color:#a6e22e">element</span>], { <span style="color:#a6e22e">tagName</span> });
+    },
+    <span style="color:#a6e22e">getElementsByClassName</span>(<span style="color:#a6e22e">className</span>) {
+        <span style="color:#66d9ef">return</span> Object.<span style="color:#a6e22e">assign</span>([<span style="color:#a6e22e">element</span>], { <span style="color:#a6e22e">className</span> });
+    },
+    <span style="color:#a6e22e">getElementById</span>(<span style="color:#a6e22e">id</span>) {
+        <span style="color:#66d9ef">return</span> Object.<span style="color:#a6e22e">assign</span>([<span style="color:#a6e22e">element</span>], { <span style="color:#a6e22e">id</span> });
+    },
+    <span style="color:#a6e22e">getAttribute</span>(<span style="color:#a6e22e">attribute</span>) {
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;testClass&#34;</span>
+    }
+};
+
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">element</span> <span style="color:#f92672">=</span> {
+    <span style="color:#a6e22e">_name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;element&#39;</span>,
+    <span style="color:#a6e22e">parentElement</span><span style="color:#f92672">:</span> document
+};
+</code></pre></div><p>之后就得细化这几个方法，让它实际有效。</p>
+<blockquote>
+<p>CSS 选择器是自右向左匹配的，这个虽然都可能听说过，但是可能并不一定知道为什么，来分析一下这个高性能选择器。</p>
+<p>因为 DOM 原生提供了对树的部分节点的引用，通过 <code>id</code>,<code>class</code>,<code>tagName</code> 三种方式。</p>
+<p>相比自上向下的遍历，直接读取 HashMap 的性能更好，而且无需重复遍历，只要初始化 DOM 结构时，记录一下即可。</p>
+<p>之后再通过 <code>parentElement</code> 递归取出父元素，匹配前面的选择器。所以选择器能短就短，要不会产生额外的匹配损耗。</p>
+</blockquote>
+<p>参照上面对于 CSS 选择的实现的理解，我们需要实现遍历 AST，然后提供上述 4 个方法和对父级的反向引用。</p>
+<p>至于为何不去修改 AST 的生成设施 <code>typescript</code> ，因为工作量太大啊！我还没看明白 TS，让我去改 TS 解释器，不是脑子有点问题？</p>
+<p>而且这样会和各种解析器强耦合，不适合抽象出基础组件和接口，参照 <code>ASTExplorer</code> 的项目结构。</p>
+<h3 id="黑盒探针">黑盒探针</h3>
+<p>这是之前也用到的一个技巧，对于复杂的组件内部的对象，我们可以通过分析其源码和运行机制获取到内部的参数和配置；也可以通过数据驱动常用的方法，将对数据的操作转化为方法，并输出相关的日志；这实际上就被当成黑盒，而 Proxy 的回调就是一个个探针，协助我们获取内部的实现。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">wrapper</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">item</span>) =&gt; <span style="color:#a6e22e">item</span> <span style="color:#66d9ef">instanceof</span> Object <span style="color:#f92672">?</span> <span style="color:#66d9ef">new</span> Proxy(<span style="color:#a6e22e">item</span>, {
+    <span style="color:#a6e22e">get</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">obj</span>, <span style="color:#a6e22e">key</span>) =&gt; {
+        <span style="color:#75715e">// For Dom
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (<span style="color:#e6db74">&#39;getAttribute&#39;</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">key</span>) {
+            <span style="color:#66d9ef">return</span> (<span style="color:#a6e22e">attribute</span>) =&gt; {
+                <span style="color:#66d9ef">if</span> (<span style="color:#e6db74">&#39;class&#39;</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">attribute</span>) {
+                    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">wrapper</span>(Object.<span style="color:#a6e22e">keys</span>(<span style="color:#a6e22e">obj</span>).<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#39; &#39;</span>));
+                }
+
+                <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">attribute</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">obj</span>) {
+                    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">wrapper</span>(<span style="color:#a6e22e">obj</span>[<span style="color:#a6e22e">attribute</span>]);
+                }
+                <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">obj</span>, <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">attribute</span>, <span style="color:#66d9ef">new</span> Error().<span style="color:#a6e22e">stack</span>);
+            };
+        }
+
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">obj</span>) {
+            <span style="color:#75715e">// console.debug(obj, key);
+</span><span style="color:#75715e"></span>        } <span style="color:#66d9ef">else</span> {
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">obj</span>, <span style="color:#a6e22e">key</span>, <span style="color:#66d9ef">new</span> Error().<span style="color:#a6e22e">stack</span>);
+        }
+
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">wrapper</span>(<span style="color:#a6e22e">obj</span>[<span style="color:#a6e22e">key</span>]);
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
+    }
+}) <span style="color:#f92672">:</span> <span style="color:#a6e22e">item</span>;
+</code></pre></div><p>而最后实现的 FakeDOM 也是通过这样实现的覆盖了 CSS 选择器所必要的方法和属性的最小 DOM 结构。</p>
+<h3 id="遍历转化">遍历转化</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">parser</span>, <span style="color:#a6e22e">ast</span>) {
+    <span style="color:#a6e22e">walkAST</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">parser</span>, <span style="color:#a6e22e">ast</span>, (<span style="color:#a6e22e">node</span>, <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">parent</span>) =&gt; {
+        <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">nodeName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">parser</span>.<span style="color:#a6e22e">getNodeName</span>(<span style="color:#a6e22e">node</span>);
+        <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">pkey</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">key</span>;
+
+        <span style="color:#75715e">// 模拟 DOM
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">parentElement</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">parent</span>;
+
+        <span style="color:#75715e">// 处理必要的接口
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">tagMap</span>[<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">nodeName</span>]) {
+            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">tagMap</span>[<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">nodeName</span>] <span style="color:#f92672">=</span> [];
+        }
+        
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">tagMap</span>[<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">nodeName</span>].<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">node</span>);
+    });
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">__proto__</span>.<span style="color:#a6e22e">__proto__</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ast</span>;
+}
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">walkNodes</span>(<span style="color:#a6e22e">nodes</span>, <span style="color:#a6e22e">parent</span>, <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">handler</span>) {
+    <span style="color:#a6e22e">nodes</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">node</span> =&gt; <span style="color:#a6e22e">walkNode</span>.<span style="color:#a6e22e">call</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">node</span>, <span style="color:#a6e22e">parent</span>, <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">handler</span>));
+}
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">walkNode</span>(<span style="color:#a6e22e">node</span>, <span style="color:#a6e22e">parent</span>, <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">handler</span>) {
+    <span style="color:#66d9ef">if</span> (Array.<span style="color:#a6e22e">isArray</span>(<span style="color:#a6e22e">node</span>)) {
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">walkNodes</span>.<span style="color:#a6e22e">call</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">node</span>, <span style="color:#a6e22e">parent</span>, <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">handler</span>);
+    }
+
+    <span style="color:#a6e22e">handler</span>(<span style="color:#a6e22e">node</span>, <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">parent</span>);
+
+    <span style="color:#75715e">// 处理子元素
+</span><span style="color:#75715e"></span>    Object.<span style="color:#a6e22e">keys</span>(<span style="color:#a6e22e">node</span>).<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">key</span> =&gt; {
+        <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">walkByDefault</span>(<span style="color:#a6e22e">node</span>, <span style="color:#a6e22e">key</span>)) {
+            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">walkNode</span>.<span style="color:#a6e22e">call</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">node</span>[<span style="color:#a6e22e">key</span>], <span style="color:#a6e22e">node</span>, <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">handler</span>);
+        }
+    })
+}
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">walkAST</span>(<span style="color:#a6e22e">ast</span>, <span style="color:#a6e22e">handler</span>) {
+    <span style="color:#a6e22e">walkNode</span>.<span style="color:#a6e22e">call</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">ast</span>, <span style="color:#66d9ef">undefined</span>, <span style="color:#66d9ef">undefined</span>, <span style="color:#a6e22e">handler</span>);
+}
+</code></pre></div><p>递归遍历整个节点树，并执行输入的回调方法，进行替换和覆盖操作，其实这块应该被抽象到 <code>parser</code> 内部，对外暴露统一的 DOM 结构。</p>
+<h3 id="表达式映射">表达式映射</h3>
+<ul>
+<li><code>PropertyAssignment</code> -&gt; 类型为 <code>PropertyAssignment</code> 的节点</li>
+<li><code>.initializer &gt; StringLiteral</code> 父节点包含 <code>.initializer</code> 属性的 <code>StringLiteral</code> 节点</li>
+<li><code>.initializer[type=PropertyAssignment] &gt; StringLiteral</code> 父节点为 <code>PropertyAssignment</code> 且存在  <code>.initializer</code> 属性的 <code>StringLiteral</code> 节点</li>
+</ul>
+<p>这时候会遇到一个问题</p>
+<p><img src="https://i.loli.net/2019/05/18/5cdf98847406843073.png" alt="1557810601329.png"></p>
+<p>这里的 <code>.initializer</code> 和 <code>.name</code> 均会被相同的表达式获取，因为 HTML DOM 中只存在一个子节点树，而 AST 的子节点数的不定数目的。</p>
+<p>所以需要增加一个约束性的语法来解决这个问题。</p>
+<p>比如在遍历的时候将，<code>key</code> 写入子节点，这样就可以用 <code>.initializer &gt; StringLiteral[$key]</code> 来表达这个意图。</p>
+<p>但是发现 <code>$</code> 和 <code>#</code> 都是有意义的表达式，于是暂时没想好用啥符号。只能叫他 <code>pkey</code> 了。。。</p>
+<p>结果如下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">example</span> <span style="color:#f92672">=</span> {
+    <span style="color:#e6db74">&#34;version&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;0.2.0&#34;</span>,
+    <span style="color:#e6db74">&#34;configurations&#34;</span><span style="color:#f92672">:</span> [
+        {
+            <span style="color:#e6db74">&#34;type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;node&#34;</span>,
+            <span style="color:#e6db74">&#34;request&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;launch&#34;</span>,
+            <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Launch Program&#34;</span>,
+            <span style="color:#e6db74">&#34;program&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;${workspaceFolder}/node_modules/webpack/bin/webpack.js&#34;</span>,
+            <span style="color:#e6db74">&#34;args&#34;</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;--config&#34;</span>, <span style="color:#e6db74">&#34;webpack.config.js&#34;</span>]
+        },
+        {
+            <span style="color:#e6db74">&#34;type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;node&#34;</span>,
+            <span style="color:#e6db74">&#34;request&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;attach&#34;</span>,
+            <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Attach by Process ID&#34;</span>,
+            <span style="color:#e6db74">&#34;processId&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;${command:PickProcess}&#34;</span>
+        }
+    ]
+};
+</code></pre></div><p>上述代码通过表达式 <code>PropertyAssignment &gt; StringLiteral[pkey=initializer]</code> 选择之后，得到这些结果</p>
+<p><img src="https://i.loli.net/2019/05/18/5cdf9884af5c838315.png" alt="1557811620946.png"></p>
+<p>应该算是比较符合要求的了。</p>
+<h3 id="文本处理工具包">文本处理工具包</h3>
+<p>刚开始只是为了做个自动化翻译，但是最后发现处理汉化，还有一些其他操作的可能性；于是借鉴了 Koa 的中间件模型。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">_compose</span>(<span style="color:#a6e22e">middleware</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">context</span>) {
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">dispatch</span>(<span style="color:#ae81ff">0</span>)
+        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">dispatch</span>(<span style="color:#a6e22e">i</span>) {
+            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">fn</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">middleware</span>[<span style="color:#a6e22e">i</span>]
+            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">fn</span>) {
+                <span style="color:#66d9ef">return</span> Promise.<span style="color:#a6e22e">resolve</span>()
+            }
+            <span style="color:#66d9ef">return</span> Promise.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">fn</span>(<span style="color:#a6e22e">context</span>, <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">next</span>() {
+                <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">dispatch</span>(<span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+            }))
+        }
+    }
+}
+</code></pre></div><p>可以使用如下方式定义插件调用。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">middleware</span>(<span style="color:#a6e22e">node</span>, <span style="color:#a6e22e">next</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">aaa</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;aaaa&#34;</span>;
+    <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">next</span>;
+    <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">text</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bbbb&#34;</span>;
+}
+</code></pre></div><p>然后在 <code>transfrom</code> 方法调用对应的中间件路径或者函数，他们都会异步执行，并且形成一个捕获和冒泡的调用链，每个插件也有对应的捕获和冒泡阶段。</p>
+<p>在这突然明白了之后会写的 Chrome onMessage 事件会直接返回，而异步事件需要返回 <code>true</code> 之后才等待结果。</p>
+<p>类似的结构在浏览器的冒泡上却不需要这个操作，因为 <code>onMessage</code> 方法，外部能检测到的只有 <code>return</code> 和 <code>callback</code>，而事件循环中，事件的状态由一个 <code>cancelBubble</code> 确定，默认的 Koa 中间级机制时不允许提前返回，我们可以在上面的每个函数执行之后检查一下 <code>ctx</code> 的 <code>return</code> 属性，来判断是否需要提前终止调用链。</p>
+<h3 id="逆向替换">逆向替换</h3>
+<p>因为我们获取到一个储存了全部需要处理的数据集合</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">[
+    {
+        <span style="color:#960050;background-color:#1e0010">text:</span> <span style="color:#f92672">&#34;text&#34;</span>,
+        <span style="color:#960050;background-color:#1e0010">start:</span> <span style="color:#960050;background-color:#1e0010">0,</span>
+        <span style="color:#960050;background-color:#1e0010">end:</span> <span style="color:#960050;background-color:#1e0010">3</span>
+    }
+]
+</code></pre></div><p>如果直接通过 <code>start</code> 和 <code>end</code> 替换会导致，后面的游标失效，所以先 <code>sort</code> 一下，然后 <code>reduce</code> 替换。</p>
+<p>之后得到如下操作</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">async</span> <span style="color:#a6e22e">backfill</span>() {
+    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">sources</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> Promise.<span style="color:#a6e22e">all</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">transTokens</span>).<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">transTokens</span> =&gt; {
+        <span style="color:#a6e22e">transTokens</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">transTokens</span>.<span style="color:#a6e22e">sort</span>((<span style="color:#a6e22e">node1</span>, <span style="color:#a6e22e">node2</span>) =&gt; {
+            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">node2</span>.<span style="color:#a6e22e">end</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">node1</span>.<span style="color:#a6e22e">end</span>;
+        });
+
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">transTokens</span>.<span style="color:#a6e22e">reduce</span>((<span style="color:#a6e22e">source</span>, <span style="color:#a6e22e">node</span>) =&gt; {
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Replace&#39;</span>, <span style="color:#a6e22e">source</span>.<span style="color:#a6e22e">splice</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">start</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">end</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">start</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>, ...<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">text</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;&#39;</span>)).<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#39;&#39;</span>), <span style="color:#e6db74">&#39;to&#39;</span>, <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">text</span>);
+            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">source</span>;
+        }, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">source</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;&#39;</span>))
+    })
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">sources</span>.<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#39;&#39;</span>);
+}
+</code></pre></div><p>这里还有个操作，把字符串切分成数组，然后用数组的 <code>splice</code> 方法，直接替换指定位置的子数组。</p>
+<p>最后调用方式</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#75715e">// 初始化实例
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">results</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Transer</span>()
+    	<span style="color:#75715e">// 载入源码
+</span><span style="color:#75715e"></span>        .<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">source</span>) 
+    	<span style="color:#75715e">// 设置选择符
+</span><span style="color:#75715e"></span>        .<span style="color:#a6e22e">select</span>(<span style="color:#e6db74">&#34;PropertyAssignment &gt; StringLiteral[pkey=initializer]&#34;</span>)
+    	<span style="color:#75715e">// 需要使用的注册组件
+</span><span style="color:#75715e"></span>        .<span style="color:#a6e22e">transfrom</span>(<span style="color:#e6db74">&#34;normalization&#34;</span>)
+    	<span style="color:#75715e">// 填入
+</span><span style="color:#75715e"></span>        .<span style="color:#a6e22e">backfill</span>();
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">results</span>)
+}
+
+<span style="color:#a6e22e">main</span>();
+</code></pre></div><p><img src="https://i.loli.net/2019/05/18/5cdf9885023b757617.png" alt="1558060844978.png"></p>
+<h2 id="vsc-的文本处理插件未完成">VSC 的文本处理插件（未完成）</h2>
+<p><img src="https://i.loli.net/2019/05/18/5cdf988a8660e76144.png" alt="VSC"></p>
+<ul>
+<li>实时显示对应节点的处理结果，并提供自定义输入的方式</li>
+</ul>
+<p>虽然不能开源，但是可以写一篇 VSC 插件开发的文章出来描述一下。</p>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

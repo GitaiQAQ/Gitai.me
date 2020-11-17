@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MCU on Gitai.me</title>
+    <link>https://gitai.me/categories/mcu/</link>
+    <description>Recent content in MCU on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Fri, 10 Feb 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/categories/mcu/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>串口数据持久化手札</title>
+      <link>https://gitai.me/2017/02/logs-of-serial-input-data-persistenced/</link>
+      <pubDate>Fri, 10 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/02/logs-of-serial-input-data-persistenced/</guid>
+      <description>&lt;p&gt;前面已经 WIFI 探针已经说到，用各种第三方工具和单片机进行交互。&lt;/p&gt;
+&lt;p&gt;但是为了开发我们更需要的是可以被接入的 SDK&lt;/p&gt;
+&lt;p&gt;乐鑫官方有个 &lt;code&gt;esptool&lt;/code&gt;，这是个 Python 编写的终端工具，对于 Python 和 JavaScript 这类解释性需要来说，最大的好处就是原始码直接发布，虽然也可以编译混淆，但是基本非商业应用没人这么做。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;platformio&lt;/code&gt; 有个 &lt;code&gt;pio device monitor&lt;/code&gt; 命令，启动一个串口交互界面。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>串口通讯基础</title>
+      <link>https://gitai.me/2017/02/serial-input-basics/</link>
+      <pubDate>Fri, 10 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/02/serial-input-basics/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;一个准备入硬件坑的软件工程师&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;目录&#34;&gt;目录&lt;/h1&gt;
+&lt;p&gt;本教程中的以下部分&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;简介&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Arduino标准的串行数据缓慢&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例1 - 接收单个字符&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;为什么代码被组织到函数中&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例2 - 从串行监视器接收多个字符&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例3 - 更完整的系统&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;可以接收多少个字符？&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例中未使用的事件&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;serialEvent（）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;清除输入缓冲区&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;接收数字而不是文本&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例4 - 从串行监视器接收单个数字&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例5 - 接收和解析数个数据&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;二进制数据&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例6 - 接收二进制数据的程序请注意，本教程将继续进入接下来的2个帖子&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

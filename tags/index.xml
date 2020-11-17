@@ -1,0 +1,633 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Gitai.me</title>
+    <link>https://gitai.me/tags/</link>
+    <description>Recent content in Tags on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Sat, 21 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>骚操作</title>
+      <link>https://gitai.me/tags/%E9%AA%9A%E6%93%8D%E4%BD%9C/</link>
+      <pubDate>Sat, 21 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/%E9%AA%9A%E6%93%8D%E4%BD%9C/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Arduino</title>
+      <link>https://gitai.me/tags/arduino/</link>
+      <pubDate>Mon, 16 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/arduino/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Saas</title>
+      <link>https://gitai.me/tags/saas/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/saas/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>半虚拟化</title>
+      <link>https://gitai.me/tags/%E5%8D%8A%E8%99%9A%E6%8B%9F%E5%8C%96/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/%E5%8D%8A%E8%99%9A%E6%8B%9F%E5%8C%96/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>JaveScipt</title>
+      <link>https://gitai.me/tags/javescipt/</link>
+      <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/javescipt/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>V8</title>
+      <link>https://gitai.me/tags/v8/</link>
+      <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/v8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>不可信运行环境</title>
+      <link>https://gitai.me/tags/%E4%B8%8D%E5%8F%AF%E4%BF%A1%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83/</link>
+      <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/%E4%B8%8D%E5%8F%AF%E4%BF%A1%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CPU</title>
+      <link>https://gitai.me/tags/cpu/</link>
+      <pubDate>Fri, 20 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/cpu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>前端</title>
+      <link>https://gitai.me/tags/%E5%89%8D%E7%AB%AF/</link>
+      <pubDate>Fri, 13 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/%E5%89%8D%E7%AB%AF/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>JavaScript</title>
+      <link>https://gitai.me/tags/javascript/</link>
+      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Webpack</title>
+      <link>https://gitai.me/tags/webpack/</link>
+      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/webpack/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>优化</title>
+      <link>https://gitai.me/tags/%E4%BC%98%E5%8C%96/</link>
+      <pubDate>Sat, 13 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/%E4%BC%98%E5%8C%96/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Don`t Starve Together</title>
+      <link>https://gitai.me/tags/dont-starve-together/</link>
+      <pubDate>Sat, 22 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/dont-starve-together/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Api</title>
+      <link>https://gitai.me/tags/api/</link>
+      <pubDate>Sun, 02 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/api/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>强类型</title>
+      <link>https://gitai.me/tags/%E5%BC%BA%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Sun, 02 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/%E5%BC%BA%E7%B1%BB%E5%9E%8B/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>笔记</title>
+      <link>https://gitai.me/tags/%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Mon, 20 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/%E7%AC%94%E8%AE%B0/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Overlay</title>
+      <link>https://gitai.me/tags/overlay/</link>
+      <pubDate>Sat, 11 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/overlay/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>单元测试</title>
+      <link>https://gitai.me/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</link>
+      <pubDate>Thu, 25 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>造轮子</title>
+      <link>https://gitai.me/tags/%E9%80%A0%E8%BD%AE%E5%AD%90/</link>
+      <pubDate>Thu, 25 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/%E9%80%A0%E8%BD%AE%E5%AD%90/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://gitai.me/tags/linux/</link>
+      <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>虚拟化</title>
+      <link>https://gitai.me/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/</link>
+      <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rust</title>
+      <link>https://gitai.me/tags/rust/</link>
+      <pubDate>Sat, 02 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/rust/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>https://gitai.me/tags/python/</link>
+      <pubDate>Mon, 28 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CSS</title>
+      <link>https://gitai.me/tags/css/</link>
+      <pubDate>Tue, 22 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/css/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OJ</title>
+      <link>https://gitai.me/tags/oj/</link>
+      <pubDate>Mon, 07 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/oj/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>沙箱</title>
+      <link>https://gitai.me/tags/%E6%B2%99%E7%AE%B1/</link>
+      <pubDate>Mon, 07 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/%E6%B2%99%E7%AE%B1/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Django</title>
+      <link>https://gitai.me/tags/django/</link>
+      <pubDate>Wed, 10 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/django/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hack</title>
+      <link>https://gitai.me/tags/hack/</link>
+      <pubDate>Wed, 10 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/hack/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://gitai.me/tags/docker/</link>
+      <pubDate>Fri, 21 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>D3.js</title>
+      <link>https://gitai.me/tags/d3.js/</link>
+      <pubDate>Sat, 01 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/d3.js/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Spark</title>
+      <link>https://gitai.me/tags/spark/</link>
+      <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/spark/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>记录</title>
+      <link>https://gitai.me/tags/%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Tue, 02 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/%E8%AE%B0%E5%BD%95/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Imagine Cup</title>
+      <link>https://gitai.me/tags/imagine-cup/</link>
+      <pubDate>Tue, 28 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/imagine-cup/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>LatticeOS</title>
+      <link>https://gitai.me/tags/latticeos/</link>
+      <pubDate>Tue, 28 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/latticeos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Slide</title>
+      <link>https://gitai.me/tags/slide/</link>
+      <pubDate>Tue, 28 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/slide/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Contained OS</title>
+      <link>https://gitai.me/tags/contained-os/</link>
+      <pubDate>Sat, 25 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/contained-os/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>容器化</title>
+      <link>https://gitai.me/tags/%E5%AE%B9%E5%99%A8%E5%8C%96/</link>
+      <pubDate>Sat, 25 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/%E5%AE%B9%E5%99%A8%E5%8C%96/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ChromiumOS</title>
+      <link>https://gitai.me/tags/chromiumos/</link>
+      <pubDate>Thu, 23 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/chromiumos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RancherOS</title>
+      <link>https://gitai.me/tags/rancheros/</link>
+      <pubDate>Wed, 22 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/rancheros/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CoreOS</title>
+      <link>https://gitai.me/tags/coreos/</link>
+      <pubDate>Tue, 21 Mar 2017 01:06:19 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/coreos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>BUG</title>
+      <link>https://gitai.me/tags/bug/</link>
+      <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/bug/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ChomeOS</title>
+      <link>https://gitai.me/tags/chomeos/</link>
+      <pubDate>Sat, 18 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/chomeos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GUI</title>
+      <link>https://gitai.me/tags/gui/</link>
+      <pubDate>Fri, 17 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/gui/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>polybar</title>
+      <link>https://gitai.me/tags/polybar/</link>
+      <pubDate>Fri, 17 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/polybar/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Markdown</title>
+      <link>https://gitai.me/tags/markdown/</link>
+      <pubDate>Sun, 31 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/markdown/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Parsing</title>
+      <link>https://gitai.me/tags/parsing/</link>
+      <pubDate>Sun, 31 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/parsing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Theme</title>
+      <link>https://gitai.me/tags/theme/</link>
+      <pubDate>Tue, 21 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/theme/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Build</title>
+      <link>https://gitai.me/tags/build/</link>
+      <pubDate>Mon, 20 Jun 2016 07:04:34 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/build/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Compilation</title>
+      <link>https://gitai.me/tags/compilation/</link>
+      <pubDate>Mon, 20 Jun 2016 07:04:34 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/compilation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Process</title>
+      <link>https://gitai.me/tags/process/</link>
+      <pubDate>Mon, 20 Jun 2016 07:04:34 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/process/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Error</title>
+      <link>https://gitai.me/tags/error/</link>
+      <pubDate>Mon, 20 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/error/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Android</title>
+      <link>https://gitai.me/tags/android/</link>
+      <pubDate>Thu, 07 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/android/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>工具</title>
+      <link>https://gitai.me/tags/%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Thu, 07 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/%E5%B7%A5%E5%85%B7/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>应用</title>
+      <link>https://gitai.me/tags/%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Thu, 07 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/%E5%BA%94%E7%94%A8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>REST</title>
+      <link>https://gitai.me/tags/rest/</link>
+      <pubDate>Sat, 26 Mar 2016 18:15:36 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/rest/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Lua</title>
+      <link>https://gitai.me/tags/lua/</link>
+      <pubDate>Mon, 14 Mar 2016 11:51:36 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/lua/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kanban</title>
+      <link>https://gitai.me/tags/kanban/</link>
+      <pubDate>Thu, 03 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/kanban/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Protobuf</title>
+      <link>https://gitai.me/tags/protobuf/</link>
+      <pubDate>Mon, 08 Feb 2016 09:26:36 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/protobuf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tasker</title>
+      <link>https://gitai.me/tags/tasker/</link>
+      <pubDate>Sun, 07 Feb 2016 13:22:51 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/tasker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Bluemix</title>
+      <link>https://gitai.me/tags/bluemix/</link>
+      <pubDate>Sun, 31 Jan 2016 10:23:52 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/bluemix/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Disease</title>
+      <link>https://gitai.me/tags/disease/</link>
+      <pubDate>Sun, 31 Jan 2016 10:23:52 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/disease/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java</title>
+      <link>https://gitai.me/tags/java/</link>
+      <pubDate>Sun, 31 Jan 2016 10:23:52 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Minecraft</title>
+      <link>https://gitai.me/tags/minecraft/</link>
+      <pubDate>Sun, 31 Jan 2016 10:23:52 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/minecraft/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Spigot</title>
+      <link>https://gitai.me/tags/spigot/</link>
+      <pubDate>Sun, 31 Jan 2016 10:23:52 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/spigot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Watson</title>
+      <link>https://gitai.me/tags/watson/</link>
+      <pubDate>Sun, 31 Jan 2016 10:23:52 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/watson/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>容器</title>
+      <link>https://gitai.me/tags/%E5%AE%B9%E5%99%A8/</link>
+      <pubDate>Sun, 31 Jan 2016 10:23:52 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/%E5%AE%B9%E5%99%A8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>插件</title>
+      <link>https://gitai.me/tags/%E6%8F%92%E4%BB%B6/</link>
+      <pubDate>Sun, 31 Jan 2016 10:23:52 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/%E6%8F%92%E4%BB%B6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Coding.net</title>
+      <link>https://gitai.me/tags/coding.net/</link>
+      <pubDate>Mon, 26 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/coding.net/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nodejs</title>
+      <link>https://gitai.me/tags/nodejs/</link>
+      <pubDate>Mon, 26 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/tags/nodejs/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

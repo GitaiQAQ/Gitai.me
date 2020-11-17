@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Coding.net on Gitai.me</title>
+    <link>https://gitai.me/tags/coding.net/</link>
+    <description>Recent content in Coding.net on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Mon, 26 Oct 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/coding.net/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cli-Coding</title>
+      <link>https://gitai.me/2015/10/cli-coding/</link>
+      <pubDate>Mon, 26 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2015/10/cli-coding/</guid>
+      <description>&lt;h1 id=&#34;cli-coding&#34;&gt;Cli-Coding&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&#34;https://img.shields.io/dub/l/vibe-d.svg&#34; alt=&#34;MIT&#34;&gt;&lt;/p&gt;
+&lt;p&gt;A simple command-line tool for coding.net by nodejs&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Node-Coding</title>
+      <link>https://gitai.me/2015/10/node-coding/</link>
+      <pubDate>Sat, 24 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2015/10/node-coding/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://img.shields.io/dub/l/vibe-d.svg&#34; alt=&#34;MIT&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Coding.net API Nodejs library.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

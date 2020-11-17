@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Contained OS on Gitai.me</title>
+    <link>https://gitai.me/tags/contained-os/</link>
+    <description>Recent content in Contained OS on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Sat, 25 Mar 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/contained-os/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>容器化系统实践</title>
+      <link>https://gitai.me/2017/03/contained-os/</link>
+      <pubDate>Sat, 25 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/03/contained-os/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;App Sandbox is an access control technology provided in OS X, enforced at the kernel level. Its strategy is twofold:
+App Sandbox enables you to describe how your app interacts with the system. The system then grants your app the access it needs to get its job done, and no more.
+App Sandbox provides a last line of defense against the theft, corruption, or deletion of user data if an attacker successfully exploits security holes in your app or the frameworks it is linked against.
+— Apple About App Sandbox[^2.1]&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Containers Are the Next Package Manager &lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;quick-start&#34;&gt;Quick Start&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;curl http://isostore-1252924862.cosgz.myqcloud.com/cins/install.sh | bash
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

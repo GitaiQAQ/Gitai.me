@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Markdown on Gitai.me</title>
+    <link>https://gitai.me/tags/markdown/</link>
+    <description>Recent content in Markdown on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Sun, 31 Jul 2016 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/markdown/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WIP：Pulldown-cmark 分析</title>
+      <link>https://gitai.me/2016/07/pulldown/</link>
+      <pubDate>Sun, 31 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2016/07/pulldown/</guid>
+      <description>Pulldown-cmark 这是一个对于 CommonMark 的 Pull 解析器，使用 Rust 编写。配带一个简单的终端工具，来渲染 HTML。 设计原则： 快速; 最小的分配和复制 安全; Rust，且未使用 unsafe 块</description>
+    </item>
+    
+  </channel>
+</rss>

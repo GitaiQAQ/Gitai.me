@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Android on Gitai.me</title>
+    <link>https://gitai.me/categories/android/</link>
+    <description>Recent content in Android on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Wed, 22 Jun 2016 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/categories/android/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>聚合 Android 主题</title>
+      <link>https://gitai.me/2016/06/merge-android-theme/</link>
+      <pubDate>Wed, 22 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2016/06/merge-android-theme/</guid>
+      <description>通过最近 3 篇文章 应用打包流程 Android 主题引擎 Zip 结构分析 来对现有的 Icon Pack 进行适应性修改 Icon Pack 类型参见 Android 主题引擎 主要以 CyanogenMod 的 Assets 和 Nova 的 res 文件夹为主 本文就建立在</description>
+    </item>
+    
+    <item>
+      <title>Android 主题引擎</title>
+      <link>https://gitai.me/2016/06/android-theme-engine/</link>
+      <pubDate>Tue, 21 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2016/06/android-theme-engine/</guid>
+      <description>&lt;p&gt;目前只有关于图标包的制作方法&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://gitai.me/img/Android-icon-packs-Google-Play-Store.png&#34; alt=&#34;Android-icon-packs-Google-Play-Store&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Android 打包流程</title>
+      <link>https://gitai.me/2016/06/android-application-build-or-compilation-process/</link>
+      <pubDate>Mon, 20 Jun 2016 07:04:34 +0000</pubDate>
+      
+      <guid>https://gitai.me/2016/06/android-application-build-or-compilation-process/</guid>
+      <description>&lt;p&gt;这篇文章是解释Android程序如何被编译和执行的概述。&lt;/p&gt;
+&lt;p&gt;因为 Android 应用程序的执行过程包括像 DEX，APK，dx tool，aapt tool和javac等各种术语.所以我会先尝试各种工具并参与编译和构建一个 Android 应用程序。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://gitai.me/img/android-application-build-process-diagram.png&#34; alt=&#34;android-application-build-process-diagram&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;.java&lt;/code&gt;: Java 文件拓展名&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.class&lt;/code&gt;: Java 文件编译后，一种8位字节的二进制流文件， 各个数据项按顺序紧密的从前向后排列， 相邻的项之间没有间隙， 这样可以使得class文件非常紧凑， 体积轻巧， 可以被JVM快速的加载至内存， 并且占据较少的内存空间。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DEX&lt;/code&gt;: Dalvik EXecutable file. 所有的.class文件内容整合到一个.dex文件&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;JVM&lt;/code&gt;: Java Virtual Machine. 基于虚拟栈的虚拟机&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DVM&lt;/code&gt;: Dalvik Virtual Machine. 基于寄存器的虚拟机&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;AIDL&lt;/code&gt;: Android Interface Definition Language&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;apk&lt;/code&gt;: Android Application Package file.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;aidl&lt;/code&gt;: converts all AIDL files into .java files.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dx&lt;/code&gt;: convert all .class files into a single DEX file.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;apkbuilder&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;zipalign&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Unable to run mksdcard SDK tool</title>
+      <link>https://gitai.me/2016/06/2016-06-20-unable-to-run-mksdcard-sdk-tool/</link>
+      <pubDate>Mon, 20 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2016/06/2016-06-20-unable-to-run-mksdcard-sdk-tool/</guid>
+      <description>&lt;h2 id=&#34;errorunable-to-run-mksdcard-sdk-tool-in-debian&#34;&gt;Error:Unable to run mksdcard SDK tool in debian&lt;/h2&gt;
+&lt;p&gt;You need some 32-bit binaries, and you have a 64-bit OS version (apparently). Try:&lt;/p&gt;
+&lt;p&gt;For Ubuntu 14.10&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install lib32z1 lib32ncurses5 lib32bz2-1.0 lib32stdc++6
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;For UBUNTU 15.04,15.10 &amp;amp; 16.04 LTS &amp;amp; Debian 8&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install lib32stdc++6
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;For Cent OS/RHEL&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo yum install zlib.i686 ncurses-libs.i686 bzip2-libs.i686 
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>SMS Bomber</title>
+      <link>https://gitai.me/2016/04/smsbomb/</link>
+      <pubDate>Thu, 07 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2016/04/smsbomb/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Trick To Send Unlimited Messages.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;注意&lt;/code&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;只用于测试&lt;/li&gt;
+&lt;li&gt;请勿填写他人号码&lt;/li&gt;
+&lt;li&gt;引用数据均来自于互联网搜集&lt;/li&gt;
+&lt;li&gt;开发者并不保证其有效性和可靠性&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;使用本程序造成的一切后果由使用者自行承担&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Captchas Tool</title>
+      <link>https://gitai.me/2015/12/smscodehelper/</link>
+      <pubDate>Sun, 13 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2015/12/smscodehelper/</guid>
+      <description>&lt;p&gt;验证码处理工具,检查短信中的验证码并给予在通知栏和Toast显示,输出至剪贴板等操作&lt;/p&gt;
+&lt;p&gt;{% github GitaiQAQ SMSCodeHelper  06c400c auto_expand = true %}&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Hosts Editor</title>
+      <link>https://gitai.me/2015/07/hostseditor/</link>
+      <pubDate>Tue, 28 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2015/07/hostseditor/</guid>
+      <description>&lt;p&gt;{% github GitaiQAQ Hosts-Studio-Android c95e58 auto_expand = true}&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

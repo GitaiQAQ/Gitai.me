@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>d3.js 无向图绘制 | Gitai.me</title>
+
+<meta property='og:title' content='d3.js 无向图绘制 - Gitai.me'>
+<meta property='og:description' content='这只是数据可视化的一个小例子， 首先看看成品 戳进去会动的～ 首先写个 d3.js 的力图 参见人家的 布局 力导向图，在此不对重复内容进行赘述。 相比来说只是数据预'>
+<meta property='og:url' content='https://gitai.me/2017/07/undirected-graph/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='D3.js'><meta property='article:published_time' content='2017-07-01T00:00:00Z'/><meta property='article:modified_time' content='2017-07-01T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2017/07/undirected-graph/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/d3.js/">#D3.js</a>
+
+
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">July 1, 2017</h2>
+    <h1 class="title">d3.js 无向图绘制</h1>
+    
+    <div class="content">
+      <p>这只是数据可视化的一个小例子，</p>
+<p>首先看看成品</p>
+<p><img src="https://ooo.0o0.ooo/2017/07/02/5957e4fd07313.png" alt="无向图"></p>
+<p><a href="http://sandbox.runjs.cn/show/bkmdgig6">戳进去</a>会动的～</p>
+<!-- raw HTML omitted -->
+<p>首先写个 d3.js 的力图</p>
+<p>参见人家的 <a href="http://d3.decembercafe.org/pages/layout/force.html">布局 力导向图</a>，在此不对重复内容进行赘述。</p>
+<p>相比来说只是数据预处理和 <code>linkDistance</code> 改成数组这种小细节。</p>
+<p><code>linkDistance</code> 指定结点连接线的距离，默认为20。如果距离是一个常数，那么各连接线的长度总是固定的；如果是一个函数，那么这个函数是作用于各连接线（ source , target ）的。</p>
+<p>写完是这样的</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">head</span>&gt;&lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;&lt;/<span style="color:#f92672">head</span>&gt; 
+&lt;<span style="color:#f92672">body</span>&gt;  
+&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;d3.min.js&#34;</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;  
+&lt;<span style="color:#f92672">script</span>&gt;            
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">edges</span> <span style="color:#f92672">=</span> [
+  {<span style="color:#a6e22e">source</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;0&#34;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;1&#34;</span>, <span style="color:#a6e22e">distance</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">40</span>},
+  {<span style="color:#a6e22e">source</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;0&#34;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;2&#34;</span>, <span style="color:#a6e22e">distance</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">60</span>},
+  {<span style="color:#a6e22e">source</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;0&#34;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;3&#34;</span>, <span style="color:#a6e22e">distance</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">75</span>},
+  {<span style="color:#a6e22e">source</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;0&#34;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;4&#34;</span>, <span style="color:#a6e22e">distance</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">90</span>},
+  {<span style="color:#a6e22e">source</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;0&#34;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;5&#34;</span>, <span style="color:#a6e22e">distance</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">200</span>},
+  {<span style="color:#a6e22e">source</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;0&#34;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;6&#34;</span>, <span style="color:#a6e22e">distance</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">100</span>},
+  {<span style="color:#a6e22e">source</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;0&#34;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;7&#34;</span>, <span style="color:#a6e22e">distance</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">160</span>},
+  {<span style="color:#a6e22e">source</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;0&#34;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;8&#34;</span>, <span style="color:#a6e22e">distance</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">80</span>}
+];
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">nodes</span> <span style="color:#f92672">=</span> {};
+
+<span style="color:#75715e">// Compute the distinct nodes from the links.
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">edges</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">link</span>) {
+  <span style="color:#a6e22e">link</span>.<span style="color:#a6e22e">source</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">nodes</span>[<span style="color:#a6e22e">link</span>.<span style="color:#a6e22e">source</span>] <span style="color:#f92672">||</span> (<span style="color:#a6e22e">nodes</span>[<span style="color:#a6e22e">link</span>.<span style="color:#a6e22e">source</span>] <span style="color:#f92672">=</span> {<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">link</span>.<span style="color:#a6e22e">source</span>});
+  <span style="color:#a6e22e">link</span>.<span style="color:#a6e22e">target</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">nodes</span>[<span style="color:#a6e22e">link</span>.<span style="color:#a6e22e">target</span>] <span style="color:#f92672">||</span> (<span style="color:#a6e22e">nodes</span>[<span style="color:#a6e22e">link</span>.<span style="color:#a6e22e">target</span>] <span style="color:#f92672">=</span> {<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">link</span>.<span style="color:#a6e22e">target</span>});
+});
+
+<span style="color:#a6e22e">nodes</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">d3</span>.<span style="color:#a6e22e">values</span>(<span style="color:#a6e22e">nodes</span>);
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">width</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">960</span>,
+    <span style="color:#a6e22e">height</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">500</span>;
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">force</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">d3</span>.<span style="color:#a6e22e">layout</span>.<span style="color:#a6e22e">force</span>()
+  <span style="color:#75715e">//指定节点数组
+</span><span style="color:#75715e"></span>  .<span style="color:#a6e22e">nodes</span>(<span style="color:#a6e22e">nodes</span>)
+  <span style="color:#75715e">//指定连线数组
+</span><span style="color:#75715e"></span>  .<span style="color:#a6e22e">links</span>(<span style="color:#a6e22e">edges</span>)
+  <span style="color:#75715e">//指定范围
+</span><span style="color:#75715e"></span>  .<span style="color:#a6e22e">size</span>([<span style="color:#a6e22e">width</span>,<span style="color:#a6e22e">height</span>])
+  <span style="color:#75715e">//指定连线长度
+</span><span style="color:#75715e"></span>  .<span style="color:#a6e22e">linkDistance</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">d</span>) { <span style="color:#66d9ef">return</span>  <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">distance</span><span style="color:#f92672">*</span><span style="color:#ae81ff">3</span>; })
+  <span style="color:#75715e">//相互之间的作用力
+</span><span style="color:#75715e"></span>  .<span style="color:#a6e22e">charge</span>(<span style="color:#f92672">-</span><span style="color:#ae81ff">400</span>)
+  <span style="color:#75715e">//开始作用
+</span><span style="color:#75715e"></span>  .<span style="color:#a6e22e">start</span>();
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">svg</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">d3</span>.<span style="color:#a6e22e">select</span>(<span style="color:#e6db74">&#34;body&#34;</span>)
+  .<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;svg&#34;</span>)
+  .<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#34;width&#34;</span>,<span style="color:#a6e22e">width</span>)
+  .<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#34;height&#34;</span>,<span style="color:#a6e22e">height</span>);
+
+<span style="color:#75715e">//添加连线         
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">svg_edges</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">svg</span>.<span style="color:#a6e22e">selectAll</span>(<span style="color:#e6db74">&#34;line&#34;</span>)
+  .<span style="color:#a6e22e">data</span>(<span style="color:#a6e22e">edges</span>)
+  .<span style="color:#a6e22e">enter</span>()
+  .<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;line&#34;</span>)
+  .<span style="color:#a6e22e">style</span>(<span style="color:#e6db74">&#34;stroke&#34;</span>,<span style="color:#e6db74">&#34;#ddd&#34;</span>)
+  .<span style="color:#a6e22e">style</span>(<span style="color:#e6db74">&#34;stroke-width&#34;</span>,<span style="color:#ae81ff">2</span>);
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">color</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">d3</span>.<span style="color:#a6e22e">scale</span>.<span style="color:#a6e22e">category20</span>();
+
+<span style="color:#75715e">//添加节点              
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">svg_nodes</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">svg</span>.<span style="color:#a6e22e">selectAll</span>(<span style="color:#e6db74">&#34;circle&#34;</span>)
+  .<span style="color:#a6e22e">data</span>(<span style="color:#a6e22e">nodes</span>)
+  .<span style="color:#a6e22e">enter</span>()
+  .<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;circle&#34;</span>)
+  .<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#34;r&#34;</span>,<span style="color:#ae81ff">10</span>)
+  .<span style="color:#a6e22e">style</span>(<span style="color:#e6db74">&#34;fill&#34;</span>,<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">d</span>,<span style="color:#a6e22e">i</span>){
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">color</span>(<span style="color:#a6e22e">i</span>);
+  })
+  <span style="color:#75715e">//使得节点能够拖动
+</span><span style="color:#75715e"></span>  .<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">force</span>.<span style="color:#a6e22e">drag</span>);
+
+<span style="color:#75715e">//添加描述节点的文字
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">svg_nodes_texts</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">svg</span>.<span style="color:#a6e22e">selectAll</span>(<span style="color:#e6db74">&#34;text#nodes&#34;</span>)
+  .<span style="color:#a6e22e">data</span>(<span style="color:#a6e22e">nodes</span>)
+  .<span style="color:#a6e22e">enter</span>().<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;text&#34;</span>)
+  .<span style="color:#a6e22e">style</span>(<span style="color:#e6db74">&#34;fill&#34;</span>, <span style="color:#e6db74">&#34;black&#34;</span>)
+  .<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#39;id&#39;</span>, <span style="color:#e6db74">&#39;nodes&#39;</span>)
+  .<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#34;dx&#34;</span>, <span style="color:#ae81ff">20</span>)
+  .<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#34;dy&#34;</span>, <span style="color:#ae81ff">8</span>)
+  .<span style="color:#a6e22e">text</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">d</span>){
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">name</span>;
+  });
+
+<span style="color:#a6e22e">force</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#34;tick&#34;</span>, <span style="color:#66d9ef">function</span>(){  <span style="color:#75715e">//对于每一个时间间隔
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">//更新连线坐标
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">svg_edges</span>
+    .<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#34;x1&#34;</span>,<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">d</span>){ <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">source</span>.<span style="color:#a6e22e">x</span>; })
+    .<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#34;y1&#34;</span>,<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">d</span>){ <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">source</span>.<span style="color:#a6e22e">y</span>; })
+    .<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#34;x2&#34;</span>,<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">d</span>){ <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">x</span>; })
+    .<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#34;y2&#34;</span>,<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">d</span>){ <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">y</span>; });
+
+  <span style="color:#75715e">//更新节点坐标
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">svg_nodes</span>
+    .<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#34;cx&#34;</span>,<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">d</span>){ <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">x</span>; })
+    .<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#34;cy&#34;</span>,<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">d</span>){ <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">y</span>; });
+
+  <span style="color:#75715e">//更新文字坐标
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">svg_nodes_texts</span>
+    .<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#34;x&#34;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">d</span>){ <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">x</span>; })
+    .<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#34;y&#34;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">d</span>){ <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">y</span>; });
+});
+
+&lt;/<span style="color:#f92672">script</span>&gt;  
+
+&lt;/<span style="color:#f92672">body</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;  
+</code></pre></div><p>之后我们只需要修改和添加，对应 <code>edges</code> 数组中的 <code>{source: &quot;0&quot;, target: &quot;8&quot;, distance: 80}</code></p>
+<p>如下所示</p>
+<pre><code>  {source: &quot;0&quot;, target: &quot;1&quot;, distance: 40},
+  {source: &quot;0&quot;, target: &quot;2&quot;, distance: 60},
+  {source: &quot;0&quot;, target: &quot;3&quot;, distance: 75},
+  {source: &quot;0&quot;, target: &quot;4&quot;, distance: 90},
+  {source: &quot;0&quot;, target: &quot;5&quot;, distance: 200},
+  {source: &quot;0&quot;, target: &quot;6&quot;, distance: 100},
+  {source: &quot;0&quot;, target: &quot;7&quot;, distance: 160},
+  {source: &quot;0&quot;, target: &quot;8&quot;, distance: 80},
+  {source: &quot;1&quot;, target: &quot;2&quot;, distance: 65},
+  {source: &quot;1&quot;, target: &quot;3&quot;, distance: 40},
+  {source: &quot;1&quot;, target: &quot;4&quot;, distance: 100},
+  {source: &quot;1&quot;, target: &quot;5&quot;, distance: 50},
+  {source: &quot;1&quot;, target: &quot;6&quot;, distance: 75},
+  {source: &quot;1&quot;, target: &quot;7&quot;, distance: 110},
+  {source: &quot;1&quot;, target: &quot;8&quot;, distance: 100},
+  {source: &quot;2&quot;, target: &quot;3&quot;, distance: 75},
+  {source: &quot;2&quot;, target: &quot;4&quot;, distance: 100}
+</code></pre><p>但是手写有点多。。。懒才是第一生产力</p>
+<p>我们首先分析原始数据，一个 8*8 的矩阵</p>
+<pre><code>    0   1   2   3   4   5   6   7   8
+0	0	40	60	75	90	200	100	160	80
+1	40	0	65	40	100	50	75	110	100
+2	60	65	0	75	100	100	75	75	75
+3	75	40	75	0	100	50	90	90	150
+4	90	100	100	100	0	100	75	75	100
+5	200	50	100	50	100	0	70	90	75
+6	100	75	75	90	75	70	0	70	100
+7	160	110	75	90	75	90	70	0	100
+8	80	100	75	150	100	75	100	100	0
+</code></pre><p>对于这种结构严谨的小量数据，正则表达式可以完成全部工作</p>
+<p>正则表达式的语法细节，在此也不再赘述。</p>
+<p>首先每一行需要对应的起点，终点和距离，对应矩阵的 x,y,value 但是，不用循环，不可能取出 y 的，于是用正则先对行内容进行分离。</p>
+<pre><code>x v1 v2 v3 ...
+</code></pre><p>定义正则</p>
+<pre><code>(\d+)\t(\d+)\t(\d+)\t(\d+)\t(\d+)\t(\d+)\t(\d+)\t(\d+)\t(\d+)\t(\d+)
+</code></pre><p>括号是正则的定义变量，而对应的 <code>$d</code> 则是取出对应参数，<code>$0</code> 是取出整个字符串</p>
+<p>取出字符</p>
+<pre><code>$1 0 $2
+$1 1 $3
+$1 2 $4
+$1 3 $5
+$1 4 $6
+$1 5 $7
+$1 6 $8
+$1 7 $9
+$1 8 $10
+</code></pre><p>之后得到如下内容</p>
+<pre><code>0 0 0
+0 1 40
+0 2 60
+0 3 75
+...
+8 6 100
+8 7 100
+8 8 0
+</code></pre><p>之后对于每行</p>
+<pre><code>8 8 0
+</code></pre><p>可以得到对应的 起点，终点和距离，对此可以直接用模板</p>
+<pre><code>(\d+) (\d+) (\d+)
+</code></pre><pre><code>{source: &quot;$1&quot;, target: &quot;$2&quot;, distance: $3},
+</code></pre><p>来取出结果</p>
+<pre><code>{source: &quot;8&quot;, target: &quot;8&quot;, distance: 0},
+</code></pre><p>对应的全局替换</p>
+<pre><code>{source: &quot;0&quot;, target: &quot;1&quot;, distance: 40},
+{source: &quot;0&quot;, target: &quot;2&quot;, distance: 60},
+{source: &quot;0&quot;, target: &quot;3&quot;, distance: 75},
+...
+{source: &quot;6&quot;, target: &quot;8&quot;, distance: 100},
+{source: &quot;7&quot;, target: &quot;8&quot;, distance: 100}
+</code></pre><p>然后带入上述代码中啊，得到一个如果加上箭头，就是有向图的拓扑结构，对此我们需要再加一层预处理。去掉矩阵重复的部分，为了复用上述脚本。对无用节点进行标记。比如赋值 <code>0</code> 之类的。</p>
+<pre><code>0	0	40	60	75	90	200	100	160	80
+1	0	0	65	40	100	50	75	110	100
+2	0	0	0	75	100	100	75	75	75
+3	0	0	0	0	100	50	90	90	150
+4	0	0	0	0	0	100	75	75	100
+5	0	0	0	0	0	0	70	90	75
+6	0	0	0	0	0	0	0	70	100
+7	0	0	0	0	0	0	0	0	100
+</code></pre><p>然后得到一堆同上的表</p>
+<pre><code>0 0 0
+0 1 40
+0 2 60
+...
+7 6 0
+7 7 0
+7 8 100
+</code></pre><p>然后去掉标记的的值为 <code>0</code> 的元素，即 x,y 随机，值为 <code>0</code></p>
+<pre><code>(\d+) (\d+) 0\n
+</code></pre><p>得到一个可用的新表</p>
+<pre><code>0 1 40
+0 2 60
+0 3 75
+...
+6 7 70
+6 8 100
+7 8 100
+</code></pre><p>然后按照之前的逻辑，继续构造</p>
+<pre><code>{source: &quot;0&quot;, target: &quot;1&quot;, distance: 40},
+</code></pre><p>并复制回去，完成！</p>
+<p>之后，再修改下初始参数，给 <code>nodes</code> 加个 <code>_weight</code> 参数，因为 <code>weight</code> 是 D3.js 的保留属性</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">nodes</span> <span style="color:#f92672">=</span> [
+  {<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;0&#39;</span>, <span style="color:#a6e22e">_weight</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>},
+  {<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;1&#39;</span>, <span style="color:#a6e22e">_weight</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>},
+  {<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;2&#39;</span>, <span style="color:#a6e22e">_weight</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1.5</span>},
+  {<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;3&#39;</span>, <span style="color:#a6e22e">_weight</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">4.5</span>},
+  {<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;4&#39;</span>, <span style="color:#a6e22e">_weight</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>},
+  {<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;5&#39;</span>, <span style="color:#a6e22e">_weight</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1.5</span>},
+  {<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;6&#39;</span>, <span style="color:#a6e22e">_weight</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">4</span>},
+  {<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;7&#39;</span>, <span style="color:#a6e22e">_weight</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2.5</span>},
+  {<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;8&#39;</span>, <span style="color:#a6e22e">_weight</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>}
+];
+</code></pre></div><p>之后在节点的渲染上，加上半径</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">//添加节点              
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">svg_nodes</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">svg</span>.<span style="color:#a6e22e">selectAll</span>(<span style="color:#e6db74">&#34;circle&#34;</span>)
+  .<span style="color:#a6e22e">data</span>(<span style="color:#a6e22e">nodes</span>)
+  .<span style="color:#a6e22e">enter</span>()
+  .<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;circle&#34;</span>)
+  .<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#34;r&#34;</span>,<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">node</span>,<span style="color:#a6e22e">index</span>){
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">_weight</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span>;
+  })
+  .<span style="color:#a6e22e">style</span>(<span style="color:#e6db74">&#34;fill&#34;</span>,<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">node</span>,<span style="color:#a6e22e">index</span>){
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">color</span>(<span style="color:#a6e22e">index</span>);
+  })
+  <span style="color:#75715e">//使得节点能够拖动
+</span><span style="color:#75715e"></span>  .<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">force</span>.<span style="color:#a6e22e">drag</span>);
+</code></pre></div><p>或许可能需要路径长度，只需要复制 <code>svg_nodes_texts</code> 的实现，写个 <code>svg_edges_texts</code> 即可。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">//添加描述连线的文字
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">svg_edges_texts</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">svg</span>.<span style="color:#a6e22e">selectAll</span>(<span style="color:#e6db74">&#34;text#edges&#34;</span>)
+  .<span style="color:#a6e22e">data</span>(<span style="color:#a6e22e">edges</span>)
+  .<span style="color:#a6e22e">enter</span>().<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;text&#34;</span>)
+  .<span style="color:#a6e22e">style</span>(<span style="color:#e6db74">&#34;fill&#34;</span>, <span style="color:#e6db74">&#34;#ddd&#34;</span>)
+  .<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#39;id&#39;</span>, <span style="color:#e6db74">&#39;edges&#39;</span>)
+  .<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#34;dx&#34;</span>, <span style="color:#ae81ff">20</span>)
+  .<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#34;dy&#34;</span>, <span style="color:#ae81ff">8</span>)
+  .<span style="color:#a6e22e">text</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">d</span>){
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">distance</span>;
+  });
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">svg_edges_texts</span>
+  .<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#34;rotate&#34;</span>, 
+    <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">d</span>){ <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>; })
+  .<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#34;x&#34;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">d</span>){ <span style="color:#66d9ef">return</span> (<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">source</span>.<span style="color:#a6e22e">x</span><span style="color:#f92672">+</span><span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">x</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>; })
+  .<span style="color:#a6e22e">attr</span>(<span style="color:#e6db74">&#34;y&#34;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">d</span>){ <span style="color:#66d9ef">return</span> (<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">source</span>.<span style="color:#a6e22e">y</span><span style="color:#f92672">+</span><span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">y</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>; });
+</code></pre></div><p>不过在 D3js 的 4.x 版本之后，改了部分 API 暂时也只是发现，而并没有啥时间来重写这玩意。</p>
+<p>4.x 的方法，参见 <a href="https://bl.ocks.org/shimizu/e6209de87cdddde38dadbb746feaf3a3">https://bl.ocks.org/shimizu/e6209de87cdddde38dadbb746feaf3a3</a></p>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

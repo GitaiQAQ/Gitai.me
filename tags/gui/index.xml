@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GUI on Gitai.me</title>
+    <link>https://gitai.me/tags/gui/</link>
+    <description>Recent content in GUI on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Fri, 17 Mar 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/gui/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Q&amp;A of polybar</title>
+      <link>https://gitai.me/2017/03/sdk-qa-of-polybar/</link>
+      <pubDate>Fri, 17 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/03/sdk-qa-of-polybar/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/jaagr/polybar&#34;&gt;https://github.com/jaagr/polybar&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>容器化 GUI 的最小可实现模型</title>
+      <link>https://gitai.me/2017/03/mvp_of_contained_x11/</link>
+      <pubDate>Mon, 13 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/03/mvp_of_contained_x11/</guid>
+      <description>&lt;p&gt;本文将基于 Ubuntu Server 16.04.1 LTS 64位 构造 docker 运行 GUI 服务的最小可实现模型。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

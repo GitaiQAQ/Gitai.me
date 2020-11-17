@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>polybar on Gitai.me</title>
+    <link>https://gitai.me/tags/polybar/</link>
+    <description>Recent content in polybar on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Fri, 17 Mar 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/polybar/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Q&amp;A of polybar</title>
+      <link>https://gitai.me/2017/03/sdk-qa-of-polybar/</link>
+      <pubDate>Fri, 17 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/03/sdk-qa-of-polybar/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/jaagr/polybar&#34;&gt;https://github.com/jaagr/polybar&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

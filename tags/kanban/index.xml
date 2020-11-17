@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kanban on Gitai.me</title>
+    <link>https://gitai.me/tags/kanban/</link>
+    <description>Recent content in Kanban on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Thu, 03 Mar 2016 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/kanban/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>「Kanban」:伊始</title>
+      <link>https://gitai.me/2016/03/kanban/</link>
+      <pubDate>Thu, 03 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2016/03/kanban/</guid>
+      <description>&lt;h2 id=&#34;关于本系列&#34;&gt;关于本系列&lt;/h2&gt;
+&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;p&gt;为了完善看板娘（kanban[at]gitai.me），而开启本坑(kanban3)，直接用&lt;code&gt;Xposed&lt;/code&gt;注入jvm虚拟机，暴露相关方法，采用&lt;code&gt;Lua&lt;/code&gt;作为插件&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

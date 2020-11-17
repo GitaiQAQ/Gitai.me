@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>简单的搜索框 | Gitai.me</title>
+
+<meta property='og:title' content='简单的搜索框 - Gitai.me'>
+<meta property='og:description' content='首先这几年各家都喜欢弄自己的 DSL（domain-specific language），尤其在大数据这块蛋糕上。 比如： SQL-on-Hadoop: 查询分析是大数据要解决'>
+<meta property='og:url' content='https://gitai.me/2019/09/searchbox/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='前端'><meta property='article:published_time' content='2019-09-13T00:00:00Z'/><meta property='article:modified_time' content='2019-09-13T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2019/09/searchbox/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
+
+
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">September 13, 2019</h2>
+    <h1 class="title">简单的搜索框</h1>
+    
+    <div class="content">
+      <p>首先这几年各家都喜欢弄自己的 DSL（<em>domain-specific language</em>），尤其在大数据这块蛋糕上。</p>
+<p>比如：</p>
+<p><strong>SQL-on-Hadoop</strong>: 查询分析是大数据要解决的核心问题之一，而SQL作为查询分析中使用最简单、最广泛的的语言之一，必然而然的催生了许多支持在Hadoop上使用SQL的系统，这就是所谓的SQL-on-Hadoop系统，其中大众熟知的 Hive 就是最早的 SQL-on-Hadoop 系统。<a href="https://yq.aliyun.com/articles/690141">开源SQL-on-Hadoop系统一览</a></p>
+<p><strong>Ad hoc</strong>: 简易查询，用命令行进行即席查询（ad-hoc）是非常有用的。 比如：<a href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/search-lite.html">轻量查询 —— ElasticSearch</a></p>
+<p>于是我们就有了这么一个需求，弄个日志检索的 DSL 出来，大概张这个样子。姑且称之为 XQL。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SEARCH</span> db.<span style="color:#66d9ef">table</span> <span style="color:#f92672">|</span> fiilter <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">max</span>(col1)<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">1</span>,col2 <span style="color:#f92672">|</span> sort col1 <span style="color:#f92672">|</span> <span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">100</span>
+</code></pre></div><p>好了，怎么定义这个 DSL，我什么都不知道，也不敢问，这是大佬干的事。好好做个切图仔，只要实现下图这个 SearchBox 就行了。</p>
+<p><a href="https://www.figma.com/file/UuDdlAqs8m5D24tf8Y6buD"><img src="https://i.loli.net/2019/09/30/xfNm6w57CDUWyZQ.png" alt="SearchBox"></a></p>
+<p>说起来是 SearchBox，我们从开发的角度来看，更像是一个编辑器。</p>
+<p>一个提供了 <em>IntelliSense</em> 和 <em>语法高亮</em> 的单行编辑器。有了这个目标之后，我们就可以去找轮子了，CodeMirror 好像满足了这些需求，体积也不大。</p>
+<!-- raw HTML omitted -->
+<h2 id="codemirror">CodeMirror</h2>
+<p>提供了代码编辑功能的组件，有着丰富的 API 和生态。</p>
+<p><img src="https://i.loli.net/2019/10/15/CsZySt1cKg2HwnN.png" alt="1570585098943"></p>
+<p>在 CodeMirror 中，有很多可以拓展的地方，基于这次的业务需求，只需要修改其分析器和补全提示就行了。</p>
+<p>分析器被定义成 <code>mode</code>，使用 <code>defineMode</code> 写入单例中。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">CodeMirror</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;codemirror&#34;</span>;
+
+<span style="color:#a6e22e">CodeMirror</span>.<span style="color:#a6e22e">defineMode</span>(<span style="color:#a6e22e">XQL</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#66d9ef">function</span>() {
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XQL</span>();
+});
+</code></pre></div><p>因为有了 TS 的类型定义支持，基本上不需要查 API 文档，就能知道这里的 <code>defineMode</code> 接收一个实现了  <code>Mode&lt;?&gt;</code> 接口的对象，暂时就实现以下方法 <code>token</code> 就行了，用于处理字符串流，标记分类。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Mode</span>&lt;<span style="color:#f92672">T</span>&gt; {
+    <span style="color:#a6e22e">name?</span>: <span style="color:#66d9ef">string</span>;
+
+    <span style="color:#75715e">/**
+</span><span style="color:#75715e">     * This function should read one token from the stream it is given as an argument, optionally update its state,
+</span><span style="color:#75715e">     * and return a style string, or null for tokens that do not have to be styled. Multiple styles can be returned, separated by spaces.
+</span><span style="color:#75715e">     */</span>
+    <span style="color:#a6e22e">token</span><span style="color:#f92672">?:</span> (<span style="color:#a6e22e">stream</span>: <span style="color:#66d9ef">StringStream</span>, <span style="color:#a6e22e">state</span>: <span style="color:#66d9ef">T</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">string</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">null</span>;
+}
+</code></pre></div><p>又因为 Class 是种语法糖，而 JavaScript 又是鸭子类型的。所以实际写出来的大概可以是这样。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">XQL</span> <span style="color:#f92672">=</span> {
+    <span style="color:#a6e22e">token</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">stream</span>, <span style="color:#a6e22e">state</span>) =&gt; {
+        <span style="color:#75715e">// 逐个字符，循环调用，标记子串类型
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;string&#34;</span>;
+    }
+}
+</code></pre></div><p>或者这样子</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">XQL</span> <span style="color:#66d9ef">implements</span> <span style="color:#a6e22e">Mode</span>&lt;<span style="color:#f92672">StateStack</span>&gt; {
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">token</span>(<span style="color:#a6e22e">stream</span>: <span style="color:#66d9ef">StringStream</span>, <span style="color:#a6e22e">tokenizes</span>: <span style="color:#66d9ef">any</span>)<span style="color:#f92672">:</span> <span style="color:#66d9ef">string</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">null</span> {
+        <span style="color:#75715e">// 逐个字符，循环调用，标记子串类型
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;string&#34;</span>;
+    }
+}
+</code></pre></div><p>具体这里需要如何实现，可以参照 CodeMirror 下面的 mode 文件夹，简单的比如 <code>shell.js</code>，只实现了简单的关键词高亮。至于其他高级写法，比如写个语法分析树或者和三方语法分析库（Anklr）整合。</p>
+<p>而另一个暂时有用的接口是 <code>hint</code> ，这是通过 <code>show-hint</code> 插件引入的，用于实现弹出提示。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#39;codemirror/addon/hint/show-hint.js&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#39;codemirror/addon/hint/show-hint.css&#39;</span>;
+
+<span style="color:#a6e22e">CodeMirror</span>.<span style="color:#a6e22e">registerHelper</span>(<span style="color:#e6db74">&#39;hint&#39;</span>, <span style="color:#e6db74">&#39;custom&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">editor</span>: <span style="color:#66d9ef">CodeMirror.Doc</span> <span style="color:#f92672">&amp;</span> <span style="color:#a6e22e">CodeMirror</span>.<span style="color:#a6e22e">Editor</span>, <span style="color:#a6e22e">options</span>: <span style="color:#66d9ef">any</span>)
+    <span style="color:#f92672">:</span> <span style="color:#a6e22e">ListCreated</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">undefined</span> {
+    <span style="color:#66d9ef">return</span> {
+        <span style="color:#a6e22e">list</span><span style="color:#f92672">:</span> [
+            <span style="color:#e6db74">&#34;hint&#34;</span>
+        ],
+        <span style="color:#66d9ef">from</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">CodeMirror</span>.<span style="color:#a6e22e">Pos</span>(<span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">line</span>, <span style="color:#a6e22e">curr</span>.<span style="color:#a6e22e">start</span>),
+        <span style="color:#a6e22e">to</span>: <span style="color:#66d9ef">CodeMirror.Pos</span>(<span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">line</span>, <span style="color:#a6e22e">curr</span>.<span style="color:#a6e22e">end</span>),
+    };
+});
+</code></pre></div><p>这个也简单，拿到当前的字串片段，然后在列表里面过滤一下就行了。如果要更高级的模糊搜索，塞个 <code>fuse.js</code> 进去；比如按照类型, 描述加权排序。</p>
+<h2 id="分析器">分析器</h2>
+<p>一般来说讲到语法啊，AST，源码分析什么的；都得从词法分析开始，但是我觉得词法分析和语法分析并没有明确的隔断，并且实现的时候坑定会越界。直到我直到有种语法分析叫<strong>无扫描语法分析器</strong>，详细参见<a href="https://www.bookstack.cn/read/antlr4-short-course/line-between-lexer-and-parser.md">《词法分析器和语法分析器的界线 —— ANTLR 4简明教程》</a></p>
+<p>无扫描语法分析器可以把字符当作记号，使用语法分析器去把语法结构应用到字符流。</p>
+<p><img src="https://i.loli.net/2019/10/15/MlPwtz8ZEsVYyKq.png" alt="1570634145428"></p>
+<p>上图就是个简单的例子，对目标字符串进行拆分，然后再对符合模式的字串进行拆分，这样递归下去；最后把整个字符串拆分成符合需求的原始类型序列。</p>
+<p>在此定义原始类型如下：<code>str</code>,  <code>func</code>,  <code>number</code>,  <code>keyword</code>,  <code>op</code></p>
+<p>但是因为没有语法分析，需要对类型的定义需要更精确，增加一些对原始类型的继承类型；比如：<code>field(str)</code>,  <code>search(keyword)</code>, <code>limit(keyword)</code></p>
+<p>这样我们可以得到一个 Token 集合，如下图，实际上也就是处理方法的集合。</p>
+<p><img src="https://i.loli.net/2019/10/15/BHbTJdxaiVv3XDS.png" alt="1570689026791"></p>
+<p>在橙色的预测方法中，决定后续的处理方法，并入栈等待处理。上图中最终得到的待处理序列就是最后一行的处理方法序列，处理方法序列执行的结果包含处理的字串和类型标记。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript">[
+    {
+        <span style="color:#66d9ef">string</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;search&#39;</span>,
+        <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">TOKEN</span>.<span style="color:#a6e22e">COMMAND</span>,
+    },
+    {
+        <span style="color:#66d9ef">string</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39; &#39;</span>,
+        <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>,
+    },
+    {
+        <span style="color:#66d9ef">string</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;base.index&#39;</span>,
+        <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">TOKEN</span>.<span style="color:#a6e22e">TABLE_NAME</span>
+    }
+]
+</code></pre></div><p>但是上图中按照绘制的流程走，必须先有预测方法，将处理方法入栈，之后再走处理流程；不难发现预测和处理会有一些重叠的部分，比如：<code>CommaBlock</code> 已经把 <code>,</code> 分离出来了，但是我们还是得写入 <code>,</code> 处理的逻辑进后面的处理序列中，所以需要将 2 个阶段融合起来，减少无意义的损耗。</p>
+<h2 id="任务队列">任务队列</h2>
+<p>对上图的预测和分解流程，应该按照如下执行顺序（框框里面彩色的编号）。</p>
+<p><img src="https://i.loli.net/2019/10/15/LOjtXr9KFJNdgih.png" alt="1571133912470"></p>
+<p>首先是程序串行的执行顺序， 应该是 FIFO 即按照插入顺序（紫色）①②③④⑤⑥⑦⑧⑨⑩ ⑪⑫</p>
+<p>但是因为在 ⑦⑧ 执行时，⑨⑩ ⑪⑫ 所对应的  <code>count(col1)</code> 没有执行完成，就会出现异常。</p>
+<p>那如何调整插入顺序，让插入的东西可以先执行，分解这个问题；观察可能有那些种组合情况。</p>
+<p><img src="https://i.loli.net/2019/10/15/gpe2hfWlqkn6U8D.png" alt="1571134803763"></p>
+<p>一般来说就这种预测和处理相间的情况，而这里也和上面一样，不会按照预期的 ①②③④⑤⑥⑦⑧⑨ 执行，而是 ①②③⑧⑨④⑤⑥⑦</p>
+<p>那如何让插入和执行顺序不一致，即把 ⑧⑨ 调到 ④⑤⑥⑦ 后面；不难注意到这部分和 JavaScript 的宏任务很像，所以可以构造宏微队列来处理这个问题。</p>
+<p>将 ⑧⑨ 这种塞到宏队列里，那就可以等待 ④⑤⑥⑦ 完成才会被调用。</p>
+<p>但是还有可能出现下面这种情况，嵌套型的预测任务。</p>
+<p><img src="https://i.loli.net/2019/10/15/zciLlUvubgrdSma.png" alt="1571135477755"></p>
+<p>我们期望的调用顺序是 ①②③④⑤⑥⑦</p>
+<p>但是实际上却是 ①⑦②⑤⑥③④，基本上和乱序无异了</p>
+<p>而且即使用上宏微队列，其执行顺序也不正确 ①②③④⑦⑤⑥，因为按照 JavaScript 的设计，其宏队列也和微队列一样都是 FIFO 的，⑦ 因为先插入，也必然先于 ⑤⑥ 执行。</p>
+<p>如果没有 ⑥ 的话，我们可以通过翻转宏队列，让其 FILO 来做到 ⑤ 先于 ⑦ 执行，但是明显不能这么做。</p>
+<p>换个思路，如果  ⑤⑥ 内部有序，但是外部翻转？那不就符合需求了？</p>
+<p>于是加多一个抽象层，我们叫它 [⑤⑥]，并把宏队列翻转未 FILO。</p>
+<p><img src="https://i.loli.net/2019/10/15/MfOn4lmC13tXbAa.png" alt="1571136059410"></p>
+<p>这样将 [②③] 插入的 [⑤⑥] 打包为<strong>虚拟</strong>的宏任务，这样最后调用时，[⑤⑥] 内部能够维护其顺序。</p>
+<p>而虚拟的宏任务 [⑤⑥] 也不过是宏任务，并且其作用是插入 ② 和 ③ 到微任务队列。</p>
+<p>这样我们就能通过宏微队列调整插入和执行的顺序，让程序符合我们的设计运行。</p>
+<h2 id="补全提示">补全提示</h2>
+<p>这个其实是个非常简单的功能，但是会非常有用。</p>
+<p>首先我们在开始介绍了 <code>show-hint</code> 这个插件，它能够获得我们上面分析生成的 TOKEN 序列，既然有了 TOKEN 序列，补全提示还有什么难度嘛？</p>
+<p>补全提示是什么？通过现有的用户输入来推测用户接下来的输入，比如简单的单词补全提示应该包含以下内容。</p>
+<ol>
+<li>获取用户输入的当前单词片段</li>
+<li>去字典中进行模糊搜索</li>
+<li>将返回的结果序列通过频度或者匹配精度进行重排</li>
+<li>显示在界面的弹出层上</li>
+</ol>
+<p>那么我们的是不是也是这样？不过我们还需要根据语义调整字典集，比如 <code>field</code> 中明显不应该输入 <code>keyword</code>。</p>
+<p>所以定义如下映射关系</p>
+<ul>
+<li><code>keyword</code> -&gt; <code>field</code></li>
+<li><code>keyword</code> -&gt; <code>comma</code></li>
+<li><code>keyword</code> -&gt; <code>number</code></li>
+<li><code>keyword</code> -&gt; <code>function</code></li>
+</ul>
+<p>上面的意思就是，如果前一个元素是 <code>keyword</code> 那后一个应该是 <code>field</code>, <code>comma</code>, <code>number</code> 或者 <code>function</code>。</p>
+<p>这样我们就能获得上面说的字典集合，预先定义上面这些类型的集合，当用户输入的前一个 TOKEN 为 <code>keyword</code> 时，便将对应的 <code>field</code>, <code>function</code> 集合合并，构造字典。</p>
+<p>随后时模糊搜索，因为用户可能输入的内容不只是待补全的内容，所以对上面字典的定义应该入开始的那张图。</p>
+<p><img src="https://i.loli.net/2019/09/30/xfNm6w57CDUWyZQ.png" alt="SearchBox"></p>
+<p>比如描述，当用户输入的时候，对提示列表的数据进行加权模糊搜索，用 fuse.js 就行了，在此不进行赘述。</p>
+<p>这一步也顺便解决了重拍的问题，因为通过加权搜索，本身就带上了优先级。</p>
+<p>显示层可以复用原有的，但是我们的包含图标和提示，简单地说，复杂度比原来的高，而且可能有成千上万个。所以用 JSX 预渲染做一些优化，并在构造时缓存结果到内存中，只是在显示时将其插入。</p>
+<p>到此，一个简单的搜索框框就完成了。</p>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Docker 下运行 Apache Beam 的例子 | Gitai.me</title>
+
+<meta property='og:title' content='Docker 下运行 Apache Beam 的例子 - Gitai.me'>
+<meta property='og:description' content='Apache Beam 是一个标准的编程模块，用于创建批处理和流式数据处理管道。
+简言之,这是一个 Java SDK，我们可以使用它来开发分析管道，如计算用户或事件，提取热门话题，或者分析用户会话。
+在这篇文章中，将说明如何在数分钟内启动一个 Apache Beam 的 demo ，得益于 docker 预打包的 Apache Flink 和 Beam。
+开始创建梁管道的 demo 也可以在 Github 上找到。
+为了运行这个 demo， 我没需要 docker 和 docker-compose，为了运行 Beam 我们还需要 Java 和 Maven。'>
+<meta property='og:url' content='https://gitai.me/2017/04/a-quick-demo-of-apache-beam-with-docker/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='记录'><meta property='article:published_time' content='2017-04-23T00:00:00Z'/><meta property='article:modified_time' content='2017-04-23T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2017/04/a-quick-demo-of-apache-beam-with-docker/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/%E8%AE%B0%E5%BD%95/">#记录</a>
+
+
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">April 23, 2017</h2>
+    <h1 class="title">Docker 下运行 Apache Beam 的例子</h1>
+    
+    <div class="content">
+      <p>Apache Beam 是一个标准的编程模块，用于创建批处理和流式数据处理管道。</p>
+<p>简言之,这是一个 Java SDK，我们可以使用它来开发分析管道，如计算用户或事件，提取热门话题，或者分析用户会话。</p>
+<p>在这篇文章中，将说明如何在数分钟内启动一个 Apache Beam 的 demo ，得益于 docker 预打包的 Apache Flink 和 Beam。</p>
+<p>开始创建梁管道的 demo 也可以在 <a href="https://github.com/ecesena/beam-starter">Github</a> 上找到。</p>
+<p>为了运行这个 demo， 我没需要 docker 和 docker-compose，为了运行 Beam 我们还需要 Java 和 Maven。</p>
+<h2 id="在-docker-中部署-flink-和-beam">在 docker 中部署 Flink 和 Beam</h2>
+<p>首先 clone 最新的 repo， 包好我们需要使用的全部 <a href="https://github.com/ecesena/docker-beam-flink/blob/master/docker-compose.yml">docker-compose.yml</a> 文件。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git clone https://github.com/ecesena/docker-beam-flink.git
+$ cd docker-beam-flink
+</code></pre></div><p>运行一个集群，我们也可以缩放他</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ docker-compose up -d
+$ docker-compose scale taskmanager<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
+</code></pre></div><p>我们现在有一个运行中的 Flink 集群：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ docker ps
+CONTAINER ID IMAGE      ... NAMES
+3d59d952d152 beam-flink ... dockerbeamflink_taskmanager_2
+4cce6219be80 beam-flink ... dockerbeamflink_taskmanager_1
+3b7b6b32b4de beam-flink ... dockerbeamflink_jobmanager_1
+</code></pre></div><p>启动脚本上传一个预打包 Beam 自定义的 JAR。在集群上的更多技术细节，参考<a href="https://github.com/ecesena/docker-beam-flink.git">Repo</a></p>
+<h2 id="运行-hellowoehm-wordcount">运行 HelloWo — ehm, WordCount</h2>
+<p>打开 Flink 管理页面，开放与于 48080 端口。比如在 Mac 和 Windows 上</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ open http://<span style="color:#66d9ef">$(</span>docker-machine ip default<span style="color:#66d9ef">)</span>:48080
+</code></pre></div><h2 id="按照以下步骤">按照以下步骤</h2>
+<ol>
+<li>在左侧菜单，点击 <code>Submit new Job</code> — 我们将发现 <code>beam-starter-0.1.jar</code> 已经被上传。</li>
+<li>选中 <code>beam-starter-0.1.jar</code> 旁边的复选框</li>
+<li>点击 <code>Submit</code> 或者 <code>Show Plan</code> ，不需要额外的参数。</li>
+</ol>
+<p><img src="https://cdn-images-1.medium.com/max/1000/1*HXjlgfjDZRt9EmsG9vNgbg.png" alt=""></p>
+<p>祝贺你,我们现在运行了的第一个管道！</p>
+<p>接下来分析以上流程，JAR 文件是从<a href="https://github.com/ecesena/beam-starter">starter repo</a>。通过默认运行 WordCount 类，从 <code>/tmp/kinglear.txt</code> 输入文件，并输出于 <code>/tmp/output.txt</code>。输入文件已经被预载入于 Docker 镜像中，所以所有的 Flink 任务管理器可以读取到它。</p>
+<p>我们可以连接到任务管理器来检查结果，并查看输出文件的内容。注意输出是从 <code>/tmp/output.txt</code> 开始的多个文件。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ docker exec -it dockerbeamflink_taskmanager_1 /bin/bash
+$ cat /tmp/output.txt*
+...
+live: <span style="color:#ae81ff">13</span>
+long: <span style="color:#ae81ff">15</span>
+look: <span style="color:#ae81ff">14</span>
+lord: <span style="color:#ae81ff">90</span>
+lose: <span style="color:#ae81ff">6</span>
+...
+</code></pre></div><h2 id="构建-beam-管道">构建 Beam 管道</h2>
+<p>最后，让我们来看如何构建我们自己的 JAR 文件。</p>
+<p>这个 repo 被用于 WordCount demo 是构建于 <a href="https://github.com/apache/incubator-beam/tree/master/runners/flink">Flink 运行器的 Beam 文档</a> 的微小变化，克服一些不精确。这是一个好的开始来构建任何 Beam 管道。</p>
+<p>只需要 Clone 这个起始 repo 并且构造它：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git clone https://github.com/ecesena/beam-starter
+$ cd beam-starter
+$ mvn clean package
+</code></pre></div><p>最后一个命令将创建一个 JAR 文件在目标目录中。我们能上传 JAR 通过 Flink 网页并且从上面的例子我们看到运行它。</p>
+<p>从这里，它应该很容易调整文件 <a href="https://github.com/ecesena/beam-starter/blob/master/src/main/java/com/dataradiant/beam/examples/WordCount.java">WordCount.java</a> 和创建其他管道。</p>
+<p>作为一个具体的例子,<a href="http://oscarsdata.github.io/">分析Twitter上的热门话题奥斯卡</a>。你可以计划一个项目,也许通过使用这个初始化 repo 或者 Docker 镜像。</p>
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

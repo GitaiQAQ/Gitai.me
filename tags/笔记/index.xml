@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>笔记 on Gitai.me</title>
+    <link>https://gitai.me/tags/%E7%AC%94%E8%AE%B0/</link>
+    <description>Recent content in 笔记 on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Mon, 20 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SELinux 策略和 Nginx 403 的问题</title>
+      <link>https://gitai.me/2019/05/selinux-%E7%AD%96%E7%95%A5%E5%92%8C-nginx-403-%E7%9A%84%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Mon, 20 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/05/selinux-%E7%AD%96%E7%95%A5%E5%92%8C-nginx-403-%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;以此来纪念我加班的 5.20&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Nginx 之类的 Httpd 服务使用非 /var/www 产生的 Permission denied 错误，原因在于权限设置有误。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;2019/05/20 10:53:14 &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;error&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; 11262#0: *16 open&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/sangfor/*/*/favicon.ico&amp;#34;&lt;/span&gt; failed &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;13: Permission denied&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;, client: 200.200.211.97, server: localhost, request: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;GET /favicon.ico HTTP/1.1&amp;#34;&lt;/span&gt;, host: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;10.58.12.67&amp;#34;&lt;/span&gt;, referrer: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;http://10.58.12.67/&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>AST: 换个角度看结构化文本</title>
+      <link>https://gitai.me/2019/05/astselector/</link>
+      <pubDate>Fri, 17 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/05/astselector/</guid>
+      <description>如果想要选中上述代码中的黄色部分也就是所有的字符串类型的值，无论是正则还是啥方法，都是基本无法完成的；所以我们需要引入 AST 换个角度分析问题。 居</description>
+    </item>
+    
+    <item>
+      <title>Webpack Loader 和 Plugin</title>
+      <link>https://gitai.me/2019/05/loaderplugin/</link>
+      <pubDate>Mon, 13 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/05/loaderplugin/</guid>
+      <description>想写个插件解析 JS 生成 JSON 的配置文件，其实就是 JSON.stringify(require(&#39;./manifest.js&#39;))。这个简单的操作。</description>
+    </item>
+    
+    <item>
+      <title>Chrome 插件&amp;离线应用开发的坑</title>
+      <link>https://gitai.me/2019/05/chrome.runtime.onmessage/</link>
+      <pubDate>Sat, 11 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/05/chrome.runtime.onmessage/</guid>
+      <description>因为 Chrome 的那些接口又臭又长，而且都是异步回调，所以很适合练手 Promise/async 这些东西，但是遇到一个很奇怪的问题 const onMessage = (asyncFunc) =&amp;gt; chrome.runtime.onMessage.addListener ((msg, sender, sendResponse) =&amp;gt; { sendResponse (msg); }); 上面是一般操作，但</description>
+    </item>
+    
+  </channel>
+</rss>

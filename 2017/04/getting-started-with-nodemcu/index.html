@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>NodeMCU 开发入门 | Gitai.me</title>
+
+<meta property='og:title' content='NodeMCU 开发入门 - Gitai.me'>
+<meta property='og:description' content='入了个 nodemcu 来记一段初始化过程遇上的坑
+先插线，恩，卖家送了根很粗的烧录线（不过很快就被我烧了。
+全家福什么的我是不会拍的
+先做好基本的准备工作
+基础环境是 Chromebook 中的 Ubuntu，不过这其实并不重要'>
+<meta property='og:url' content='https://gitai.me/2017/04/getting-started-with-nodemcu/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='记录'><meta property='article:published_time' content='2017-04-17T00:00:00Z'/><meta property='article:modified_time' content='2017-04-17T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2017/04/getting-started-with-nodemcu/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/%E8%AE%B0%E5%BD%95/">#记录</a>
+
+
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">April 17, 2017</h2>
+    <h1 class="title">NodeMCU 开发入门</h1>
+    
+    <div class="content">
+      <p>入了个 nodemcu 来记一段初始化过程遇上的坑</p>
+<p>先插线，恩，卖家送了根很粗的烧录线（不过很快就被我烧了。</p>
+<p>全家福什么的我是不会拍的</p>
+<p>先做好基本的准备工作</p>
+<p>基础环境是 Chromebook 中的 Ubuntu，不过这其实并不重要</p>
+<p>比如下载个固件什么的</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ wget https://github.com/nodemcu/nodemcu-firmware/releases/download/0.9.6-dev_20150704/nodemcu_integer_0.9.6-dev_20150704.bin
+</code></pre></div><p>然后在来个官方专用的工具包 <code>esptool</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git clone https://github.com/themadinventor/esptool.git
+</code></pre></div><p>反正看不懂，就这样烧录吧！估计不会坏。。。</p>
+<p>官方资料在<a href="https://nodemcu.readthedocs.io/en/master/en/flash/">这</a></p>
+<p>让你酱紫刷入固件</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo python ./esptool.py --port &lt;serial-port&gt; write_flash -fm &lt;mode&gt; 0x00000 &lt;nodemcu-firmware&gt;.bin
+</code></pre></div><ul>
+<li>serial-port 设备接口，一般是 <code>/dev/ttyUSB0</code>。如果没有，在 <code>ls /dev</code> 中可以试着揣测一下。如果是 <code>/dev/ttyUSB0</code> 接下来的操作中，其实这个参数可以直接省略。</li>
+<li>mode flash 容量在 512 kByte 为 <code>qio</code>，&gt;=4 MByte 为 <code>dio</code>，如果不知道 <code>qio</code> 万能的</li>
+</ul>
+<p>其实 mode 不写也会自动配置</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Auto-detected Flash size: 4MB
+</code></pre></div><p>这个容量可以通过 <code>esptool.py --port &lt;serial-port&gt; flash_id</code> 得到的芯片信息来看。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># esptool.py v2.0-beta2</span>
+Connecting....
+Detecting chip type... ESP8266
+Uploading stub...
+Running stub...
+Stub running...
+Manufacturer: e0
+Device: <span style="color:#ae81ff">4016</span>
+Hard resetting...
+</code></pre></div><p>这里有个 <code>Device</code>， 去<a href="https://code.coreboot.org/p/flashrom/source/tree/HEAD/trunk/flashchips.h"><code>flashchips.h</code></a> 中 <code>Ctrl + F</code>，可以查到<a href="https://code.coreboot.org/p/flashrom/source/tree/HEAD/trunk/flashchips.h#L117">如下内容</a></p>
+<pre><code>#define AMIC_A25LQ032 0x4016 /* Same as A25LQ32A, but the latter supports SFDP */
+</code></pre><p>然后，通过 <code>A25LQ32A</code> 查到<a href="http://www.alcom.nl/binarydata.aspx?type=doc/Amic_A25LQ032.pdf">芯片参数</a></p>
+<pre><code> A25LQ032: 32M-bit /4M-byte 
+</code></pre><p>反正就这样执行，基本不会有错的，有错说明买了假开发板。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo python ./esptool.py --port /dev/ttyUSB0 write_flash 0x00000 ../nodemcu_integer_0.9.6-dev_20150704.bin 
+<span style="color:#f92672">[</span>sudo<span style="color:#f92672">]</span> password <span style="color:#66d9ef">for</span> jaufranc: 
+Connecting...
+Erasing flash...
+Writing at 0x00048000... <span style="color:#f92672">(</span><span style="color:#ae81ff">65</span> %<span style="color:#f92672">)</span>
+</code></pre></div><p>若干分钟过去了，进度条消失，出现如下内容表明烧录成功</p>
+<pre><code>Wrote 450560 bytes at 0x00000000 in 44.3 seconds (81.3 kbit/s)...
+ 
+Leaving...
+</code></pre><p>接下来已经能在，WiFi 列表中看到 <code>AI-THINKER_XXXXXX</code> 的 ESSID。</p>
+<p>遂使用 <code>minicom</code> 或者 <code>screen</code> 连接端口</p>
+<p>没装的自行</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># apt install screen minicom</span>
+</code></pre></div><p>用 <code>minicom</code> 跑一次</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ minicom -b &lt;baudrate&gt; -D &lt;serial-port&gt;
+</code></pre></div><ul>
+<li>baudrate 波特率 nodemcu 默认 9600</li>
+<li>serial-port 如上，但是默认 <code>tty8</code></li>
+</ul>
+<p>很好不会用，下一个</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ screen &lt;serial-port&gt; &lt;baudrate&gt;
+</code></pre></div><p>参数如上</p>
+<p>从 <code>hello world</code> 开始是国际惯例</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua">print(<span style="color:#e6db74">&#39;Hello World&#39;</span>);
+</code></pre></div><p>为了方便的开发，建议使用官方的 <code>ESPlorer</code></p>
+<p><img src="https://i.loli.net/2018/04/18/5ad75d97d0d1b.jpg" alt="ESPlorer"></p>
+<p>可视化怎么来说也是非常棒的！（尤其咱这种手残，没有删除和修改，完全写不下去</p>
+<p>就是需要个 Java， 不过 Ubuntu 自带 openjdk 或者可以参照以前的<a href="https://gitai.me/2015/07/06/linux-jdk-install/">文章</a>，安装 Oracle JDK。</p>
+<p>然后参见官方文档，简单使用如下：</p>
+<p>右边有一排按钮和输入框，按钮是常用的内置命令</p>
+<p>输入框就是普通写入的入口，下面用一个板载 LED 的开关来演示基本操作，为什么是基本操作，因为我完全不明白 gpio 干嘛的，高/低电平什么的。。。反正瞎写应该不会炸。。。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua">gpio.mode(<span style="color:#ae81ff">0</span>, gpio.OUTPUT)
+</code></pre></div><p>哇，亮了，怎么关是个很值得思考的问题（以上例子来自 ESP8266 &amp; NodeMCU 開發入門<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<p>经过对 <a href="https://ruff.io/zh-cn/docs/gpio.html">Ruff</a> 和 <a href="http://www.jianshu.com/p/008339095fd6">GPIO学习笔记</a> 的浅涉</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua">gpio.write(<span style="color:#ae81ff">0</span>, gpio.HIGH)
+</code></pre></div><p>酱紫就可以关闭了。</p>
+<p>实际上，如果遇上无法解决的问题，Windows 修电脑那一套，依然可靠，没有什么重启（restart - node.restart()
+）解决不了的，如果有那就重装（reflash）。</p>
+<p>以上内容还参考了 Getting Started with NodeMCU Board Powered by ESP8266 WiSoC<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
+<p>还有个基于 <code>atom</code> 可以放在 <code>vscode</code> 的物联网开发环境 <a href="http://platformio.org/"><code>PlatformIO</code></a></p>
+<p><a href="(http://platformio.org/)"><img src="https://i.loli.net/2017/10/28/59f44fe4d7f2d.png" alt="PlatformIO"></a></p>
+<p>先安装依赖</p>
+<pre><code># apt-get install git autoconf build-essential gperf bison flex texinfo libtool libncurses5-dev wget gawk libc6-dev-amd64 python-serial libexpat-dev
+</code></pre><p>安装 <a href="http://platformio.org/"><code>PlatformIO</code></a></p>
+<pre><code># pip install -U platformio
+</code></pre><p>编写 <code>.ino</code> 文件</p>
+<ul>
+<li>初始化： <code>pio init</code></li>
+<li>编译： <code>pio run</code></li>
+<li>烧录： <code>pio run -t upload</code></li>
+<li>串口通讯： <code>pio device monitor</code></li>
+</ul>
+<h2 id="附录-a-gpio-对应关系">附录 A: GPIO 对应关系</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">IO index</th>
+<th style="text-align:left">ESP8266 pin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0 [*]</td>
+<td style="text-align:left">GPIO16</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:left">GPIO5</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:left">GPIO4</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:left">GPIO0</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:left">GPIO2</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:left">GPIO14</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:left">GPIO12</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:left">GPIO13</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:left">GPIO15</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:left">GPIO3</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:left">GPIO1</td>
+</tr>
+<tr>
+<td style="text-align:center">11</td>
+<td style="text-align:left">GPIO9</td>
+</tr>
+<tr>
+<td style="text-align:center">12</td>
+<td style="text-align:left">GPIO10</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>[*] D0(GPIO16) can only be used as gpio <code>read</code>/<code>write</code>. 
+No support for <code>open-drain</code>/<code>interrupt</code>/<code>pwm</code>/<code>i2c</code>/<code>ow</code>.</p>
+</blockquote>
+<h2 id="esp8266-管脚清单">ESP8266 管脚清单</h2>
+<ol>
+<li><code>INST_NAME</code> indicate the <code>IO_MUX</code> REGISTER defined in <code>eagle_soc.h</code>，for example <code>MTDI_U</code> refers to <code>PERIPHS_IO_MUX_MTDI_U</code></li>
+<li><code>NET NAME</code> accords with the pin name in schematic</li>
+<li><code>FUNCTION</code> says the multifunction of each pin pad
+func number 1-5 in this table correspond to FUNCTION 0-4 in SDK
+e.g.：set MTDI to GPIO12</li>
+</ol>
+<pre><code>#define FUNC_GPIO12  3 //defined in eagle_soc.h
+PIN_FUNC_SELECT(PERIPHS_IO_MUX_MTDI_U,FUNC_GPIO12);
+</code></pre><p><a href="http://espressif.com/sites/default/files/documentation/0d-esp8266_pin_list_release_15-11-2014.xlsx">http://espressif.com/sites/default/files/documentation/0d-esp8266_pin_list_release_15-11-2014.xlsx</a></p>
+<p>EOF</p>
+<h2 id="附加">附加</h2>
+<p><a href="https://lastminuteengineers.com/esp8266-nodemcu-arduino-tutorial/">https://lastminuteengineers.com/esp8266-nodemcu-arduino-tutorial/</a></p>
+<p>2020-03-17 <a href="https://github.com/jeelabs/esp-link/blob/master/FLASHING.md">最细致的 Flashing 指南</a></p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://wotcity.com/blog/2015/08/31/esp8266-nodemcu-iot-starter-part-1/">ESP8266 &amp; NodeMCU 開發入門 (Part 1) - Hello World</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p><a href="http://www.cnx-software.com/2015/10/29/getting-started-with-nodemcu-board-powered-by-esp8266-wisoc/">Getting Started with NodeMCU Board Powered by ESP8266 WiSoC</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

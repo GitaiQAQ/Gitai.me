@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Gitai.me</title>
+    <link>https://gitai.me/categories/</link>
+    <description>Recent content in Categories on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Fri, 21 Dec 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JavaScript</title>
+      <link>https://gitai.me/categories/javascript/</link>
+      <pubDate>Fri, 21 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>前端</title>
+      <link>https://gitai.me/categories/%E5%89%8D%E7%AB%AF/</link>
+      <pubDate>Thu, 12 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/%E5%89%8D%E7%AB%AF/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>杂项</title>
+      <link>https://gitai.me/categories/%E6%9D%82%E9%A1%B9/</link>
+      <pubDate>Sun, 28 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/%E6%9D%82%E9%A1%B9/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>奇技淫巧</title>
+      <link>https://gitai.me/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/</link>
+      <pubDate>Sat, 28 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>数据可视化</title>
+      <link>https://gitai.me/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/</link>
+      <pubDate>Sat, 01 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://gitai.me/categories/docker/</link>
+      <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>IoT</title>
+      <link>https://gitai.me/categories/iot/</link>
+      <pubDate>Tue, 02 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/iot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ELK</title>
+      <link>https://gitai.me/categories/elk/</link>
+      <pubDate>Tue, 25 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/elk/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Uzuki</title>
+      <link>https://gitai.me/categories/uzuki/</link>
+      <pubDate>Mon, 24 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/uzuki/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>翻译</title>
+      <link>https://gitai.me/categories/%E7%BF%BB%E8%AF%91/</link>
+      <pubDate>Sun, 23 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/%E7%BF%BB%E8%AF%91/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>LatticeOS</title>
+      <link>https://gitai.me/categories/latticeos/</link>
+      <pubDate>Tue, 28 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/latticeos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ChromiumOS</title>
+      <link>https://gitai.me/categories/chromiumos/</link>
+      <pubDate>Thu, 23 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/chromiumos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RancherOS</title>
+      <link>https://gitai.me/categories/rancheros/</link>
+      <pubDate>Wed, 22 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/rancheros/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CoreOS</title>
+      <link>https://gitai.me/categories/coreos/</link>
+      <pubDate>Tue, 21 Mar 2017 01:06:19 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/coreos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GUI</title>
+      <link>https://gitai.me/categories/gui/</link>
+      <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/gui/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ChomeOS</title>
+      <link>https://gitai.me/categories/chomeos/</link>
+      <pubDate>Sat, 18 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/chomeos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://gitai.me/categories/linux/</link>
+      <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>爬虫</title>
+      <link>https://gitai.me/categories/%E7%88%AC%E8%99%AB/</link>
+      <pubDate>Sun, 12 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/%E7%88%AC%E8%99%AB/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MCU</title>
+      <link>https://gitai.me/categories/mcu/</link>
+      <pubDate>Fri, 10 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/mcu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>PHP</title>
+      <link>https://gitai.me/categories/php/</link>
+      <pubDate>Tue, 07 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/php/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>VUE</title>
+      <link>https://gitai.me/categories/vue/</link>
+      <pubDate>Mon, 06 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/vue/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Android</title>
+      <link>https://gitai.me/categories/android/</link>
+      <pubDate>Wed, 22 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/android/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>应用</title>
+      <link>https://gitai.me/categories/%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Thu, 07 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/%E5%BA%94%E7%94%A8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Lua</title>
+      <link>https://gitai.me/categories/lua/</link>
+      <pubDate>Mon, 14 Mar 2016 11:51:36 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/lua/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kanban</title>
+      <link>https://gitai.me/categories/kanban/</link>
+      <pubDate>Thu, 03 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/kanban/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Protobuf</title>
+      <link>https://gitai.me/categories/protobuf/</link>
+      <pubDate>Mon, 08 Feb 2016 09:26:36 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/protobuf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tasker</title>
+      <link>https://gitai.me/categories/tasker/</link>
+      <pubDate>Sun, 07 Feb 2016 13:22:51 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/tasker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Minecraft</title>
+      <link>https://gitai.me/categories/minecraft/</link>
+      <pubDate>Sun, 31 Jan 2016 10:23:52 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/minecraft/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nodejs</title>
+      <link>https://gitai.me/categories/nodejs/</link>
+      <pubDate>Mon, 26 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/categories/nodejs/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

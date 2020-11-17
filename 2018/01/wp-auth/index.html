@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>加一层是解耦合的最佳方法 | Gitai.me</title>
+
+<meta property='og:title' content='加一层是解耦合的最佳方法 - Gitai.me'>
+<meta property='og:description' content='最近，在一个初创公司，而且核心是内容的初创公司。WordPress 作为基础框架的使用还是非常常见的。 但是 WordPress 非常的臃肿，逐渐稳定之后，必然需要'>
+<meta property='og:url' content='https://gitai.me/2018/01/wp-auth/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:published_time' content='2018-01-28T00:00:00Z'/><meta property='article:modified_time' content='2018-01-28T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2018/01/wp-auth/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+    </div>
+    <h2 class="subtitle is-6">January 28, 2018</h2>
+    <h1 class="title">加一层是解耦合的最佳方法</h1>
+    
+    <div class="content">
+      <p>最近，在一个初创公司，而且核心是内容的初创公司。WordPress 作为基础框架的使用还是非常常见的。</p>
+<p>但是 WordPress 非常的臃肿，逐渐稳定之后，必然需要将技术栈迁移到其他合适的自研框架中去。</p>
+<p>至于为什么写这篇，自然是因为没找到别人写过类似的分析。</p>
+<p>各种软件设计中对于解耦合最简单高效的方法无碍乎 “加一层”，无论是单个应用还是大型分布式系统。</p>
+<blockquote>
+<p>计算机科学领域的任何问题都可以通过增加一个间接的中间层来解决</p>
+<p>Any problem  in computer science can be solved by anther layer of indirection.</p>
+<p>—— 出处存在争议</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<p>首先梳理广泛运用的实现方式，对于大型业务系统，必然会被拆分多个模块。</p>
+<p>然后为了处理统一的服务，会引入 SSO（单点登录），和统一的日志管理模块。等这些模块健壮了，就慢慢出现了 gateway 这种非常好用的东西。</p>
+<p>但是，估摸着实习这段时间是不可能给他整个技术栈重构了，尤其用了 WordPress 那个课程插件。坑太大，暂时不填，等时机成熟给他填了写简历也是美滋滋&hellip;</p>
+<p>于是，就展开了以下方法的探讨：</p>
+<ol>
+<li>在其他框架中，对 WordPress 发起 RPC 鉴权</li>
+<li>直接读取数据库，解密 cookies</li>
+</ol>
+<h2 id="rpc-鉴权">RPC 鉴权</h2>
+<p>前置 IP 设置个白名单，或者加个 token</p>
+<p>目标框架将 cookies 转发，WordPress 写个函数，返回校验结果。</p>
+<h2 id="直接操作数据库">直接操作数据库</h2>
+<p>先去 WordPress 里面把有关代码翻出来。</p>
+<ul>
+<li><a href="https://github.com/WordPress/WordPress/blob/master/wp-includes/default-constants.php#L220"><code>COOKIEHASH</code></a></li>
+<li><a href="https://github.com/WordPress/WordPress/blob/master/wp-includes/default-constants.php#L261"><code>LOGGED_IN_COOKIE</code></a></li>
+<li><a href="https://github.com/WordPress/WordPress/blob/master/wp-includes/pluggable.php#L602"><code>wp_validate_auth_cookie</code></a></li>
+<li><a href="https://github.com/WordPress/WordPress/blob/master/wp-includes/pluggable.php#L712"><code>wp_generate_auth_cookie</code></a></li>
+</ul>
+<p>简述一下默认的生成原理</p>
+<p>先获取 <code>COOKIEHASH</code>，默认为 <code>siteurl</code>，储存在 WordPress 数据库的 <code>wordpress_option</code>。并通过 md5 摘要获取识别码。</p>
+<p><code>LOGGED_IN_COOKIE</code> 是 <code>cookies</code> 的 <code>key</code>，形如 <code>wordpress_logged_in_ac0818ef3df8d5d8ee0c025b0c25a7af</code>（<code>wordpress_logged_in_</code> + <code>COOKIEHASH</code>）。</p>
+<p>从上面得到的 <code>LOGGED_IN_COOKIE</code> 取出值 <code>admin%7C1518332456%7CQ86dRzSrTFJnnyeleONzDZ1XUDKkLJcm0A8CsmJvfRh%7Cf253da0429b6011c3b51f222e0b59ca3eb7c8aeac712b7af101468fca3bab63b</code> 通过 URL 解码，得到 <code>admin|1518332456|Q86dRzSrTFJnnyeleONzDZ1XUDKkLJcm0A8CsmJvfRh|f253da0429b6011c3b51f222e0b59ca3eb7c8aeac712b7af101468fca3bab63b</code>。对应 <code>username</code>, <code>expiration</code>, <code>token</code>, <code>cookie_hmac</code>。</p>
+<p>之后进入校验流程。</p>
+<ol>
+<li>是否过期</li>
+<li>用户是否存在</li>
+<li>检查 <code>cookie hash</code> 是否匹配</li>
+</ol>
+<p><code>pwd_frag</code> 是用户密码串的 8~12 位</p>
+<p>在 <code>wp_config</code> 取出 <code>WORDPRESS_LOGGED_IN_KEY</code> + <code>WORDPRESS_LOGGED_IN_SALT</code>，这是加密必要的盐。</p>
+<p>原文本：<code>username</code> + <code>pwd_frag</code> + <code>expiration</code> + <code>token</code>
+密钥：<code>WORDPRESS_LOGGED_IN_KEY</code> + <code>WORDPRESS_LOGGED_IN_SALT</code></p>
+<p>通过 <code>hmac-md5</code> 加密获取 <code>hash</code>，和 <code>cookie_hmac</code> 对照，完成登录流程。</p>
+<h2 id="参考">参考</h2>
+<p><a href="https://github.com/ScilCoop/django-wordpress-auth-lite">django 的实现</a></p>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

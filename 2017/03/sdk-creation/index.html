@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>ChromiumOS 快速开始指南 | Gitai.me</title>
+
+<meta property='og:title' content='ChromiumOS 快速开始指南 - Gitai.me'>
+<meta property='og:description' content='介绍
+Chromium OS 项目有一个开发者工具包来提供一个独立的环境来构建目标系统。
+当你使用它，它只是一个 Gentoo/Linux  chroot，有很多构建脚本，以简化和自动化的整体构建过程。'>
+<meta property='og:url' content='https://gitai.me/2017/03/sdk-creation/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='ChromiumOS'><meta property='article:tag' content='记录'><meta property='article:published_time' content='2017-03-23T00:00:00Z'/><meta property='article:modified_time' content='2017-03-23T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2017/03/sdk-creation/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/chromiumos/">#ChromiumOS</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/%E8%AE%B0%E5%BD%95/">#记录</a>
+  
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">March 23, 2017</h2>
+    <h1 class="title">ChromiumOS 快速开始指南</h1>
+    
+    <div class="content">
+      <h2 id="介绍">介绍</h2>
+<p>Chromium OS 项目有一个开发者工具包来提供一个独立的环境来构建目标系统。</p>
+<p>当你使用它，它只是一个 Gentoo/Linux  chroot，有很多构建脚本，以简化和自动化的整体构建过程。</p>
+<h3 id="预构建流">预构建流</h3>
+<p>当你第一次运行 <code>cros_sdk</code> (在 <a href="https://chromium.googlesource.com/chromiumos/chromite/+/master/scripts/cros_sdk.py">chromite/bin/</a>) ，它自动下载已知最新的版本，以及在 <code>chroot/</code> 文件夹解包(从 Chromium OS 源码检出)</p>
+<p>版本信息储蓄于：</p>
+<pre><code>src/chromiumos-overlay/chromeos/binhost/host/sdk_version.conf
+SDK_LATEST_VERSION=&quot;2013.11.16.104134&quot;
+</code></pre><p>在 Chromiumos-sdk Google 储存仓库中检索原始那码存档。</p>
+<p>为了更多信息，参见</p>
+<pre><code>https://commondatastorage.googleapis.com/chromiumos-sdk/cros-sdk-2013.11.16.104134.tar.xz
+</code></pre><h3 id="引导">引导</h3>
+<p>你可能惊讶于鸡&amp;蛋问题。如何创建一个预构建工具原始码？我们每天都这么做，实际上是一个新功能:如果工具包自己通过提交来打破，如何简单的探索？为了避免这些，我们有完整引导并且运行于 Chromium OS 工作流的 Chromium-sdk 机器人配置。</p>
+<p>但是我们依然从引导开始。为了这些我们转向 gentoo。被称为 stage3 原始码释出进程。</p>
+<p>它是一个完整的(虽然基本上) gentoo chroot 是被使用来安装gentoo。
+我们使用它从0开始创建chromiumos开发者工具。然后我们打包结果并且发布在公开储存上。</p>
+<p>如果整个 SDK 生成失败，那么我们不会刷新 SDK，并且发布对开发人员保持稳定的文件。</p>
+<h3 id="概览">概览</h3>
+<p>总体流程:</p>
+<ul>
+<li>下载已知最新的 gentoo stage3</li>
+<li>更新/安装/移出我们需要的开发工具(比如 git)</li>
+<li>我们关心于构建所有的跨编译器</li>
+<li>从0开始构建“amd64-host”(sdk 的旧名字)</li>
+<li>安装所有跨平台编译器在新roo</li>
+<li>使用简单的 Chrome 工作流生成独立的跨平台编译器的副本(还有其他一些东西)</li>
+<li>构建一部分来验证最新构建工具</li>
+<li>上传所有的二进制包，跨编译器和 SDK</li>
+</ul>
+<h3 id="gentoo-stage3">gentoo stage3</h3>
+<p>我们抓取 gentoo stage3 原始码的副本，并且发布到 Google 储存仓库</p>
+<p>最新已知版本的 stage3 储存于</p>
+<pre><code>src/third_party/chromiumos-overlay/chromeos/binhost/host/sdk_version.conf
+BOOTSTRAP_LATEST_VERSION=&quot;2013.01.30&quot;
+</code></pre><p>在 Google 储存库中查找原始码，参见 <a href="https://commondatastorage.googleapis.com/chromiumos-sdk/stage3-amd64-2013.01.30.tar.xz">https://commondatastorage.googleapis.com/chromiumos-sdk/stage3-amd64-2013.01.30.tar.xz</a></p>
+<p>我们能简单的解包，并且使用我们的构建脚本来 chroot</p>
+<h3 id="更新基础包">更新基础包</h3>
+<p>现在我们运行 <a href="https://chromium.googlesource.com/chromiumos/platform/crosutils/+/master/sdk_lib/make_chroot.sh"><code>make_chroot.sh</code></a> 脚本(在 src/scripts/sdk_lib/)来响应安装/移出/升级关键包。</p>
+<p>确保安装/移出/更新包以正确的顺序来避免冲突和依赖循环。我们还可以添加各种中间 hack，因为我们在叠加中升级的包的版本与 stage3 中发现的版本相差更远，但是最好只是在可能的情况下更新基本 stage3 版本。</p>
+<p>有关详细信息，请参阅本页结尾。</p>
+<p>然后运行正常的 <a href="https://chromium.googlesource.com/chromiumos/platform/crosutils/+/master/update_chroot">update_chroot</a> 脚本，安装SDK中通常存在的所有软件包（<a href="https://chromium.googlesource.com/chromiumos/overlays/chromiumos-overlay/+/master/virtual/target-sdk">virtual/target-sdk</a> 元软件包）。</p>
+<h3 id="跨编译器构建">跨编译器构建</h3>
+<p>构建机器人进程在运行 <a href="https://chromium.googlesource.com/chromiumos/chromite/+/master/scripts/cros_setup_toolchains.py"><code>cros_setup_toolschains</code></a> 来生成所有被标记在sdk中的的工具链(参见 toolchain.conf 文件来了解更多)</p>
+<h3 id="构建-amd64-host">构建 amd64-host</h3>
+<p>现在我们有 chroot，看起来像是 Chromium OS SDK，我们能够继续并且从0开始构建 Chromium OS SDK。</p>
+<p>我们这样做是为了验证最新的本地工具链是否正常，以便我们可以生成一个原始的 SDK，没有随时间的随机垃圾累积（像在当前 chroot 中找到的所有 <code>temp/</code> 生成的文件）。</p>
+<p>这一步完成只需要下面这一句:</p>
+<pre><code>./setup_board --board=amd64-host --skip_chroot_upgrade --nousepkg --reuse_pkgs_from_local_boards
+</code></pre><p>如果熟悉正常的 Chromium OS 流，察觉到这一步非常像运行 <code>setup_board</code> 和 <code>build_packages</code> 。</p>
+<p>可以说，它不应该这样做，但今天无关紧要，去清理它。
+这意味着，他将花费一会来结束(正如从源码构建几百个包)，每件事将被写入 <code>/board/amd64-host</code>。</p>
+<h3 id="打包sdk">打包sdk</h3>
+<p>现在 SDK 被完成并且有我们想要的任何事，我们创建 SDK 原始码包。我们不立刻上传它，只是它没有被测试。</p>
+<h3 id="生成独立交叉编译器">生成独立交叉编译器</h3>
+<p>由于我们的交叉编译器非常有用，我们希望能够自己使用它们。换句话说，没有完整的 Chromium OS 源结算和 SDK 的开销。</p>
+<p>有了一些技巧，我们可以完成这一点。它复制工具链本身使用的所有主机库，生成包装器脚本，以便可以找到库的本地副本，然后处理所有路径，使它们独立。</p>
+<p>交叉编译链脚本 <a href="https://chromium.googlesource.com/chromiumos/chromite/+/master/scripts/cros_setup_toolchains.py"><code>cros_setup_toolchains</code></a> 有完整的逻辑</p>
+<h3 id="测试sdk">测试sdk</h3>
+<p>我们要确保 SDK 的构建正确可用。这从释出工具链帮助我们更新(比如gcc)是可怕的破坏(比如不能编译和链接)。</p>
+<p>为了测试这些，我们简单的使用 SDK 原始码更早的构建新 chroot。这也验证从这个 SDK 中创建新 chroot 普通开发者工作流。</p>
+<p>包含新 chroot，我们为普通的一对平台做普通的构建流。现在，意味着这几个主流平台之一(比如: amd64-generic-full，arm-generic-full和x86-generic-full)。我们通过只运行 setup_board+build_packages;没有单元测试或者其他东西(正如当前历史表示它不是必要的)</p>
+<h3 id="发布-sdk">发布 SDK</h3>
+<p>当所有的测试通过，我们继续并且上传结果</p>
+<ul>
+<li>sdk原始码</li>
+<li>独立交叉编译原始码</li>
+<li>为 chroot 的原始码</li>
+</ul>
+<h3 id="更新-stage3">更新 stage3</h3>
+<p>stage3 伴随时间刷新。这是一个基本上是机械的过程。 它归结为：</p>
+<ul>
+<li>从<a href="http://www.gentoo.org/main/en/where.xml">上游 Gentoo</a> 选择一个新的 stage3（查看amd64 stage3s）</li>
+<li>确保它使用 xz 压缩，而不是 bzip2</li>
+<li>将其上传到 chromiumos-sdk 仓库</li>
+<li>在 <a href="https://chromium.googlesource.com/chromiumos/overlays/chromiumos-overlay/+/master/chromeos/binhost/host/sdk_version.conf"><code>src/chromiumos-overlay/chromeos/binhost/host/sdk_version.conf</code></a> 文件中更新引导版本</li>
+<li>运行一些chromiumos-sdk远程trybot配置</li>
+<li>查看 InitSDK 阶段日志并查找降级的软件包（“[ebuild UD]”行）</li>
+<li><a href="https://www.chromium.org/chromium-os/gentoo-package-upgrade-process">升级所有相关包</a>
+根据需要更新 <a href="https://chromium.googlesource.com/chromiumos/platform/crosutils/+/master/sdk_lib/make_chroot.sh"><code>make_chroot.sh</code></a> 脚本（清除旧的 hacks，添加新的等等&hellip;）</li>
+<li>重复过程，直到 InitSDK 阶段工作</li>
+<li>一旦整个 bot 配置通过，你的工作就完成了</li>
+</ul>
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

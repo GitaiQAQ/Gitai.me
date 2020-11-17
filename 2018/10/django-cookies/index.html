@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Django 下同名 Cookies 的一个小问题 | Gitai.me</title>
+
+<meta property='og:title' content='Django 下同名 Cookies 的一个小问题 - Gitai.me'>
+<meta property='og:description' content='Django 作为一个非常友好的框架，提供了各种层级的封装，基本上文档看完就能直接开发出很多有意思的东西。 但是因为被高度封装，开发中的很多奇葩的操作则被'>
+<meta property='og:url' content='https://gitai.me/2018/10/django-cookies/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='Django'><meta property='article:tag' content='Hack'><meta property='article:published_time' content='2018-10-10T00:00:00Z'/><meta property='article:modified_time' content='2018-10-10T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2018/10/django-cookies/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/django/">#Django</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/hack/">#Hack</a>
+  
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">October 10, 2018</h2>
+    <h1 class="title">Django 下同名 Cookies 的一个小问题</h1>
+    
+    <div class="content">
+      <p>Django 作为一个非常友好的框架，提供了各种层级的封装，基本上文档看完就能直接开发出很多有意思的东西。</p>
+<p>但是因为被高度封装，开发中的很多奇葩的操作则被官方的规范代替，若只使用 Django 会很友好，如果和其他语言和库整合，那就是另一个问题了。</p>
+<p>本篇就是因为一个 Cookies 的特性问题，和 Django 的封装出现冲突。我们先从 Cookies 的属性开始说起。</p>
+<!-- raw HTML omitted -->
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>Cookie的名称，Cookie一旦创建，名称便不可更改</td>
+</tr>
+<tr>
+<td>value</td>
+<td>Cookie的值。如果值为Unicode字符，需要为字符编码。如果值为二进制数据，则需要使用BASE64编码</td>
+</tr>
+<tr>
+<td>maxAge</td>
+<td>Cookie失效的时间，单位秒。如果为正数，则该Cookie在maxAge秒之后失效。如果为负数，该Cookie为临时Cookie，关闭浏览器即失效，浏览器也不会以任何形式保存该Cookie。如果为0，表示删除该Cookie。默认为-1。</td>
+</tr>
+<tr>
+<td>secure</td>
+<td>该Cookie是否仅被使用安全协议传输。安全协议。安全协议有HTTPS，SSL等，在网络上传输数据之前先将数据加密。默认为false。</td>
+</tr>
+<tr>
+<td>path</td>
+<td>Cookie的使用路径。如果设置为“/sessionWeb/”，则只有contextPath为“/sessionWeb”的程序可以访问该Cookie。如果设置为“/”，则本<a href="https://dnspod.cloud.tencent.com/">域名</a>下contextPath都可以访问该Cookie。注意最后一个字符必须为“/”。</td>
+</tr>
+<tr>
+<td>domain</td>
+<td>可以访问该Cookie的域名。如果设置为“.google.com”，则所有以“google.com”结尾的域名都可以访问该Cookie。注意第一个字符必须为“.”。</td>
+</tr>
+<tr>
+<td>comment</td>
+<td>该Cookie的用处说明，浏览器显示Cookie信息的时候显示该说明。</td>
+</tr>
+<tr>
+<td>version</td>
+<td>Cookie使用的版本号。0表示遵循Netscape的Cookie规范，1表示遵循W3C的RFC 2109规范</td>
+</tr>
+</tbody>
+</table>
+<p>本表截取自<a href="http://blog.51cto.com/wangzhichao/1751685">Cookie出现两个同名Key的问题</a>)</p>
+<p>由上我们不难发现 Cookies 并不是一个简单的 KV map，而是以 nama, domain, path 联合建立的表。</p>
+<p>但是在 Django 的 Cookies 实现上，仅仅使用了一个 KV map，虽然从原理上解决了 Cookies 的冲突问题，但是对于已有的冲突则难以解决。</p>
+<p>我们来看看 <code>response.set_cookie</code> 和 <code>response.delete_cookie</code> 产生的 Header</p>
+<h3 id="responsedelete_cookie"><code>response.delete_cookie</code></h3>
+<pre><code>set-cookie:
+
+cookie_name=&quot;&quot;; Domain=www.example.com; expires=Thu, 01-Jan-1970 00:00:00 GMT; Max-Age=0; Path=/
+</code></pre><h3 id="responseset_cookie"><code>response.set_cookie</code></h3>
+<pre><code>set-cookie:
+
+cookie_name=&quot;test_cookies&quot;; Domain=www.example.com; expires=Fri, 12-Oct-2018 02:00:40 GMT; Path=/
+</code></pre><p>参照 <code>django.http.reponse.py:211</code> 中的 <code>delete_cookie</code> 方法</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">delete_cookie</span>(self, key, path<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/&#39;</span>, domain<span style="color:#f92672">=</span>None):
+    self<span style="color:#f92672">.</span>set_cookie(key, max_age<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, path<span style="color:#f92672">=</span>path, domain<span style="color:#f92672">=</span>domain,
+  expires<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Thu, 01-Jan-1970 00:00:00 GMT&#39;</span>)
+</code></pre></div><p>其实只是设置了已经过期的留存时间，让浏览器自动销毁。</p>
+<p>如果这时候有这样一个需求，需要移动 <code>www.example.com</code> 的 Cookies 到 <code>example.com</code>，为了轻松的处理子域的跨域问题。</p>
+<p>不难发现只需要移动对应的 Cookies 到对应的根域下。但是 Cookies 并没有这方面的方法。于是通过删除和新建来完成转移。</p>
+<p>对此可能会有如下操作：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">response<span style="color:#f92672">.</span>delete_cookie(AUTH_COOKIE, domain<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;www.example.com&#34;</span>)
+response<span style="color:#f92672">.</span>set_cookie(AUTH_COOKIE, cookies, expires<span style="color:#f92672">=</span><span style="color:#ae81ff">3600</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">24</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">14</span>, domain<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;example.com&#34;</span>)
+</code></pre></div><p>逻辑上看似没问题，一般也的确可以这么处理。</p>
+<p>但是在 Django 中是这样实现 Cookies 管理的。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">self<span style="color:#f92672">.</span>cookies[key] <span style="color:#f92672">=</span> value
+<span style="color:#f92672">...</span>
+<span style="color:#66d9ef">if</span> path <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> None:
+    self<span style="color:#f92672">.</span>cookies[key][<span style="color:#e6db74">&#39;path&#39;</span>] <span style="color:#f92672">=</span> path
+<span style="color:#66d9ef">if</span> domain <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> None:
+    self<span style="color:#f92672">.</span>cookies[key][<span style="color:#e6db74">&#39;domain&#39;</span>] <span style="color:#f92672">=</span> domain
+<span style="color:#66d9ef">if</span> secure:
+    self<span style="color:#f92672">.</span>cookies[key][<span style="color:#e6db74">&#39;secure&#39;</span>] <span style="color:#f92672">=</span> True <span style="color:#66d9ef">if</span> httponly:
+    self<span style="color:#f92672">.</span>cookies[key][<span style="color:#e6db74">&#39;httponly&#39;</span>] <span style="color:#f92672">=</span> True
+</code></pre></div><p>相信这几行已经能完全看明白，这就是个 Map，而且以 name 为键。</p>
+<p>这时候我们再回去看看上面的 Cookies 转移问题。</p>
+<p>在 <code>delete_cookie</code> 时会设置一个即将过期的 <code>maxAge</code>，而随后的 <code>set_cookie</code> 并不会初始化这个字段。</p>
+<p>并且 <code>maxAge</code> 作为 <code>expires</code> 的替代，有足够高的优先级来覆盖过去。所以这个转移将永远不会生效，为了达成那个目的，需要这么改。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">response<span style="color:#f92672">.</span>delete_cookie(AUTH_COOKIE, domain<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;www.example.com&#34;</span>)
+response<span style="color:#f92672">.</span>set_cookie(AUTH_COOKIE, cookies, max_age<span style="color:#f92672">=</span><span style="color:#ae81ff">3600</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">24</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">14</span>, domain<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;example.com&#34;</span>)
+</code></pre></div><p>但是这样只是成功保存了 Cookies 而并没有删除子域的 Cookies，并且子域的 Cookies 在多数浏览器中有着相对较高的优先级。而服务端也只会接受第一个 Cookies，所以还需要设法清理掉这个遗留问题。</p>
+<p>或许可以直接构造一个自定义的 Header 来处理。直到看了看。。。Response 对象的构造。。。</p>
+<p><img src="https://i.loli.net/2018/10/10/5bbd6b8f72983.jpg" alt=""></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">setdefault</span>(self, key, value):
+    <span style="color:#e6db74">&#34;&#34;&#34;Set a header unless it has already been set.&#34;&#34;&#34;</span>
+  <span style="color:#66d9ef">if</span> key <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> self:
+        self[key] <span style="color:#f92672">=</span> value
+</code></pre></div><p>你咋也是个字典嘞。。。</p>
+<p>那么。。。我们继续往下看，既然理解了意思，概括一下 Google 一下，发现这个问题，挺贴切的。。。</p>
+<p><a href="https://code.djangoproject.com/ticket/10554">Response.set_cookie should allow setting two cookies of the same name.set multiple cookies with the same name but different domains/paths</a></p>
+<blockquote>
+<p>Servers SHOULD NOT include more than one Set-Cookie header field in the same response with the same cookie-name. <a href="https://tools.ietf.org/html/rfc6265">#rfc6265</a></p>
+</blockquote>
+<p>emmm&hellip;</p>
+<p>原来这是 Python 内建的。。。 在 [wsgi.py#L148]（https://github.com/django/django/blob/8ef8bc0f64c463684268a7c55f3d3da4de066c0d/django/core/handlers/wsgi.py#L148）上生成的。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">response_headers <span style="color:#f92672">=</span> list(response<span style="color:#f92672">.</span>items())
+<span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> response<span style="color:#f92672">.</span>cookies<span style="color:#f92672">.</span>values():
+    response_headers<span style="color:#f92672">.</span>append((<span style="color:#e6db74">&#39;Set-Cookie&#39;</span>, c<span style="color:#f92672">.</span>output(header<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>)))
+</code></pre></div><p>而 <code>output</code> 是</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">output</span>(self, attrs<span style="color:#f92672">=</span>None, header<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Set-Cookie:&#34;</span>):
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (header, self<span style="color:#f92672">.</span>OutputString(attrs))
+</code></pre></div><p>接下来得思考怎么优雅的覆盖过去。。。</p>
+<p>嗯~ o(<em>￣▽￣</em>)o，瞅了几眼，继承重写一个比较快。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> django
+<span style="color:#f92672">from</span> django.core.handlers.wsgi <span style="color:#f92672">import</span> WSGIHandler
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">WSGICookiesHandler</span>(WSGIHandler):
+    <span style="color:#66d9ef">def</span> __call__(self, environ, start_response):
+        <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_start_response</span>(status, response_headers):
+            response_headers <span style="color:#f92672">=</span> list(
+                map(<span style="color:#66d9ef">lambda</span> v: (v[<span style="color:#ae81ff">0</span>], v[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>strip(<span style="color:#e6db74">&#34; _&#34;</span>) <span style="color:#66d9ef">if</span> v[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Set-Cookie&#34;</span> <span style="color:#f92672">and</span> v[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>strip(<span style="color:#e6db74">&#34; _&#34;</span>) <span style="color:#66d9ef">else</span> v[<span style="color:#ae81ff">1</span>]),
+  response_headers))
+            <span style="color:#66d9ef">print</span>(response_headers)
+            start_response(status, response_headers)
+        response <span style="color:#f92672">=</span> super(WSGICookiesHandler, self)<span style="color:#f92672">.</span>__call__(environ, _start_response)
+        <span style="color:#66d9ef">return</span> response
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_wsgi_application</span>():
+    django<span style="color:#f92672">.</span>setup(set_prefix<span style="color:#f92672">=</span>False)
+    <span style="color:#66d9ef">return</span> WSGICookiesHandler()
+</code></pre></div><p>之后用这个 <code>get_wsgi_application</code> 覆盖原有的，它会把 <code>_</code> 开头的 <code>Key</code> 去除后，再输出。虽然逻辑上有大问题，但是暂时够用了。。。如果要优雅的解决，应该把 <code>name</code>，<code>domain</code>，<code>path</code> 作为组合构成 <code>Key</code>。</p>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

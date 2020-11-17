@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JaveScipt on Gitai.me</title>
+    <link>https://gitai.me/tags/javescipt/</link>
+    <description>Recent content in JaveScipt on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Mon, 30 Dec 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/javescipt/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何运行不可信代码？</title>
+      <link>https://gitai.me/2019/12/run-untrusted-javascript/</link>
+      <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/12/run-untrusted-javascript/</guid>
+      <description>Module Secure Memory Limits Isolated Multithreaded Module Support Inspector Support vm ✅ ✅ worker_threads ✅ ✅ ✅ vm2 ✅ ✅ ✅ napajs ✅ ✅ Partial webworker-threads ✅ ✅ tiny-worker ✅ ✅ isolated-vm ✅ ✅ ✅ ✅ ✅ Secure: Safely run untrusted code Memory Limits: Possible to set memory limits / safe against heap overflow DoS attacks Isolated: Is garbage collection, heap, etc isolated from application Multithreaded: Run code on many</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JavaScript on Gitai.me</title>
+    <link>https://gitai.me/tags/javascript/</link>
+    <description>Recent content in JavaScript on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Wed, 07 Aug 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>按需加载和自定义 require</title>
+      <link>https://gitai.me/2019/08/webpack-loadable/</link>
+      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/08/webpack-loadable/</guid>
+      <description>Webpack 都写了那么多篇了，发现还有一些东西没写，所以这里补一篇。关于 Webpack 的按需加载，以及和他没啥关系的自定义 require 过程。 按需加载 先说按需加载，Webpa</description>
+    </item>
+    
+    <item>
+      <title>HTMLWebpackPlugin 增加新模板会遇到的坑</title>
+      <link>https://gitai.me/2019/07/webpackhtmlplugin/</link>
+      <pubDate>Thu, 25 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/07/webpackhtmlplugin/</guid>
+      <description>想用 Webpack 作为静态站点生成器，其优点不必多说，生态好。举个例子 多种多样的模板引擎，互相嵌套 JS/CSS 的各种预处理 资源文件的统一化？无论远程还是本地资源，</description>
+    </item>
+    
+    <item>
+      <title>Webpack 动态 import 实现原理 —— 附：蹭个 PR</title>
+      <link>https://gitai.me/2019/07/webpack-lazyload/</link>
+      <pubDate>Sat, 13 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/07/webpack-lazyload/</guid>
+      <description>本文主要因为以下这段代码并不符合预期，chunk 名字，没有生效 // @ts-ignore import( /* webpackChunkName: &amp;#34;[request]&amp;#34; */ &amp;#34;../docs/parcel.md&amp;#34; ).then( ({ default: html }) =&amp;gt; {} ); 但是下面这样就可以生效了 let parcel = &amp;#34;parcel&amp;#34;; import( /* webpackChunkName: &amp;#34;[request]&amp;#34; */ &amp;#34;../docs/&amp;#34; +</description>
+    </item>
+    
+    <item>
+      <title>又一个前端打包工具 - parcel</title>
+      <link>https://gitai.me/2019/07/parcel/</link>
+      <pubDate>Sat, 13 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/07/parcel/</guid>
+      <description>这是我在找 Webpack 自动配置生成 时，发现的彩蛋？ 既然别人把他们放在一起，估计挺好用的？你看 rollup, brunch 就没放上去 点开说明文档，此处划重点 “利用多核处理提供极</description>
+    </item>
+    
+    <item>
+      <title>前端打包常见工具 - rollup</title>
+      <link>https://gitai.me/2019/06/rollup/</link>
+      <pubDate>Sun, 16 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/06/rollup/</guid>
+      <description>年出写了 Gulp 和 Webpack 的介绍，侧重讲了 Webpack 的原理，一个插件系统和一堆钩子。 之前看 unpkg 发现还有第三个常用的打包工具 rollup；把这 3 类放做个简单的比较就</description>
+    </item>
+    
+    <item>
+      <title>前端打包常见工具</title>
+      <link>https://gitai.me/2019/01/gulpwebpack/</link>
+      <pubDate>Thu, 31 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/01/gulpwebpack/</guid>
+      <description>之前简单提到前端工程化的工具，Gulp 和 Webpack。 这里整几个例子来详细理解一下，hexschool/gulp-demo Gulp // production || development // # gulp</description>
+    </item>
+    
+    <item>
+      <title>前端杂谈</title>
+      <link>https://gitai.me/2019/01/fe-notes/</link>
+      <pubDate>Tue, 22 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/01/fe-notes/</guid>
+      <description>作用域和闭包：你知道JavaScript的词法作用域是基于编译器（而非解释器！）语义的吗？ 你能解释词法作用域和作为值的函数这两者的直接结果之</description>
+    </item>
+    
+    <item>
+      <title>最简单的调用链和作用域</title>
+      <link>https://gitai.me/2019/01/example-of-this/</link>
+      <pubDate>Thu, 17 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/01/example-of-this/</guid>
+      <description>在《你所不知的 JavaScript》中，作者列举了 this 的几种绑定原则，最基本的就是默认绑定，在此就来细说一下这最简单的默认绑定。 global = typeof window !== &amp;#39;undefined&amp;#39; ?</description>
+    </item>
+    
+  </channel>
+</rss>

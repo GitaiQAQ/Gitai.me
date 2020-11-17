@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>爬虫 on Gitai.me</title>
+    <link>https://gitai.me/categories/%E7%88%AC%E8%99%AB/</link>
+    <description>Recent content in 爬虫 on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Sun, 12 Feb 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/categories/%E7%88%AC%E8%99%AB/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>简单的数据抓取和处理</title>
+      <link>https://gitai.me/2017/02/uzuki-tkvw7c3d4z/</link>
+      <pubDate>Sun, 12 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/02/uzuki-tkvw7c3d4z/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;这也是个外包，￥1000，用于建立机器学习语料库。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;日常写垃圾代码 +1 _(:з」∠)_&lt;/p&gt;
+&lt;p&gt;发现一个爬小故事的需求，于是随后 Google 出一个站 &lt;a href=&#34;https://americanliterature.com/short-stories-for-children&#34;&gt;Short Stories for Children&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;很好，读出来是静态站，网页结构也比较简单。&lt;/p&gt;
+&lt;p&gt;爬虫爬起，好像需求 1k 个就够了。&lt;/p&gt;
+&lt;p&gt;那也没必要上那些吓人的瑞士军刀。&lt;/p&gt;
+&lt;p&gt;找找第三方的爬虫服务：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;import.io&lt;/li&gt;
+&lt;li&gt;神箭手&lt;/li&gt;
+&lt;li&gt;造数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;文档略麻烦，估摸着不如自己写。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

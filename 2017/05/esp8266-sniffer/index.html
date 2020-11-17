@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>ESP8266 的小探针 | Gitai.me</title>
+
+<meta property='og:title' content='ESP8266 的小探针 - Gitai.me'>
+<meta property='og:description' content='简述
+本文加入首先要有一个 X 系列，没有的麻烦隔壁淘宝。RMB 20 的是很稳的。
+以及采用 C 编写，但是主要都是调用 API
+糅合了以下几个小项目
+
+Sniffer mode
+SmartConfig
+OTA
+HttpUpdater
+'>
+<meta property='og:url' content='https://gitai.me/2017/05/esp8266-sniffer/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='记录'><meta property='article:published_time' content='2017-05-02T00:00:00Z'/><meta property='article:modified_time' content='2017-05-02T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2017/05/esp8266-sniffer/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/%E8%AE%B0%E5%BD%95/">#记录</a>
+
+
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">May 2, 2017</h2>
+    <h1 class="title">ESP8266 的小探针</h1>
+    
+    <div class="content">
+      <h2 id="简述">简述</h2>
+<p>本文加入首先要有一个 X 系列，没有的麻烦隔壁淘宝。RMB 20 的是很稳的。</p>
+<p>以及采用 C 编写，但是主要都是调用 API</p>
+<p>糅合了以下几个小项目</p>
+<ul>
+<li>Sniffer mode</li>
+<li>SmartConfig</li>
+<li><a href="https://www.penninkhof.com/2015/12/1610-over-the-air-esp8266-programming-using-platformio/">OTA</a></li>
+<li><a href="https://community.blynk.cc/t/updating-ota-is-amazing/7649/87">HttpUpdater</a></li>
+</ul>
+<p>ChromeOS ArduinoOTA 一直失败的原因：</p>
+<p>参见之前的 <a href="https://gitai.me/2016/12/25/chromebook-iptables/">Minecraft 开放端口问题</a>。</p>
+<p>ArduinoOTA 以 udp 发送上位机参数，然后带出一个端口给 MCU，但是 ChromeOS 默认不开放端口。于是没法传输成功。</p>
+<h2 id="esp8266-sniffer">esp8266-sniffer</h2>
+<p>{% github GitaiQAQ Hosts-Studio-Android c95e58 auto_expand = true}</p>
+<p>使用流程：</p>
+<ul>
+<li>引导： 芯片/开发板加电，LED 点亮一次，表明启动正常。</li>
+<li>选择： LED 常亮 60s，在此期间采用 <code>smartconfig</code> 或者 <code>airkiss</code> 协议来进入配置模式。若 60s 内未进入配置模式，会自动启用探针模式。
+<ul>
+<li>WEB 配置界面，用手机配置软件所显示的 IP 进入，配置 WEB 界面，参照提示完成配置。</li>
+<li>OTA 升级模式，采用 ArduinoOTA 协议完成升级，完成后会自动重启。</li>
+</ul>
+</li>
+<li>探针： LED 闪烁，频率由当前拦截数据包量决定。</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># iptables -A INPUT -j ACCEPT</span>
+</code></pre></div><pre><code>Exception (9):
+epc1=0x40100861 epc2=0x00000000 epc3=0x00000000 excvaddr=0xffffffff depc=0x00000000
+
+ctx: sys 
+sp: 3ffffd90 end: 3fffffb0 offset: 01a0
+
+&gt;&gt;&gt;stack&gt;&gt;&gt;
+3fffff30:  023e3986 3ffe91f0 3fff2a1c 40100688  
+3fffff40:  4023279a 3ffeb2d4 3ffea51c 40106f50  
+3fffff50:  4023289c 3ffeb2d4 3ffe91f0 023e3986  
+3fffff60:  7a0aa8c0 00ffffff 010aa8c0 023e3986  
+3fffff70:  4020a2b5 3ffe0c22 4020a2b5 3ffea51c  
+3fffff80:  4020a2fa 3fffdab0 00000000 3fffdcb0  
+3fffff90:  3ffe9200 3ffeb4e0 00000001 4020e1eb  
+3fffffa0:  40000f49 40000f49 3fffdab0 40000f49  
+&lt;&lt;&lt;stack&lt;&lt;&lt;
+</code></pre><p><a href="https://github.com/esp8266/Arduino/issues/1299">https://github.com/esp8266/Arduino/issues/1299</a></p>
+<p>EXC-CAUSE Code: 9</p>
+<h2 id="autoupdate">Autoupdate</h2>
+<p>自动升级本身在 <code>setup</code> 流程中运行，但是每次暂时有个</p>
+<pre><code>[HTTP] GET 192.168.10.139...
+[HTTP] GET... failed, error: connection refused
+</code></pre><p>在一天的调试，增加了无数的 BUG 之后， 决定曲线救国，遂用一个变量控制，降低一点性能，继续开发下一部分。
+不过在此列入 todo</p>
+<ul>
+<li><input disabled="" type="checkbox"> BUG +1</li>
+</ul>
+<h2 id="附录-a-exception-causes-exccause">附录 A: Exception Causes (EXCCAUSE)</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">EXC-CAUSE Code</th>
+<th style="text-align:left">Cause Name</th>
+<th style="text-align:left">Cause Description</th>
+<th style="text-align:left">Required Option</th>
+<th style="text-align:center">EXC-VADDR Loaded</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:left">IllegalInstructionCause</td>
+<td style="text-align:left">Illegal instruction</td>
+<td style="text-align:left">Exception</td>
+<td style="text-align:center">No</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:left">SyscallCause</td>
+<td style="text-align:left">SYSCALL instruction</td>
+<td style="text-align:left">Exception</td>
+<td style="text-align:center">No</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:left">InstructionFetchErrorCause</td>
+<td style="text-align:left">Processor internal physical address or data error during instruction fetch</td>
+<td style="text-align:left">Exception</td>
+<td style="text-align:center">Yes</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:left">LoadStoreErrorCause</td>
+<td style="text-align:left">Processor internal physical address or data error during load or store</td>
+<td style="text-align:left">Exception</td>
+<td style="text-align:center">Yes</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:left">Level1InterruptCause</td>
+<td style="text-align:left">Level-1 interrupt as indicated by set level-1 bits in the INTERRUPT register</td>
+<td style="text-align:left">Interrupt</td>
+<td style="text-align:center">No</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:left">AllocaCause</td>
+<td style="text-align:left">MOVSP instruction, if caller’s registers are not in the register file</td>
+<td style="text-align:left">Windowed Register</td>
+<td style="text-align:center">No</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:left">IntegerDivideByZeroCause</td>
+<td style="text-align:left">QUOS, QUOU, REMS, or REMU divisor operand is zero</td>
+<td style="text-align:left">32-bit Integer Divide</td>
+<td style="text-align:center">No</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:left">Reserved for Tensilica</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:left">PrivilegedCause</td>
+<td style="text-align:left">Attempt to execute a privileged operation when CRING ? 0</td>
+<td style="text-align:left">MMU</td>
+<td style="text-align:center">No</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:left">LoadStoreAlignmentCause</td>
+<td style="text-align:left">Load or store to an unaligned address</td>
+<td style="text-align:left">Unaligned Exception</td>
+<td style="text-align:center">Yes</td>
+</tr>
+<tr>
+<td style="text-align:center">10..11</td>
+<td style="text-align:left">Reserved for Tensilica</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">12</td>
+<td style="text-align:left">InstrPIFDataErrorCause</td>
+<td style="text-align:left">PIF data error during instruction fetch</td>
+<td style="text-align:left">Processor Interface</td>
+<td style="text-align:center">Yes</td>
+</tr>
+<tr>
+<td style="text-align:center">13</td>
+<td style="text-align:left">LoadStorePIFDataErrorCause</td>
+<td style="text-align:left">Synchronous PIF data error during LoadStore access</td>
+<td style="text-align:left">Processor Interface</td>
+<td style="text-align:center">Yes</td>
+</tr>
+<tr>
+<td style="text-align:center">14</td>
+<td style="text-align:left">InstrPIFAddrErrorCause</td>
+<td style="text-align:left">PIF address error during instruction fetch</td>
+<td style="text-align:left">Processor Interface</td>
+<td style="text-align:center">Yes</td>
+</tr>
+<tr>
+<td style="text-align:center">15</td>
+<td style="text-align:left">LoadStorePIFAddrErrorCause</td>
+<td style="text-align:left">Synchronous PIF address error during LoadStore access</td>
+<td style="text-align:left">Processor Interface</td>
+<td style="text-align:center">Yes</td>
+</tr>
+<tr>
+<td style="text-align:center">16</td>
+<td style="text-align:left">InstTLBMissCause</td>
+<td style="text-align:left">Error during Instruction TLB refill</td>
+<td style="text-align:left">MMU</td>
+<td style="text-align:center">Yes</td>
+</tr>
+<tr>
+<td style="text-align:center">17</td>
+<td style="text-align:left">InstTLBMultiHitCause</td>
+<td style="text-align:left">Multiple instruction TLB entries matched</td>
+<td style="text-align:left">MMU</td>
+<td style="text-align:center">Yes</td>
+</tr>
+<tr>
+<td style="text-align:center">18</td>
+<td style="text-align:left">InstFetchPrivilegeCause</td>
+<td style="text-align:left">An instruction fetch referenced a virtual address at a ring level less than CRING</td>
+<td style="text-align:left">MMU</td>
+<td style="text-align:center">Yes</td>
+</tr>
+<tr>
+<td style="text-align:center">19</td>
+<td style="text-align:left">Reserved for Tensilica</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">20</td>
+<td style="text-align:left">InstFetchProhibitedCause</td>
+<td style="text-align:left">An instruction fetch referenced a page mapped with an attribute that does not permit instruction fetch</td>
+<td style="text-align:left">Region Protection or MMU</td>
+<td style="text-align:center">Yes</td>
+</tr>
+<tr>
+<td style="text-align:center">21..23</td>
+<td style="text-align:left">Reserved for Tensilica</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">24</td>
+<td style="text-align:left">LoadStoreTLBMissCause</td>
+<td style="text-align:left">Error during TLB refill for a load or store</td>
+<td style="text-align:left">MMU</td>
+<td style="text-align:center">Yes</td>
+</tr>
+<tr>
+<td style="text-align:center">25</td>
+<td style="text-align:left">LoadStoreTLBMultiHitCause</td>
+<td style="text-align:left">Multiple TLB entries matched for a load or store</td>
+<td style="text-align:left">MMU</td>
+<td style="text-align:center">Yes</td>
+</tr>
+<tr>
+<td style="text-align:center">26</td>
+<td style="text-align:left">LoadStorePrivilegeCause</td>
+<td style="text-align:left">A load or store referenced a virtual address at a ring level less than CRING</td>
+<td style="text-align:left">MMU</td>
+<td style="text-align:center">Yes</td>
+</tr>
+<tr>
+<td style="text-align:center">27</td>
+<td style="text-align:left">Reserved for Tensilica</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">28</td>
+<td style="text-align:left">LoadProhibitedCause</td>
+<td style="text-align:left">A load referenced a page mapped with an attribute that does not permit loads</td>
+<td style="text-align:left">Region Protection or MMU</td>
+<td style="text-align:center">Yes</td>
+</tr>
+<tr>
+<td style="text-align:center">29</td>
+<td style="text-align:left">StoreProhibitedCause</td>
+<td style="text-align:left">A store referenced a page mapped with an attribute that does not permit stores</td>
+<td style="text-align:left">Region Protection or MMU</td>
+<td style="text-align:center">Yes</td>
+</tr>
+<tr>
+<td style="text-align:center">30..31</td>
+<td style="text-align:left">Reserved for Tensilica</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">32..39</td>
+<td style="text-align:left">CoprocessornDisabled</td>
+<td style="text-align:left">Coprocessor n instruction when cpn disabled. n varies 0..7 as the cause varies 32..39</td>
+<td style="text-align:left">Coprocessor</td>
+<td style="text-align:center">No</td>
+</tr>
+<tr>
+<td style="text-align:center">40..63</td>
+<td style="text-align:left">Reserved</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<p>: Infos from Xtensa Instruction Set Architecture (ISA) Reference Manual</p>
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

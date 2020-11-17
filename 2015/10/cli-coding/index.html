@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Cli-Coding | Gitai.me</title>
+
+<meta property='og:title' content='Cli-Coding - Gitai.me'>
+<meta property='og:description' content='Cli-Coding
+
+A simple command-line tool for coding.net by nodejs'>
+<meta property='og:url' content='https://gitai.me/2015/10/cli-coding/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='Nodejs'><meta property='article:tag' content='Coding.net'><meta property='article:published_time' content='2015-10-26T00:00:00Z'/><meta property='article:modified_time' content='2015-10-26T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2015/10/cli-coding/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/nodejs/">#Nodejs</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/coding.net/">#Coding.net</a>
+  
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">October 26, 2015</h2>
+    <h1 class="title">Cli-Coding</h1>
+    
+    <div class="content">
+      <h1 id="cli-coding">Cli-Coding</h1>
+<p><img src="https://img.shields.io/dub/l/vibe-d.svg" alt="MIT"></p>
+<p>A simple command-line tool for coding.net by nodejs</p>
+<h2 id="use">Use</h2>
+<pre><code>bin/coding [options] [command]
+
+OR
+
+npm start [options] [command]
+
+OR
+
+MOD=[MODs] bin/coding [options] [command]
+
+OR
+
+MOD=[MODs] npm start [options] [command]
+</code></pre><h2 id="mods">MODs</h2>
+<p><code>Blobs</code>,<code>Branchs</code>,<code>Commits</code>,<code>Depots</code>,<code>Files</code>,<code>Historys</code>,<code>Keys</code>,<code>MergeRequests</code>,<code>OAuth</code>,<code>Projects</code>,<code>ProjectTopics</code>,<code>PullRequests</code>,<code>RepoFiles</code>,<code>Tags</code>,<code>Tasks</code>,<code>Trees</code>,<code>Tweets</code>,<code>Users</code></p>
+<h2 id="login">Login</h2>
+<pre><code>gitai@debian:~/workspace/Coding/Cli-Coding$ bin/coding login
+Coding: Enter email:  dphdjy
+Coding: Enter password:  ********
+Coding: Enter j_captcha:  
+Coding: Enter remember_me:  
+Coding: Enter sid:  
+Coding: Enter realRemoteAddress:  
+╔══════════════════════════╤══════════════════════════════════════════════════════════════════════════════════════════╗
+║ Users.tags_str           │ Ｃ++, 技术宅, Node.js, PHP, 学生党, Android, Linux, C, Python, Java                         ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.tags               │ 44,25,12,4,48,14,10,1,6,2                                                                ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.job                │ 0                                                                                        ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.sex                │ 0                                                                                        ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.phone              │ ***********                                                                              ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.birthday           │ 1996-12-03                                                                               ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.location           │ 安徽 合肥                                                                                  ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.company            │                                                                                          ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.slogan             │ :D                                                                                       ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.introduction       │                                                                                          ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.avatar             │ https://dn-coding-net-production-static.qbox.me/a2f3e185-c762-4bb6-917a-cc47399df31e.jpg ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.gravatar           │                                                                                          ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.lavatar            │ https://dn-coding-net-production-static.qbox.me/a2f3e185-c762-4bb6-917a-cc47399df31e.jpg ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.created_at         │ 1416112039000                                                                            ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.last_logined_at    │ 1446127484181                                                                            ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.last_activity_at   │ 1446122776432                                                                            ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.global_key         │ dphdjy                                                                                   ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.name               │ 断片                                                                                       ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.name_pinyin        │ |dp|duanpian                                                                             ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.updated_at         │ 1416112039000                                                                            ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.path               │ /u/dphdjy                                                                                ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.status             │ 1                                                                                        ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.email              │ dphdjy@qq.com                                                                            ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.is_member          │ 0                                                                                        ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.id                 │ 44455                                                                                    ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.follows_count      │ 0                                                                                        ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.fans_count         │ 15                                                                                       ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.tweets_count       │ 71                                                                                       ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.followed           │ false                                                                                    ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.follow             │ false                                                                                    ║
+╟──────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────╢
+║ Users.is_phone_validated │ true                                                                                     ║
+╚══════════════════════════╧══════════════════════════════════════════════════════════════════════════════════════════╝
+
+</code></pre><pre><code>.
+├── config.js //配置文件
+├── locales //多语言包
+│   ├── en.js
+│   ├── Jpan.js
+│   ├── zh-CN.js
+│   └── zh-TW.js
+├── package.json
+├── README.md
+├── src //CoffeeScript源码
+│   ├── BaseModel.coffee
+│   ├── CmdBase.coffee
+│   ├── index.coffee
+│   └── models
+│       ├── Blobs.coffee
+│       ├── Branchs.coffee
+│       ├── Commits.coffee
+│       ├── Depots.coffee
+│       ├── Files.coffee
+│       ├── Historys.coffee
+│       ├── Keys.coffee
+│       ├── MergeRequests.coffee
+│       ├── OAuth.coffee
+│       ├── Projects.coffee
+│       ├── ProjectTopics.coffee
+│       ├── PullRequests.coffee
+│       ├── RepoFiles.coffee
+│       ├── Tags.coffee
+│       ├── Tasks.coffee
+│       ├── Trees.coffee
+│       ├── Tweets.coffee
+│       └── Users.coffee
+├── bin //编译后的文件
+│   ├── BaseModel.js
+│   ├── CmdBase.js
+│   ├── coding
+│   ├── index.js
+│   └── models
+│       ├── Blobs.js
+│       ├── Branchs.js
+│       ├── Commits.js
+│       ├── Depots.js
+│       ├── Files.js
+│       ├── Historys.js
+│       ├── Keys.js
+│       ├── MergeRequests.js
+│       ├── OAuth.js
+│       ├── Projects.js
+│       ├── Project_topics.js
+│       ├── ProjectTopics.js
+│       ├── PullRequests.js
+│       ├── Repo_files.js
+│       ├── RepoFiles.js
+│       ├── Tags.js
+│       ├── Tasks.js
+│       ├── Trees.js
+│       ├── Tweets.js
+│       └── Users.js
+├── test
+└── temp
+</code></pre><h2 id="config">Config</h2>
+<pre><code>{
+    &quot;url&quot;: &quot;https://coding.net&quot;,
+    &quot;cache&quot;: &quot;./temp&quot;,
+
+    &quot;clientId&quot;: &quot;2deaa488ed11bf3d1c7f37bdfd58ec54&quot;,
+    &quot;clientSecret&quot;: &quot;37124c46b1105ce9f0495259e5c08e0465a045d5&quot;,
+
+    &quot;port&quot;: 8001, // OAuth回调服务器端口
+    &quot;modules&quot;: [
+            &quot;Users&quot;,
+            &quot;OAuth&quot;,
+            &quot;Projects&quot;,
+            &quot;Tasks&quot;,
+            &quot;Tweets&quot;,
+            &quot;Files&quot;,
+            &quot;Depots&quot;,
+            &quot;Blobs&quot;,
+            &quot;Branchs&quot;,
+            &quot;Commits&quot;,
+            &quot;Historys&quot;,
+            &quot;Repo_files&quot;,
+            &quot;Merge_requests&quot;,
+            &quot;Pull_requests&quot;,
+            &quot;Tags&quot;,
+            &quot;Trees&quot;,
+            &quot;Project_topics&quot;,
+            &quot;Keys&quot;],
+    &quot;scope&quot;: [
+            &quot;user&quot;,
+            &quot;user:email&quot;,
+            &quot;notification&quot;,
+            &quot;social&quot;,
+            &quot;social:tweet&quot;,
+            &quot;social:message&quot;,
+            &quot;project&quot;,
+            &quot;project:members&quot;,
+            &quot;project:task&quot;,
+            &quot;project:file&quot;,
+            &quot;project:depot&quot;,
+            &quot;project:key&quot;],
+    &quot;lang&quot;:&quot;en&quot;, // 默认语言
+    &quot;transport&quot;:function(data){
+        // 自定义输出样式
+        console.log(data);
+    }
+}
+</code></pre><h2 id="oauth">OAuth</h2>
+<pre><code>gitai@debian:~/workspace/Coding/Cli-Coding$ MOD=OAuth bin/coding
+
+  Usage: coding [options] [command]
+
+
+  Commands:
+
+    authorize|auth
+    clean
+
+  A simple command-line tool for coding.net by nodejs
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+
+
+</code></pre><h2 id="users">Users</h2>
+<pre><code>gitai@debian:~/workspace/Coding/Cli-Coding$ MOD=Users bin/coding
+
+  Usage: coding [options] [command]
+
+
+  Commands:
+
+    activate                    账户激活
+    generateActivatePhoneCode   获取激活账号的手机验证码
+    activatePhone               激活用手机注册的用户
+    avatar                      获取头像
+    avatar                      上传设置头像
+    captcha &lt;action&gt;            检查是否需要验证码
+    changeNoticeSetting         修改通知设置
+    checkEmail                  检查email是否没有被注册过
+    checkPhone                  检查手机是否没有被注册过
+    checkTwoFactorAuthCode      登录时的两步验证
+    currentUser                 获取当前登录用户信息
+    email                       获取当前用户的email
+    changeNoticeSetting         获取通知设置
+    gravatar                    获取Gravatar头像
+    getUserByGlobalKey &lt;user&gt;   通过个性后缀获取用户信息
+    login                       登录
+    generateLoginPhoneCode      获取登录的手机验证码
+    loginByPhone                使用绑定过的手机号码登录
+    logout                      注销登录
+    getUserByName &lt;name&gt;        通过昵称获取用户信息
+    register                    注册
+    generateRegisterPhoneCode   获取注册的手机验证码
+    phoneRegister               使用手机注册
+    avatar                      更新用户信息
+    updatePwd                   修改用户密码
+    avatar                      更新头像
+    follow                      关注用户
+    follower                    关注我的用户
+    follower &lt;user&gt;             获取关注默认的用户
+    friends                     我关注的用户列表
+    friends &lt;user&gt;              指定用户的关注列表
+    relationship &lt;user&gt;         是否关注了该用户
+    changeNoticeSetting         获取我关注和关注我的用户列表
+    changeNoticeSetting         获取我关注和关注我的用户列表包含成员列表
+    search                      搜索用户
+    unfollow                    取消关注
+    unreadCount                 未读消息通知
+
+  A simple command-line tool for coding.net by nodejs
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+</code></pre><h2 id="projects">Projects</h2>
+<pre><code>gitai@debian:~/workspace/Coding/Cli-Coding$ MOD=Projects bin/coding
+
+  Usage: coding [options] [command]
+
+
+  Commands:
+
+    pinProject                       获取常用项目列表
+    pinProject                       设置常用项目
+    pinProject                       取消常用项目
+    update                           更新项目信息
+    recommendedList                  推荐项目list
+    publicProjects                   公有项目列表
+    queryByName &lt;user&gt; &lt;project&gt;     通过名称查询
+    deleteProject &lt;user&gt; &lt;project&gt;   删除项目
+    setProjectIcon &lt;user&gt; &lt;project&gt;  设置项目图标
+    star &lt;user&gt; &lt;project&gt;            收藏项目
+    stared &lt;user&gt; &lt;project&gt;          项目是否被收藏
+    unstar &lt;user&gt; &lt;project&gt;          项目取消收藏
+    unwatch &lt;user&gt; &lt;project&gt;         项目取消关注
+    visitProject &lt;user&gt; &lt;project&gt;    更新项目阅读时间
+    watch &lt;user&gt; &lt;project&gt;           关注项目
+    watched &lt;user&gt; &lt;project&gt;         项目是否被关注
+    watched &lt;user&gt; &lt;project&gt;         项目关注者
+    projectList                      我的项目列表
+    privateProjects                  私有项目列表
+    privateProjects                  私有项目列表
+    privateProjects                  私有项目列表
+    privateProjects                  私有项目列表
+    privateProjects                  私有项目列表
+    privateProjects                  私有项目列表
+    createProject &lt;user&gt;             创建项目
+    publicProjects &lt;user&gt;            公有项目列表
+    publicProjects &lt;user&gt;            公有项目列表
+    publicProjects &lt;user&gt;            公有项目列表
+    publicProjects &lt;user&gt;            公有项目列表
+    publicProjects &lt;user&gt;            公有项目列表
+    publicProjects &lt;user&gt;            公有项目列表
+
+  A simple command-line tool for coding.net by nodejs
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+
+</code></pre><h2 id="projecttopics">ProjectTopics</h2>
+<pre><code>gitai@debian:~/workspace/Coding/Cli-Coding$ MOD=ProjectTopics bin/coding
+
+  Usage: coding [options] [command]
+
+
+  Commands:
+
+    list &lt;user&gt; &lt;project&gt;                             项目讨论列表
+    create &lt;user&gt; &lt;project&gt;                           创建讨论/发表评论
+    count &lt;user&gt; &lt;project&gt;                            所有讨论的个数和我的讨论的个数
+    getProjectTopicByLabel &lt;user&gt; &lt;project&gt; &lt;id&gt;      通过标签获得讨论列表
+    count &lt;user&gt; &lt;project&gt;                            所有讨论的个数和我的讨论的个数
+    list &lt;user&gt; &lt;project&gt;                             我的讨论
+    watchedProjectTopicList &lt;user&gt; &lt;project&gt;          获取我关注的讨论列表
+    detail &lt;user&gt; &lt;project&gt; &lt;id&gt;                      讨论详情
+    update &lt;user&gt; &lt;project&gt; &lt;id&gt;                      更新讨论
+    del &lt;user&gt; &lt;project&gt; &lt;id&gt;                         删除讨论/删除讨论评论
+    comments &lt;user&gt; &lt;project&gt; &lt;id&gt;                    讨论评论列表
+    addTopicLabel &lt;user&gt; &lt;project&gt; &lt;id&gt; &lt;labelId&gt;     讨论添加标签
+    deleteTopicLabel &lt;user&gt; &lt;project&gt; &lt;id&gt; &lt;labelId&gt;  删除讨论标签
+    operateTopicLabel &lt;user&gt; &lt;project&gt; &lt;id&gt;           批量操作讨论标签
+    watch &lt;user&gt; &lt;project&gt; &lt;id&gt;                       关注讨论
+    watchers &lt;user&gt; &lt;project&gt; &lt;id&gt;                    获取关注该讨论的用户
+
+  A simple command-line tool for coding.net by nodejs
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+
+
+</code></pre><h2 id="branchs">Branchs</h2>
+<pre><code>gitai@debian:~/workspace/Coding/Cli-Coding$ MOD=Branchs bin/coding
+
+  Usage: coding [options] [command]
+
+
+  Commands:
+
+    default &lt;user&gt; &lt;project&gt;          设置默认分支
+    listBranches &lt;user&gt; &lt;project&gt;     分页显示分支列表
+    create &lt;user&gt; &lt;project&gt;           新建分支
+    del &lt;user&gt; &lt;project&gt;              删除分支
+    addMember &lt;user&gt; &lt;project&gt;        添加保护分支成员
+    protectedBranch &lt;user&gt; &lt;project&gt;  取消保护分支
+    protectedBranch &lt;user&gt; &lt;project&gt;  设置保护分支
+    members &lt;user&gt; &lt;project&gt;          列出保护分支中的成员
+    deleteMember &lt;user&gt; &lt;project&gt;     删除保护分支成员
+
+  A simple command-line tool for coding.net by nodejs
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+
+
+</code></pre><h2 id="mergerequests">MergeRequests</h2>
+<pre><code>gitai@debian:~/workspace/Coding/Cli-Coding$ MOD=MergeRequests bin/coding
+
+  Usage: coding [options] [command]
+
+
+  Commands:
+
+    create &lt;user&gt; &lt;project&gt;         创建 MergeRequest
+    get &lt;user&gt; &lt;project&gt; &lt;iid&gt;      显示某个 MergeRequest
+    update &lt;user&gt; &lt;project&gt; &lt;iid&gt;   更新某个 MergeRequest
+    cancel &lt;user&gt; &lt;project&gt; &lt;iid&gt;   取消 MergeRequest
+    merge &lt;user&gt; &lt;project&gt; &lt;iid&gt;    合并某个 MergeRequest
+    refuse &lt;user&gt; &lt;project&gt; &lt;iid&gt;   拒绝某个 MergeRequest
+    list &lt;user&gt; &lt;project&gt; &lt;status&gt;  MergeRequest 列表
+
+  A simple command-line tool for coding.net by nodejs
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+
+
+</code></pre><h2 id="pullrequests">PullRequests</h2>
+<pre><code>gitai@debian:~/workspace/Coding/Cli-Coding$ MOD=PullRequests bin/coding
+
+  Usage: coding [options] [command]
+
+
+  Commands:
+
+    create &lt;user&gt; &lt;project&gt;          创建 PullRequest
+    get &lt;user&gt; &lt;project&gt; &lt;iid&gt;       获取某个 PullRequest
+    cancle &lt;user&gt; &lt;project&gt; &lt;iid&gt;    取消 PullRequest
+    comments &lt;user&gt; &lt;project&gt; &lt;iid&gt;  PullRequest 评论列表
+    commits &lt;user&gt; &lt;project&gt; &lt;iid&gt;   获取某个 PullRequest 的评论
+    merge &lt;user&gt; &lt;project&gt; &lt;iid&gt;     合并 PullRequest
+    refuse &lt;user&gt; &lt;project&gt; &lt;iid&gt;    拒绝 PullRequest
+    list &lt;user&gt; &lt;project&gt; &lt;status&gt;   PullRequest 列表
+
+  A simple command-line tool for coding.net by nodejs
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+
+
+
+</code></pre><h2 id="tags">Tags</h2>
+<pre><code>gitai@debian:~/workspace/Coding/Cli-Coding$ MOD=Tags bin/coding
+
+  Usage: coding [options] [command]
+
+
+  Commands:
+
+    list &lt;user&gt; &lt;project&gt;    标签列表
+    create &lt;user&gt; &lt;project&gt;  创建标签
+    del &lt;user&gt; &lt;project&gt;     删除标签
+
+  A simple command-line tool for coding.net by nodejs
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+
+
+
+</code></pre><h2 id="trees">Trees</h2>
+<pre><code>gitai@debian:~/workspace/Coding/Cli-Coding$ MOD=Trees bin/coding
+
+  Usage: coding [options] [command]
+
+
+  Commands:
+
+    webhook &lt;user&gt; &lt;project&gt; &lt;tree&gt;  目录
+
+  A simple command-line tool for coding.net by nodejs
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+
+
+</code></pre><h2 id="historys">Historys</h2>
+<pre><code>gitai@debian:~/workspace/Coding/Cli-Coding$ MOD=Historys bin/coding
+
+  Usage: coding [options] [command]
+
+
+  Commands:
+
+    get &lt;user&gt; &lt;project&gt; &lt;commits&gt;  获取代码的历史
+
+  A simple command-line tool for coding.net by nodejs
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+
+
+</code></pre><h2 id="blobs">Blobs</h2>
+<pre><code>gitai@debian:~/workspace/Coding/Cli-Coding$ MOD=Blobs bin/coding
+
+  Usage: coding [options] [command]
+
+
+  Commands:
+
+    get &lt;user&gt; &lt;project&gt; &lt;blob&gt;  获取 blob
+
+  A simple command-line tool for coding.net by nodejs
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+
+
+
+</code></pre><h2 id="depots">Depots</h2>
+<pre><code>gitai@debian:~/workspace/Coding/Cli-Coding$ MOD=Depots bin/coding
+
+  Usage: coding [options] [command]
+
+
+  Commands:
+
+    get &lt;user&gt; &lt;project&gt;                 获取仓库信息
+    fork &lt;user&gt; &lt;project&gt;                fork
+    forkList &lt;user&gt; &lt;project&gt;            项目被fork的列表
+    createWebhook &lt;user&gt; &lt;project&gt;       创建 webhook
+    getWebhook &lt;user&gt; &lt;project&gt; &lt;id&gt;     获取 webhook
+    updateWebhook &lt;user&gt; &lt;project&gt; &lt;id&gt;  编辑 webhook
+    deleteWebhook &lt;user&gt; &lt;project&gt; &lt;id&gt;  删除 webhook
+    list &lt;user&gt; &lt;project&gt;                列出项目设置的 webhook
+    importRepo &lt;user&gt; &lt;project&gt;          导入仓库
+    importRepo &lt;user&gt; &lt;project&gt;          导入仓库
+    initDepot &lt;user&gt; &lt;project&gt;           初始化仓库
+
+  A simple command-line tool for coding.net by nodejs
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+
+
+</code></pre><h2 id="repofiles">RepoFiles</h2>
+<pre><code>gitai@debian:~/workspace/Coding/Cli-Coding$ MOD=RepoFiles bin/coding
+
+  Usage: coding [options] [command]
+
+
+  Commands:
+
+    del &lt;user&gt; &lt;project&gt; &lt;file&gt;     删除文件
+    update &lt;user&gt; &lt;project&gt; &lt;file&gt;  更新文件
+    create &lt;user&gt; &lt;project&gt; &lt;file&gt;  新建文件
+
+  A simple command-line tool for coding.net by nodejs
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+
+
+
+</code></pre><h2 id="commits">Commits</h2>
+<pre><code>gitai@debian:~/workspace/Coding/Cli-Coding$ MOD=Commits bin/coding
+
+  Usage: coding [options] [command]
+
+
+  Commands:
+
+    show &lt;user&gt; &lt;project&gt; &lt;commit&gt;  commit 列表
+
+  A simple command-line tool for coding.net by nodejs
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+
+
+
+</code></pre><h2 id="tasks">Tasks</h2>
+<pre><code>gitai@debian:~/workspace/Coding/Cli-Coding$ MOD=Tasks bin/coding
+
+  Usage: coding [options] [command]
+
+
+  Commands:
+
+    create &lt;project&gt;                                 创建任务
+    create &lt;project&gt; &lt;id&gt;                            创建任务
+    del &lt;project&gt; &lt;id&gt;                               删除任务
+    list &lt;project&gt; &lt;owner&gt; &lt;status&gt;                  列出某人的任务列表
+    create                                           全局任务创建
+    count &lt;user&gt; &lt;project&gt;                           任务统计信息
+    update &lt;user&gt; &lt;project&gt; &lt;id&gt;                     修改任务
+    createComment &lt;user&gt; &lt;project&gt; &lt;id&gt;              创建任务评论
+    createComment &lt;user&gt; &lt;project&gt; &lt;id&gt; &lt;commentId&gt;  删除任务评论
+    comment &lt;user&gt; &lt;project&gt; &lt;id&gt;                    获取任务评论
+    update &lt;user&gt; &lt;project&gt; &lt;id&gt;                     修改任务内容
+    update &lt;user&gt; &lt;project&gt; &lt;id&gt;                     修改任务截止日期
+    watch &lt;user&gt; &lt;project&gt; &lt;id&gt;                      获取任务描述
+    update &lt;user&gt; &lt;project&gt; &lt;id&gt;                     修改任务描述
+    label &lt;user&gt; &lt;project&gt; &lt;id&gt; &lt;labelId&gt;            添加任务标签
+    watch &lt;user&gt; &lt;project&gt; &lt;id&gt; &lt;labelId&gt;            删除任务标签
+    watch &lt;user&gt; &lt;project&gt; &lt;id&gt;                      批量操作任务标签
+    update &lt;user&gt; &lt;project&gt; &lt;id&gt;                     修改任务执行者
+    update &lt;user&gt; &lt;project&gt; &lt;id&gt;                     修改任务优先级
+    update &lt;user&gt; &lt;project&gt; &lt;id&gt;                     修改任务状态
+    watch &lt;user&gt; &lt;project&gt; &lt;id&gt;                      关注任务
+    watch &lt;user&gt; &lt;project&gt; &lt;id&gt;                      取消任务关注
+    getTaskListByLabel &lt;user&gt; &lt;project&gt; &lt;id&gt;         关注该任务的用户
+    count &lt;user&gt; &lt;project&gt;                            获取当前用户项目的已完成、正在进行的、关注的数值
+    count &lt;user&gt; &lt;project&gt;                           统计所有 已完成 和 正在处理 的任务数
+    getTaskListByLabel &lt;user&gt; &lt;project&gt; &lt;id&gt;         查询标签下的任务列表
+    count &lt;user&gt; &lt;project&gt; &lt;status&gt;                  列出当前用户某项目某状态的任务列表
+    list &lt;user&gt; &lt;project&gt; &lt;status&gt;                   任务列表
+    count &lt;user&gt; &lt;status&gt;                            当前用户某状态的任务列表
+
+  A simple command-line tool for coding.net by nodejs
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+
+
+
+</code></pre><h2 id="tweets">Tweets</h2>
+<pre><code>gitai@debian:~/workspace/Coding/Cli-Coding$ MOD=Tweets bin/coding
+
+  Usage: coding [options] [command]
+
+
+  Commands:
+
+    create                     发送冒泡
+    bestUser                   热门用户
+    comment &lt;id&gt;               获取某个评论
+    image                      冒泡插入图片
+    lastTweetList              查询last_id以后的最新冒泡
+    list                       冒泡列表
+    userPublic                 用户冒泡列表
+    detail &lt;user&gt; &lt;tweet_id&gt;   获取冒泡详情
+    comment &lt;id&gt;               冒泡评论
+    comment &lt;id&gt; &lt;comment_id&gt;  删除冒泡评论
+    comment &lt;id&gt;               获取冒泡评论列表
+    del &lt;tweet_id&gt;             删除冒泡
+    like &lt;tweet_id&gt;            冒泡点赞
+    likeTweetList &lt;tweet_id&gt;   赞过的冒泡列表
+    unlike &lt;tweet_id&gt;          冒泡取消点赞
+    publicTweets               冒泡广场列表
+
+  A simple command-line tool for coding.net by nodejs
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+
+
+
+</code></pre><h2 id="files">Files</h2>
+<pre><code>gitai@debian:~/workspace/Coding/Cli-Coding$ MOD=Files bin/coding
+
+  Usage: coding [options] [command]
+
+
+  Commands:
+
+    checkExisted &lt;user&gt; &lt;project&gt; &lt;dir&gt;                       检查目录下是否有同名的文件
+    uploadNewVersion &lt;user&gt; &lt;project&gt;                         上传文件新版本
+    view &lt;user&gt; &lt;project&gt;                                     删除文件
+    history &lt;user&gt; &lt;project&gt; &lt;id&gt;                             删除文件历史
+    download &lt;user&gt; &lt;project&gt; &lt;id&gt;                            下载历史文件版本
+    upload &lt;user&gt; &lt;project&gt;                                   上传私有项目的图片
+    download &lt;user&gt; &lt;project&gt; &lt;fileId&gt;                        文件下载
+    download &lt;user&gt; &lt;project&gt; &lt;fileId&gt;                        文件下载URL
+    edit &lt;user&gt; &lt;project&gt; &lt;fileId&gt;                            编辑文件
+    view &lt;user&gt; &lt;project&gt; &lt;fileId&gt;                            查看文件
+    preview &lt;user&gt; &lt;project&gt; &lt;fileId&gt;                         图片预览
+    updateFileRemark &lt;user&gt; &lt;project&gt; &lt;file_id&gt; &lt;history_id&gt;  修改历史版本备注
+    create &lt;user&gt; &lt;project&gt; &lt;folderId&gt;                        创建文件
+    history &lt;user&gt; &lt;project&gt; &lt;id&gt;                             文件历史
+    mkdir &lt;user&gt; &lt;project&gt;                                    创建文件夹
+    mkdir &lt;user&gt; &lt;project&gt;                                    删除文件夹
+    move &lt;user&gt; &lt;project&gt; &lt;dirId&gt;                             移动文件
+    renameFolder &lt;user&gt; &lt;project&gt; &lt;dir&gt;                       重命名文件夹
+    files &lt;user&gt; &lt;project&gt; &lt;dir&gt;                              列出某目录下的文件
+    folders &lt;user&gt; &lt;project&gt;                                  列出所有一级目录
+    folders &lt;user&gt; &lt;project&gt;                                  列出所有目录
+    count &lt;user&gt; &lt;project&gt;                                    获取文件夹的文件数
+
+  A simple command-line tool for coding.net by nodejs
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+
+
+
+</code></pre><h2 id="keys">Keys</h2>
+<pre><code>gitai@debian:~/workspace/Coding/Cli-Coding$ MOD=Keys bin/coding
+
+  Usage: coding [options] [command]
+
+
+  Commands:
+
+    get &lt;user&gt; &lt;keyId&gt;             通过KeyId获取个人公钥
+    key &lt;user&gt; &lt;keyId&gt;             删除个人公钥
+    list &lt;user&gt;                    列出个人公钥
+    create &lt;user&gt;                  创建个人公钥
+    webhook &lt;user&gt; &lt;project&gt; &lt;id&gt;  绑定部署公钥
+    webhook &lt;user&gt; &lt;project&gt;       新建部署公钥
+    list &lt;user&gt; &lt;project&gt;          列出部署公钥
+    webhook &lt;user&gt; &lt;project&gt; &lt;id&gt;  解绑部署公钥
+
+  A simple command-line tool for coding.net by nodejs
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+
+
+
+</code></pre>
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

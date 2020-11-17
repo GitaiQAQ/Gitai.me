@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>WIP: 另一种前后端同构 | Gitai.me</title>
+
+<meta property='og:title' content='WIP: 另一种前后端同构 - Gitai.me'>
+<meta property='og:description' content='一般来说的前后端同构都是指用 React 之类的支持 SSR 的框架做服务端预渲染，然后直接混入进行 render 的一种提升用户体验的方式。 实际上在服务端本身就存在同构这种'>
+<meta property='og:url' content='https://gitai.me/2020/11/actor-model-as-bus/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:published_time' content='2020-11-16T00:00:00Z'/><meta property='article:modified_time' content='2020-11-16T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2020/11/actor-model-as-bus/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+    </div>
+    <h2 class="subtitle is-6">November 16, 2020</h2>
+    <h1 class="title">WIP: 另一种前后端同构</h1>
+    
+    <div class="content">
+      <!-- raw HTML omitted -->
+<p>一般来说的前后端同构都是指用 React 之类的支持 SSR 的框架做服务端预渲染，然后直接混入进行 render 的一种提升用户体验的方式。</p>
+<p>实际上在服务端本身就存在同构这种形式，上面说的前后端同构只是代码层面的同构，本质上是运行时的异构，所以或许我们能从异构计算中获取到一些灵感。</p>
+<blockquote>
+<p>广义上，不同计算平台的各个层次上都存在异构现象，除硬件层的指令集、互联方式、内存层次之外，软件层中应用二进制接口、API、语言特性底层实现等的不同，对于上层应用和服务而言，都是异构的。</p>
+</blockquote>
+<p>所以前后端在 SPA 应用上一直存在着因为异构而造成的巨大的鸿沟，而这些年也逐步从分离走向融合。早期 SPA 让后端能把业务下放到前端，而近些年 SSR 成功把前端的渲染推到了后端，而 WASM 更是把 CPU 密集型任务的处理，也就是边缘计算引入了浏览器环境中。</p>
+<p>和 Brower/Server 模式对比的就是 Client/Server 模式，或者是更纯粹的单机应用，那么随着浏览器算力的逐步提升，是不是可以把 Brower 和 Client，甚至 Server 进行对等，比如存在一种称之为 RealTime DB 的奇妙的数据库类型，他们通过事件机制，让所有的连接者共享特定的数据，在这种情况下，除非网络断开，否则我们并不能知道是否存在明显的 B/S 的特征，还有浏览器挖矿来取代 Ad，以及 IPFS 和 WebRTC 这种弱化 Server 的应用场景。</p>
+<p>那么是否存在一种能够对这个同构进行更佳系统化融合的方案，这时候我们就应该借鉴一下云计算的特性。</p>
+<p>既然从应用上浏览器环境已经有了一定的实践，我们是不是应该引入更深层次的融合，比如：尝试将浏览器环境类比与云计算中的工作节点，将后端的任务再进一步的前移，尝试在浏览器和服务器端建立一种异构计算的模式，让浏览器作为异构计算的一个更加私有和富有弹性的计算节点，比如引入 Actor 模型来封装网络层作为消息总线来引导分布式环境下的工作。</p>
+<p>如果我们成功使用 Actor 模型对业务进行合理的分割，那么 Actor 作为一个执行单元，实际上是可迁移的，既然弹性计算无法确定计算节点的位置，那么即使在浏览器中好像也没什么问题。</p>
+<p>这样我们就是假定一个这样的同构方案，通过 Actor 模型作为消息总线，对其包装的模块进行同构，从而实现将浏览器作为边缘计算的节点来使用。</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<blockquote>
+</blockquote>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

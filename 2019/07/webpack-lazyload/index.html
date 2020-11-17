@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Webpack 动态 import 实现原理 —— 附：蹭个 PR | Gitai.me</title>
+
+<meta property='og:title' content='Webpack 动态 import 实现原理 —— 附：蹭个 PR - Gitai.me'>
+<meta property='og:description' content='本文主要因为以下这段代码并不符合预期，chunk 名字，没有生效 // @ts-ignore import( /* webpackChunkName: &#34;[request]&#34; */ &#34;../docs/parcel.md&#34; ).then( ({ default: html }) =&gt; {} ); 但是下面这样就可以生效了 let parcel = &#34;parcel&#34;; import( /* webpackChunkName: &#34;[request]&#34; */ &#34;../docs/&#34; &#43;'>
+<meta property='og:url' content='https://gitai.me/2019/07/webpack-lazyload/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='JavaScript'><meta property='article:tag' content='Webpack'><meta property='article:tag' content='优化'><meta property='article:published_time' content='2019-07-13T00:00:00Z'/><meta property='article:modified_time' content='2019-07-13T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2019/07/webpack-lazyload/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/javascript/">#JavaScript</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/webpack/">#Webpack</a>
+  
+  | <a class="subtitle is-6" href="/tags/%E4%BC%98%E5%8C%96/">#优化</a>
+  
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">July 13, 2019</h2>
+    <h1 class="title">Webpack 动态 import 实现原理 —— 附：蹭个 PR</h1>
+    
+    <div class="content">
+      <p>本文主要因为以下这段代码并不符合预期，chunk 名字，没有生效</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// @ts-ignore
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span>(
+    <span style="color:#75715e">/* webpackChunkName: &#34;[request]&#34; */</span> 
+    <span style="color:#e6db74">&#34;../docs/parcel.md&#34;</span>
+).<span style="color:#a6e22e">then</span>(
+    ({ <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">html</span> }) <span style="color:#f92672">=&gt;</span> {}
+);
+</code></pre></div><p>但是下面这样就可以生效了</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">parcel</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;parcel&#34;</span>;
+<span style="color:#66d9ef">import</span>(
+    <span style="color:#75715e">/* webpackChunkName: &#34;[request]&#34; */</span>
+    <span style="color:#e6db74">&#34;../docs/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">parcel</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;.md&#34;</span>
+).<span style="color:#a6e22e">then</span>(
+    ({ <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">html</span> }) <span style="color:#f92672">=&gt;</span> {}
+);
+</code></pre></div><p>但是这样又无法生效了？</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span>(
+    <span style="color:#75715e">/* webpackChunkName: &#34;[request]&#34; */</span>
+    <span style="color:#e6db74">&#34;../docs/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;parcel&#34;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;.md&#34;</span>
+).<span style="color:#a6e22e">then</span>(
+    ({ <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">html</span> }) <span style="color:#f92672">=&gt;</span> {}
+);
+</code></pre></div><p>那么本文就要抛开深究其源码，看看到底咋回事</p>
+<!-- raw HTML omitted -->
+<p>如果连上面第二种都无法生效，劳烦检查 <code>tsconfig.js</code> 和 <code>webpack.config.js</code>，主要是这几点</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#960050;background-color:#1e0010">tsconfig.json</span>
+{
+    <span style="color:#f92672">&#34;module&#34;</span>: <span style="color:#e6db74">&#34;ESNext&#34;</span>,
+    <span style="color:#f92672">&#34;removeComments&#34;</span>: <span style="color:#66d9ef">true</span>
+}
+</code></pre></div><p>这是为了保留上面的注释和原样的 <code>import</code> 语句</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// $ tsc --module esnext src/index.ts
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">parcel</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;parcel&#34;</span>;
+<span style="color:#66d9ef">import</span>(<span style="color:#75715e">/* webpackChunkName: &#34;[request]&#34; */</span> <span style="color:#e6db74">&#34;../docs/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">parcel</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;.md&#34;</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">_a</span>) {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">html</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">_a</span>[<span style="color:#e6db74">&#34;default&#34;</span>];
+});
+</code></pre></div><p>至于不加会发生啥，就得自己测试了。</p>
+<p>先拿着关键词去源码搜，<a href="https://github.com/search?q=org%3Awebpack+webpackChunkName&amp;type=Commits">Github 的搜索真好用</a></p>
+<blockquote>
+<h3 id="add-specify-chunk-name-feature-for-importhttpsgithubcomwebpackwebpackcommitb65432a2f1d0c807da4ed3bf4afcfff25b4683dd"><a href="https://github.com/webpack/webpack/commit/b65432a2f1d0c807da4ed3bf4afcfff25b4683dd">Add specify chunk name feature for <code>import()</code></a></h3>
+<p>Add specify chunk name feature for <code>import()</code> by following special comment block after the param:</p>
+<p>import('./foo' /* webpackChunkName = &ldquo;myChunkName&rdquo; */)</p>
+<p>Thus we can use chunk name like <code>requre.ensure</code> and avoid conflicts with the specification.</p>
+</blockquote>
+<p>通过版本控制记录，能发现<a href="https://github.com/webpack/webpack/blob/b65432a2f1d0c807da4ed3bf4afcfff25b4683dd/lib/dependencies/ImportParserPlugin.js#L24"><code>evaluate AssignmentExpression</code></a>钩子，然后在  <a href="https://github.com/webpack/webpack/blob/b65432a2f1d0c807da4ed3bf4afcfff25b4683dd/lib/dependencies/ImportParserPlugin.js#L31"><code>call System.import</code></a> 解析注释。</p>
+<p>然后关键来了</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">chunkNameAssignment</span>) {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">chunkNameExpr</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">parser</span>.<span style="color:#a6e22e">evaluateExpression</span>(<span style="color:#a6e22e">chunkNameAssignment</span>.<span style="color:#a6e22e">right</span>);
+    <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">chunkNameExpr</span>.<span style="color:#a6e22e">isString</span>()) {
+        <span style="color:#a6e22e">chunkName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">chunkNameExpr</span>.<span style="color:#a6e22e">string</span>;
+    } <span style="color:#66d9ef">else</span> {
+        <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">`\`webpackChunkName\` expected a String, but received: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">comment</span>.<span style="color:#a6e22e">value</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> .`</span>);
+    }
+}
+</code></pre></div><p>表达式的右侧会作为一个表达式进行计算，所以我们别人肉分析，debugger 看看</p>
+<p><img src="https://i.loli.net/2019/07/13/5d2981e1129fa58467.png" alt="1562998644430"></p>
+<p>但是发现最新版的以及没有上面的代码了，所以继续 debugger，跟踪 <code>chunkName</code> 的转移。</p>
+<p>但是后面跟踪太麻烦，观察传递出去的结构是个对象，于是全局搜了一下 <code>chunkName</code> 很巧的是刚刚好找到要的东西。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">chunkName</span>) {
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#e6db74">/\[(index|request)\]/</span>.<span style="color:#a6e22e">test</span>(<span style="color:#a6e22e">chunkName</span>)) {
+        <span style="color:#a6e22e">chunkName</span> <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#34;[index]&#34;</span>;
+    }
+    <span style="color:#a6e22e">chunkName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">chunkName</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">/\[index\]/g</span>, <span style="color:#a6e22e">index</span><span style="color:#f92672">++</span>);
+    <span style="color:#a6e22e">chunkName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">chunkName</span>.<span style="color:#a6e22e">replace</span>(
+        <span style="color:#e6db74">/\[request\]/g</span>,
+        <span style="color:#a6e22e">Template</span>.<span style="color:#a6e22e">toPath</span>(<span style="color:#a6e22e">dep</span>.<span style="color:#a6e22e">userRequest</span>)
+    );
+}
+</code></pre></div><p>原来是正则表达式换的，而且只支持 <code>[request]</code> 和 <code>[index]</code>，那我在公司用的 <code>[filename]</code> 哪来的？还是我记错了？周一去看看</p>
+<p>但是这并没解决为什么不会被替换的问题，于是给他加个断点，发现并不一定会走到这来。在 <code>lib\dependencies\ImportParserPlugin.js</code> 有可能就直接结束了，那重新分析之前那个文件。</p>
+<p>发现有个分支，<a href="https://github.com/webpack/webpack/blob/master/lib/dependencies/ImportParserPlugin.js#L161">ImportParserPlugin.js#L161</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">param</span>.<span style="color:#a6e22e">isString</span>()) {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">depBlock</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ImportDependenciesBlock</span>();
+	<span style="color:#a6e22e">parser</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">addBlock</span>(<span style="color:#a6e22e">depBlock</span>);
+} <span style="color:#66d9ef">else</span> {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dep</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ContextDependencyHelpers</span>.<span style="color:#a6e22e">create</span>();
+    <span style="color:#a6e22e">parser</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">addDependency</span>(<span style="color:#a6e22e">dep</span>);
+}
+</code></pre></div><p>通过上面的抽象不难发现，会判断 <code>param</code> 是否为字符串，如果不是则认为是动态产生的，需要通过上下文分离并动态导入；否则只是普通依赖。</p>
+<p>而 <code>param</code> 对象我们可以在 debugger 下看看里面的细节</p>
+<p><img src="https://i.loli.net/2019/07/13/5d2981f7750a422805.png" alt="1563000182303"></p>
+<p>他是对 <code>expr.arguments[0]</code> 的编译产生的结果，所以当<strong>最终</strong>编译结果为字符串时，就会被当作静态依赖加载。</p>
+<p>那么问题就变成了，最开始的三段代码，引用模块的编译后内容是啥？</p>
+<ul>
+<li><code>&quot;../docs/parcel.md&quot;</code> =&gt; 字符串</li>
+<li><code>&quot;../docs/&quot; + parcel + &quot;.md&quot;</code> =&gt; 模板字符串（表达式）</li>
+<li><code>&quot;../docs/&quot; + &quot;parcel&quot; + &quot;.md&quot;</code> =&gt; 优化会被合并，最后变成字符串</li>
+</ul>
+<p>如下图所示</p>
+<p><img src="https://i.loli.net/2019/07/13/5d2982072e0de96141.png" alt="1563000592083"></p>
+<p>所以这也是一个优化点，在需要使用动态加载的特性时，必须将导入路径的表达式写成上下文依赖的，不会被优化成单一字符串的表达式。</p>
+<p>反观第二种能成功的或许也是现有编译器的优化点，<strong>常量</strong>为何不会被合并进字符串内？</p>
+<p>注意上一句的<strong>常量</strong>，我们声明的 <code>parcel</code> 是满足我们需求的常量嘛？并不是，那用 <code>const</code> 声明会怎么样？</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">parcel</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;parcel&#34;</span>;
+<span style="color:#66d9ef">import</span>(<span style="color:#75715e">/* webpackChunkName: &#34;[request]&#34; */</span> <span style="color:#e6db74">&#34;../docs/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">parcel</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;.md&#34;</span>).<span style="color:#a6e22e">then</span>(
+    ({ <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">html</span> }) <span style="color:#f92672">=&gt;</span> {
+    }
+);
+</code></pre></div><p><img src="https://i.loli.net/2019/07/13/5d29821416d7c36810.png" alt="1563000952766"></p>
+<p>还是不会被优化，看来并不会区分 <code>let</code> 和 <code>const</code> 来对其进行优化。</p>
+<p>那原因在哪？我们打印 <code>param</code> 的属性看看</p>
+<p><img src="https://i.loli.net/2019/07/13/5d29821f56a4e67218.png" alt="1563001081270"></p>
+<p><code>BasicEvaluatedExpression</code> 并没有实现是否检测其是否为静态的方法，所以有以下几个问题</p>
+<ul>
+<li>有没有给 AST 上加上这个的必要性？</li>
+<li>加上是否能提高运行效率？</li>
+<li>是否于已有的规范冲突？</li>
+<li>是否会产生负优化？</li>
+<li>是否符合开发者预期？</li>
+</ul>
+<p>如果都没问题？那谁去提 PR？</p>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

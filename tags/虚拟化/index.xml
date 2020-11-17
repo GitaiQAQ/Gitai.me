@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>虚拟化 on Gitai.me</title>
+    <link>https://gitai.me/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/</link>
+    <description>Recent content in 虚拟化 on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Sun, 03 Feb 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>利用 Hyper-V 直接安装 ArchLinux</title>
+      <link>https://gitai.me/2019/02/hyper-v/</link>
+      <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/02/hyper-v/</guid>
+      <description>Windows 环境都配的差不多了，总有点小问题，WSL 太底层的又没实现；Hyper-V 虽然家庭版给他弄开了，但是没有分布式的共享磁盘支持，还是差了点啥，</description>
+    </item>
+    
+  </channel>
+</rss>

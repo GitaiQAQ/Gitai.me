@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>用 SVG &#43; Canvas &#43; WASM 实现低性能下发图 | Gitai.me</title>
+
+<meta property='og:title' content='用 SVG &#43; Canvas &#43; WASM 实现低性能下发图 - Gitai.me'>
+<meta property='og:description' content='V2 上面看到个推分享的数据可视化之下发图实践。
+
+觉得挺有意思的，但是没用 Demo，所以在此尝试实现一下，并觉得他们的技术选型有问题。
+
+首先，SVG 非原生的动画，实现上频繁触发 DOM 操作，要不然 SVG 本身性能应该不会比 Canvas 差。
+所以我准备复合上述 2 种方案，并且引入 WASM 优化计算逻辑，直接调用 Canvas。'>
+<meta property='og:url' content='https://gitai.me/2019/04/%E4%B8%8B%E5%8F%91%E5%9B%BE/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:published_time' content='2019-04-24T00:00:00Z'/><meta property='article:modified_time' content='2019-04-24T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2019/04/%E4%B8%8B%E5%8F%91%E5%9B%BE/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+    </div>
+    <h2 class="subtitle is-6">April 24, 2019</h2>
+    <h1 class="title">用 SVG &#43; Canvas &#43; WASM 实现低性能下发图</h1>
+    
+    <div class="content">
+      <p>V2 上面看到个推分享的<a href="https://www.v2ex.com/t/556279">数据可视化之下发图实践</a>。</p>
+<p><img src="https://diycode.b0.upaiyun.com/photo/2019/c8bf9ab0e153ea3d4e8e96af221ea252.gif" alt="下发图 Demo"></p>
+<p>觉得挺有意思的，但是没用 Demo，所以在此尝试实现一下，并觉得他们的技术选型有问题。</p>
+<p><img src="https://diycode.b0.upaiyun.com/photo/2019/c5bb8be7371282d71c7f808433cafb50.png" alt="两款技术栈的具体性能对比"></p>
+<p>首先，SVG 非原生的动画，实现上频繁触发 DOM 操作，要不然 SVG 本身性能应该不会比 Canvas 差。</p>
+<p>所以我准备复合上述 2 种方案，并且引入 WASM 优化计算逻辑，直接调用 Canvas。</p>
+<h2 id="使用-svg--css-实现静态地图图层">使用 SVG + CSS 实现静态地图图层</h2>
+<p>在上述文章种，使用了阿里云的 datav 中获取地图的 geojson 数据，然后通过 canvas 原生 Api，添加背景色、边框等，绘制地图。
+我觉得可以把这块抽离出来，直接在 datav 上下载<a href="https://datav.aliyun.com/tools/atlas/">对应的 SVG</a>，然后附加 CSS 作为底层，再通过全覆盖一个 Canvas 绘制动画，来解决。</p>
+<p>于是有了以下的实现方案：</p>
+<ol>
+<li>数据准备和清理，获取 SVG 和 下发图的对应坐标</li>
+<li>附加对应的属性，生成合适的背景图</li>
+<li>实现动态下发过程动画</li>
+</ol>
+<h3 id="数据准备和清理">数据准备和清理</h3>
+<p>下载 SVG，清理属性（移除除了 <code>d</code> 以外的全部属性）方便之后通过 CSS 创建合适的样式。</p>
+<p>调整视口，选个刚好能显示，又不会多余的尺寸（<code>viewBox=&quot;300 0 900 800&quot;</code>）</p>
+<p>用取色器从上面的 Demo 获取到背景色<code>#0d1531</code>，地图填充颜色<code>#051132</code>，省界颜色<code>#032649</code>，地图厚度颜色<code>#2083bc</code>，地图阴影颜色<code>#000</code>。</p>
+<h3 id="生成合适的背景图">生成合适的背景图</h3>
+<p>设置颜色到对应区块上，并设置合适的边框样式。</p>
+<p>datav 获取的地图，分为 2 类节点，首个节点是整个版图，之后的是各省的区块；从上面的 Demo 能看出来，他有省市的轮廓和国界的轮廓，并且采用不同的颜色，之后是下面的投影。</p>
+<!-- raw HTML omitted -->
+<p>接下来给 <code>svg</code> 增加投影：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#a6e22e">shadow</span> {
+    <span style="color:#66d9ef">filter</span>: drop-shadow(<span style="color:#ae81ff">-5</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">5</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">9</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">#000000</span>);
+}
+</code></pre></div><p>并给第一个<code>g</code> 容器增加一个位移 <code>transform</code>，并设置一个颜色，用来伪造侧视图产生的高度。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#a6e22e">pseudo-3d</span> {
+    fill: <span style="color:#ae81ff">#ff00b6</span>;
+    <span style="color:#66d9ef">transform</span>: translate(<span style="color:#ae81ff">-3</span><span style="color:#66d9ef">px</span>,<span style="color:#ae81ff">3</span><span style="color:#66d9ef">px</span>) scale(<span style="color:#ae81ff">1.002</span>);
+}
+</code></pre></div><p>然后复制这个 <code>g</code> 容器，修改他的颜色和描边。</p>
+<p><img src="https://i.loli.net/2019/05/04/5ccd8f9be378f.png" alt=""></p>
+<p>因为需要给省界和国界划定不同的描边宽度，而从上图不难发现，国界和省界在 SVG 上面是重叠的，所以无法直接完成对不同颜色的添加。</p>
+<p>但是从填充颜色和描边的范围我们也能发现，省界的映射刚好是下层元素的 <code>fill</code> 范围，而国界和下层元素的 <code>stroke</code> 完全重合。</p>
+<p>于是我们能获得如下启发，将上层的元素的描边颜色设为 <code>transparent</code>，这样就可以直接显示下层对应位置的颜色了。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#a6e22e">national-boundaries</span> {
+    fill: <span style="color:#ae81ff">#fff</span>;
+    stroke: <span style="color:#ae81ff">#000</span>;
+    stroke-width: <span style="color:#ae81ff">2</span><span style="color:#66d9ef">px</span>; 
+}
+</code></pre></div><!-- raw HTML omitted -->
+<p>已经初见雏形了，接下来把刚开始就晾在一边的省界放上来。</p>
+<blockquote>
+<p>注意：河北，天津，北京被注释是为了更好地观察上面通过透明创造的色差。</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<p>到这里，静态的中国地图已经差不多完成了，但是还不够立体，虽然加了伪造的投影效果，但是实际上的地图并没有任何变化。这时候就需要对整个 SVG 加上空间变换。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">body &gt; * {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 430px;
+<span style="color:#a6e22e">+   transform: rotateX(45deg);
+</span><span style="color:#a6e22e"></span>}
+</code></pre></div><p>到这里第一个图层才算完成了，虽然很丑，但是改改配色还是可以用的。</p>
+<p><img src="https://i.loli.net/2019/05/04/5ccd8fb58da49.png" alt=""></p>
+<p>这才是初版，但是代码写得见不得人。</p>
+<p>或许有人会注意到最开始有这么一段代码</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">body</span> <span style="color:#f92672">&gt;</span> <span style="color:#f92672">*</span> {
+    <span style="color:#66d9ef">position</span>: <span style="color:#66d9ef">absolute</span>;
+    <span style="color:#66d9ef">left</span>: <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">top</span>: <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+    <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">430</span><span style="color:#66d9ef">px</span>;
+}
+</code></pre></div><p>当我们完成背景图层的创建，还需要一个 Canvas 覆盖上来，来绘制动画；于是将其包起来，用绝对定位放在一起。所以接下来就是添加 Canvas 元素，准备 WASM 环境了。</p>
+<h3 id="动态下发过程动画">动态下发过程动画</h3>
+<p>先准备 WASM 环境，参见 <a href="https://rustwasm.github.io/docs/wasm-bindgen/">Rust wasm-bindgen</a> 官方文档，这里就是私货了，Rust 写起来那么舒服是吧？快吃了这口安利。</p>
+<h4 id="配置-wasm-开发环境">配置 WASM 开发环境</h4>
+<p><code>rust</code> 的相关工具链，一直做的比较完善，所以 <code>wasm</code> 相关的也有个部署工具叫<code>wasm-pack</code> ，对于 win 用户，只要下 <a href="https://rustwasm.github.io/wasm-pack/installer/">wasm-pack-init.exe</a> 就行了，而不建议去尝试其他教程的从基本的 <code>rust</code> 环境开始配起。</p>
+<p>然后从 <a href="https://github.com/rustwasm/wasm-bindgen/tree/master/examples/hello_world">hello_world/wasm-bindgen</a> 克隆下来这个 <code>hello-world</code>，并安装必要的 <code>rust</code> 库和 <code>nodejs</code> 依赖。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ yarn install
+$ wasm-pack
+$ yarn run serve
+</code></pre></div><p>如果安装成功，会有如下提示，失败了，我也不知道咋回事</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ yarn run serve
+yarn run v1.12.3
+$ webpack-dev-server
+🧐  Checking <span style="color:#66d9ef">for</span> wasm-pack...
+
+✅  wasm-pack is installed. 
+
+ℹ️  Compiling your crate in development mode...
+
+i ｢wds｣: Project is running at http://localhost:8080/
+i ｢wds｣: webpack output is served from /
+   <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span>: Optional fields missing from Cargo.toml: <span style="color:#e6db74">&#39;description&#39;</span>, <span style="color:#e6db74">&#39;repository&#39;</span>, and <span style="color:#e6db74">&#39;license&#39;</span>. These are not necessary, but recommended
+  :-<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>WARN<span style="color:#f92672">]</span>: origin crate has no README
+
+✅  Your crate has been correctly compiled
+
+i ｢wdm｣: Hash: 8b1c7f4243a6f3888933
+Version: webpack 4.30.0
+Time: 4659ms
+Built at: 2019-05-02 21:17:22
+                           Asset          Size  Chunks             Chunk Names
+                      0.index.js       <span style="color:#ae81ff">622</span> KiB       <span style="color:#ae81ff">0</span>  <span style="color:#f92672">[</span>emitted<span style="color:#f92672">]</span>
+                      1.index.js        <span style="color:#ae81ff">24</span> KiB       <span style="color:#ae81ff">1</span>  <span style="color:#f92672">[</span>emitted<span style="color:#f92672">]</span>
+4e22c32e8bd8114d290d.module.wasm  unknown size       <span style="color:#ae81ff">1</span>  <span style="color:#f92672">[</span>emitted<span style="color:#f92672">]</span>
+                      index.html     <span style="color:#ae81ff">181</span> bytes          <span style="color:#f92672">[</span>emitted<span style="color:#f92672">]</span>
+                        index.js       <span style="color:#ae81ff">362</span> KiB    main  <span style="color:#f92672">[</span>emitted<span style="color:#f92672">]</span>  main
+Entrypoint main <span style="color:#f92672">=</span> index.js
+...
+i ｢wdm｣: Compiled successfully.
+
+</code></pre></div><p>打开上面输出的 <code>http://localhost:8080/</code> 就能看到一个弹窗，内容为 <code>Hello World!</code>；在开发者工具还可以看到如下输出，这是加载 <code>wasm</code> 时，网络请求产生的日志。</p>
+<p><img src="https://i.loli.net/2019/05/04/5ccd8fd044255.png" alt=""></p>
+<p>其来源是，<code>index.js</code> 的 <code>m.greet('World!')</code> 调用了 <code>src/lib.rs</code> 的 <code>pub fn greet</code>；触发了提示框。</p>
+<p>自此环境安装到环境检验都完成了。</p>
+<h4 id="缺少点基础件">缺少点基础件</h4>
+<p>前端常用的 <code>console.log</code> 在这里是没法直接使用的，而 <code>rust</code> 的 <code>println!</code> 也是不可用的，所以写各宏覆盖上去。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">#[wasm_bindgen]</span>
+<span style="color:#66d9ef">extern</span> <span style="color:#e6db74">&#34;C&#34;</span> {
+    <span style="color:#75715e">// Use `js_namespace` here to bind `console.log(..)` instead of just
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// `log(..)`
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">#[wasm_bindgen(js_namespace = console)]</span>
+    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">log</span>(s: <span style="color:#66d9ef">&amp;</span><span style="color:#66d9ef">str</span>);
+}
+
+macro_rules<span style="color:#f92672">!</span> println {
+    <span style="color:#75715e">// Note that this is using the `log` function imported above during
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// `bare_bones`
+</span><span style="color:#75715e"></span>    (<span style="color:#75715e">$($t</span>:<span style="color:#a6e22e">tt</span>)<span style="color:#f92672">*</span>) <span style="color:#f92672">=&gt;</span> (log(<span style="color:#f92672">&amp;</span>format_args<span style="color:#f92672">!</span>(<span style="color:#75715e">$($t</span>)<span style="color:#f92672">*</span>).to_string()))
+}
+</code></pre></div><p>这样原生的 <code>println!</code> 宏就被覆盖了，可以把形如 <code>println!(&quot;from:{:?}\ncp:{:?}\nend:{:?}&quot;, from, cp, to);</code> 发给开发者工具。</p>
+<p><img src="https://i.loli.net/2019/05/04/5ccd8fde119b1.png" alt=""></p>
+<p>这里用到的 <code>Position</code> 自然也是自己定义的。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">#[derive(Debug)]</span>
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Position</span> {
+    x: <span style="color:#66d9ef">f64</span>,
+    y: <span style="color:#66d9ef">f64</span>
+}
+</code></pre></div><p>正式开始造轮子。</p>
+<h4 id="实现静态的航线">实现静态的航线</h4>
+<p>参照 <a href="https://github.com/rustwasm/wasm-bindgen/tree/master/examples/canvas">canvas/wasm-bindgen</a> 运行一个能跑的 <code>Canvas</code> 脚本。</p>
+<p>主要操作就是复制其 <code>index.js</code> 和 <code>src/lib.rs</code>，当运行出错的时候，看看是不是 <code>Cargo.toml</code> 少了东西。</p>
+<p>之后我们就得到一个画笑脸的 <code>Canvas</code> 程序。</p>
+<p>删了他的笑脸，留下 <code>Canvas</code> 插入和初始化的相关代码，直到获取一个 <code>CanvasRenderingContext2d</code> 为止。</p>
+<p><strong>2.贝塞尔曲线</strong> 贝塞尔曲线是计算机图形学中相当重要的参数曲线，它通过一个方程来描述一条曲线，根据方程的最高阶数，又分为线性贝塞尔曲线、二次贝塞尔曲线、三次贝塞尔曲线和更高阶的贝塞尔曲线。</p>
+<p>本案例中主要应用了二次贝塞尔曲线，二次贝塞尔曲线的函数如下：<img src="http://latex.codecogs.com/gif.latex?%7B%5Cmathbf%20%7BB%7D%7D%28t%29%3D%281-t%29%5E%7B%7B2%7D%7D%7B%5Cmathbf%20%7BP%7D%7D_%7B0%7D+2t%281-t%29%7B%5Cmathbf%20%7BP%7D%7D_%7B1%7D+t%5E%7B%7B2%7D%7D%7B%5Cmathbf%20%7BP%7D%7D_%7B2%7D%7B%5Cmbox%7B%20%2C%20%7D%7Dt%5Cin%20%5B0%2C1%5D%25u3002" alt="img"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * 绘制一条曲线路径
+</span><span style="color:#75715e"> * @param  {Object} ctx canvas渲染上下文
+</span><span style="color:#75715e"> * @param  {Array&lt;number&gt;} start 起点
+</span><span style="color:#75715e"> * @param  {Array&lt;number&gt;} end 终点
+</span><span style="color:#75715e"> * @param  {number} curveness 曲度(0-1)
+</span><span style="color:#75715e"> * @param  {number} percent 绘制百分比(0-100)
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">drawCurvePath</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">start</span>, <span style="color:#a6e22e">end</span>, <span style="color:#a6e22e">curveness</span>, <span style="color:#a6e22e">percent</span>) {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cp</span> <span style="color:#f92672">=</span> [
+        (<span style="color:#a6e22e">start</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> <span style="color:#a6e22e">end</span>[<span style="color:#ae81ff">0</span>]) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> (<span style="color:#a6e22e">start</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#a6e22e">end</span>[<span style="color:#ae81ff">1</span>]) <span style="color:#f92672">*</span> <span style="color:#a6e22e">curveness</span>,
+        (<span style="color:#a6e22e">start</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> <span style="color:#a6e22e">end</span>[<span style="color:#ae81ff">1</span>]) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> (<span style="color:#a6e22e">end</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> <span style="color:#a6e22e">start</span>[<span style="color:#ae81ff">0</span>]) <span style="color:#f92672">*</span> <span style="color:#a6e22e">curveness</span>
+    ];
+
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">t</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">percent</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">100</span>;
+
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p0</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">start</span>;
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cp</span>;
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">end</span>;
+
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">v01</span> <span style="color:#f92672">=</span> [<span style="color:#a6e22e">p1</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> <span style="color:#a6e22e">p0</span>[<span style="color:#ae81ff">0</span>], <span style="color:#a6e22e">p1</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#a6e22e">p0</span>[<span style="color:#ae81ff">1</span>]];     <span style="color:#75715e">// 向量&lt;p0, p1&gt;
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">v12</span> <span style="color:#f92672">=</span> [<span style="color:#a6e22e">p2</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> <span style="color:#a6e22e">p1</span>[<span style="color:#ae81ff">0</span>], <span style="color:#a6e22e">p2</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#a6e22e">p1</span>[<span style="color:#ae81ff">1</span>]];     <span style="color:#75715e">// 向量&lt;p1, p2&gt;
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">q0</span> <span style="color:#f92672">=</span> [<span style="color:#a6e22e">p0</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> <span style="color:#a6e22e">v01</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> <span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">p0</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> <span style="color:#a6e22e">v01</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">*</span> <span style="color:#a6e22e">t</span>];
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">q1</span> <span style="color:#f92672">=</span> [<span style="color:#a6e22e">p1</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> <span style="color:#a6e22e">v12</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> <span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">p1</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> <span style="color:#a6e22e">v12</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">*</span> <span style="color:#a6e22e">t</span>];
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">=</span> [<span style="color:#a6e22e">q1</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> <span style="color:#a6e22e">q0</span>[<span style="color:#ae81ff">0</span>], <span style="color:#a6e22e">q1</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#a6e22e">q0</span>[<span style="color:#ae81ff">1</span>]];       <span style="color:#75715e">// 向量&lt;q0, q1&gt;
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> [<span style="color:#a6e22e">q0</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> <span style="color:#a6e22e">v</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> <span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">q0</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> <span style="color:#a6e22e">v</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">*</span> <span style="color:#a6e22e">t</span>];
+    <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">moveTo</span>(<span style="color:#a6e22e">p0</span>[<span style="color:#ae81ff">0</span>], <span style="color:#a6e22e">p0</span>[<span style="color:#ae81ff">1</span>]);
+    <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">quadraticCurveTo</span>(
+        <span style="color:#a6e22e">q0</span>[<span style="color:#ae81ff">0</span>], <span style="color:#a6e22e">q0</span>[<span style="color:#ae81ff">1</span>],
+        <span style="color:#a6e22e">b</span>[<span style="color:#ae81ff">0</span>], <span style="color:#a6e22e">b</span>[<span style="color:#ae81ff">1</span>]
+    );
+
+}
+</code></pre></div><p>(原文来自开头的 v2 地址，上述代码来自 <a href="https://github.com/hujiulong/blog/issues/1#">用canvas绘制一个曲线动画——深入理解贝塞尔曲线</a></p>
+<p>上图为本文案例中飞线的贝塞尔曲线应用，其中 from 为起点，to 为终点，curveness 为曲线的曲率，取值-1 ~ 1，曲率的绝对值越大，曲线越弯曲，percent 为飞线位置占比。</p>
+<p>我们这里先实现静态的不需要关注如果截断的，只要通过曲率算出控制点 $$P_1$$ 即可。</p>
+<p>所以精简一下，</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#e6db74">/// 通过起点/终点和曲率计算控制点
+</span><span style="color:#e6db74"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">get_control_position</span> (from: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Position</span>, to: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Position</span>, curveness: <span style="color:#66d9ef">f64</span>)  -&gt; <span style="color:#a6e22e">Position</span>{
+    <span style="color:#66d9ef">return</span> Position {
+        x: (from.x <span style="color:#f92672">+</span> to.x) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2.0</span> <span style="color:#f92672">-</span> (from.y <span style="color:#f92672">-</span> to.y) <span style="color:#f92672">*</span> curveness,
+        y: (from.y <span style="color:#f92672">+</span> to.y) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2.0</span> <span style="color:#f92672">-</span> (from.x <span style="color:#f92672">-</span> to.x) <span style="color:#f92672">*</span> curveness
+    };
+}
+</code></pre></div><p>然后通过上面获取的 <code>context</code>，调用 <code>quadratic_curve_to</code> 绘制一条曲线。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> from <span style="color:#f92672">=</span> Position{
+    x: <span style="color:#ae81ff">210.0</span>,
+    y: <span style="color:#ae81ff">350.0</span>
+};
+
+<span style="color:#66d9ef">let</span> to <span style="color:#f92672">=</span> Position {
+    x: <span style="color:#ae81ff">50.0</span>,
+    y: <span style="color:#ae81ff">50.0</span>
+};
+
+<span style="color:#66d9ef">let</span> cp <span style="color:#f92672">=</span> get_control_position(from, to, curveness);
+
+println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;from:{:?}\ncp:{:?}\nend:{:?}&#34;</span>, from, cp, to);
+
+context.move_to(from.x, from.y);
+context.quadratic_curve_to(cp.x,  cp.y,  to.x,  to.y);
+</code></pre></div><p><img src="https://i.loli.net/2019/05/04/5ccd8ff0caa30.png" alt=""></p>
+<p>一个完美的开始，虽然这个锯齿怪怪的，有点辣眼睛，等结束再说如何优化，这是 <code>Canvas</code> 的一个问题。</p>
+<p>我们参照 v2 那篇分为光晕，头部和尾部；接下来实现一下这几个丑东西。</p>
+<p>光晕简单，径向渐变糊一个就好了。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#e6db74">/// 绘制光晕 - 径向渐变
+</span><span style="color:#e6db74"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">draw_hola</span> (ctx: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">web_sys</span>::CanvasRenderingContext2d, pos: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Position</span>, color: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">HSL</span>, radius: <span style="color:#66d9ef">f64</span>, percent: <span style="color:#66d9ef">f32</span>)  -&gt; Result<span style="color:#f92672">&lt;</span>(), JsValue<span style="color:#f92672">&gt;</span> {
+    <span style="color:#66d9ef">let</span> gradient <span style="color:#f92672">=</span> ctx.create_radial_gradient(pos.x, pos.y, <span style="color:#ae81ff">0.0</span>, pos.x, pos.y, radius <span style="color:#f92672">*</span> (percent <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">f64</span>))<span style="color:#f92672">?</span>;
+
+    gradient.add_color_stop(<span style="color:#ae81ff">0.0</span>, <span style="color:#e6db74">&#34;transparent&#34;</span>);
+    gradient.add_color_stop(<span style="color:#ae81ff">0.95</span>, <span style="color:#f92672">&amp;</span>color.as_str());
+    gradient.add_color_stop(<span style="color:#ae81ff">1.0</span>, <span style="color:#e6db74">&#34;transparent&#34;</span>);
+
+    ctx.set_fill_style(<span style="color:#f92672">&amp;</span>gradient);
+    ctx.fill_rect(pos.x <span style="color:#f92672">-</span> radius, pos.y <span style="color:#f92672">-</span> radius, pos.x <span style="color:#f92672">+</span> radius, pos.y <span style="color:#f92672">+</span> radius);
+
+    Ok(())
+}
+</code></pre></div><p><img src="https://i.loli.net/2019/05/02/5ccb0253023cd.gif" alt=""></p>
+<p>虽然很丑，但是功能没问题，至于为什么我这个会缩放，因为我加了 buf；下一个头部；头部什么鬼，为什么他要用三角形和半圆合成，我这么懒的人，要求比较低，就弄个圆吧，后面也不要计算偏转角度了。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#e6db74">/// 绘制曲线路径的头部
+</span><span style="color:#e6db74"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">draw_head_of_curve_path</span> (ctx: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">web_sys</span>::CanvasRenderingContext2d, from: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Position</span>, color: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">HSL</span>, radius: <span style="color:#66d9ef">f64</span>) {
+    ctx.set_fill_style(<span style="color:#f92672">&amp;</span>JsValue::from(<span style="color:#f92672">&amp;</span>color.as_str()));
+    ctx.begin_path();
+    ctx.arc(from.x, from.y, radius, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">2.0</span> <span style="color:#f92672">*</span> PI);
+    ctx.close_path();
+    ctx.fill();
+}
+</code></pre></div><p>好简单鸭！组合起来，小蝌蚪？？？</p>
+<p><img src="https://i.loli.net/2019/05/04/5ccd900baa00a.png" alt=""></p>
+<p>咦，为什么我的尾巴是半透明的？？还记得的最开始绘制这个尾巴的时候，别人给的又臭又长，但是我的就很精简；别人通过计算获取一个等效于截断的新曲线，然后赋予消失的颜色效果，但是渐变本身是可以控制阶段的，直接给 <code>LinearGradient</code> 按照百分比调整透明的位置，不就变相的让上面这个尾巴变短了吗？而且没啥需要计算的，以我小学的体育老师教的数学水平就能理解。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// 渐变颜色
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> gradient <span style="color:#f92672">=</span> ctx.create_linear_gradient(from.x,  from.y,  to.x,  to.y);
+gradient.add_color_stop(percent, <span style="color:#e6db74">&#34;transparent&#34;</span>);
+gradient.add_color_stop(<span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">&amp;</span>color.as_str());
+</code></pre></div><p><img src="https://i.loli.net/2019/05/02/5ccb04556a1df.gif" alt=""></p>
+<p>是不是有点那么个意思了？？</p>
+<p>但是好像 v2 哪个不是这个鬼样子的，因为他的动画分为三段：</p>
+<ol>
+<li>头部出发，尾巴慢慢出现</li>
+<li>头部移动中，尾部慢慢消失</li>
+<li>头部到达，尾巴慢慢消失，光晕出现</li>
+</ol>
+<p>所以人家是，头部位移，尾巴渐变出现到消失，光晕出现，三个动画混合的。而我这个就是个 Hello World，谁管你那么多事。头部空间位置有了吧，尾巴渐变有了吧，光晕出现有了吧？Ok，这就是完成了，就和我这个人一样，长到 75% 就差不多了，后面 25% 就没必要了？</p>
+<h4 id="让-hello-world-更完美">让 Hello World 更完美</h4>
+<p>或许有人发现了，前面用渐变假装截断，实际上有个大问题，首先渐变的起点到终点呈现线性变化的，所以并不是完全拟合曲线的变化规律，但是考虑到曲率比较低，其实肉眼不一定看得出来；但是还有个很严肃的问题二，也就是之前没实现的头部位移，因为通过颜色渐变产生的截断，无法获得对应的坐标，这也就是得整个方法给它计算出来；于是最后我们又回到，走前面抄过来的哪个公式，通过它计算出 $$B$$ 点，但是 $$B$$ 出来，$$Q_0$$ 和 $$Q_1$$ 自然也出来了，那么渐变的方法干脆也改了。（所以我这小小的微创新就这样被扼杀在摇篮里</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/12/25/1608e25792da9c97?w=240&amp;h=100&amp;f=png&amp;s=5429" alt=""></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// 绘制尾巴，使用渐变截断
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> (q0, q1,b) <span style="color:#f92672">=</span> draw_part_of_curve_path(ctx, from, to,  curveness, percent);
+
+println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;from:{:?}\ncp:{:?}\nend:{:?}&#34;</span>, from, q0, b);
+
+ctx.move_to(from.x, from.y);
+ctx.quadratic_curve_to(q0.x,  q0.y,  b.x,  b.y);
+
+<span style="color:#75715e">// 渐变颜色
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> gradient <span style="color:#f92672">=</span> ctx.create_linear_gradient(from.x,  from.y,  to.x,  to.y);
+gradient.add_color_stop(<span style="color:#ae81ff">0.0</span>, <span style="color:#e6db74">&#34;transparent&#34;</span>);
+gradient.add_color_stop(<span style="color:#ae81ff">1.0</span>, <span style="color:#f92672">&amp;</span>color.as_str());
+
+ctx.set_line_width(<span style="color:#ae81ff">2.0</span>);
+ctx.set_stroke_style(<span style="color:#f92672">&amp;</span>gradient);
+ctx.stroke();
+
+<span style="color:#75715e">// 绘制头部
+</span><span style="color:#75715e"></span>draw_head_of_curve_path(ctx, <span style="color:#f92672">&amp;</span>b, color, <span style="color:#ae81ff">3.0</span>);
+
+draw_hola(ctx, <span style="color:#f92672">&amp;</span>b, color, <span style="color:#ae81ff">20.0</span>, percent)<span style="color:#f92672">?</span>;
+
+Ok(())
+</code></pre></div><p><img src="https://i.loli.net/2019/05/02/5ccb102f06127.gif" alt=""></p>
+<p>调整了一下参数，把进度分为三个部分</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> percent_head <span style="color:#f92672">=</span> percent <span style="color:#f92672">/</span> <span style="color:#ae81ff">0.6</span>;
+<span style="color:#66d9ef">let</span> percent_curve <span style="color:#f92672">=</span> (percent <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.2</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">0.8</span>;
+<span style="color:#66d9ef">let</span> percent_hola <span style="color:#f92672">=</span> (percent <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.6</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">0.4</span>;
+</code></pre></div><p>并用 <code>1.0.partial_cmp(&amp;percent) == Some(Ordering::Less)</code> 这样的语句来约束，每个绘制函数；即小于 0 或者大于 1 时，能合适的处理。</p>
+<p><img src="https://i.loli.net/2019/05/03/5ccbf34d5ad08.gif" alt=""></p>
+<p>好像是那么回事，大概就是这样了吧。那么问题来了，我写这篇的意义在哪？？</p>
+<p>接下来就是整合背景，数据和上面这个箭头，放到一个页面上。</p>
+<h4 id="做个简单的性能测试">做个简单的性能测试</h4>
+<p>在 Performance 看看分析的结果（虽然我一行都看不懂</p>
+<p><img src="https://i.loli.net/2019/05/04/5ccd902e75dd4.png" alt=""></p>
+<p>对应的 Profile 文件下载（只使用了 25% 的 CPU 绘制的图）</p>
+<p>这是符合预期的，SVG 应该只有开始需要解析，之后都不会产生资源消耗。而 Canvas 的 CPU 消耗怎么那么高？？下面那个隐藏了 Canvas 的姑且当作只有函数调用和 WASM 计算产生的消耗；叠加上 SVG 之后，仿佛高了一点点。不过实际上只有 10% ~ 15% 左右。</p>
+<h4 id="迷惑的问题">迷惑的问题</h4>
+<p>本问题之后没复现成功，不明白咋回事。</p>
+<p>混合 SVG 和 Canvas 的 CPU 占用（内存 12MB）</p>
+<p><img src="https://i.loli.net/2019/05/04/5ccd90481d929.png" alt=""></p>
+<p>然后移除了 SVG （内存 9MB）</p>
+<p><img src="https://i.loli.net/2019/05/04/5ccd9053933e4.png" alt=""></p>
+<p>为什么会这样嘞，难道是 Canvas 背景会触发什么奇怪的东西？？于是给 Canvas 强制一个背景试试。</p>
+<p><img src="https://i.loli.net/2019/05/04/5ccd905f039fe.png" alt=""></p>
+<p>恢复正常了？？？果然是透明背景产生的叠加需要 CPU 的参与，于是产生这样的性能损耗，那这问题咋整？</p>
+<h4 id="继续实现业务">继续实现业务</h4>
+<p>通过 DataV 能拿到 GeoJSON 数据，其中包含所有城市的“中心点”，我们需要导入到 <code>Rust</code> 中，幸好有个 GeoJSON 库。然后抽取其中的坐标数据，但是没法直接画上来，因为上面是经纬度坐标，需要转化成平面坐标；而且经纬度直接转化起点在右下角，即经纬度为 <code>(0,0)</code> 的地区，而我们 <code>Canvas</code> 的坐标起点是左上角。</p>
+<p><img src="https://i.loli.net/2019/05/04/5ccd9078bb152.png" alt=""></p>
+<p>所以需要把 2 个图层参照上述坐标进行对齐，并调整缩放比例。</p>
+<p>原点的经纬度应该是 <code>[73.50235, 53.56362]</code>，而在计算其他地理坐标的时候，都需要将其作为偏移值。</p>
+<p>之后要解决缩放比的问题，宽度是 <code>135.09567</code> 和 <code>73.50235</code> 对应墨卡托坐标差值 <code>6856537.01867</code>，高度是 <code>53.56362</code> 和 <code>3.840206</code>对应墨卡托坐标差值 <code>5033577.46489</code>；通过这 2 个值和地图显示尺寸 <code>947x925</code> 的比例，计算缩放比。</p>
+<p>所以 x 的是 7240.27140303 ，y 是 7200.14089938。</p>
+<p>成品效果如下</p>
+<p><img src="https://i.loli.net/2019/05/04/5ccd8d6ae2ed6.gif" alt=""></p>
+<h3 id="源码">源码</h3>
+<ul>
+<li><a href="https://github.com/GitaiQAQ/airline">Airline</a></li>
+</ul>
+<p>写的巨乱，不怕眼瞎就看吧。</p>
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

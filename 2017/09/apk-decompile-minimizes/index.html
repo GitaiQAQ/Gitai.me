@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>简单分析那些巨无霸 APP 是如何产生的？ | Gitai.me</title>
+
+<meta property='og:title' content='简单分析那些巨无霸 APP 是如何产生的？ - Gitai.me'>
+<meta property='og:description' content='最近学校出现一台自助打印机，然后配套 APK 居然有 39 MB，遂我们来分析一下里面塞了啥？ PS: 虽然标题有逆向，但是并不打算写这部分，以及 smali 汇编语法也不做'>
+<meta property='og:url' content='https://gitai.me/2017/09/apk-decompile-minimizes/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:published_time' content='2017-09-06T00:00:00Z'/><meta property='article:modified_time' content='2017-09-06T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2017/09/apk-decompile-minimizes/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+    </div>
+    <h2 class="subtitle is-6">September 6, 2017</h2>
+    <h1 class="title">简单分析那些巨无霸 APP 是如何产生的？</h1>
+    
+    <div class="content">
+      <p>最近学校出现一台自助打印机，然后配套 APK 居然有 39 MB，遂我们来分析一下里面塞了啥？</p>
+<p>PS: 虽然标题有逆向，但是并不打算写这部分，以及 smali 汇编语法也不做赘述</p>
+<!-- raw HTML omitted -->
+<p>对于一个云打印服务，客户端其实只有一个引导打印的程序有意义，所以我们需要保留其有关代码，并删除社交系统。</p>
+<p>官方的<a href="http://www.ui.cn/detail/144802.html">设计稿</a>，第一页就是很合适的核心功能</p>
+<p><img src="https://i.loli.net/2017/09/05/59ae4405960c7.jpg" alt="设计稿 - 印乐"></p>
+<p>其他的都是垃圾，或者再留个钱包</p>
+<p>一般应用都会集成，一些诸如统计和用户行为分析的模块，而第三方的模块对此封装都是很好用的，一行就行那种。</p>
+<p>于是我们来估测一下他用到的第三方服务</p>
+<p><img src="https://i.loli.net/2017/09/05/59ae44dc5c6ba.jpg" alt="首页 - 印乐"></p>
+<ul>
+<li>打印： 核心功能，可能显示 pdf 那个用 Google 或者 Adobe 的 pdf 查看软件更好</li>
+<li>扫描： 自己写的，但是裁剪没有有道笔记的自定义边界，管理不如 TinyScanner，但是因为调用系统相机底层，体积不大，而且因为扫二维码共用权限，也没有精简权限的可能性。</li>
+<li>去哪印：作为一个新生软件，并且只部署与部分高校，而且细粒度太低，暂时没什么用。</li>
+<li>找乐：更没用，而且这个估计用了 IM 和推送服务，删了能小不少。</li>
+<li>阅读：套壳浏览器，估计也就几百kb</li>
+<li>我的：这个姑且还要看钱。。。留着也不大</li>
+</ul>
+<p>以上只是可见范围的分析</p>
+<p>从程序使用分析，不难看出</p>
+<ul>
+<li>第三方登录： 至少封装了微信，QQ一类的 SDK</li>
+<li>支付：微信，支付宝</li>
+<li>推送：并不会小</li>
+</ul>
+<p>之后我们拆了软件，来精简一下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ du -h -d <span style="color:#ae81ff">1</span>
+25M     ./res
+548K    ./original
+34M     ./lib
+980K    ./unknown
+81M     ./smali
+78M     ./smali_classes2
+520K    ./assets
+218M    .
+</code></pre></div><p>常见 sdk 有自己的核心，又不让人知道，一般塞 so 里面，而且这些命名都是很明确的</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ tree
+.
+├── armeabi
+│   ├── libBugtags.so
+│   ├── libgifimage.so
+│   ├── libgpuimage-library.so
+│   ├── libimagepipeline.so
+│   ├── libjniPdfium.so
+│   ├── libjpush182.so
+│   └── libmodpdfium.so
+├── armeabi-v7a
+│   ├── libBugtags.so
+│   ├── libgifimage.so
+│   ├── libgpuimage-library.so
+│   ├── libimagepipeline.so
+│   ├── libjniPdfium.so
+│   ├── libjpush182.so
+│   ├── libmodpdfium.so
+│   ├── librealm-jni.so
+│   ├── librsjni.so
+│   └── libRSSupport.so
+├── mips
+│   ├── libBugtags.so
+│   ├── libgpuimage-library.so
+│   ├── libjniPdfium.so
+│   ├── libmodpdfium.so
+│   ├── librealm-jni.so
+│   ├── librsjni.so
+│   └── libRSSupport.so
+└── x86
+    ├── libBugtags.so
+    ├── libgifimage.so
+    ├── libgpuimage-library.so
+    ├── libimagepipeline.so
+    ├── libjniPdfium.so
+    ├── libmodpdfium.so
+    ├── librealm-jni.so
+    ├── librsjni.so
+    └── libRSSupport.so
+
+<span style="color:#ae81ff">4</span> directories, <span style="color:#ae81ff">33</span> files
+</code></pre></div><p><code>armeabi</code>, <code>armeabi-v7a</code>, <code>mips</code>, <code>x86</code> 兼容性非常良心，虽然都是第三方开源服务的</p>
+<ul>
+<li><code>Bugtags</code>：第三方的崩溃收集，都魔改了，咋收集啊</li>
+<li><code>gifimage</code>：本身打印用不上这玩意，估计社交的</li>
+<li><code>gpuimage-library</code>：同上</li>
+<li><code>imagepipeline</code>： +1</li>
+<li><code>jniPdfium</code>：删了，换 Google PDF</li>
+<li><code>jpush182</code>：删了推送，这东西挺烦的</li>
+<li><code>modpdfium</code>：删了</li>
+<li><code>realm-jni</code>：数据库留着吧</li>
+<li><code>rsjni</code>：没啥用的图像处理</li>
+<li><code>RSSupport</code>：+1</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ du -h smali*
+448K    smali/com/chad/library
+40K     smali/com/autonavi/aps
+216K    smali/com/umeng/socialize
+904K    smali/com/alipay/sdk
+112K    smali/com/scwang/smartrefresh
+184K    smali/com/getkeepsafe/relinker
+880K    smali/com/afollestad/materialdialogs
+652K    smali/com/android/volley
+4.3M    smali/com/itextpdf
+16K     smali/com/zhy/http/okhttp
+256K    smali/com/aspsine/swipetoloadlayout
+844K    smali/com/yunding/print
+7.9M    smali/com/amap/api
+116K    smali/com/loopj/android
+3.9M    smali/com/alibaba/fastjson
+2.0M    smali/com/alibaba/android
+468K    smali/com/yalantis/ucrop
+3.5M    smali/com/bumptech/glide
+220K    smali/com/nostra13/universalimageloader
+172K    smali/com/flipboard/bottomsheet
+360K    smali/com/daimajia/swipe
+600K    smali/com/bigkoo/pickerview
+3.7M    smali/com/facebook/imagepipeline
+40K     smali/com/zhihu/matisse
+412K    smali/com/github/ybq/android/spinkit
+228K    smali/com/github/chrisbanes/photoview
+468K    smali/com/github/barteksc/pdfviewer
+1.7M    smali/com/google/gson
+4.2M    smali/com/google/zxing
+56K     smali/jp/co/cyberagent/android/gpuimage
+268K    smali/bolts
+60K     smali/butterknife/internal
+72K     smali/me/iwf/photopicker
+12K     smali/org/greenrobot/eventbus
+44K     smali/org/apache/http
+40K     smali/org/jetbrains/annotations
+104K    smali/org/intellij/lang
+16K     smali/rx/schedulers
+12K     smali/rx/android
+12K     smali/rx/annotations
+32K     smali/rx/exceptions
+28K     smali/rx/internal
+500K    smali/io/realm
+28K     smali/io/bugtags
+212K    smali/cn/yinle
+1.9M    smali/cn/msy/lib
+3.6M    smali_classes2/com/umeng
+2.7M    smali_classes2/com/scwang/smartrefresh
+916K    smali_classes2/com/nineoldandroids
+15M     smali_classes2/com/itextpdf
+68K     smali_classes2/com/shockwave/pdfium
+72K     smali_classes2/com/shockwave
+392K    smali_classes2/com/zhy/http
+216K    smali_classes2/com/zhy/view/flowlayout
+284K    smali_classes2/com/youth/banner
+19M     smali_classes2/com/yunding/print
+628K    smali_classes2/com/loopj/android
+384K    smali_classes2/com/ta/utdid2
+412K    smali_classes2/com/yalantis/ucrop
+16K     smali_classes2/com/ut/device
+1.1M    smali_classes2/com/nostra13/universalimageloader
+124K    smali_classes2/com/novell/sasl
+632K    smali_classes2/com/journeyapps/barcodescanner
+80K     smali_classes2/com/mcxtzhang/swipemenulib
+488K    smali_classes2/com/kenai/jbosh
+732K    smali_classes2/com/tencent/mm/opensdk
+876K    smali_classes2/com/zhihu/matisse
+120K    smali_classes2/jp/wasabeef/blurry
+304K    smali_classes2/jp/wasabeef/glide
+1.0M    smali_classes2/jp/co/cyberagent/android/gpuimage
+2.6M    smali_classes2/okhttp3
+460K    smali_classes2/me/zhanghai/android/materialprogressbar
+812K    smali_classes2/me/iwf/photopicker
+188K    smali_classes2/me/gujun/android/taggroup
+20K     smali_classes2/flipboard/bottomsheet
+120K    smali_classes2/it/sephiroth/android/library/easing
+208K    smali_classes2/it/sephiroth/android/library/imagezoom
+1.9M    smali_classes2/org/xbill/DNS
+360K    smali_classes2/org/greenrobot/eventbus
+60K     smali_classes2/org/apache/qpid/management
+1.4M    smali_classes2/org/apache/http
+428K    smali_classes2/org/apache/harmony
+8.0K    smali_classes2/org/intellij/lang/annotations
+60K     smali_classes2/org/json/alipay
+2.3M    smali_classes2/org/jivesoftware/smack
+6.7M    smali_classes2/rx
+592K    smali_classes2/okio
+2.2M    smali_classes2/io/realm
+56K     smali_classes2/de/measite/smack
+240K    smali_classes2/top/zibin/luban
+248K    smali_classes2/top
+1.9M    smali_classes2/u/aly
+</code></pre></div><p>以 <code>jpush</code> 为例，修改代码</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ grep -nr <span style="color:#e6db74">&#34;jpush&#34;</span> smali*/*
+smali/com/yunding/print/activities/YDApplication.smali:272:    invoke-static <span style="color:#f92672">{</span>v3<span style="color:#f92672">}</span>, Lcn/jpush/android/api/JPushInterface;-&gt;setDebugMode<span style="color:#f92672">(</span>Z<span style="color:#f92672">)</span>V
+smali/com/yunding/print/activities/YDApplication.smali:275:    invoke-static <span style="color:#f92672">{</span>p0<span style="color:#f92672">}</span>, Lcn/jpush/android/api/JPushInterface;-&gt;init<span style="color:#f92672">(</span>Landroid/content/Context;<span style="color:#f92672">)</span>V
+smali/com/yunding/print/activities/YDApplication.smali:282:    invoke-static <span style="color:#f92672">{</span>v3, v5<span style="color:#f92672">}</span>, Lcn/jpush/android/api/JPushInterface;-&gt;setLatestNotificationNumber<span style="color:#f92672">(</span>Landroid/content/Context;I<span style="color:#f92672">)</span>V
+</code></pre></div><p>遂删除如上所示行，并移除 Jpush sdk 和 lib 文件</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">    .line <span style="color:#ae81ff">67</span>
+    const/4 v3, 0x0
+
+    invoke-static <span style="color:#f92672">{</span>v3<span style="color:#f92672">}</span>, Lcn/jpush/android/api/JPushInterface;-&gt;setDebugMode<span style="color:#f92672">(</span>Z<span style="color:#f92672">)</span>V
+
+    .line <span style="color:#ae81ff">68</span>
+    invoke-static <span style="color:#f92672">{</span>p0<span style="color:#f92672">}</span>, Lcn/jpush/android/api/JPushInterface;-&gt;init<span style="color:#f92672">(</span>Landroid/content/Context;<span style="color:#f92672">)</span>V
+
+    invoke-static <span style="color:#f92672">{</span>v3, v5<span style="color:#f92672">}</span>, Lcn/jpush/android/api/JPushInterface;-&gt;setLatestNotificationNumber<span style="color:#f92672">(</span>Landroid/content/Context;I<span style="color:#f92672">)</span>V
+</code></pre></div><ul>
+<li>lib/armeabi/libjpush182.so</li>
+<li>lib/armeabi-v7a/libjpush182.so</li>
+<li>smali/cn/jpush</li>
+</ul>
+<p>对于多数情况，可能 <code>mips</code> 和 <code>x86</code> 的库也是非必要的</p>
+<p>当移除 <code>lib/mips</code> 和 <code>lib/x86</code> 之后，体积减小 10 MB 左右，但是兼容性有所下降。</p>
+<p>之后我们能发现，<code>itextpdf</code> 和 <code>zhihu</code> 占用并不算小</p>
+<p>itextpdf: 本地 PDF 生成，不存在将从服务器下载
+zhihu: 图片选择器，用于聊天和消息界面</p>
+<p>删除这 2 个 sdk 文件夹，因为 <code>apktool</code> 并不会分析程序内部引用关系，所以只要用户不启用这个方法，该 bug 将不会出现，对此，我们可以通过在 layout 中隐藏对应控件，或者删除其事件，Android 的资源 id 需要善用搜索，如同其他分析方法一样，从静态资源入手，诸如 <code>title</code>，<code>tip</code> 都是可以轻易引导出所在 Java 文件的位置。</p>
+<p>再说 <code>itextpdf</code> 和 <code>Pdfium</code> 一个是离线生成 PDF 一个是 PDF 预览，压缩之前是 20 MB，但是压缩之后不到 3 MB。</p>
+<ul>
+<li>com/github/barteksc/pdfviewer</li>
+<li>com/shockwave/pdfium</li>
+</ul>
+<p>而 <code>Pdfium</code> 可以修改 <code>com/yunding/print/ui/file/FilePreviewFragment.smali</code> 来调用外部软件处理预览问题，但是本身也挺有用的。</p>
+<p>通过以上简单的处理，apk 仅仅缩减到 25.8 Mb，可见缩减这事还有很大的开发空间。</p>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

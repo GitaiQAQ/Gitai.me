@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>翻译 on Gitai.me</title>
+    <link>https://gitai.me/categories/%E7%BF%BB%E8%AF%91/</link>
+    <description>Recent content in 翻译 on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Sun, 23 Apr 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/categories/%E7%BF%BB%E8%AF%91/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker 下运行 Apache Beam 的例子</title>
+      <link>https://gitai.me/2017/04/a-quick-demo-of-apache-beam-with-docker/</link>
+      <pubDate>Sun, 23 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/04/a-quick-demo-of-apache-beam-with-docker/</guid>
+      <description>&lt;p&gt;Apache Beam 是一个标准的编程模块，用于创建批处理和流式数据处理管道。&lt;/p&gt;
+&lt;p&gt;简言之,这是一个 Java SDK，我们可以使用它来开发分析管道，如计算用户或事件，提取热门话题，或者分析用户会话。&lt;/p&gt;
+&lt;p&gt;在这篇文章中，将说明如何在数分钟内启动一个 Apache Beam 的 demo ，得益于 docker 预打包的 Apache Flink 和 Beam。&lt;/p&gt;
+&lt;p&gt;开始创建梁管道的 demo 也可以在 &lt;a href=&#34;https://github.com/ecesena/beam-starter&#34;&gt;Github&lt;/a&gt; 上找到。&lt;/p&gt;
+&lt;p&gt;为了运行这个 demo， 我没需要 docker 和 docker-compose，为了运行 Beam 我们还需要 Java 和 Maven。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ChromiumOS 快速开始指南</title>
+      <link>https://gitai.me/2017/03/sdk-creation/</link>
+      <pubDate>Thu, 23 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/03/sdk-creation/</guid>
+      <description>&lt;h2 id=&#34;介绍&#34;&gt;介绍&lt;/h2&gt;
+&lt;p&gt;Chromium OS 项目有一个开发者工具包来提供一个独立的环境来构建目标系统。&lt;/p&gt;
+&lt;p&gt;当你使用它，它只是一个 Gentoo/Linux  chroot，有很多构建脚本，以简化和自动化的整体构建过程。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>修改 CoreOS: 提示和技巧</title>
+      <link>https://gitai.me/2017/03/sdk-tips-and-tricks/</link>
+      <pubDate>Tue, 21 Mar 2017 01:06:19 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/03/sdk-tips-and-tricks/</guid>
+      <description>&lt;h2 id=&#34;找到所有打开的请求和问题&#34;&gt;找到所有打开的请求和问题&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/issues?user=coreos&#34;&gt;CoreOS Issues&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/pulls?user=coreos&#34;&gt;CoreOS Pull Requests&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>修改 CoreOS</title>
+      <link>https://gitai.me/2017/03/sdk-modifying-coreos/</link>
+      <pubDate>Sun, 12 Mar 2017 01:06:19 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/03/sdk-modifying-coreos/</guid>
+      <description>&lt;p&gt;这些是构建 Container Linux 本身的说明。 在本指南结束时，您将构建一个可以在 KVM 下运行的开发版映像，并具有用于更改代码的工具。&lt;/p&gt;
+&lt;p&gt;容器 Linux 是一个开源项目。 所有的容器 Linux 的源都可以在 &lt;a href=&#34;https://github.com/coreos/&#34;&gt;github&lt;/a&gt; 上。 如果您发现这些文档或代码的问题，请发送pull请求。&lt;/p&gt;
+&lt;p&gt;直接发问题和建议到&lt;a href=&#34;irc://irc.freenode.org:6667/#coreos&#34;&gt;IRC频道&lt;/a&gt;或&lt;a href=&#34;https://groups.google.com/forum/#!forum/coreos-dev&#34;&gt;邮件列表&lt;/a&gt;。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>串口通讯基础</title>
+      <link>https://gitai.me/2017/02/serial-input-basics/</link>
+      <pubDate>Fri, 10 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/02/serial-input-basics/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;一个准备入硬件坑的软件工程师&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;目录&#34;&gt;目录&lt;/h1&gt;
+&lt;p&gt;本教程中的以下部分&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;简介&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Arduino标准的串行数据缓慢&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例1 - 接收单个字符&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;为什么代码被组织到函数中&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例2 - 从串行监视器接收多个字符&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例3 - 更完整的系统&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;可以接收多少个字符？&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例中未使用的事件&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;serialEvent（）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;清除输入缓冲区&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;接收数字而不是文本&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例4 - 从串行监视器接收单个数字&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例5 - 接收和解析数个数据&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;二进制数据&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例6 - 接收二进制数据的程序请注意，本教程将继续进入接下来的2个帖子&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>强类型 on Gitai.me</title>
+    <link>https://gitai.me/tags/%E5%BC%BA%E7%B1%BB%E5%9E%8B/</link>
+    <description>Recent content in 强类型 on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Sun, 02 Jun 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/%E5%BC%BA%E7%B1%BB%E5%9E%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Singularity —— HTTP API 类型系统的设计</title>
+      <link>https://gitai.me/2019/06/singularity/</link>
+      <pubDate>Sun, 02 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/06/singularity/</guid>
+      <description>预示项目的起点，通过接口定义，完成前后端，测试的自动化。 一般的接口定义服务都要求语言无关，比如 RAML[^RAML] RESTful API Modeling Language，是设计接口的一种方式</description>
+    </item>
+    
+  </channel>
+</rss>

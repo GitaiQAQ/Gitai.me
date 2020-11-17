@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>从 0 开始的 IoT 学习小记 | Gitai.me</title>
+
+<meta property='og:title' content='从 0 开始的 IoT 学习小记 - Gitai.me'>
+<meta property='og:description' content='IoT 平台类型
+WoT.City 将 IoT 开发平台分为以下 3 种：
+
+Single Board Computer － 例如：Intel Edison
+High Performance MCU － 例如：ARM mbed
+WiFi MCU － 例如：ESP8266 與 NodeMCU
+
+一般来说，不同类型的 IoT 开发平台，也会有不同的 IoT Cloud 架构，以及不同的 IoT Diagram（Use Scenario）。WoT.City 的 Web of Things Framework 就是依靠不同 IoT 类型，设计出不同的 WoT Server 架构。
+
+
+
+IoT Node (Device Type)
+Solution Platform
+IoT Diagram (Use Scenario)
+
+
+
+
+Single Board Computer (SBC)
+Intel Edison、Qualcomm Dragonboard 410c etc.
+IoT Router etc.
+
+
+High Performance MCU
+ARM mbed OS、Neuclio
+Sensor hub (Time-series Data Type) etc.
+
+
+WiFi MCU
+ESP8266、NodeMCU、EMW3165 etc.
+Sensor hub (Interrupt Type)、Network controller etc.
+
+
+
+: Device Types of IoT Node'>
+<meta property='og:url' content='https://gitai.me/2017/04/re-zero-starting-in-iot/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='记录'><meta property='article:published_time' content='2017-04-13T00:00:00Z'/><meta property='article:modified_time' content='2017-04-13T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2017/04/re-zero-starting-in-iot/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/%E8%AE%B0%E5%BD%95/">#记录</a>
+
+
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">April 13, 2017</h2>
+    <h1 class="title">从 0 开始的 IoT 学习小记</h1>
+    
+    <div class="content">
+      <h2 id="iot-平台类型">IoT 平台类型</h2>
+<p>WoT.City 将 IoT 开发平台分为以下 3 种：</p>
+<ul>
+<li>Single Board Computer － 例如：Intel Edison</li>
+<li>High Performance MCU － 例如：ARM mbed</li>
+<li>WiFi MCU － 例如：ESP8266 與 NodeMCU</li>
+</ul>
+<p>一般来说，不同类型的 IoT 开发平台，也会有不同的 IoT Cloud 架构，以及不同的 IoT Diagram（Use Scenario）。WoT.City 的 Web of Things Framework 就是依靠不同 IoT 类型，设计出不同的 WoT Server 架构。</p>
+<table>
+<thead>
+<tr>
+<th>IoT Node (Device Type)</th>
+<th>Solution Platform</th>
+<th>IoT Diagram (Use Scenario)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single Board Computer (SBC)</td>
+<td>Intel Edison、Qualcomm Dragonboard 410c etc.</td>
+<td>IoT Router etc.</td>
+</tr>
+<tr>
+<td>High Performance MCU</td>
+<td>ARM mbed OS、Neuclio</td>
+<td>Sensor hub (Time-series Data Type) etc.</td>
+</tr>
+<tr>
+<td>WiFi MCU</td>
+<td>ESP8266、NodeMCU、EMW3165 etc.</td>
+<td>Sensor hub (Interrupt Type)、Network controller etc.</td>
+</tr>
+</tbody>
+</table>
+<p>: Device Types of IoT Node</p>
+<h2 id="简介">简介</h2>
+<blockquote>
+<p>ESP8266 是低功耗、高集成度的 Wi-Fi 芯片，仅需 7 个外围元器件，超宽工作温度范围：-40°C 至 +125°C</p>
+</blockquote>
+<blockquote>
+<p>ESP8285 － ESP8266 内封 8 Mbit Flash</p>
+</blockquote>
+<blockquote>
+<p><a href="http://espressif.com/zh-hans">乐鑫</a>是上海的一家公司,有些关于ESP8266的资料可以从上面下载到。还有一点NodeMcu上面搭配的soc是ESP-12E，目前比较新的是ESP-12F，具体差别看国内ESP-8266国内代理的深圳安信可的说法是：</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>ESP8266-12F 是 ESP8266-12 的增强版，完善外围电路，四层板板工艺，增强阻抗匹配，信号输出更佳，无论是稳定性还是抗干扰能力，PCB天线经过专业实验室测试，完美匹配，经过ROHS认证，都得到了大幅度的提升！对于之前选择ESP-12的用户，即使已经做出产品也没关系，增强版完全兼容之前固件，引脚在ESP-12的基础上又新增六个IO口、SPI口引出，开发更加便捷，应用更加广泛！</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>NodeMCU 是一款以 ESP8266 做為基礎的開發板。ESP8266（以及 NodeMCU）都是屬於 IoT 開發平臺中的 WiFi MCU 類型。</p>
+</blockquote>
+<ul>
+<li><a href="https://zh.wikipedia.org/wiki/NodeMCU">NodeMCU</a></li>
+</ul>
+<p>综述：</p>
+<p>NodeMCU 开发板 = ESP8266 模组 + USB to serial 芯片 + NodeMCU firmware</p>
+<h2 id="esp8266-模组esp8266_mod">ESP8266 模组<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>模组有很多版本，官方国内代理有个列表<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
+<p><img src="https://ooo.0o0.ooo/2017/05/15/5919b298c877d.png" alt="esp8266_module_list.png">
+<a href="http://www.kloppenborg.net/blog/microcontrollers/2016/08/02/getting-started-with-the-esp8266"><img src="https://ooo.0o0.ooo/2017/05/15/5919b29810464.png" alt="esp8266-esp12e-pinout"></a>
+<img src="https://ooo.0o0.ooo/2017/05/15/5919b3694804a.jpg" alt="esp8266-esp12e"></p>
+<p>由于小巧，设计合理，可以很容易嵌入到你的开发板中，不过如果作为开发板使用，还是需要外部焊接一些基础电路的，比如复位电路，指示灯作用的LED等。</p>
+<p>另外套件仅仅这些，如果需要跟电脑通信还需要自己准备一条 TTL232 线。官方建议的学习方式如下图所示：</p>
+<p><img src="https://ooo.0o0.ooo/2017/05/15/5919b4af650ec.jpg" alt="ttl232"></p>
+<p>我选的是据说稳定一些的 CP2102 芯片的转换器，但是没有全 IO 导出，并不是很好用，以下为接线图</p>
+<p><img src="https://ooo.0o0.ooo/2017/05/15/5919b297cceff.jpg" alt="Flashing-The-ESP8266-ESP201-Module-Board-With-TTL-UART.jpg"></p>
+<p><a href="http://sky4s.blogspot.com/2015/11/esp8266-esp-201-x-arduino.html">http://sky4s.blogspot.com/2015/11/esp8266-esp-201-x-arduino.html</a></p>
+<p>然后没成功，就入了 nodeMCU</p>
+<p><img src="https://ooo.0o0.ooo/2017/05/15/5919b29836076.png" alt="esp8266-nodemcu-pinout">
+<img src="https://ooo.0o0.ooo/2017/05/15/5919b3e46cd2b.jpg" alt="esp8266-nodemcu"></p>
+<p>如果你把排针全部焊接，通常如下图样式。其中两边对称的焊接向下，方便插入面包板或接入自己的电路板。顶端的6针焊接向上，方便直接连接串口调试或学习。</p>
+<p><img src="https://i.loli.net/2020/03/11/fiTruKgHVvPWM38.jpg" alt="ESP8266-pinout_1_.jpg"></p>
+<h2 id="集成开发板选购">集成开发板选购</h2>
+<p>NodeMCU 结合以上</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Generation</th>
+<th style="text-align:left">Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">V1</td>
+<td style="text-align:left">0.9</td>
+</tr>
+<tr>
+<td style="text-align:center">V2</td>
+<td style="text-align:left">1.0</td>
+</tr>
+<tr>
+<td style="text-align:center">V3</td>
+<td style="text-align:left">1.0</td>
+</tr>
+</tbody>
+</table>
+<p>目前有三个主要生产商：Amica（见下面的“ NodeMCU和Amica ”），DOIT/SmartArduino 和 LoLin/WeMos。</p>
+<h3 id="v1">V1</h3>
+<p>在已经过时的 V1 版本中，通常是黄色 PCB 板。47mm x 31mm 意味着它覆盖了常规面包板的所有10个针脚，这使得使用非常不方便。似乎主要由 Amica 生产。</p>
+<ul>
+<li>USB to serial 芯片是 CH320</li>
+<li>内置芯片是 ESP-12</li>
+</ul>
+<p><img src="https://ooo.0o0.ooo/2017/05/15/5919b5bba8580.jpg" alt="NodeMcu Lua WIFI Development Board For ESP8266 Module — Banggood"></p>
+<p><img src="https://ooo.0o0.ooo/2017/05/15/5919b60c12935.png" alt="第一代ESP8266 NodeMCU开发板的引脚布局"></p>
+<h3 id="v2">V2</h3>
+<ul>
+<li>USB to serial 芯片是 CP2102</li>
+<li>内置芯片是 ESP-12E</li>
+<li>更窄，适合面包板</li>
+</ul>
+<p><img src="https://ooo.0o0.ooo/2017/05/15/5919b628b0fe8.jpg" alt="V2 CP2102 4M FLASH NodeMcu Lua WIFI Internet of Things development board ESP8266"></p>
+<p><img src="https://ooo.0o0.ooo/2017/05/15/5919b6570c8aa.png" alt="第二代ESP8266 NodeMCU开发板的引脚布局"></p>
+<h3 id="v3">V3</h3>
+<p>V3是什么？NodeMCU迄今尚未发布新规范。因此，没有官方的第三代开发板。原来，V3 是由生产商 LoLin 发明的 “V2 ” 版本，用于表示对 V2 板的小改进。其中他们声称其USB端口更加强大。</p>
+<ul>
+<li>USB to serial 芯片是 CH340G</li>
+<li>体积更大</li>
+</ul>
+<p><img src="https://ooo.0o0.ooo/2017/05/15/5919b66ea74cc.jpg" alt="LoLin NodeMCU 开发板 V3 的引脚布局">
+<img src="https://ooo.0o0.ooo/2017/05/15/5919b6894c12b.jpg" alt="LoLin V3 NodeMcu Lua WIFI Development Board"></p>
+<p>如果你比较引脚布局，那么 V2 版本只有一点微小的差别。LoLin 决定使用两个备用引脚中的一个用于 USB 电源输出，另一个用于额外的 GND。</p>
+<blockquote>
+<p>注意大小的差异！该 LoLin 板显然大于 Amica 和 DOIT  V2 板。
+因为它的大小，我永远不会使用它。有明显更好的选择。</p>
+</blockquote>
+<p>什么是 LoLin 与 WeMos 有关？我希望我知道&hellip;你看到的引脚布局最初是托管在wemos.cc，但是链接现在已经死了。</p>
+<h3 id="官方-vs-非官方">官方 vs 非官方</h3>
+<p>NodeMCU 在 Facebook 上张贴了一张照片，显示官方和非官方的 V2 板。</p>
+<p><img src="https://ooo.0o0.ooo/2017/05/15/5919b6b09d6f2.jpg" alt="官方NodeMCU 1.0/V2开发板"></p>
+<p>这可能意味着 Amica 是“认可的”生产者，而 DOIT 和 LoLin 并不是。</p>
+<h3 id="备选的方案comparison-of-esp8266-nodemcu-development-boards">备选的方案<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></h3>
+<h2 id="配件">配件</h2>
+<p>以下为个人顺手弄回来的配件</p>
+<p>MB-102 830 Point Solderless PCB Breadboard:</p>
+<ul>
+<li>Quantity: 1 Pc</li>
+<li>Model: MB-102</li>
+<li>Dimension: 16.7 x 5.7 x 1cm</li>
+<li>Tie Points: 830 tie points (consists of: 630 tie-point terminal strip, 200 tie-point distribution strips)</li>
+<li>Matrix: 126 separate 5 point terminals, plus 4 horizontal bus lines (Power Lines) of 50 test points each</li>
+<li>Wire size: Suitable for 20~29 AWG (0.3mm ~ 0.8mm) wires</li>
+</ul>
+<p>MB-102 Power Supply Module:</p>
+<ul>
+<li>Input voltage: 6.5V ~ 12 V DC / USB power supply</li>
+<li>Output voltage: 3.3V / 5V can switch over</li>
+<li>Maximum output current: &lt;700mA</li>
+<li>Fluctuation two road independent control, can switch over to 0V, 3.3V, 5V</li>
+<li>On-board two groups of 3.3V, 5V DC output plug pin, convenient external lead use</li>
+<li>Size: 5.3 x 3.2 x 2.5cm</li>
+</ul>
+<p>Note: If using the USB can not work, please use DC power.</p>
+<p>但是咱漏了个适配器，USB 是母端口的，不知道咋用（但是并不妨碍直接拿 2 接线柱给他强行通电</p>
+<p>Jump Cable Wires:</p>
+<ul>
+<li>Breadboard jumper cable wires</li>
+<li>Typically used for electronics projects</li>
+<li>Wires are flexible, durable, reusable, easy to trace</li>
+<li>Easy to connect and disconnect</li>
+<li>Quantity: 65 Pcs</li>
+</ul>
+<h2 id="参考esp8266-nodemcu-iot-starter">参考<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup></h2>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="http://www.21ic.com/eva/Expansion/201608/683416.htm">ESP8266也可以用Lua脚本玩——NodeMCU ESP8266评测</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p><a href="http://wiki.ai-thinker.com/esp8266">ESP8266 系列模组专题</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p><a href="https://frightanic.com/iot/comparison-of-esp8266-nodemcu-development-boards/">Comparison of ESP8266 NodeMCU development boards</a> <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p><a href="https://wotcity.com/blog/2015/08/31/esp8266-nodemcu-iot-starter-part-1/">ESP8266 &amp; NodeMCU 開發入門</a> <a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

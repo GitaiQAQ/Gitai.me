@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>串口通讯基础 | Gitai.me</title>
+
+<meta property='og:title' content='串口通讯基础 - Gitai.me'>
+<meta property='og:description' content='
+一个准备入硬件坑的软件工程师
+
+目录
+本教程中的以下部分
+
+
+简介
+
+
+Arduino标准的串行数据缓慢
+
+
+示例1 - 接收单个字符
+
+
+为什么代码被组织到函数中
+
+
+示例2 - 从串行监视器接收多个字符
+
+
+示例3 - 更完整的系统
+
+
+可以接收多少个字符？
+
+
+示例中未使用的事件
+
+
+serialEvent（）
+
+
+清除输入缓冲区
+
+
+接收数字而不是文本
+
+
+示例4 - 从串行监视器接收单个数字
+
+
+示例5 - 接收和解析数个数据
+
+
+二进制数据
+
+
+示例6 - 接收二进制数据的程序请注意，本教程将继续进入接下来的2个帖子
+
+'>
+<meta property='og:url' content='https://gitai.me/2017/02/serial-input-basics/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='记录'><meta property='article:published_time' content='2017-02-10T00:00:00Z'/><meta property='article:modified_time' content='2017-02-10T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2017/02/serial-input-basics/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/%E8%AE%B0%E5%BD%95/">#记录</a>
+
+
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">February 10, 2017</h2>
+    <h1 class="title">串口通讯基础</h1>
+    
+    <div class="content">
+      <blockquote>
+<p>一个准备入硬件坑的软件工程师</p>
+</blockquote>
+<h1 id="目录">目录</h1>
+<p>本教程中的以下部分</p>
+<ul>
+<li>
+<p>简介</p>
+</li>
+<li>
+<p>Arduino标准的串行数据缓慢</p>
+</li>
+<li>
+<p>示例1 - 接收单个字符</p>
+</li>
+<li>
+<p>为什么代码被组织到函数中</p>
+</li>
+<li>
+<p>示例2 - 从串行监视器接收多个字符</p>
+</li>
+<li>
+<p>示例3 - 更完整的系统</p>
+</li>
+<li>
+<p>可以接收多少个字符？</p>
+</li>
+<li>
+<p>示例中未使用的事件</p>
+</li>
+<li>
+<p>serialEvent（）</p>
+</li>
+<li>
+<p>清除输入缓冲区</p>
+</li>
+<li>
+<p>接收数字而不是文本</p>
+</li>
+<li>
+<p>示例4 - 从串行监视器接收单个数字</p>
+</li>
+<li>
+<p>示例5 - 接收和解析数个数据</p>
+</li>
+<li>
+<p>二进制数据</p>
+</li>
+<li>
+<p>示例6 - 接收二进制数据的程序请注意，本教程将继续进入接下来的2个帖子</p>
+</li>
+</ul>
+<h1 id="简介">简介</h1>
+<p>新人通常似乎在接收Arduino上的串行数据的过程中遇到困难 - 特别是当他们需要接收更多字符时。</p>
+<p>事实上，<a href="http://www.arduino.cc/en/Reference/Serial">串行参考</a>页面列出了18个不同的功能，但是可能然并卵。即使您编写一本书，但仍未涵盖所有可能情况。</p>
+<p>比起写几页的页面，我认为提出覆盖所有新手的需求的几个例子将会更有用。当您了解这些示例时，您应该能够找出其他特殊案例的解决方案。</p>
+<p>几乎所有串行输入数据都可以被三种简单的情况覆盖</p>
+<ul>
+<li>只需要一个字符时</li>
+<li>只需要串行监视器的简单手动输入时</li>
+<li>其他</li>
+</ul>
+<h1 id="串行数据由arduino标准缓慢">串行数据由Arduino标准缓慢</h1>
+<p>当任何东西向 Arduino 发送串行数据时，它将被以设置的波特率速度发送到 Arduino 缓冲区。在 9600 波特每秒大约发送 960 个字符，这意味着字符发送间隔仅仅刚超过1毫秒。</p>
+<blockquote>
+<p>波特率 vs 比特率</p>
+</blockquote>
+<p>Arduino 可以在 1 毫秒内做很多工作，因此，即使所有数据尚未到达，下面的代码也不会浪费时间等待输入缓冲区中的任何内容。即使在 115200 波特，字符之间仍然有 86 微秒或 1376 个 Arduino 指令执行时间。</p>
+<blockquote>
+<p>指令执行时间</p>
+</blockquote>
+<p>而且由于数据传输相对较慢，即使所有数据尚未到达，Arduino也很容易清空串行输入缓冲区。</p>
+<p>许多新手做出错误，比如用 <code>Serial.available（）&gt; 0</code> 将接收发送的所有数据的东西。但是即使只有部分数据已到达，这一会儿也可能会清空缓冲区。</p>
+<h1 id="示例1---接收单个字符">示例1 - 接收单个字符</h1>
+<p>在很多情况下，需要的是向 Arduino 发送一个字符。</p>
+<p>在大写和小写字母之间，数字字符有 62 个选项。</p>
+<p>例如，您可以使用 <code>F</code> 作为前进，<code>R</code> 作为反向，<code>S</code> 停止。</p>
+<p>接收单个字符的代码如以下内容一样简单</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#f92672">/</span> Example <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> Receiving single characters
+
+<span style="color:#66d9ef">char</span> receivedChar;
+boolean newData <span style="color:#f92672">=</span> false;
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setup</span>() {
+    Serial.begin(<span style="color:#ae81ff">9600</span>);
+    Serial.println(<span style="color:#e6db74">&#34;&lt;Arduino is ready&gt;&#34;</span>);
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">loop</span>() {
+    recvOneChar();
+    showNewData();
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">recvOneChar</span>() {
+    <span style="color:#66d9ef">if</span> (Serial.available() <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {
+        receivedChar <span style="color:#f92672">=</span> Serial.read();
+        newData <span style="color:#f92672">=</span> true;
+    }
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">showNewData</span>() {
+    <span style="color:#66d9ef">if</span> (newData <span style="color:#f92672">==</span> true) {
+        Serial.print(<span style="color:#e6db74">&#34;This just in ... &#34;</span>);
+        Serial.println(receivedChar);
+        newData <span style="color:#f92672">=</span> false;
+    }
+}
+</code></pre></div><h1 id="为什么代码被组织进函数">为什么代码被组织进函数</h1>
+<p>即使这个例子很简单，我也故意把接收放到一个单独的函数 <code>recvOneChar()</code>，这样就可以很容易地将它添加到任何其他程序。</p>
+<p>我将显示函数 <code>showNewData()</code> 单独编写，因为你可以改变代码，以做任何你想要的，而不会打乱其余的代码。</p>
+<p>如果您希望在自己的程序中使用任何示例中的代码，我建议您只从相关示例中复制完整的函数，并在自己的程序的顶部创建必要的全局变量。</p>
+<h1 id="示例2---从串行监视器接收几个字符">示例2 - 从串行监视器接收几个字符</h1>
+<p>如果您需要从串行监视器接收多个字符（也许您想输入人员名称），则需要一些让 Arduino 知道何时它收到了完整的消息的方法。最简单的方法是将行尾设置为换行符。</p>
+<p>这是通过串行监视器窗口底部的框完成的。您可以选择 <code>No line ending</code>, <code>Newline</code>, <code>Carriage return</code> 和 <code>Both NL and CR</code>.。当您选择 <code>Newline</code> 选项时，将在发送的所有内容中添加新行字符 <code>\n</code>。您将需要一些让 Arduino 知道收到完整信息的方法。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#75715e">// Example 2 - Receive with an end-marker
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">const</span> byte numChars <span style="color:#f92672">=</span> <span style="color:#ae81ff">32</span>;
+<span style="color:#66d9ef">char</span> receivedChars[numChars];   <span style="color:#75715e">// an array to store the received data
+</span><span style="color:#75715e"></span>
+boolean newData <span style="color:#f92672">=</span> false;
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setup</span>() {
+    Serial.begin(<span style="color:#ae81ff">9600</span>);
+    Serial.println(<span style="color:#e6db74">&#34;&lt;Arduino is ready&gt;&#34;</span>);
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">loop</span>() {
+    recvWithEndMarker();
+    showNewData();
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">recvWithEndMarker</span>() {
+    <span style="color:#66d9ef">static</span> byte ndx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">char</span> endMarker <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\n&#39;</span>;
+    <span style="color:#66d9ef">char</span> rc;
+    
+    <span style="color:#66d9ef">while</span> (Serial.available() <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> newData <span style="color:#f92672">==</span> false) {
+        rc <span style="color:#f92672">=</span> Serial.read();
+
+        <span style="color:#66d9ef">if</span> (rc <span style="color:#f92672">!=</span> endMarker) {
+            receivedChars[ndx] <span style="color:#f92672">=</span> rc;
+            ndx<span style="color:#f92672">++</span>;
+            <span style="color:#66d9ef">if</span> (ndx <span style="color:#f92672">&gt;=</span> numChars) {
+                ndx <span style="color:#f92672">=</span> numChars <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+            }
+        }
+        <span style="color:#66d9ef">else</span> {
+            receivedChars[ndx] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>; <span style="color:#75715e">// terminate the string
+</span><span style="color:#75715e"></span>            ndx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+            newData <span style="color:#f92672">=</span> true;
+        }
+    }
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">showNewData</span>() {
+    <span style="color:#66d9ef">if</span> (newData <span style="color:#f92672">==</span> true) {
+        Serial.print(<span style="color:#e6db74">&#34;This just in ... &#34;</span>);
+        Serial.println(receivedChars);
+        newData <span style="color:#f92672">=</span> false;
+    }
+}
+</code></pre></div><p>该版本的程序将所有字符读入数组，直到检测到换行符为止。</p>
+<h1 id="示例3---更完整的系统">示例3 - 更完整的系统</h1>
+<p>示例2中的简单系统将与不会试图混淆的和谐的人一起稳定的工作。</p>
+<p>但是，如果发送数据的计算机或人员无法知道 Arduino 何时准备接收，真正风险是 Arduino 将无法知道数据开始。</p>
+<p>如果您想了解这一点，请将上一个程序中的结束标记从 <code>\n</code> 更改为 <code>&gt;</code> ，以便在文本中包含结束标记以进行说明。（您不能在从串行监视器发送的文本中手动输入换行字符）。并将行结束回到 <code>qwert&gt;</code></p>
+<p>这个问题的答案是包括一个开始标记和一个结束标记。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#75715e">// Example 3 - Receive with start- and end-markers
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">const</span> byte numChars <span style="color:#f92672">=</span> <span style="color:#ae81ff">32</span>;
+<span style="color:#66d9ef">char</span> receivedChars[numChars];
+
+boolean newData <span style="color:#f92672">=</span> false;
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setup</span>() {
+    Serial.begin(<span style="color:#ae81ff">9600</span>);
+    Serial.println(<span style="color:#e6db74">&#34;&lt;Arduino is ready&gt;&#34;</span>);
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">loop</span>() {
+    recvWithStartEndMarkers();
+    showNewData();
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">recvWithStartEndMarkers</span>() {
+    <span style="color:#66d9ef">static</span> boolean recvInProgress <span style="color:#f92672">=</span> false;
+    <span style="color:#66d9ef">static</span> byte ndx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">char</span> startMarker <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&lt;&#39;</span>;
+    <span style="color:#66d9ef">char</span> endMarker <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&gt;&#39;</span>;
+    <span style="color:#66d9ef">char</span> rc;
+ 
+    <span style="color:#66d9ef">while</span> (Serial.available() <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> newData <span style="color:#f92672">==</span> false) {
+        rc <span style="color:#f92672">=</span> Serial.read();
+
+        <span style="color:#66d9ef">if</span> (recvInProgress <span style="color:#f92672">==</span> true) {
+            <span style="color:#66d9ef">if</span> (rc <span style="color:#f92672">!=</span> endMarker) {
+                receivedChars[ndx] <span style="color:#f92672">=</span> rc;
+                ndx<span style="color:#f92672">++</span>;
+                <span style="color:#66d9ef">if</span> (ndx <span style="color:#f92672">&gt;=</span> numChars) {
+                    ndx <span style="color:#f92672">=</span> numChars <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+                }
+            }
+            <span style="color:#66d9ef">else</span> {
+                receivedChars[ndx] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>; <span style="color:#75715e">// terminate the string
+</span><span style="color:#75715e"></span>                recvInProgress <span style="color:#f92672">=</span> false;
+                ndx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+                newData <span style="color:#f92672">=</span> true;
+            }
+        }
+
+        <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (rc <span style="color:#f92672">==</span> startMarker) {
+            recvInProgress <span style="color:#f92672">=</span> true;
+        }
+    }
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">showNewData</span>() {
+    <span style="color:#66d9ef">if</span> (newData <span style="color:#f92672">==</span> true) {
+        Serial.print(<span style="color:#e6db74">&#34;This just in ... &#34;</span>);
+        Serial.println(receivedChars);
+        newData <span style="color:#f92672">=</span> false;
+    }
+}
+</code></pre></div><p>要看看它如何工作，尝试发送 <code>qwerty &lt;asdfg&gt; zxcvb</code> ，你会看到它忽略除了 <code>asdfg</code> 之外的所有内容。</p>
+<p>在这个程序中你会注意到有一个名为 recvInProgress 的新变量。</p>
+<p>这是必要的，因为需要在开始标记之前到达的不需要的字符与在开始标记之后到达的有效字符进行区分。</p>
+<p>该版本的程序与这个 Python - <a href="http://forum.arduino.cc/index.php?topic=225329.msg1810764#msg1810764">Arduino 演示</a> 中的 Arduino 代码非常相似。</p>
+<h1 id="它的工作原理">它的工作原理</h1>
+<p>重要的是要注意，每次调用函数recvWithEndMarker（）或recvWithStartEndMarker（）时，它会读取串行输入缓冲区中可能到达的任何字符，并将它们放在数组receivedChars中。</p>
+<p>如果缓冲区中没有任何内容recvWithEndMarker（）不浪费时间等待。</p>
+<p>在recvWithStartEndMarker（）的情况下，所有字符都被丢弃，直到检测到开始标记。</p>
+<p>如果结束标记尚未到达，则会在循环（）接下来重复时重试。</p>
+<p>为了获得最佳效果，重要的是确保loop（）可以尽可能快地重复 - 每秒数百甚至数千次。</p>
+<h1 id="可以收到多少个字符">可以收到多少个字符？</h1>
+<p>在这些例子中，我假设你不需要接收超过 32 个字节。这可以通过更改常量 numChars 中的值来轻松改变。</p>
+<p>请注意，Arduino 串行输入缓冲区的 64 字节大小不会限制您可以接收的字符数，因为示例中的代码可以比新数据到达时更快地清空缓冲区。</p>
+<h1 id="在示例中没有使用的东西">在示例中没有使用的东西</h1>
+<p>你会注意到这里的例子不使用任何这些Arduino函数</p>
+<pre><code>Serial.parseInt()
+Serial.parseFloat()
+Serial.readBytes()
+Serial.readBytesUntil()
+</code></pre><p>所有这些都是阻止功能，阻止 Arduino 在满足之前做任何事情，或者直到超时到期。这里的示例完全相同的作业没有阻止。这样可以让 Arduino 在等待数据到达时执行其他操作。</p>
+<p>所有这些都是阻止功能，阻止 Arduino 在满足之前做任何事情，或者直到超时到期。这里的示例完全相同的作业没有阻止。这样可以让 Arduino 在等待数据到达时执行其他操作。</p>
+<h1 id="serialevent">serialEvent()</h1>
+<p>我不建议使用这个功能 - 我更喜欢在适合我的时候处理串行数据。</p>
+<p>它的行为就好像你有这个代码作为 <code>loop()</code> 中的最后一件事情。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#66d9ef">if</span> (Serial.available <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {
+  mySerialEvent();
+}
+</code></pre></div><h1 id="清除输入缓冲区">清除输入缓冲区</h1>
+<p>值得一提的是，名称不大的 <code>Serial.flush()</code> 函数不会使输入缓冲区为空。只有当 Arduino 发送数据时，它的目的才是阻止 Arduino，直到所有传出的数据都被发送才有用。</p>
+<p>如果您需要确保串行输入缓冲区为空，您可以这样做</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#66d9ef">while</span> (Serial.available() <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {
+    Serial.read();
+}
+</code></pre></div><h1 id="接收数字而不是文本">接收数字而不是文本</h1>
+<p>到目前为止，这些例子假设你想要接收文本。但也许你想发送一个数字，或者混合文本和数字。</p>
+<h1 id="示例4---从串行监视器接收单个号码">示例4 - 从串行监视器接收单个号码</h1>
+<p>最简单的情况是您要在串行监视器中键入数字（我假设您的行结尾设置为换行符）。让我们假设你想发送号码 234。</p>
+<p>这是例2的一个变体，它可以使用任何整数值。请注意，如果您没有输入有效的数字，它将显示为 0（零）。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#75715e">// Example 4 - Receive a number as text and convert it to an int
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">const</span> byte numChars <span style="color:#f92672">=</span> <span style="color:#ae81ff">32</span>;
+<span style="color:#66d9ef">char</span> receivedChars[numChars];   <span style="color:#75715e">// an array to store the received data
+</span><span style="color:#75715e"></span>
+boolean newData <span style="color:#f92672">=</span> false;
+
+<span style="color:#66d9ef">int</span> dataNumber <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;             <span style="color:#75715e">// new for this version
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setup</span>() {
+    Serial.begin(<span style="color:#ae81ff">9600</span>);
+    Serial.println(<span style="color:#e6db74">&#34;&lt;Arduino is ready&gt;&#34;</span>);
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">loop</span>() {
+    recvWithEndMarker();
+    showNewNumber();
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">recvWithEndMarker</span>() {
+    <span style="color:#66d9ef">static</span> byte ndx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">char</span> endMarker <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\n&#39;</span>;
+    <span style="color:#66d9ef">char</span> rc;
+    
+    <span style="color:#66d9ef">if</span> (Serial.available() <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {
+        rc <span style="color:#f92672">=</span> Serial.read();
+
+        <span style="color:#66d9ef">if</span> (rc <span style="color:#f92672">!=</span> endMarker) {
+            receivedChars[ndx] <span style="color:#f92672">=</span> rc;
+            ndx<span style="color:#f92672">++</span>;
+            <span style="color:#66d9ef">if</span> (ndx <span style="color:#f92672">&gt;=</span> numChars) {
+                ndx <span style="color:#f92672">=</span> numChars <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+            }
+        }
+        <span style="color:#66d9ef">else</span> {
+            receivedChars[ndx] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>; <span style="color:#75715e">// terminate the string
+</span><span style="color:#75715e"></span>            ndx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+            newData <span style="color:#f92672">=</span> true;
+        }
+    }
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">showNewNumber</span>() {
+    <span style="color:#66d9ef">if</span> (newData <span style="color:#f92672">==</span> true) {
+        dataNumber <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;             <span style="color:#75715e">// new for this version
+</span><span style="color:#75715e"></span>        dataNumber <span style="color:#f92672">=</span> atoi(receivedChars);   <span style="color:#75715e">// new for this version
+</span><span style="color:#75715e"></span>        Serial.print(<span style="color:#e6db74">&#34;This just in ... &#34;</span>);
+        Serial.println(receivedChars);
+        Serial.print(<span style="color:#e6db74">&#34;Data as Number ... &#34;</span>);    <span style="color:#75715e">// new for this version
+</span><span style="color:#75715e"></span>        Serial.println(dataNumber);     <span style="color:#75715e">// new for this version
+</span><span style="color:#75715e"></span>        newData <span style="color:#f92672">=</span> false;
+    }
+}
+</code></pre></div><h1 id="示例5---接收和解析数条数据">示例5 - 接收和解析数条数据</h1>
+<p>在单个消息中接收多条数据也可以直接解析，并将数据分配给各个变量。此示例假定您发送类似 <code>&lt;HelloWorld，12，24.7&gt;</code> 的内容。这是示例3的扩展。</p>
+<p>已经添加了一个名为 <code>parseData</code> 的函数，在前面的例子中，函数 <code>showParsedData</code> 取代了 <code>showNewData</code> 。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#75715e">// Example 5 - Receive with start- and end-markers combined with parsing
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">const</span> byte numChars <span style="color:#f92672">=</span> <span style="color:#ae81ff">32</span>;
+<span style="color:#66d9ef">char</span> receivedChars[numChars];
+<span style="color:#66d9ef">char</span> tempChars[numChars];        <span style="color:#75715e">// temporary array for use when parsing
+</span><span style="color:#75715e"></span>
+      <span style="color:#75715e">// variables to hold the parsed data
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">char</span> messageFromPC[numChars] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>};
+<span style="color:#66d9ef">int</span> integerFromPC <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<span style="color:#66d9ef">float</span> floatFromPC <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>;
+
+boolean newData <span style="color:#f92672">=</span> false;
+
+<span style="color:#75715e">//============
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setup</span>() {
+    Serial.begin(<span style="color:#ae81ff">9600</span>);
+    Serial.println(<span style="color:#e6db74">&#34;This demo expects 3 pieces of data - text, an integer and a floating point value&#34;</span>);
+    Serial.println(<span style="color:#e6db74">&#34;Enter data in this style &lt;HelloWorld, 12, 24.7&gt;  &#34;</span>);
+    Serial.println();
+}
+
+<span style="color:#75715e">//============
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">loop</span>() {
+    recvWithStartEndMarkers();
+    <span style="color:#66d9ef">if</span> (newData <span style="color:#f92672">==</span> true) {
+        strcpy(tempChars, receivedChars);
+            <span style="color:#75715e">// this temporary copy is necessary to protect the original data
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">//   because strtok() used in parseData() replaces the commas with \0
+</span><span style="color:#75715e"></span>        parseData();
+        showParsedData();
+        newData <span style="color:#f92672">=</span> false;
+    }
+}
+
+<span style="color:#75715e">//============
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">recvWithStartEndMarkers</span>() {
+    <span style="color:#66d9ef">static</span> boolean recvInProgress <span style="color:#f92672">=</span> false;
+    <span style="color:#66d9ef">static</span> byte ndx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">char</span> startMarker <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&lt;&#39;</span>;
+    <span style="color:#66d9ef">char</span> endMarker <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&gt;&#39;</span>;
+    <span style="color:#66d9ef">char</span> rc;
+
+    <span style="color:#66d9ef">while</span> (Serial.available() <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> newData <span style="color:#f92672">==</span> false) {
+        rc <span style="color:#f92672">=</span> Serial.read();
+
+        <span style="color:#66d9ef">if</span> (recvInProgress <span style="color:#f92672">==</span> true) {
+            <span style="color:#66d9ef">if</span> (rc <span style="color:#f92672">!=</span> endMarker) {
+                receivedChars[ndx] <span style="color:#f92672">=</span> rc;
+                ndx<span style="color:#f92672">++</span>;
+                <span style="color:#66d9ef">if</span> (ndx <span style="color:#f92672">&gt;=</span> numChars) {
+                    ndx <span style="color:#f92672">=</span> numChars <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+                }
+            }
+            <span style="color:#66d9ef">else</span> {
+                receivedChars[ndx] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>; <span style="color:#75715e">// terminate the string
+</span><span style="color:#75715e"></span>                recvInProgress <span style="color:#f92672">=</span> false;
+                ndx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+                newData <span style="color:#f92672">=</span> true;
+            }
+        }
+
+        <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (rc <span style="color:#f92672">==</span> startMarker) {
+            recvInProgress <span style="color:#f92672">=</span> true;
+        }
+    }
+}
+
+<span style="color:#75715e">//============
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">parseData</span>() {      <span style="color:#75715e">// split the data into its parts
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> strtokIndx; <span style="color:#75715e">// this is used by strtok() as an index
+</span><span style="color:#75715e"></span>
+    strtokIndx <span style="color:#f92672">=</span> strtok(tempChars,<span style="color:#e6db74">&#34;,&#34;</span>);      <span style="color:#75715e">// get the first part - the string
+</span><span style="color:#75715e"></span>    strcpy(messageFromPC, strtokIndx); <span style="color:#75715e">// copy it to messageFromPC
+</span><span style="color:#75715e"></span> 
+    strtokIndx <span style="color:#f92672">=</span> strtok(NULL, <span style="color:#e6db74">&#34;,&#34;</span>); <span style="color:#75715e">// this continues where the previous call left off
+</span><span style="color:#75715e"></span>    integerFromPC <span style="color:#f92672">=</span> atoi(strtokIndx);     <span style="color:#75715e">// convert this part to an integer
+</span><span style="color:#75715e"></span>
+    strtokIndx <span style="color:#f92672">=</span> strtok(NULL, <span style="color:#e6db74">&#34;,&#34;</span>);
+    floatFromPC <span style="color:#f92672">=</span> atof(strtokIndx);     <span style="color:#75715e">// convert this part to a float
+</span><span style="color:#75715e"></span>
+}
+
+<span style="color:#75715e">//============
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">showParsedData</span>() {
+    Serial.print(<span style="color:#e6db74">&#34;Message &#34;</span>);
+    Serial.println(messageFromPC);
+    Serial.print(<span style="color:#e6db74">&#34;Integer &#34;</span>);
+    Serial.println(integerFromPC);
+    Serial.print(<span style="color:#e6db74">&#34;Float &#34;</span>);
+    Serial.println(floatFromPC);
+}
+</code></pre></div><h1 id="二进制数据">二进制数据</h1>
+<p>到目前为止，我们一直在接收字符数据 - 例如数字 121 由字符'1'，&lsquo;2&rsquo;和'1&rsquo;表示。</p>
+<p>也可以将该值作为二进制数据发送到单个字节中 - 它恰好是字符 <code>y</code> 的 Ascii 值。请注意，十进制中的 121 与 HEX 中的 0x79 相同。</p>
+<p>请注意，如果要发送二进制数据，很可能需要以数据的形式发送与起始和终点标记相同的值。</p>
+<p>这超出了本教程的范围，在这里<a href="http://forum.arduino.cc/index.php?topic=225329">演示</a>了一种方法。</p>
+<p>以下示例假设二进制数据将不会包含用于起始和终点标记的字节值。为了简单起见，我将继续使用 <code>&lt;</code> 和 <code>&gt;</code> 作为标记。这些字符的字节值为 <code>0x3C</code> 和 <code>0x3E</code>。这将允许您通过发送例如 <code>&lt;24y&gt;</code> 从串行监视器测试程序，这将被接收程序解释为二进制值 <code>0x32</code>,<code>0x34</code> 和 <code>0x79</code>。这些是 <code>2</code>,<code>4</code> 和 <code>y</code> 的Ascii代码。</p>
+<p>当然，另外一个计算机程序 - 另一个Arduino或者PC上，二进制数据会更常见。</p>
+<h1 id="示例6---接收二进制数据的程序">示例6 - 接收二进制数据的程序</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#75715e">// Example 6 - Receiving binary data
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">const</span> byte numBytes <span style="color:#f92672">=</span> <span style="color:#ae81ff">32</span>;
+byte receivedBytes[numBytes];
+byte numReceived <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+
+boolean newData <span style="color:#f92672">=</span> false;
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setup</span>() {
+    Serial.begin(<span style="color:#ae81ff">9600</span>);
+    Serial.println(<span style="color:#e6db74">&#34;&lt;Arduino is ready&gt;&#34;</span>);
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">loop</span>() {
+    recvBytesWithStartEndMarkers();
+    showNewData();
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">recvBytesWithStartEndMarkers</span>() {
+    <span style="color:#66d9ef">static</span> boolean recvInProgress <span style="color:#f92672">=</span> false;
+    <span style="color:#66d9ef">static</span> byte ndx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    byte startMarker <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x3C</span>;
+    byte endMarker <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x3E</span>;
+    byte rb;
+   
+
+    <span style="color:#66d9ef">while</span> (Serial.available() <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> newData <span style="color:#f92672">==</span> false) {
+        rb <span style="color:#f92672">=</span> Serial.read();
+
+        <span style="color:#66d9ef">if</span> (recvInProgress <span style="color:#f92672">==</span> true) {
+            <span style="color:#66d9ef">if</span> (rb <span style="color:#f92672">!=</span> endMarker) {
+                receivedBytes[ndx] <span style="color:#f92672">=</span> rb;
+                ndx<span style="color:#f92672">++</span>;
+                <span style="color:#66d9ef">if</span> (ndx <span style="color:#f92672">&gt;=</span> numBytes) {
+                    ndx <span style="color:#f92672">=</span> numBytes <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+                }
+            }
+            <span style="color:#66d9ef">else</span> {
+                receivedBytes[ndx] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>; <span style="color:#75715e">// terminate the string
+</span><span style="color:#75715e"></span>                recvInProgress <span style="color:#f92672">=</span> false;
+                numReceived <span style="color:#f92672">=</span> ndx;  <span style="color:#75715e">// save the number for use when printing
+</span><span style="color:#75715e"></span>                ndx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+                newData <span style="color:#f92672">=</span> true;
+            }
+        }
+
+        <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (rb <span style="color:#f92672">==</span> startMarker) {
+            recvInProgress <span style="color:#f92672">=</span> true;
+        }
+    }
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">showNewData</span>() {
+    <span style="color:#66d9ef">if</span> (newData <span style="color:#f92672">==</span> true) {
+        Serial.print(<span style="color:#e6db74">&#34;This just in (HEX values)... &#34;</span>);
+        <span style="color:#66d9ef">for</span> (byte n <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; n <span style="color:#f92672">&lt;</span> numReceived; n<span style="color:#f92672">++</span>) {
+            Serial.print(receivedBytes[n], HEX);
+            Serial.print(<span style="color:#e6db74">&#39; &#39;</span>);
+        }
+        Serial.println();
+        newData <span style="color:#f92672">=</span> false;
+    }
+}
+</code></pre></div><p>恩，这文章没什么用，继续找。。。</p>
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

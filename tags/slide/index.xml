@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Slide on Gitai.me</title>
+    <link>https://gitai.me/tags/slide/</link>
+    <description>Recent content in Slide on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Tue, 28 Mar 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/slide/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LatticeOS Project</title>
+      <link>https://gitai.me/2017/03/imagine_cup_2017/</link>
+      <pubDate>Tue, 28 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/03/imagine_cup_2017/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;Home: &lt;a href=&#34;https://latticeos.github.io/&#34;&gt;https://latticeos.github.io/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Github: &lt;a href=&#34;https://github.com/LatticeOS/&#34;&gt;https://github.com/LatticeOS/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Slide of imagine cup 2017: &lt;a href=&#34;https://latticeos.github.io/slide_imagine_cup_2017.html&#34;&gt;https://latticeos.github.io/slide_imagine_cup_2017.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

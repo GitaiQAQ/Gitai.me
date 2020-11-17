@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tasker on Gitai.me</title>
+    <link>https://gitai.me/categories/tasker/</link>
+    <description>Recent content in tasker on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Sun, 07 Feb 2016 13:22:51 +0000</lastBuildDate><atom:link href="https://gitai.me/categories/tasker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何构建「tasker」插件？</title>
+      <link>https://gitai.me/2016/02/plugin-for-tasker/</link>
+      <pubDate>Sun, 07 Feb 2016 13:22:51 +0000</pubDate>
+      
+      <guid>https://gitai.me/2016/02/plugin-for-tasker/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Tasker绝对称得上是Android系统的神器之一，与Auto Memory Manager不同，Tasker不是加速型的软件，而是系统增强型的软件，由于有众多系统状态可控制，故使得Tasker一跃成为Android系统中最闪亮的明星。但Tasker也无疑是最难使用的软件，由于可以控制的地方太多，反而让人觉得有些无所适从，不知道要从哪开始下手，大家看教程吧，市场里售价6.3美金，准5星级评价。@CoolAPK&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

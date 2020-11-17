@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Error on Gitai.me</title>
+    <link>https://gitai.me/tags/error/</link>
+    <description>Recent content in Error on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Mon, 20 Jun 2016 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/error/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Unable to run mksdcard SDK tool</title>
+      <link>https://gitai.me/2016/06/2016-06-20-unable-to-run-mksdcard-sdk-tool/</link>
+      <pubDate>Mon, 20 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2016/06/2016-06-20-unable-to-run-mksdcard-sdk-tool/</guid>
+      <description>&lt;h2 id=&#34;errorunable-to-run-mksdcard-sdk-tool-in-debian&#34;&gt;Error:Unable to run mksdcard SDK tool in debian&lt;/h2&gt;
+&lt;p&gt;You need some 32-bit binaries, and you have a 64-bit OS version (apparently). Try:&lt;/p&gt;
+&lt;p&gt;For Ubuntu 14.10&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install lib32z1 lib32ncurses5 lib32bz2-1.0 lib32stdc++6
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;For UBUNTU 15.04,15.10 &amp;amp; 16.04 LTS &amp;amp; Debian 8&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install lib32stdc++6
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;For Cent OS/RHEL&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo yum install zlib.i686 ncurses-libs.i686 bzip2-libs.i686 
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

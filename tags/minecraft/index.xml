@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Minecraft on Gitai.me</title>
+    <link>https://gitai.me/tags/minecraft/</link>
+    <description>Recent content in Minecraft on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Sun, 31 Jan 2016 10:23:52 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/minecraft/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 Bluemix、Docker 和 Watson 为 Minecraft 创建认知插件</title>
+      <link>https://gitai.me/2016/01/cl-bluemix-minecraft-plugins-trs/</link>
+      <pubDate>Sun, 31 Jan 2016 10:23:52 +0000</pubDate>
+      
+      <guid>https://gitai.me/2016/01/cl-bluemix-minecraft-plugins-trs/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;哪个 Java™ 程序的使用频率比其他任何 Java 程序高整整一个数量级？ 提示： 自 2009 年发布 beta 版本以来，该程序已售出了 7000 多万个副本。Microsoft 最近以 25 亿美元收购了创建这个程序的公司。围绕此程序已经形成了一个庞大的开发生态系统，而且数十万的人受到鼓励开始学习 Java 编程 — 以便可以开发此程序的扩展版本。
+您从标题中可能已经猜到，这个程序就是 Minecraft 游戏，令人惊奇的是，这数十万开发人员主要是儿童和青少年。Minecraft 已成为市场上的一次现象级成功，部分原因在于它的独特结构：您可以通过商业渠道购买客户端（游戏的外观），但服务器可以自由扩展。任何人都可以启动自己的游戏服务器，这使得人们在根据自己的兴趣和好恶在网络上建立独特的 Minecraft 构建者社区时，拥有数千种不同的选择。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>如何在「Docker」环境构建「Minecraft」Server？</title>
+      <link>https://gitai.me/2016/01/minecraft-in-docker/</link>
+      <pubDate>Fri, 01 Jan 2016 01:06:19 +0000</pubDate>
+      
+      <guid>https://gitai.me/2016/01/minecraft-in-docker/</guid>
+      <description>&lt;h2 id=&#34;docker-是什么&#34;&gt;Docker 是什么？&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;轻量级的操作系统虚拟化解决方案&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;基本概念&#34;&gt;基本概念&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;仓库/Repository(类似Git仓库)
+&lt;ul&gt;
+&lt;li&gt;构建 &amp;gt; 2&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;镜像/Image(只读的模板)
+&lt;ul&gt;
+&lt;li&gt;部署 &amp;gt; 3&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;容器/Container(运行实例)&lt;/li&gt;
+&lt;li&gt;数据卷／volume(类似 Linux mount)
+&lt;ul&gt;
+&lt;li&gt;挂载虚拟磁盘到指定目录&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

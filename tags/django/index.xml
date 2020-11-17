@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Django on Gitai.me</title>
+    <link>https://gitai.me/tags/django/</link>
+    <description>Recent content in Django on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Wed, 10 Oct 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/django/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Django 下同名 Cookies 的一个小问题</title>
+      <link>https://gitai.me/2018/10/django-cookies/</link>
+      <pubDate>Wed, 10 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2018/10/django-cookies/</guid>
+      <description>Django 作为一个非常友好的框架，提供了各种层级的封装，基本上文档看完就能直接开发出很多有意思的东西。 但是因为被高度封装，开发中的很多奇葩的操作则被</description>
+    </item>
+    
+  </channel>
+</rss>

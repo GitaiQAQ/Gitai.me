@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Singularity —— HTTP API 类型系统的设计 | Gitai.me</title>
+
+<meta property='og:title' content='Singularity —— HTTP API 类型系统的设计 - Gitai.me'>
+<meta property='og:description' content='预示项目的起点，通过接口定义，完成前后端，测试的自动化。 一般的接口定义服务都要求语言无关，比如 RAML[^RAML] RESTful API Modeling Language，是设计接口的一种方式'>
+<meta property='og:url' content='https://gitai.me/2019/06/singularity/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='API'><meta property='article:tag' content='强类型'><meta property='article:published_time' content='2019-06-02T00:00:00Z'/><meta property='article:modified_time' content='2019-06-02T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2019/06/singularity/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/api/">#API</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/%E5%BC%BA%E7%B1%BB%E5%9E%8B/">#强类型</a>
+  
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">June 2, 2019</h2>
+    <h1 class="title">Singularity —— HTTP API 类型系统的设计</h1>
+    
+    <div class="content">
+      <p>预示项目的起点，通过接口定义，完成前后端，测试的自动化。</p>
+<p>一般的接口定义服务都要求语言无关，比如</p>
+<ul>
+<li>
+<p><code>RAML</code>[^RAML] RESTful API Modeling Language，是设计接口的一种方式，设计完成之后生成需要的代码片段。</p>
+</li>
+<li>
+<p><code>swagger</code><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 通过复杂的规范和 <code>YAML</code>语法<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>，生成可操作的后端接口文档；或者定义约束，从后端代码中导出，一般都是这么干的。</p>
+</li>
+<li>
+<p><code>Apiary Blueprint</code><sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> 拓展了 <code>markdown</code> 的语法，可以产生很好看的接口文档，和测试工具。</p>
+</li>
+<li>
+<p><code>Postman</code><sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> 没有配置，直接定义原始的 HTTP 请求，然后内置生成各种代码例子的方案。</p>
+</li>
+</ul>
+<p>大概因为接口定义没必要实现，参数检查，所以几个都只有基本的类型检查和是否必要。而除了 <code>Apiary Blueprint</code> 有个 mock，其他都没有直接的设计。虽然可以通过其他工具拓展，但是我就是想自己造轮子。</p>
+<p>一般开发中，就是后端主导接口定义；开发完成之后，swagger 导出完事，之后前端对着开发，至于有没有接口测试那就不知道了。</p>
+<p>实际上，这里因为接口产生的细化操作就至少产生的 3 次，后端初步定义，后端实现单元测试，前端实现接口调用，前端实现 mock。如果接口不稳定，就会产生及极大的联调成本。</p>
+<p>而且这里还没有完善的接口检查工作，一堆 <code>if</code> 和 <code>else</code> 写的面条代码遍地跑。</p>
+<p><strong>那为啥不整合上面几个阶段，从接口角度出发，推动后面的流程。</strong></p>
+<p>最后希望能达到以下需求</p>
+<ul>
+<li>复用 <code>swagger</code> 和 <code>JSON Schema</code> 的完整生态，生成 <code>RAML</code> 和 <code>JSON Schema</code>。</li>
+<li>方便编辑又好看的文档，通过 markdown 语法和半自动的方式生成文档（<code>Apiary Blueprint</code> + <code>FaaS</code>）</li>
+<li>接入对后端的接口测试，以及前端的 mock，还能生成必要的请求例子 （<code>Postman</code>）</li>
+</ul>
+<h2 id="预研">预研</h2>
+<p>正如为了兼容 <code>JavaScript</code>，所以 <code>TypeScript</code> 是其超集一样，为了兼容生态，需要定义一个完全涵盖上述几个内容的新规则或者语言？或者通过拓展某个必要的基础设施来完成这些需求？</p>
+<p>关键词：强类型，文档生成，元编程能力，存在的规范</p>
+<p>于是产生下面这个标题</p>
+<blockquote>
+<p>基于注释和注解等原生语法，实现的可以生成 HTTP 网关，自动化测试和可操作文档的 XX。</p>
+</blockquote>
+<p>其实上面都是我编的，看到 <code>FunctionScript</code> 就已经决定用 <code>TypeScript</code> 实现 mock，然后在注释写入校验规则；通过注解生成网关；并导出文档这一整套操作。之后写上面那一堆废话只是为了佐证，我设计的必要性和可行性。</p>
+<h4 id="mock-定义">Mock 定义</h4>
+<p>在此写个最小可行性的例子来分析整个流程，如下是一个定义在 <code>functions</code> 的 <code>index.ts</code> 文件。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * 操作类型
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Action</span> {
+  <span style="color:#75715e">// 登录活动
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">Login</span>,
+
+  <span style="color:#75715e">// 退出登录
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">Logout</span>
+}
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Linux 环境下的用户名类型
+</span><span style="color:#75715e"> *
+</span><span style="color:#75715e"> * @maxLength 255
+</span><span style="color:#75715e"> * @pattern /^(?![.\-])[.\-_a-zA-Z0-9]+$/
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">LinuxUsername</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">string</span>;
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Linux 环境下密码的校验
+</span><span style="color:#75715e"> *
+</span><span style="color:#75715e"> * @minLength 8
+</span><span style="color:#75715e"> * @maxLength 255
+</span><span style="color:#75715e"> * @pattern /\w+/
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">LinuxPassword</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">string</span>;
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * 假装定义了 Linux 环境登录需要的参数
+</span><span style="color:#75715e"> *
+</span><span style="color:#75715e"> * @param username - 用户名
+</span><span style="color:#75715e"> * @param password (可选) - 密码
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">LinuxUserLogin</span> {
+  <span style="color:#a6e22e">username</span>: <span style="color:#66d9ef">LinuxUsername</span>;
+  <span style="color:#a6e22e">password?</span>: <span style="color:#66d9ef">LinuxPassword</span>;
+}
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * 只是为了多弄几个数据类型，写的没什么用的例子
+</span><span style="color:#75715e"> *
+</span><span style="color:#75715e"> * @param action - 请求的行为
+</span><span style="color:#75715e"> * @param login - 登录传递的信息
+</span><span style="color:#75715e"> * @returns string
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">DemoFunction</span>(
+  <span style="color:#a6e22e">action</span>: <span style="color:#66d9ef">Action</span>,
+  <span style="color:#a6e22e">login</span>: <span style="color:#66d9ef">LinuxUserLogin</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">username</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;world&#34;</span> }
+) {
+  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">login</span>.<span style="color:#a6e22e">username</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">action</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">login</span>.<span style="color:#a6e22e">password</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;No password&#34;</span><span style="color:#e6db74">}</span><span style="color:#e6db74">!`</span>;
+}
+
+<span style="color:#66d9ef">export</span> { <span style="color:#a6e22e">Action</span>, <span style="color:#a6e22e">LinuxUserLogin</span>, <span style="color:#a6e22e">LinuxUsername</span>, <span style="color:#a6e22e">LinuxPassword</span> };
+
+</code></pre></div><p>我们可以通过 FunctionScript 的规范，将其映射成 HTTP API，虽然我觉得他的接口定义有问题，尤其没有实现 <code>GET</code> 和 <code>POST</code> 的区分，所以可以加一个 <code>@POST</code> 的装饰器来处理。</p>
+<p>之后上面的代码利用了 TypeScript 的强类型和注释，先通过别名将数据类型全局统一化，比如：<code>LinuxUsername</code>，<code>LinuxPassword</code>，<code>SfUsername</code> 这样的通用类型。定义如下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Linux 环境下的用户名类型
+</span><span style="color:#75715e"> * @minLength 8
+</span><span style="color:#75715e"> * @maxLength 255
+</span><span style="color:#75715e"> * @pattern /\w+/
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">LinuxUsername</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">string</span>;
+</code></pre></div><p>上面就是整合 <code>JSON Schema</code> 创建的自定义类型，表示只能包含 <code>A-z</code>，<code>0-9</code> 和 <code>-</code> ，最小长度 5 位，最大 255 位的字符串。</p>
+<p>再来看看下面的函数</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * 只是为了多弄几个数据类型，写的没什么用的例子
+</span><span style="color:#75715e"> *
+</span><span style="color:#75715e"> * @param action - 请求的行为
+</span><span style="color:#75715e"> * @param login - 登录传递的信息
+</span><span style="color:#75715e"> * @returns string
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">DemoFunction</span>(
+  <span style="color:#a6e22e">action</span>: <span style="color:#66d9ef">Action</span>,
+  <span style="color:#a6e22e">login</span>: <span style="color:#66d9ef">LinuxUserLogin</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">username</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;world&#34;</span> }
+) {
+  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">login</span>.<span style="color:#a6e22e">username</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">action</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">login</span>.<span style="color:#a6e22e">password</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;No password&#34;</span><span style="color:#e6db74">}</span><span style="color:#e6db74">!`</span>;
+}
+</code></pre></div><p>这里我们暂时假设通过 FunctionScript 的规范进行映射，产生如下接口 <code>localhost/api/</code> 的 <code>GET</code> 或者 <code>POST</code> 请求，其通过 <code>Query</code> 或者 <code>application/x-www-form-urlencoded</code> 获取传递过来的 <code>action</code> 和 <code>login</code> 对象。</p>
+<p>因为 ES6 本身有可选参数，比如这个 <code>login</code> ，和 <code>LinuxUserLogin</code> 下面的 <code>password</code>；而 <code>action</code> 和 <code>username</code> 都不必不可少的必填参数。</p>
+<p>最后是输出，他们定义了一套 JavaScript 原生类型到 HTTP 响应的映射，实际大多数情况就是<code>JSON.stringify</code>。</p>
+<p>还有他是通过定义了，一个特殊的标记来处理 header 等对 resp 的修改，这里也不太合适，应该借鉴 Koa 的接口模式比较好。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">next</span>) {
+    <span style="color:#66d9ef">let</span> { <span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">resp</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">ctx</span>;
+}
+</code></pre></div><p>这个还需之后讨论。</p>
+<p>还有为了表达连续的流程，需要一个简单的数据库支持，虽然 FunctionScript 的规范写了，将函数的最后一个参数称之为 <code>context</code>，这和 Koa 的 <code>ctx</code> 不同，实际上是 <code>this</code> ，在这里可以直接赋值，数据会被定义到全局，虽然控制不好，可能被污染，但是控制的好，就非常方便，建议引入命名空间，持久化和数据驱动的钩子。</p>
+<p>到这里都还是对 FunctionScript 的改进，和我们的实际工作流无关。</p>
+<h4 id="兼容生态">兼容生态</h4>
+<p>接下来假装开发了通过 TypeScript 的 <code>AST</code> 生成 <code>JSON Schema</code> 的工具，那么我们会获得下面这个校验数据。</p>
+<p>实际上这里也有问题，Query 和 Body Data 命名冲突怎么办； 如果统一成一个，那命名重复的怎么办？写入异常？</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+	<span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;object&#34;</span>,
+	<span style="color:#f92672">&#34;properties&#34;</span>: {
+		<span style="color:#f92672">&#34;action&#34;</span>: {
+			<span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>,
+			<span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;操作类型&#34;</span>,
+            <span style="color:#f92672">&#34;items&#34;</span>: [<span style="color:#e6db74">&#34;Login&#34;</span>, <span style="color:#e6db74">&#34;Logout&#34;</span>]
+		},
+		<span style="color:#f92672">&#34;login&#34;</span>: {
+			<span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;object&#34;</span>,
+			<span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;假装定义了 Linux 环境登录需要的参数&#34;</span>,
+            <span style="color:#f92672">&#34;properties&#34;</span>: {
+                <span style="color:#f92672">&#34;username&#34;</span>: {
+                    <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>,
+					<span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Linux 环境下的用户名类型&#34;</span>,
+                    <span style="color:#f92672">&#34;maxLength&#34;</span>: <span style="color:#ae81ff">255</span>
+                }<span style="color:#960050;background-color:#1e0010">，</span>
+                <span style="color:#e6db74">&#34;password&#34;</span>: {
+                    <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>,
+                    <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Linux 环境下密码的校验&#34;</span>,
+                    <span style="color:#f92672">&#34;minLength&#34;</span>: <span style="color:#ae81ff">8</span>,
+                    <span style="color:#f92672">&#34;maxLength&#34;</span>: <span style="color:#ae81ff">255</span>,
+                    <span style="color:#f92672">&#34;pattern&#34;</span>: <span style="color:#e6db74">&#34;/\w+/&#34;</span>
+                }
+            }
+		}
+	}
+}
+</code></pre></div><p>这样我们产生了一个非常 nb 的中间产物，因为 <code>JSON Schema</code> 可以干的就多了，比如 <code>QuickType</code><sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup> 上面有很多例子，映射了 <code>JSON</code>，<code>TS</code>，<code>JSON Schema</code> 和 <code>Postman</code> 到各种语言的实现，而且我们也可以把 <code>JSON Schema</code> 转化成 <code>swagger</code>，来使用他的生态。虽然直接从 AST 生成的信息导出或许更完整。</p>
+<h4 id="文档生成">文档生成</h4>
+<p>这个从 AST 生成更优雅，但是从其产物 JSON Schema 生成可以暂时用着。不过后来发现 TypeDoc 解决了大半问题，因为它支持 markdown，但是生成的文档不适合作为 API 文档，需要定制一些东西，不如重写 XD，好在他有个 JSON 格式的导出。</p>
+<h4 id="自动化测试">自动化测试</h4>
+<p>前端可以用上面这个 mock 测试，也可以通过生成的 <code>JSON Schema</code> 用其他平台测试，或者可以整合起来，把 mock 增加上更多新特性。</p>
+<p>因为接口独立，即可以测试前端，也可以推进到后端，还可以通过上面的全局变量（对象数据库），设计按照场景的接口自动化测试。</p>
+<p>因为接口能表达业务，也可以配合场景演示，再后端开发完成前，前端先去做市场检验。</p>
+<h3 id="总结">总结</h3>
+<p>最重要的就是它解决了以下几个问题：</p>
+<ol>
+<li>测试用例编写麻烦，文档写起来重复太多，还难看</li>
+<li>前后端更完全的分离和自动化测试</li>
+<li>快速的试错和更低的修改成本</li>
+</ol>
+<p>而只要开发一个对 TypeScript 的插件就能完成这些，开发成本极低。</p>
+<p>不过为了好用，为这个 mock 实现的配套服务，数据库，持久化储存都是有很大意义的。</p>
+<h2 id="mvp">MVP</h2>
+<h3 id="技术基础">技术基础</h3>
+<h4 id="faas">FaaS</h4>
+<p>这几年发展非常迅速的 <code>FaaS</code>，但是一般觉得网络资源损耗太高，无法微服务化所以运用场景可能受限，于是主要作为弹性计算，并且独立性极强的操作，或者 Geek 的玩物。</p>
+<p>但是试用过 <code>FaaS</code> 就会发现它本身就是个天然的 mock，而且因为微服务的抽象，能直接通过对应的 Gateway 暴露出来，实现平行迁移。</p>
+<p>我们先看看 FunctionScript 的例子，因为用的是 JavaScript，对于参数类型的定义几个基本类型和 <code>object</code>，这也是被人诟病的。</p>
+<p>具体我们可以对照他的例子看看。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// hello_world.js
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/**
+</span><span style="color:#75715e">* @param {integer} id ID of the User
+</span><span style="color:#75715e">* @param {string} username Name of the user
+</span><span style="color:#75715e">* @param {number} age Age of the user
+</span><span style="color:#75715e">*/</span>
+<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;world&#39;</span>) =&gt; {
+
+  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">`hello </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">name</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>;
+
+};
+</code></pre></div><p>他的类型也被定义在注释里面，然后解析生成一个定义对象，在进行检查，这块应该和 TypeScript 的检查复用更为合适；虽然看了上面的结果，可能要写更多东西了 2333</p>
+<p>此处参考 <a href="https://code.stdlib.com/?sample=t&amp;filename=functions/__main__.js">Stdlib.com</a> 和他们开源的 <code>FunctionScript</code><sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>，但是他们并没有实现 <strong>定义强类型</strong>，<strong>文档生成</strong>。</p>
+<h4 id="预编译器">预编译器</h4>
+<p>从 <code>PostCSS</code> 预编译 <code>CSS</code>，到 <code>TypeScript</code> 预编译 <code>JavaScript</code>，<code>babel</code> 之类的进行兼容性转化，实际上编写的和运行的是完全不同的语言，充分发挥了 <code>JavaScript</code> 灵活的特性。</p>
+<p>因为此前提，我们能轻易的修改 <code>JavaScript</code> 或者 <code>TypeScript</code> 的前置编译环境，支持更多自定义的特性。</p>
+<p>至于为什么会提到 <code>TypeScript</code>，因为强类型在接口定义是非常必要的，我觉得公司现行的 <code>mock</code> 在接口校验和可拓展性上存在很多可以优化的地方，但是相比优化不如另起一套。</p>
+<p>这部分是为了解决，上面 <code>FunctionScript</code> 不支持校验的问题。可以通过注释来解决约束。</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>通过上面的说明，我们开始着手完成这个最小可行性产品，但是上面那个 <code>Hello World</code> 的例子，或许没那么好用了。</p>
+<p>先分析需要实现的注释参数，参照 <code>swagger</code> 和 <code>JSON Schema</code><sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup> 来进行，因为 <code>swagger</code> 用于设计接口，然后可以生成可视化的调试工具，而 <code>JSON Schema</code> 可以用于校验 JSON 的数据模式，虽然做接口校验有点迷惑，但是先这样写着。</p>
+<p>在实际实现中，慢慢整理产生这个例子，实际上这个就是上面 【Mock 定义】 阶段的那个例子，毕竟我还没能力直接设计出完美的产品。为了避免重复，浪费流量，就不复制粘贴了。</p>
+<p>引入 <code>typedoc</code><sup id="fnref:8"><a href="#fn:8" class="footnote-ref" role="doc-noteref">8</a></sup>，因为官方的 <code>@microsoft/tsdoc</code> 只是个核心实现，具体如何解析并不在这个库里面提供，但是官方推荐了几个库，比如 <code>typedoc</code>。</p>
+<p>用起来也简单</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># Install the global CLI</span>
+$ npm install --global typedoc
+
+<span style="color:#75715e">#Execute typedoc on your project</span>
+$ typedoc --out docs /functions
+</code></pre></div><p>然后随便找个 HTTP server 浏览一下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ caddy browse
+</code></pre></div><p><img src="https://i.loli.net/2019/06/14/5d03ba6f5215e86541.png" alt="1559564494426.png"></p>
+<p>还挺好看的，拓展一下指不定就 Ok 了。</p>
+<h4 id="json-schema">JSON Schema</h4>
+<p><code>typedoc</code> 有个叫 <code>--json</code> 的配置，可以把分析出来的结果作为 JSON 导出，方便二次开发。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">9</span>,
+    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;LinuxPassword&#34;</span>,
+    <span style="color:#f92672">&#34;kind&#34;</span>: <span style="color:#ae81ff">4194304</span>,
+    <span style="color:#f92672">&#34;kindString&#34;</span>: <span style="color:#e6db74">&#34;Type alias&#34;</span>,
+    <span style="color:#f92672">&#34;flags&#34;</span>: {},
+    <span style="color:#f92672">&#34;comment&#34;</span>: {
+        <span style="color:#f92672">&#34;shortText&#34;</span>: <span style="color:#e6db74">&#34;Linux 环境下密码的校验&#34;</span>,
+        <span style="color:#f92672">&#34;tags&#34;</span>: [
+            {
+                <span style="color:#f92672">&#34;tag&#34;</span>: <span style="color:#e6db74">&#34;minlength&#34;</span>,
+                <span style="color:#f92672">&#34;text&#34;</span>: <span style="color:#e6db74">&#34;8&#34;</span>
+            },
+            {
+                <span style="color:#f92672">&#34;tag&#34;</span>: <span style="color:#e6db74">&#34;maxlength&#34;</span>,
+                <span style="color:#f92672">&#34;text&#34;</span>: <span style="color:#e6db74">&#34;255&#34;</span>
+            },
+            {
+                <span style="color:#f92672">&#34;tag&#34;</span>: <span style="color:#e6db74">&#34;pattern&#34;</span>,
+                <span style="color:#f92672">&#34;text&#34;</span>: <span style="color:#e6db74">&#34;/\\w+/\n&#34;</span>
+            }
+        ]
+    }
+}
+</code></pre></div><p>大概类似这样的内容，完美需要处理的就是里面的 <code>tags</code>，然后转化成 <code>JSON Schema</code>。但是因为这是对类型别名的定义，还要找到对应对象的内容。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">7</span>,
+    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;password&#34;</span>,
+    <span style="color:#f92672">&#34;kind&#34;</span>: <span style="color:#ae81ff">1024</span>,
+    <span style="color:#f92672">&#34;kindString&#34;</span>: <span style="color:#e6db74">&#34;Property&#34;</span>,
+    <span style="color:#f92672">&#34;type&#34;</span>: {
+        <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;reference&#34;</span>,
+        <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;LinuxPassword&#34;</span>,
+        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">9</span>
+    }
+}
+</code></pre></div><p>将上面的类型存到以 Hash 表，这里递归的时候处理一下。就可以生成 <code>JSON Schema</code> 了。</p>
+<p>实际分析源码发现，这里有个唯一 ID，按说应该有个地方储存所有的 ID 映射关系，而且这个生成 JSON 到本地文件，直接用多了文件 IO 和序列化；发现其实 <code>docs</code> 和 <code>json</code> 都是对 <code>project</code> 的序列化，而 <code>app.convert</code> 才是实际生成源码树的方法。其返回的 <code>project</code> 和上面的 <code>json</code> 一致；但是通过引用将 <code>id</code> 所指向的对象挂载在当前对象上；所以只要直接读取就能获得函数熟悉相关的注释。</p>
+<p>下面弄个例子</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * 接口的状态值定义
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">APIStatus</span> {
+  <span style="color:#a6e22e">OK</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ErrorMessage</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">string</span>;
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * 添加新节点
+</span><span style="color:#75715e"> * @url /sdp-api/serverNode/add
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">add</span>(
+  <span style="color:#a6e22e">mnIp</span>: <span style="color:#66d9ef">IPAddress</span>,
+  <span style="color:#a6e22e">dnIp</span>: <span style="color:#66d9ef">IPAddress</span>,
+  <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">ServerName</span>,
+  <span style="color:#a6e22e">hostName</span>: <span style="color:#66d9ef">HostName</span>,
+  <span style="color:#a6e22e">userName</span>: <span style="color:#66d9ef">LinuxUsername</span>,
+  <span style="color:#a6e22e">password</span>: <span style="color:#66d9ef">LinuxPassword</span>
+)<span style="color:#f92672">:</span> {
+  <span style="color:#a6e22e">status</span>: <span style="color:#66d9ef">APIStatus</span>;
+} <span style="color:#f92672">|</span> {
+  <span style="color:#a6e22e">status</span>: <span style="color:#66d9ef">APIStatus</span>;
+  <span style="color:#a6e22e">message</span>: <span style="color:#66d9ef">ErrorMessage</span>;
+} {
+  <span style="color:#66d9ef">return</span> {
+    <span style="color:#a6e22e">status</span>: <span style="color:#66d9ef">APIStatus.OK</span>
+  };
+}
+</code></pre></div><p>最后生成的 <code>project</code> 子模块如下，而这里主要需要生成 2 个 JSON Schema 对象，分别是参数和返回值，因为函数是在开发时被操作的只有这 2 个部分。</p>
+<p>而参数应该被合并为一个具名数组（arguments），即对象，而返回值本身就是一个复杂类型（比如：简单值，对象或者联合类型）。</p>
+<p>下面红色圈出来的就是需要被操作的属性：</p>
+<p><img src="https://i.loli.net/2019/06/14/5d03ba6f9a12c28865.png" alt="1559814215280.png"></p>
+<p>而且这个结果在对应的 <code>docs</code> 也是有损的，并没有普通对象的展开，或许可以给 <code>typedoc</code> 提个 PR，解决这个问题。</p>
+<p><img src="https://i.loli.net/2019/06/14/5d03ba6f6ec8b61850.png" alt="1559814239754.png"></p>
+<p>虽然没有实现这个的库，实际上这个是最简单的。接下来的几个才是麻烦，无论是网关还是啥。</p>
+<h4 id="gateway">Gateway</h4>
+<h4 id="接口文档">接口文档</h4>
+<p>至少实现成这样</p>
+<p><img src="https://i.loli.net/2019/06/14/5d03ba6f70ea510217.png" alt="1559814970764.png"></p>
+<p>要是加上调试器，像 Postman 那样的更好。</p>
+<h2 id="重大转折">重大转折</h2>
+<p>在开发完 Demo 之后，突然让我发现 [valory]<sup id="fnref:9"><a href="#fn:9" class="footnote-ref" role="doc-noteref">9</a></sup> 这个项目；顺藤摸瓜发现了 [tsoa]<sup id="fnref:10"><a href="#fn:10" class="footnote-ref" role="doc-noteref">10</a></sup>，让我们看看他的项目简介</p>
+<blockquote>
+<ul>
+<li>TypeScript controllers and models as the single source of truth for your API</li>
+<li>A valid swagger spec is generated from your controllers and models, including:
+<ul>
+<li>Paths (e.g. GET /Users)</li>
+<li>Definitions based on <strong>TypeScript interfaces (models)</strong></li>
+<li>Parameters/model <strong>properties marked as required or optional</strong> based on TypeScript (e.g. myProperty?: string is optional in the Swagger spec)</li>
+<li><strong>jsDoc supported</strong> for object descriptions (most other metadata can be inferred from TypeScript types)</li>
+</ul>
+</li>
+<li>Routes are generated for middleware of choice
+<ul>
+<li>Express, Hapi, and Koa currently supported, other middleware can be supported using a simple handlebars template</li>
+<li><strong>Validate request payloads</strong></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>上面划重点的几个关键词对比一下前面的描述！一模一样，但是人家都开发 3 年了，于是该项目搁浅的前半部分没必要开发。</p>
+<p>直接用它来接入就好了，而且估计他性能还会比我的高不少；因为我的通过 <code>tsdoc</code> 编译了很多无关的数据出来，虽然只是为了快速实现，但是还是浪费了不少资源。</p>
+<h2 id="如何使用">如何使用</h2>
+<h3 id="定义模型数据结构数据约束">定义模型/数据结构/数据约束</h3>
+<p>程序就是数据 + 算法，所以先得抽象必要的数据结构出来，定义合理的类型，便于复用和做接口测试。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// models/user.ts
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">User</span> {
+    <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">number</span>;
+    <span style="color:#a6e22e">email</span>: <span style="color:#66d9ef">string</span>;
+    <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">Name</span>;
+    <span style="color:#a6e22e">status?</span>: <span style="color:#66d9ef">status</span>;
+    <span style="color:#a6e22e">phoneNumbers</span>: <span style="color:#66d9ef">string</span>[];
+}
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">status</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Happy&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;Sad&#39;</span>;
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Name</span> {
+    <span style="color:#a6e22e">first</span>: <span style="color:#66d9ef">string</span>;
+    <span style="color:#a6e22e">last?</span>: <span style="color:#66d9ef">string</span>;
+}
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">UserCreationRequest</span> {
+    <span style="color:#a6e22e">email</span>: <span style="color:#66d9ef">string</span>;
+    <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">Name</span>;
+    <span style="color:#a6e22e">phoneNumbers</span>: <span style="color:#66d9ef">string</span>[];
+}
+</code></pre></div><h3 id="定义控制器api-接口http-请求模式">定义控制器/API 接口/HTTP 请求模式</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#75715e">// controllers/usersController.ts
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">import</span> {<span style="color:#a6e22e">Get</span>, <span style="color:#a6e22e">Post</span>, <span style="color:#a6e22e">Route</span>, <span style="color:#a6e22e">Body</span>, <span style="color:#a6e22e">Query</span>, <span style="color:#a6e22e">Header</span>, <span style="color:#a6e22e">Path</span>, <span style="color:#a6e22e">SuccessResponse</span>, <span style="color:#a6e22e">Controller</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;tsoa&#39;</span>;
+<span style="color:#66d9ef">import</span> {<span style="color:#a6e22e">UserService</span>} <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;../services/userService&#39;</span>;
+<span style="color:#66d9ef">import</span> {<span style="color:#a6e22e">User</span>, <span style="color:#a6e22e">UserCreationRequest</span>} <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;../models/user&#39;</span>;
+
+<span style="color:#66d9ef">@Route</span>(<span style="color:#e6db74">&#39;Users&#39;</span>)
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UsersController</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">Controller</span> {
+    <span style="color:#66d9ef">@Get</span>(<span style="color:#e6db74">&#39;{id}&#39;</span>)
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">getUser</span>(<span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">number</span>, <span style="color:#66d9ef">@Query</span>() <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">Promise</span>&lt;<span style="color:#f92672">User</span>&gt; {
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">UserService</span>().<span style="color:#66d9ef">get</span>(<span style="color:#a6e22e">id</span>);
+    }
+
+    <span style="color:#66d9ef">@SuccessResponse</span>(<span style="color:#e6db74">&#39;201&#39;</span>, <span style="color:#e6db74">&#39;Created&#39;</span>) <span style="color:#75715e">// Custom success response
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">@Post</span>()
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">createUser</span>(<span style="color:#66d9ef">@Body</span>() <span style="color:#a6e22e">requestBody</span>: <span style="color:#66d9ef">UserCreationRequest</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">Promise</span>&lt;<span style="color:#f92672">void</span>&gt; {
+        <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">UserService</span>().<span style="color:#a6e22e">create</span>(<span style="color:#a6e22e">request</span>);
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setStatus</span>(<span style="color:#ae81ff">201</span>); <span style="color:#75715e">// set return status 201
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Promise</span>.<span style="color:#a6e22e">resolve</span>();
+    }
+
+    <span style="color:#66d9ef">@Get</span>(<span style="color:#e6db74">&#39;{id}&#39;</span>)
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">getPrivateUser</span>(<span style="color:#66d9ef">@Path</span>(<span style="color:#e6db74">&#39;id&#39;</span>) <span style="color:#a6e22e">ID</span>: <span style="color:#66d9ef">number</span>, <span style="color:#66d9ef">@Header</span>(<span style="color:#e6db74">&#39;Authorization&#39;</span>) <span style="color:#a6e22e">authorization</span>: <span style="color:#66d9ef">string</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">Promise</span>&lt;<span style="color:#f92672">User</span>&gt; {
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">UserService</span>().<span style="color:#66d9ef">get</span>(<span style="color:#a6e22e">id</span>);
+    }
+}
+</code></pre></div><section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://swagger.io/">The Best APIs are Built with Swagger Tools | Swagger</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p><a href="https://editor.swagger.io/">Swagger Editor</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p><a href="https://apiary.io/">Powerful API Design Stack. Built for Developers. </a> <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p><a href="https://www.getpostman.com/">Design APIs Directly in Postman</a> <a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5" role="doc-endnote">
+<p><a href="https://app.quicktype.io/">QuickType - Instantly generate code from JSON.</a> <a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6" role="doc-endnote">
+<p><a href="https://functionscript.org/">FunctionScript</a> <a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:7" role="doc-endnote">
+<p><a href="https://json-schema.org/">JSON Schema</a> <a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:8" role="doc-endnote">
+<p><a href="https://typedoc.org/">TYPEDOC - A documentation generator for TypeScript projects.</a> <a href="#fnref:8" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:9" role="doc-endnote">
+<p><a href="https://github.com/valoryteam/valory">valory - A server agnostic web framework for creating bulletproof apis</a> <a href="#fnref:9" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:10" role="doc-endnote">
+<p><a href="https://github.com/lukeautry/tsoa">tsoa - Build swagger-compliant REST APIs using TypeScript and Node</a> <a href="#fnref:10" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JavaScript on Gitai.me</title>
+    <link>https://gitai.me/categories/javascript/</link>
+    <description>Recent content in JavaScript on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Fri, 21 Dec 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/categories/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JavaScript 萌新指北</title>
+      <link>https://gitai.me/2018/12/getting-started-for-js/</link>
+      <pubDate>Fri, 21 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2018/12/getting-started-for-js/</guid>
+      <description>发现一个比我写的还多的文章1 顺手塞个大纲进来世界顶级公司的前端面试都问些什么 首先我要好好批判批判，是谁给我的勇气，3月份写了个 JavaScript 原型和继承 这</description>
+    </item>
+    
+    <item>
+      <title>JavaScript 原型和继承</title>
+      <link>https://gitai.me/2018/03/js-prototype/</link>
+      <pubDate>Fri, 23 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2018/03/js-prototype/</guid>
+      <description>JavaScript 对于具有面向对象语言开发经验的人(Java or C++)来说是非常容易的，只是它是动态的并且不在语言本身提供类(Class) 的支持，在 ES2015 实现了</description>
+    </item>
+    
+  </channel>
+</rss>

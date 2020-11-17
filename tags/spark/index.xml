@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Spark on Gitai.me</title>
+    <link>https://gitai.me/tags/spark/</link>
+    <description>Recent content in Spark on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Wed, 03 May 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/spark/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker 运行 Spark 集群</title>
+      <link>https://gitai.me/2017/05/running-spark-on-docker-swarm/</link>
+      <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/05/running-spark-on-docker-swarm/</guid>
+      <description>安装 docker 环境 参见之前的容器化系统的初始化教程。12 # curl -sSL get.docker.com | bash # pip install docker-compose $ git clone https://github.com/gettyimages/docker-spark.git . ├── conf │ ├── master │ │ └── spark-defaults.conf │ └── worker │ └── spark-defaults.conf ├── data ├─</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>BUG on Gitai.me</title>
+    <link>https://gitai.me/tags/bug/</link>
+    <description>Recent content in BUG on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Tue, 21 Mar 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/bug/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker 中鼠标键盘操作无响应</title>
+      <link>https://gitai.me/2017/03/monitoring-events-keyboard-mouse-in-x/</link>
+      <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/03/monitoring-events-keyboard-mouse-in-x/</guid>
+      <description>&lt;p&gt;Docker 通过 namespace， cgroup 将容器与主机资源进行了隔离，默认情况下，在容器中运行带界面的软件在外部是看不到的。&lt;/p&gt;
+&lt;p&gt;但是 Linuxer 总能折腾出各种奇葩，网上流传也是常见符合容器特性的方案是通过 xvfb + vnc，共享 x11 接口，或者转发 x11 嵌套字。&lt;/p&gt;
+&lt;p&gt;其中 Docker 自家的 Jessie 所创建的 &lt;a href=&#34;https://github.com/jessfraz/dockerfiles&#34;&gt;Dockerfiles on the desktop&lt;/a&gt; 最为完整。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

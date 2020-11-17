@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Arduino on Gitai.me</title>
+    <link>https://gitai.me/tags/arduino/</link>
+    <description>Recent content in Arduino on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Mon, 16 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/arduino/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>激光测距 Adafruit VL53L0X</title>
+      <link>https://gitai.me/2020/03/vl53l0x/</link>
+      <pubDate>Mon, 16 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2020/03/vl53l0x/</guid>
+      <description>VL53L0X飞行时间测距传感器是ST第二代激光测距模块，采用市场尺寸最小的一种封装。VL53LOX是完全集成的传感器，配有嵌入式红外、人眼</description>
+    </item>
+    
+  </channel>
+</rss>

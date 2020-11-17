@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>前端 on Gitai.me</title>
+    <link>https://gitai.me/categories/%E5%89%8D%E7%AB%AF/</link>
+    <description>Recent content in 前端 on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Thu, 12 Apr 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/categories/%E5%89%8D%E7%AB%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何计算首屏加载时间</title>
+      <link>https://gitai.me/2018/04/fp/</link>
+      <pubDate>Thu, 12 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2018/04/fp/</guid>
+      <description>统计页面加载的各项时间点是前端优化上非常重要的一项，W3C 和各厂商也为此开放了很多有用的接口。 API 及描述其功能 API 名称 功能 Navigation Timing 导航计时 能够帮助网</description>
+    </item>
+    
+    <item>
+      <title>前端优化策略</title>
+      <link>https://gitai.me/1/01/optimising-the-front-end/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/1/01/optimising-the-front-end/</guid>
+      <description>原文： 前端性能优化常用总结 多数优化技巧并不是为了迅速提升产品本身性能，而是为了提升用户体验，如 MD 设计中对按钮的处理，只是为了给予用户一个有效</description>
+    </item>
+    
+  </channel>
+</rss>

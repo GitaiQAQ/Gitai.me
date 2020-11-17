@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>单元测试 on Gitai.me</title>
+    <link>https://gitai.me/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</link>
+    <description>Recent content in 单元测试 on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Thu, 25 Apr 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 Promise 实现的单元测试框架</title>
+      <link>https://gitai.me/2019/04/%E4%BD%BF%E7%94%A8-promise-%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/</link>
+      <pubDate>Thu, 25 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/04/%E4%BD%BF%E7%94%A8-promise-%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/</guid>
+      <description>&lt;p&gt;写完才发现，到底是单元测试框架还是单元测试函数，是个问题？毕竟才&lt;/p&gt;
+&lt;p&gt;不到 50 行。&lt;/p&gt;
+&lt;p&gt;上一篇看 Webpack 源码的然后写了个仿 &lt;code&gt;tape&lt;/code&gt;，这里来理理如何用 Promise 实现单元测试。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;test&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;A passing test&amp;#39;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;assert&lt;/span&gt;) =&amp;gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;assert&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;pass&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;This test will pass.&amp;#39;&lt;/span&gt;);
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;assert&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;end&lt;/span&gt;();
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;例子是这样的，有那么一个 &lt;code&gt;test&lt;/code&gt; 方法，接受一个 Label 和函数作为参数。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

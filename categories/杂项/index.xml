@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>杂项 on Gitai.me</title>
+    <link>https://gitai.me/categories/%E6%9D%82%E9%A1%B9/</link>
+    <description>Recent content in 杂项 on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Sun, 28 Jan 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/categories/%E6%9D%82%E9%A1%B9/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>加一层是解耦合的最佳方法</title>
+      <link>https://gitai.me/2018/01/wp-auth/</link>
+      <pubDate>Sun, 28 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2018/01/wp-auth/</guid>
+      <description>最近，在一个初创公司，而且核心是内容的初创公司。WordPress 作为基础框架的使用还是非常常见的。 但是 WordPress 非常的臃肿，逐渐稳定之后，必然需要</description>
+    </item>
+    
+    <item>
+      <title>Entity Component System</title>
+      <link>https://gitai.me/2017/09/ecs-example/</link>
+      <pubDate>Thu, 14 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/09/ecs-example/</guid>
+      <description>ECS 架构1是建立在渲染引擎、物理引擎之上的，主要解决的问题是如何建立一个模型来处理游戏对象 (Game Object) 的更新操作。 相比传统的面向对象模式，其复用性更高</description>
+    </item>
+    
+    <item>
+      <title>简单分析那些巨无霸 APP 是如何产生的？</title>
+      <link>https://gitai.me/2017/09/apk-decompile-minimizes/</link>
+      <pubDate>Wed, 06 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/09/apk-decompile-minimizes/</guid>
+      <description>最近学校出现一台自助打印机，然后配套 APK 居然有 39 MB，遂我们来分析一下里面塞了啥？ PS: 虽然标题有逆向，但是并不打算写这部分，以及 smali 汇编语法也不做</description>
+    </item>
+    
+    <item>
+      <title>通用项目容器化小记</title>
+      <link>https://gitai.me/2017/08/containerized/</link>
+      <pubDate>Mon, 28 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/08/containerized/</guid>
+      <description>Linux 容器(LXC) 和 Docker 技术可以提供一致的和可扩展的环境。 低损耗的运行环境带来微服务化和云端迁移的快速普及。但是多数应用和所属生态并不能直接迁移</description>
+    </item>
+    
+    <item>
+      <title>网易云音乐播放器全屏化自定义 CSS</title>
+      <link>https://gitai.me/2017/08/full-screen-player-of-netease-music/</link>
+      <pubDate>Sat, 26 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/08/full-screen-player-of-netease-music/</guid>
+      <description>服务商为了安利客户端，简直丧心病，比如网易云音乐，无论移动设备还是 PC，总有那么点反人类的地方。遂随手改个 CSS 姑且算是增加了全屏显示歌词之类的</description>
+    </item>
+    
+  </channel>
+</rss>

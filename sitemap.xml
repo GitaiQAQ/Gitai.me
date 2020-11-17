@@ -1,0 +1,970 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://gitai.me/</loc>
+    <lastmod>2020-11-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/posts/</loc>
+    <lastmod>2020-11-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2020/11/actor-model-as-bus/</loc>
+    <lastmod>2020-11-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/</loc>
+    <lastmod>2020-03-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2020/03/jiandaoyun/</loc>
+    <lastmod>2020-03-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/%E9%AA%9A%E6%93%8D%E4%BD%9C/</loc>
+    <lastmod>2020-03-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/arduino/</loc>
+    <lastmod>2020-03-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2020/03/vl53l0x/</loc>
+    <lastmod>2020-03-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/saas/</loc>
+    <lastmod>2020-01-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/%E5%8D%8A%E8%99%9A%E6%8B%9F%E5%8C%96/</loc>
+    <lastmod>2020-01-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2020/01/run-untrusted-javascript-2/</loc>
+    <lastmod>2020-01-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/javescipt/</loc>
+    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/v8/</loc>
+    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/%E4%B8%8D%E5%8F%AF%E4%BF%A1%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83/</loc>
+    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/12/run-untrusted-javascript/</loc>
+    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/cpu/</loc>
+    <lastmod>2019-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/09/program-to-hardcode/</loc>
+    <lastmod>2019-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/%E5%89%8D%E7%AB%AF/</loc>
+    <lastmod>2019-09-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/09/searchbox/</loc>
+    <lastmod>2019-09-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/javascript/</loc>
+    <lastmod>2019-08-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/webpack/</loc>
+    <lastmod>2019-08-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/08/webpack-loadable/</loc>
+    <lastmod>2019-08-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/07/webpackhtmlplugin/</loc>
+    <lastmod>2019-07-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/07/webpack-lazyload/</loc>
+    <lastmod>2019-07-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/%E4%BC%98%E5%8C%96/</loc>
+    <lastmod>2019-07-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/07/parcel/</loc>
+    <lastmod>2019-07-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/dont-starve-together/</loc>
+    <lastmod>2019-06-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/06/manually-connect-donotstarvetogether/</loc>
+    <lastmod>2019-06-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/06/rollup/</loc>
+    <lastmod>2019-06-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/api/</loc>
+    <lastmod>2019-06-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/06/singularity/</loc>
+    <lastmod>2019-06-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/%E5%BC%BA%E7%B1%BB%E5%9E%8B/</loc>
+    <lastmod>2019-06-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/05/selinux-%E7%AD%96%E7%95%A5%E5%92%8C-nginx-403-%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2019-05-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2019-05-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/05/astselector/</loc>
+    <lastmod>2019-05-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/05/loaderplugin/</loc>
+    <lastmod>2019-05-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/05/chrome.runtime.onmessage/</loc>
+    <lastmod>2019-05-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/overlay/</loc>
+    <lastmod>2019-05-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/05/fs-overlay/</loc>
+    <lastmod>2019-05-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/04/vscode-%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95-webpack-%E5%88%9D%E6%8E%A2/</loc>
+    <lastmod>2019-04-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/04/%E4%BD%BF%E7%94%A8-promise-%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/</loc>
+    <lastmod>2019-04-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</loc>
+    <lastmod>2019-04-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/%E9%80%A0%E8%BD%AE%E5%AD%90/</loc>
+    <lastmod>2019-04-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/04/%E4%B8%8B%E5%8F%91%E5%9B%BE/</loc>
+    <lastmod>2019-04-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/02/ucenter/</loc>
+    <lastmod>2019-02-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/02/gui/</loc>
+    <lastmod>2019-02-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/linux/</loc>
+    <lastmod>2019-02-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/02/hyper-v/</loc>
+    <lastmod>2019-02-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/</loc>
+    <lastmod>2019-02-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/rust/</loc>
+    <lastmod>2019-02-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/02/rust-timeout/</loc>
+    <lastmod>2019-02-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/01/gulpwebpack/</loc>
+    <lastmod>2019-01-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/python/</loc>
+    <lastmod>2019-01-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/01/stupid-bugs-python-stringify/</loc>
+    <lastmod>2019-01-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/css/</loc>
+    <lastmod>2019-01-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/01/fe-notes/</loc>
+    <lastmod>2019-01-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/01/example-of-this/</loc>
+    <lastmod>2019-01-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/01/celery-4.x/</loc>
+    <lastmod>2019-01-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/oj/</loc>
+    <lastmod>2019-01-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2019/01/openjudge-sandbox/</loc>
+    <lastmod>2019-01-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/%E6%B2%99%E7%AE%B1/</loc>
+    <lastmod>2019-01-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/</loc>
+    <lastmod>2018-12-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/javascript/</loc>
+    <lastmod>2018-12-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2018/12/getting-started-for-js/</loc>
+    <lastmod>2018-12-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/django/</loc>
+    <lastmod>2018-10-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2018/10/django-cookies/</loc>
+    <lastmod>2018-10-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/hack/</loc>
+    <lastmod>2018-10-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/docker/</loc>
+    <lastmod>2018-09-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2018/09/docker-registry/</loc>
+    <lastmod>2018-09-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2018/04/reverse-proxy-and-cache/</loc>
+    <lastmod>2018-04-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/%E5%89%8D%E7%AB%AF/</loc>
+    <lastmod>2018-04-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2018/04/fp/</loc>
+    <lastmod>2018-04-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2018/03/js-prototype/</loc>
+    <lastmod>2018-03-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2018/01/wp-auth/</loc>
+    <lastmod>2018-01-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/%E6%9D%82%E9%A1%B9/</loc>
+    <lastmod>2018-01-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/10/custom-font/</loc>
+    <lastmod>2017-10-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/</loc>
+    <lastmod>2017-10-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/09/ecs-example/</loc>
+    <lastmod>2017-09-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/09/apk-decompile-minimizes/</loc>
+    <lastmod>2017-09-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/08/containerized/</loc>
+    <lastmod>2017-08-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/08/full-screen-player-of-netease-music/</loc>
+    <lastmod>2017-08-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/d3.js/</loc>
+    <lastmod>2017-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/07/undirected-graph/</loc>
+    <lastmod>2017-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/</loc>
+    <lastmod>2017-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/docker/</loc>
+    <lastmod>2017-05-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/05/running-spark-on-docker-swarm/</loc>
+    <lastmod>2017-05-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/spark/</loc>
+    <lastmod>2017-05-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/05/esp8266-sniffer/</loc>
+    <lastmod>2017-05-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/iot/</loc>
+    <lastmod>2017-05-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/%E8%AE%B0%E5%BD%95/</loc>
+    <lastmod>2017-05-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/elk/</loc>
+    <lastmod>2017-04-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/04/elk-deploy/</loc>
+    <lastmod>2017-04-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/04/psi-installation-guide/</loc>
+    <lastmod>2017-04-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/uzuki/</loc>
+    <lastmod>2017-04-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/04/a-quick-demo-of-apache-beam-with-docker/</loc>
+    <lastmod>2017-04-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/%E7%BF%BB%E8%AF%91/</loc>
+    <lastmod>2017-04-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/04/getting-started-with-nodemcu/</loc>
+    <lastmod>2017-04-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/04/re-zero-starting-in-iot/</loc>
+    <lastmod>2017-04-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/imagine-cup/</loc>
+    <lastmod>2017-03-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/latticeos/</loc>
+    <lastmod>2017-03-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/latticeos/</loc>
+    <lastmod>2017-03-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/03/imagine_cup_2017/</loc>
+    <lastmod>2017-03-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/slide/</loc>
+    <lastmod>2017-03-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/contained-os/</loc>
+    <lastmod>2017-03-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/%E5%AE%B9%E5%99%A8%E5%8C%96/</loc>
+    <lastmod>2017-03-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/03/contained-os/</loc>
+    <lastmod>2017-03-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/chromiumos/</loc>
+    <lastmod>2017-03-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/chromiumos/</loc>
+    <lastmod>2017-03-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/03/sdk-creation/</loc>
+    <lastmod>2017-03-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/03/things-of-rancheros/</loc>
+    <lastmod>2017-03-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/rancheros/</loc>
+    <lastmod>2017-03-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/rancheros/</loc>
+    <lastmod>2017-03-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/coreos/</loc>
+    <lastmod>2017-03-21T01:06:19+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/coreos/</loc>
+    <lastmod>2017-03-21T01:06:19+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/03/sdk-tips-and-tricks/</loc>
+    <lastmod>2017-03-21T01:06:19+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/bug/</loc>
+    <lastmod>2017-03-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/03/monitoring-events-keyboard-mouse-in-x/</loc>
+    <lastmod>2017-03-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/gui/</loc>
+    <lastmod>2017-03-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/chomeos/</loc>
+    <lastmod>2017-03-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/chomeos/</loc>
+    <lastmod>2017-03-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/03/gui-of-chromeos/</loc>
+    <lastmod>2017-03-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/gui/</loc>
+    <lastmod>2017-03-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/polybar/</loc>
+    <lastmod>2017-03-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/03/sdk-qa-of-polybar/</loc>
+    <lastmod>2017-03-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/03/mvp_of_contained_x11/</loc>
+    <lastmod>2017-03-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/03/sdk-modifying-coreos/</loc>
+    <lastmod>2017-03-12T01:06:19+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/linux/</loc>
+    <lastmod>2017-02-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/02/linux-iso-boot/</loc>
+    <lastmod>2017-02-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/%E7%88%AC%E8%99%AB/</loc>
+    <lastmod>2017-02-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/02/uzuki-tkvw7c3d4z/</loc>
+    <lastmod>2017-02-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/mcu/</loc>
+    <lastmod>2017-02-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/02/logs-of-serial-input-data-persistenced/</loc>
+    <lastmod>2017-02-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/02/serial-input-basics/</loc>
+    <lastmod>2017-02-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/02/lemp/</loc>
+    <lastmod>2017-02-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/php/</loc>
+    <lastmod>2017-02-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2017/02/hyacinth-reader/</loc>
+    <lastmod>2017-02-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/vue/</loc>
+    <lastmod>2017-02-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/markdown/</loc>
+    <lastmod>2016-07-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/parsing/</loc>
+    <lastmod>2016-07-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2016/07/pulldown/</loc>
+    <lastmod>2016-07-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/android/</loc>
+    <lastmod>2016-06-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2016/06/merge-android-theme/</loc>
+    <lastmod>2016-06-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2016/06/android-theme-engine/</loc>
+    <lastmod>2016-06-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/theme/</loc>
+    <lastmod>2016-06-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2016/06/android-application-build-or-compilation-process/</loc>
+    <lastmod>2016-06-20T07:04:34+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/build/</loc>
+    <lastmod>2016-06-20T07:04:34+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/compilation/</loc>
+    <lastmod>2016-06-20T07:04:34+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/process/</loc>
+    <lastmod>2016-06-20T07:04:34+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/error/</loc>
+    <lastmod>2016-06-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2016/06/2016-06-20-unable-to-run-mksdcard-sdk-tool/</loc>
+    <lastmod>2016-06-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/android/</loc>
+    <lastmod>2016-04-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2016/04/smsbomb/</loc>
+    <lastmod>2016-04-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2016-04-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/%E5%BA%94%E7%94%A8/</loc>
+    <lastmod>2016-04-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/%E5%BA%94%E7%94%A8/</loc>
+    <lastmod>2016-04-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2016/03/also-sprach/</loc>
+    <lastmod>2016-03-26T18:15:36+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/rest/</loc>
+    <lastmod>2016-03-26T18:15:36+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2016/03/compile-lua-5-3-2-using-android-studio/</loc>
+    <lastmod>2016-03-14T11:51:36+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/lua/</loc>
+    <lastmod>2016-03-14T11:51:36+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/lua/</loc>
+    <lastmod>2016-03-14T11:51:36+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/kanban/</loc>
+    <lastmod>2016-03-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/kanban/</loc>
+    <lastmod>2016-03-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2016/03/kanban/</loc>
+    <lastmod>2016-03-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/protobuf/</loc>
+    <lastmod>2016-02-08T09:26:36+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/protobuf/</loc>
+    <lastmod>2016-02-08T09:26:36+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2016/02/use-protobuf/</loc>
+    <lastmod>2016-02-08T09:26:36+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/tasker/</loc>
+    <lastmod>2016-02-07T13:22:51+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/tasker/</loc>
+    <lastmod>2016-02-07T13:22:51+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2016/02/plugin-for-tasker/</loc>
+    <lastmod>2016-02-07T13:22:51+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/bluemix/</loc>
+    <lastmod>2016-01-31T10:23:52+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/disease/</loc>
+    <lastmod>2016-01-31T10:23:52+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/java/</loc>
+    <lastmod>2016-01-31T10:23:52+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/minecraft/</loc>
+    <lastmod>2016-01-31T10:23:52+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/minecraft/</loc>
+    <lastmod>2016-01-31T10:23:52+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/spigot/</loc>
+    <lastmod>2016-01-31T10:23:52+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/watson/</loc>
+    <lastmod>2016-01-31T10:23:52+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2016/01/cl-bluemix-minecraft-plugins-trs/</loc>
+    <lastmod>2016-01-31T10:23:52+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/%E5%AE%B9%E5%99%A8/</loc>
+    <lastmod>2016-01-31T10:23:52+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/%E6%8F%92%E4%BB%B6/</loc>
+    <lastmod>2016-01-31T10:23:52+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2016/01/minecraft-in-docker/</loc>
+    <lastmod>2016-01-01T01:06:19+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2015/12/smscodehelper/</loc>
+    <lastmod>2015-12-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2015/10/cli-coding/</loc>
+    <lastmod>2015-10-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/coding.net/</loc>
+    <lastmod>2015-10-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/tags/nodejs/</loc>
+    <lastmod>2015-10-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/categories/nodejs/</loc>
+    <lastmod>2015-10-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2015/10/node-coding/</loc>
+    <lastmod>2015-10-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2015/07/hostseditor/</loc>
+    <lastmod>2015-07-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2015/07/linux-jdk-install/</loc>
+    <lastmod>2015-07-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/2014/11/ssdoptimization/</loc>
+    <lastmod>2014-11-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/1/01/chromebook-iptables/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/1/01/kana/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/1/01/%E6%B8%85%E7%90%86%E8%84%9A%E6%9C%AC/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/series/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gitai.me/1/01/optimising-the-front-end/</loc>
+  </url>
+  
+</urlset>

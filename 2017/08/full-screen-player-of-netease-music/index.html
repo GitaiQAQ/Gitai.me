@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>网易云音乐播放器全屏化自定义 CSS | Gitai.me</title>
+
+<meta property='og:title' content='网易云音乐播放器全屏化自定义 CSS - Gitai.me'>
+<meta property='og:description' content='服务商为了安利客户端，简直丧心病，比如网易云音乐，无论移动设备还是 PC，总有那么点反人类的地方。遂随手改个 CSS 姑且算是增加了全屏显示歌词之类的'>
+<meta property='og:url' content='https://gitai.me/2017/08/full-screen-player-of-netease-music/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:published_time' content='2017-08-26T00:00:00Z'/><meta property='article:modified_time' content='2017-08-26T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2017/08/full-screen-player-of-netease-music/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+    </div>
+    <h2 class="subtitle is-6">August 26, 2017</h2>
+    <h1 class="title">网易云音乐播放器全屏化自定义 CSS</h1>
+    
+    <div class="content">
+      <p>服务商为了安利客户端，简直丧心病，比如网易云音乐，无论移动设备还是 PC，总有那么点反人类的地方。遂随手改个 CSS 姑且算是增加了全屏显示歌词之类的。</p>
+<p><img src="https://i.loli.net/2017/08/26/59a12932b29f9.png" alt="全屏预览 - 网易云音乐"></p>
+<p>配合 <a href="https://chrome.google.com/webstore/detail/user-css/okpjlejfhacmgjkmknjhadmkdbcldfcb">User CSS</a> 食用，估计没什么问题。</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">#g_playlist {
+    <span style="color:#66d9ef">position</span>: <span style="color:#66d9ef">fixed</span> <span style="color:#75715e">!important</span>;
+    <span style="color:#66d9ef">left</span>: <span style="color:#ae81ff">0</span><span style="color:#66d9ef">px</span> <span style="color:#75715e">!important</span>;
+    <span style="color:#66d9ef">bottom</span>: <span style="color:#ae81ff">47</span><span style="color:#66d9ef">px</span> <span style="color:#75715e">!important</span>;
+    <span style="color:#66d9ef">right</span>: <span style="color:#ae81ff">0</span><span style="color:#66d9ef">px</span> <span style="color:#75715e">!important</span>;
+    <span style="color:#66d9ef">top</span>: <span style="color:#ae81ff">0</span><span style="color:#66d9ef">px</span> <span style="color:#75715e">!important</span>;
+    <span style="color:#66d9ef">margin</span>: <span style="color:#ae81ff">0</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">height</span>: <span style="color:#66d9ef">auto</span>;
+    <span style="color:#66d9ef">width</span>: <span style="color:#66d9ef">auto</span>;
+}
+
+#g_playlist .<span style="color:#a6e22e">listhd</span> {
+    <span style="color:#66d9ef">background</span>: <span style="color:#ae81ff">#000</span>;
+}
+
+#g_playlist .<span style="color:#a6e22e">listbd</span> {
+    <span style="color:#66d9ef">height</span>: <span style="color:#66d9ef">auto</span>;
+    <span style="color:#66d9ef">bottom</span>: <span style="color:#ae81ff">0</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">width</span>: <span style="color:#66d9ef">auto</span>;
+    <span style="color:#66d9ef">right</span>: <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">background</span>: <span style="color:#ae81ff">#000</span>;
+}
+
+#g_playlist .<span style="color:#a6e22e">listbdc</span><span style="color:#f92672">,</span> #g_playlist .<span style="color:#a6e22e">bline</span><span style="color:#f92672">,</span> #g_playlist .<span style="color:#a6e22e">msk</span><span style="color:#f92672">,</span> #g_playlist .<span style="color:#a6e22e">msk2</span>{
+  <span style="color:#66d9ef">height</span>: <span style="color:#66d9ef">auto</span>;
+  <span style="color:#66d9ef">bottom</span>: <span style="color:#ae81ff">0</span>;
+}
+
+.<span style="color:#a6e22e">m-playbar</span> .<span style="color:#a6e22e">listhdc</span> .<span style="color:#a6e22e">lytit</span> {
+  <span style="color:#66d9ef">right</span>: <span style="color:#ae81ff">0</span>;
+  <span style="color:#66d9ef">width</span>: <span style="color:#66d9ef">auto</span>;
+}
+
+
+#g_playlist .<span style="color:#a6e22e">listbd</span> .<span style="color:#a6e22e">imgbg</span> {
+  <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">none</span>;
+}
+
+#g_playlist .<span style="color:#a6e22e">listlyric</span> {
+    <span style="color:#66d9ef">left</span>: <span style="color:#ae81ff">563</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">right</span>: <span style="color:#ae81ff">0</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">width</span>: <span style="color:#66d9ef">auto</span>;
+    <span style="color:#66d9ef">top</span>: <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">bottom</span>: <span style="color:#ae81ff">0</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">font-size</span>: <span style="color:#66d9ef">large</span>;
+    <span style="color:#66d9ef">height</span>: <span style="color:#66d9ef">auto</span>;
+}
+
+#g_playlist .<span style="color:#a6e22e">listlyric</span> <span style="color:#f92672">p</span>.<span style="color:#a6e22e">z-sel</span> {
+    <span style="color:#66d9ef">font-size</span>: <span style="color:#66d9ef">x-large</span>;
+}
+
+#g_playlist  .<span style="color:#a6e22e">bg</span> {
+  <span style="color:#66d9ef">background</span>: <span style="color:#ae81ff">#000</span>;
+}
+</code></pre></div><p>以上</p>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>简单的数据抓取和处理 | Gitai.me</title>
+
+<meta property='og:title' content='简单的数据抓取和处理 - Gitai.me'>
+<meta property='og:description' content='
+这也是个外包，￥1000，用于建立机器学习语料库。
+
+
+日常写垃圾代码 &#43;1 _(:з」∠)_
+发现一个爬小故事的需求，于是随后 Google 出一个站 Short Stories for Children
+很好，读出来是静态站，网页结构也比较简单。
+爬虫爬起，好像需求 1k 个就够了。
+那也没必要上那些吓人的瑞士军刀。
+找找第三方的爬虫服务：
+
+import.io
+神箭手
+造数
+
+文档略麻烦，估摸着不如自己写。'>
+<meta property='og:url' content='https://gitai.me/2017/02/uzuki-tkvw7c3d4z/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='记录'><meta property='article:published_time' content='2017-02-12T00:00:00Z'/><meta property='article:modified_time' content='2017-02-12T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2017/02/uzuki-tkvw7c3d4z/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/%E8%AE%B0%E5%BD%95/">#记录</a>
+
+
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">February 12, 2017</h2>
+    <h1 class="title">简单的数据抓取和处理</h1>
+    
+    <div class="content">
+      <blockquote>
+<p>这也是个外包，￥1000，用于建立机器学习语料库。</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<p>日常写垃圾代码 +1 _(:з」∠)_</p>
+<p>发现一个爬小故事的需求，于是随后 Google 出一个站 <a href="https://americanliterature.com/short-stories-for-children">Short Stories for Children</a></p>
+<p>很好，读出来是静态站，网页结构也比较简单。</p>
+<p>爬虫爬起，好像需求 1k 个就够了。</p>
+<p>那也没必要上那些吓人的瑞士军刀。</p>
+<p>找找第三方的爬虫服务：</p>
+<ul>
+<li>import.io</li>
+<li>神箭手</li>
+<li>造数</li>
+</ul>
+<p>文档略麻烦，估摸着不如自己写。</p>
+<p>找几个分类,加一起够 1k 了</p>
+<ul>
+<li>Short Stories for Children</li>
+<li>Aesop&rsquo;s Fables</li>
+<li>Christmas Stories for Kids</li>
+<li>Grimm&rsquo;s Fairy-Tales</li>
+<li>Just So Stories</li>
+<li>Children&rsquo;s Poems</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">hrefs</span><span style="color:#f92672">=</span> <span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#34;a&#34;</span>).<span style="color:#a6e22e">map</span>((<span style="color:#a6e22e">k</span>,<span style="color:#a6e22e">item</span>) =&gt; <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">href</span>);
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">childrensRegex</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">/https:\/\/americanliterature\.com\/childrens-stories\/(\w+|-)+/</span>;
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">authorRegex</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">/https:\/\/americanliterature\.com\/author\/(\w+|-)+\/short-story\/(\w+|-)+/</span>;
+<span style="color:#a6e22e">hrefs</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">hrefs</span>.<span style="color:#a6e22e">filter</span>((<span style="color:#a6e22e">index</span>,<span style="color:#a6e22e">item</span>) =&gt; <span style="color:#a6e22e">childrensRegex</span>.<span style="color:#a6e22e">test</span>(<span style="color:#a6e22e">item</span>) <span style="color:#f92672">||</span> <span style="color:#a6e22e">authorRegex</span>.<span style="color:#a6e22e">test</span>(<span style="color:#a6e22e">item</span>));
+<span style="color:#a6e22e">localStorage</span>.<span style="color:#a6e22e">hrefs</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">hrefs</span>.<span style="color:#a6e22e">toArray</span>().<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#34;\n&#34;</span>);
+</code></pre></div><p>全存在 <code>localStorage</code> 里，任务队列 Get</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">https://americanliterature.com/author/aesop/short-story/the-ants-and-the-grasshopper
+https://americanliterature.com/author/aesop/short-story/the-tortoise-and-the-hare
+https://americanliterature.com/author/aesop/short-story/the-fox-and-the-lion
+https://americanliterature.com/author/aesop/short-story/the-lion-and-the-mouse
+https://americanliterature.com/author/aesop/short-story/the-tortoise-and-the-ducks
+https://americanliterature.com/author/aesop/short-story/the-wolf-and-the-kid
+https://americanliterature.com/author/aesop/short-story/the-frogs-and-the-ox
+https://americanliterature.com/author/aesop/short-story/the-young-crab-and-his-mother
+...
+</code></pre></div><p>估计没用和重复的不少，用正则检查， <code>Set</code> 来唯一化</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">＄ node al_filter.js &gt; urls_filtered
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">lineReader</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;readline&#39;</span>).<span style="color:#a6e22e">createInterface</span>({
+  <span style="color:#a6e22e">input</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;fs&#39;</span>).<span style="color:#a6e22e">createReadStream</span>(<span style="color:#e6db74">&#39;urls&#39;</span>)
+});
+
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">childrensRegex</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">/https:\/\/americanliterature\.com\/childrens-stories\/(\w+|-)+/</span>;
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">authorRegex</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">/https:\/\/americanliterature\.com\/author\/(\w+|-)+\/short-story\/(\w+|-)+/</span>;
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">set</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Set</span>();
+<span style="color:#a6e22e">lineReader</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;line&#39;</span>, (<span style="color:#a6e22e">line</span>) =&gt; <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">childrensRegex</span>.<span style="color:#a6e22e">test</span>(<span style="color:#a6e22e">line</span>) <span style="color:#f92672">||</span> <span style="color:#a6e22e">authorRegex</span>.<span style="color:#a6e22e">test</span>(<span style="color:#a6e22e">line</span>)) <span style="color:#a6e22e">set</span>.<span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">line</span>));
+<span style="color:#a6e22e">lineReader</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;close&#39;</span>, (<span style="color:#a6e22e">line</span>) =&gt; <span style="color:#a6e22e">set</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">v</span> =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">v</span>)));
+</code></pre></div><p>然后开始写请求，<code>Xpath</code> 是个好东西</p>
+<ul>
+<li>Title:    <code>/html/body/div[1]/div[2]/h1/cite</code></li>
+<li>Author:   <code>/html/body/div[1]/div[2]/h3/a</code></li>
+<li>Body:     <code>/html/body/div[1]/div[2]/p[3]</code>&hellip;<code>/html/body/div[1]/div[2]/p[n]</code></li>
+</ul>
+<p>自己写，光请求就要一会，之后爬还容易被 ban。</p>
+<p>这时候，祭出 import.io ，戳几个规则，丢一堆 url，10min后全部完成。</p>
+<p><a href="https://gist.github.com/GitaiQAQ/c586c50e08035a6d58b69cc8a89c0dc5">https://gist.github.com/GitaiQAQ/c586c50e08035a6d58b69cc8a89c0dc5</a></p>
+<p>没用(?) 的字段比较多，结构也不太好用。</p>
+<p>写个脚本格式化一下。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">extent</span>(<span style="color:#a6e22e">obj1</span>, <span style="color:#a6e22e">obj2</span>){
+	<span style="color:#66d9ef">for</span>(<span style="color:#a6e22e">k</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">obj2</span>){
+		<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">obj2</span>[<span style="color:#a6e22e">k</span>] <span style="color:#66d9ef">instanceof</span> Object) <span style="color:#66d9ef">continue</span>;
+		<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">obj1</span>[<span style="color:#a6e22e">k</span>] <span style="color:#f92672">==</span> <span style="color:#66d9ef">undefined</span>) <span style="color:#a6e22e">obj1</span>[<span style="color:#a6e22e">k</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">obj2</span>[<span style="color:#a6e22e">k</span>];
+		<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(<span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">obj1</span>[<span style="color:#a6e22e">k</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;string&#39;</span>){
+			<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">k</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;title&#39;</span>) <span style="color:#66d9ef">continue</span>;
+			<span style="color:#a6e22e">obj1</span>[<span style="color:#a6e22e">k</span>] <span style="color:#f92672">=</span> [<span style="color:#a6e22e">obj1</span>[<span style="color:#a6e22e">k</span>], <span style="color:#a6e22e">obj2</span>[<span style="color:#a6e22e">k</span>]]
+		}<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">obj1</span>[<span style="color:#a6e22e">k</span>] <span style="color:#66d9ef">instanceof</span> Array){
+			<span style="color:#a6e22e">obj1</span>[<span style="color:#a6e22e">k</span>].<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">obj2</span>[<span style="color:#a6e22e">k</span>])
+		}<span style="color:#66d9ef">else</span>{
+			<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#e6db74">&#34;Error&#34;</span>, <span style="color:#a6e22e">obj1</span>[<span style="color:#a6e22e">k</span>]);
+		}
+	}
+}
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">extractorData</span>){
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span>{<span style="color:#a6e22e">words</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>};
+	<span style="color:#a6e22e">extent</span>(<span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">extractorData</span>);
+	<span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">extractorData</span>.<span style="color:#a6e22e">data</span>){
+		<span style="color:#66d9ef">return</span>;
+	}
+	<span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">extractorData</span>.<span style="color:#a6e22e">data</span>[<span style="color:#ae81ff">0</span>]){
+		<span style="color:#66d9ef">return</span> ;
+	}
+	<span style="color:#66d9ef">for</span>(<span style="color:#a6e22e">v</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">extractorData</span>.<span style="color:#a6e22e">data</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">group</span>){
+		<span style="color:#66d9ef">for</span>(<span style="color:#a6e22e">k</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">v</span>){ 
+				<span style="color:#a6e22e">v</span>[<span style="color:#a6e22e">k</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">v</span>[<span style="color:#a6e22e">k</span>][<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">text</span>;
+		}
+		<span style="color:#a6e22e">extent</span>(<span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">v</span>);
+	}
+	<span style="color:#66d9ef">if</span>(<span style="color:#66d9ef">typeof</span>(<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">content</span>) <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;string&#34;</span>){ 
+		<span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">content</span>) <span style="color:#66d9ef">return</span>; 
+		<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">contents</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">content</span>;
+		<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">content</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">content</span>.<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#34;\n&#34;</span>);
+	}
+	<span style="color:#66d9ef">for</span>(<span style="color:#a6e22e">v</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">content</span>){
+		<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">v</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39; &#39;</span>)
+			<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">words</span><span style="color:#f92672">+=</span><span style="color:#ae81ff">1</span>;
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>;
+}
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">json</span> <span style="color:#f92672">=</span> [];
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">format</span>(<span style="color:#a6e22e">filename</span>, <span style="color:#a6e22e">cb</span>){
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">lineReader</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;readline&#39;</span>).<span style="color:#a6e22e">createInterface</span>({
+	  <span style="color:#a6e22e">input</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;fs&#39;</span>).<span style="color:#a6e22e">createReadStream</span>(<span style="color:#a6e22e">filename</span>)
+	});
+	<span style="color:#a6e22e">lineReader</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;line&#39;</span>, (<span style="color:#a6e22e">line</span>) =&gt; {
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">r</span><span style="color:#f92672">=</span><span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">line</span>).<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">extractorData</span>);
+		<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">r</span>) <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">r</span>);
+	});
+	<span style="color:#a6e22e">lineReader</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;close&#39;</span>, () =&gt; <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">cb</span>)<span style="color:#a6e22e">cb</span>());
+}
+</code></pre></div><p>调用：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">format</span>(<span style="color:#e6db74">&#39;523d4b7b-91af-4d66-ab49-f8e15ed9840f.json&#39;</span>, () =&gt;
+	<span style="color:#a6e22e">format</span>(<span style="color:#e6db74">&#39;e726ad6f-7c09-4502-a2bb-d828a7db96d2.json&#39;</span>, () =&gt; 
+		<span style="color:#a6e22e">format</span>(<span style="color:#e6db74">&#39;54709014-b012-4168-9fa2-4c1075b63d51.json&#39;</span>, () =&gt; 
+			<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">json</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">4</span>))
+		)
+	)
+)
+</code></pre></div><p>完美！</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">[
+    {
+        <span style="color:#f92672">&#34;words&#34;</span>: <span style="color:#ae81ff">5381</span>,
+        <span style="color:#f92672">&#34;url&#34;</span>: <span style="color:#e6db74">&#34;https://americanliterature.com/author/o-henry/short-story/next-to-reading-matter&#34;</span>,
+        <span style="color:#f92672">&#34;resourceId&#34;</span>: <span style="color:#e6db74">&#34;1998a23f2315ef7abc5ab53c69eaaf22&#34;</span>,
+        <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Next to Reading Matter&#34;</span>,
+        <span style="color:#f92672">&#34;author&#34;</span>: <span style="color:#e6db74">&#34;O. Henry&#34;</span>,
+        <span style="color:#f92672">&#34;content&#34;</span>: <span style="color:#e6db74">&#34;He compelled my interest as he stepped from the ferry at Desbrosses S...&#34;</span>,
+        <span style="color:#f92672">&#34;contents&#34;</span>: [
+            <span style="color:#e6db74">&#34;He compelled my interest as he stepped from the ferry at Desbrosses Street...&#34;</span>,
+            <span style="color:#e6db74">&#34;He wore loose clothes of a strange bluish drab colour, and a conservative...&#34;</span>,
+            <span style="color:#e6db74">&#34;Judson Tate accosted me with some large and casual inquiries about the city...&#34;</span>,
+        ]
+    },
+    {
+        <span style="color:#f92672">&#34;words&#34;</span>: <span style="color:#ae81ff">3604</span>,
+        <span style="color:#f92672">&#34;url&#34;</span>: <span style="color:#e6db74">&#34;https://americanliterature.com/author/o-henry/short-story/no-story&#34;</span>,
+        <span style="color:#f92672">&#34;resourceId&#34;</span>: <span style="color:#e6db74">&#34;b2f81e678da8527b480079a2d4fc3f6f&#34;</span>,
+        <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;No Story&#34;</span>,
+        <span style="color:#f92672">&#34;author&#34;</span>: <span style="color:#e6db74">&#34;O. Henry&#34;</span>,
+        <span style="color:#f92672">&#34;content&#34;</span>: <span style="color:#e6db74">&#34;To avoid having this book hurled into corner of the room by the...&#34;</span>,
+        <span style="color:#f92672">&#34;contents&#34;</span>: [
+            <span style="color:#e6db74">&#34;To avoid having this book hurled into corner of the room by the suspicious...&#34;</span>,
+            <span style="color:#e6db74">&#34;But if you will concede me the setting of the first scene in the reporters...&#34;</span>,
+            <span style="color:#e6db74">&#34;I was doing space-work on the Beacon, hoping to be put on a salary. Some...&#34;</span>,
+        ]
+    }
+]
+</code></pre></div><p>统计：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat results.json | jq <span style="color:#e6db74">&#34;length&#34;</span>
+&gt; <span style="color:#ae81ff">964</span>
+</code></pre></div><p>大部分正文都超过 2k 词</p>
+<p>筛选一下:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat results.json | jq <span style="color:#e6db74">&#34;.[] | select(.words &lt; 2000) &#34;</span> &gt; filtered.json
+$ cat filtered.json | jq <span style="color:#e6db74">&#34;length&#34;</span>
+&gt; <span style="color:#ae81ff">425</span>
+</code></pre></div><p>只剩下一半了 _(:з」∠)_</p>
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

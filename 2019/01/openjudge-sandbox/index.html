@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>分析常见 OJ 沙箱 | Gitai.me</title>
+
+<meta property='og:title' content='分析常见 OJ 沙箱 - Gitai.me'>
+<meta property='og:description' content='沙箱就是为了隔离各应用，防止对上层系统的破坏。常见 OJ 的破坏方式其实我也不知道，又不打比赛。 姑且做了一点点了解： 恶意系统调用（ptrace， s'>
+<meta property='og:url' content='https://gitai.me/2019/01/openjudge-sandbox/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='OJ'><meta property='article:tag' content='沙箱'><meta property='article:published_time' content='2019-01-07T00:00:00Z'/><meta property='article:modified_time' content='2019-01-07T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2019/01/openjudge-sandbox/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/oj/">#OJ</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/%E6%B2%99%E7%AE%B1/">#沙箱</a>
+  
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">January 7, 2019</h2>
+    <h1 class="title">分析常见 OJ 沙箱</h1>
+    
+    <div class="content">
+      <p>沙箱就是为了隔离各应用，防止对上层系统的破坏。常见 OJ 的破坏方式其实我也不知道，又不打比赛。</p>
+<p>姑且做了一点点了解：</p>
+<ol>
+<li>恶意系统调用（ptrace， seccomp）</li>
+<li>恶意占用资源</li>
+</ol>
+<p>即使不看下面这几点，也不难发现这就是常见的虚拟化问题，对此我们有 KVM 和 LXC 这 2 类方法。</p>
+<!-- raw HTML omitted -->
+<h2 id="lxc">LXC</h2>
+<p>就从 docker 来说说 LXC，先找个镜像解开看看。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ mkdir rootfs
+$ docker export <span style="color:#66d9ef">$(</span>docker create busybox<span style="color:#66d9ef">)</span> | tar -C rootfs -xvf -
+$ tree rootfs
+rootfs
+├── bin
+│   ├── <span style="color:#f92672">[</span>
+│   ├── acpid
+...
+│   └── zcip
+├── dev
+│   ├── console
+│   ├── pts
+│   └── shm
+├── etc
+...
+├── home
+├── root
+├── usr
+│   └── sbin
+└── var
+    ├── spool
+    │   └── mail
+    └── www
+
+<span style="color:#ae81ff">21</span> directories, <span style="color:#ae81ff">405</span> files
+</code></pre></div><p>熟悉 Linux 的不难发现这就是一个 Linux 的目录结构，LXC 被称之为操作系统层级的虚拟化技术或者半虚拟化也是因此，所有容器公用内核，但是通过命名空间而拥有独立的计算资源（CPU/内存）。</p>
+<p>上面的目录则可以通过 chroot 构建一个完全隔离的文件系统，接下来我们操作一下。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo chroot rootfs sh
+</code></pre></div><p>网上很多流传的 chroot 使用方法都是默认参数，这样会调用 <code>/bin/bash</code>，而 <code>busybox</code> 只有 <code>sh</code>，于是我们需要手动设定启动参数。之后可以尝试  <code>cd</code>,<code>ls</code> 之类的命令，现在的根目录就是之前解压出来的 <code>rootfs</code>。</p>
+<p>之后是计算单元的分配，CGroups 的配置是通过 <code>/sys/fs/cgroup</code><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 的子文件夹来配置的，而 Docker 文件的就在各资源的 <code>docker</code> 文件夹下。我们在 <code>docker run -it -d --cpu-quota=50000 busybox</code> 运行产生的变更就在对应的 <code>cpu.cfs_quota_us</code> 文件里。容器对应的进程 ID。可以通过 <code>docker top</code> 命令查看。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ tree /sys/fs/cgroup
+.
+├── 0d3316b7e8f1e14106056cf3e315b97688aa01fb6c8c7d1c3b6a11fd493ead71
+│   ├── cgroup.clone_children
+│   ├── cgroup.procs
+│   ├── cpuacct.stat
+│   ├── cpuacct.usage
+│   ├── cpuacct.usage_percpu
+│   ├── cpu.cfs_period_us
+│   ├── cpu.cfs_quota_us
+│   ├── cpu.shares
+│   ├── cpu.stat
+│   ├── notify_on_release
+│   └── tasks
+├── 32aa806782e33aabca018733f07d39c7ae1dd74f412ec2e3fc6366b1f6f04c24
+...
+├── 5449d3228792d75bdc21c10395b48925a42db8461b5abfdf14a0ef153f1f5a0d
+...
+├── cgroup.clone_children
+├── cgroup.procs
+├── cpuacct.stat
+├── cpuacct.usage
+├── cpuacct.usage_percpu
+├── cpu.cfs_period_us
+├── cpu.cfs_quota_us
+├── cpu.shares
+├── cpu.stat
+├── notify_on_release
+└── tasks
+
+<span style="color:#ae81ff">9</span> directories, <span style="color:#ae81ff">110</span> files
+</code></pre></div><p>而后就是 UnionFS，这是实现镜像继承的关键，也是保护宿主机文件系统的关键。之前通过 chroot 创建的不过是个隔离的子文件系统。对其的更改也会同步到宿主机上，而 UnionFS 则可以挂载多个只读层和操作层。</p>
+<p>之前提到过恶意的系统调用，在 Docker 中是通过 Seccomp 过滤不安全的系统调用，这个应用在 Linux 3.5 之后被加入内核。</p>
+<p>和 Docker 出现同期的还有一个叫 Firejail<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> 的项目，也是运用了类似的技术，Docker 在前些年提出一个 OCI 标准，为了兼容各家的容器化方案，于是整个系统更为冗杂。并不利于只是了解这个技术的具体实现。</p>
+<p>不过伴随着模块化 Docker，得到了 Daemon，Containerd，Shim，RunC，Proxy 几个部分，通过 查看进程树，Shim 用于挂载伴随其后的子进程，而 RunC 才是实际操作的工具。Oacle 之前开源了一个微容器服务，其中有个兼容 OCI 的 <code>railcar</code>，这也是一个 RunC 的实现，但是可能更为精简和高性能。</p>
+<h2 id="kvm">KVM</h2>
+<p>KVM 作为传统虚拟化的解决方案，相比 LXC 更为安全，隔离性更好。但是一直被人诟病的是重量级，不够轻量。最近几年 FaaS 在 lambda 演算的推进下，催生出新一代的 KVM 技术，但是目前开源的只有 AWS 的 <code>firecracker</code>，和上述 Oacle 的 <code>railcar</code> 一样均为 Rust 构建。</p>
+<p>这类新的微虚拟机只保留必要的功能来增强安全性，比如没有显卡支持。也减少了资源的消耗，官方给出的说明，每个虚拟机仅仅需要 5mb 的内存和 120ms 就能启动。</p>
+<h2 id="openjugder">OpenJugder</h2>
+<p>青岛大学开源了一个 Jugder 系统，仅仅是使用了 seccomp 和 setrlimit，以及 Linux 的权限系统。</p>
+<p>所以上面都是瞎扯淡，性能都没有这个好，这才是面向这个需求的最好设计。不过用 Rust 写一个 Judger 还行，这个轮子造的还算有意思。</p>
+<h2 id="参考">参考</h2>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://draveness.me/docker">https://draveness.me/docker</a> Docker 核心技术与实现原理 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p><a href="https://wiki.archlinux.org/index.php/firejail">https://wiki.archlinux.org/index.php/firejail</a> Firejail <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

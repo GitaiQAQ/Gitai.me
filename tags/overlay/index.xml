@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Overlay on Gitai.me</title>
+    <link>https://gitai.me/tags/overlay/</link>
+    <description>Recent content in Overlay on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Sat, 11 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/overlay/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>实现一个简单的虚拟文件系统</title>
+      <link>https://gitai.me/2019/05/fs-overlay/</link>
+      <pubDate>Sat, 11 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/05/fs-overlay/</guid>
+      <description>之前改了改 Oracle 开源的用 Rust 实现的 RunC，弄明白如何生成一个最小化的运行容器环境；但是那时候没去理清楚，如何实现分层的文件系统。这次要测试个脚本</description>
+    </item>
+    
+  </channel>
+</rss>

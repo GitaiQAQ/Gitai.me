@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>串口数据持久化手札 | Gitai.me</title>
+
+<meta property='og:title' content='串口数据持久化手札 - Gitai.me'>
+<meta property='og:description' content='前面已经 WIFI 探针已经说到，用各种第三方工具和单片机进行交互。
+但是为了开发我们更需要的是可以被接入的 SDK
+乐鑫官方有个 esptool，这是个 Python 编写的终端工具，对于 Python 和 JavaScript 这类解释性需要来说，最大的好处就是原始码直接发布，虽然也可以编译混淆，但是基本非商业应用没人这么做。
+platformio 有个 pio device monitor 命令，启动一个串口交互界面。'>
+<meta property='og:url' content='https://gitai.me/2017/02/logs-of-serial-input-data-persistenced/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='记录'><meta property='article:published_time' content='2017-02-10T00:00:00Z'/><meta property='article:modified_time' content='2017-02-10T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2017/02/logs-of-serial-input-data-persistenced/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/%E8%AE%B0%E5%BD%95/">#记录</a>
+
+
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">February 10, 2017</h2>
+    <h1 class="title">串口数据持久化手札</h1>
+    
+    <div class="content">
+      <p>前面已经 WIFI 探针已经说到，用各种第三方工具和单片机进行交互。</p>
+<p>但是为了开发我们更需要的是可以被接入的 SDK</p>
+<p>乐鑫官方有个 <code>esptool</code>，这是个 Python 编写的终端工具，对于 Python 和 JavaScript 这类解释性需要来说，最大的好处就是原始码直接发布，虽然也可以编译混淆，但是基本非商业应用没人这么做。</p>
+<p><code>platformio</code> 有个 <code>pio device monitor</code> 命令，启动一个串口交互界面。</p>
+<p>以上都是用 Python 写的，并且都引入了 <code>serial</code> 库</p>
+<p>用 <code>pip insatll serial</code> 安装后</p>
+<p>去官方文档找找，发现一个神奇的模块 <code>miniterm</code></p>
+<p><a href="https://github.com/pyserial/pyserial/tree/master/serial/tools">https://github.com/pyserial/pyserial/tree/master/serial/tools</a></p>
+<p>通 <del>读</del> 过源码，不难发现这是个完整的终端和串口交互的例子，遂 <del>抄</del> 借鉴之。</p>
+<p>按照如上的通读结果，以及本次写入文件或者通过其他协议转发进行持久化之类的目的。</p>
+<p>这模块抽象的不错，我们定义一个自己的 <code>FileConsole</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FileConsole</span>(Console):
+    <span style="color:#66d9ef">def</span> __init__(self):
+        super(SnifferConsole, self)<span style="color:#f92672">.</span>__init__()
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">setup</span>(self):
+        super(SnifferConsole, self)<span style="color:#f92672">.</span>setup()
+        self<span style="color:#f92672">.</span>last_upload <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+        self<span style="color:#f92672">.</span>tfd <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>fd
+        self<span style="color:#f92672">.</span>fd <span style="color:#f92672">=</span> open(<span style="color:#e6db74">&#34;/var/log/wifi_sniffer.log&#34;</span>, <span style="color:#e6db74">&#34;w+&#34;</span>);
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">cleanup</span>(self):
+        termios<span style="color:#f92672">.</span>tcsetattr(self<span style="color:#f92672">.</span>tfd, termios<span style="color:#f92672">.</span>TCSAFLUSH, self<span style="color:#f92672">.</span>old)
+        
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">write_bytes</span>(self, byte_string):
+        <span style="color:#e6db74">&#34;&#34;&#34;Write bytes (already encoded)&#34;&#34;&#34;</span>
+        <span style="color:#75715e"># 没用上</span>
+        <span style="color:#75715e"># self.byte_output.write(byte_string)</span>
+        <span style="color:#75715e"># self.byte_output.flush()</span>
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">write</span>(self, text):
+        <span style="color:#e6db74">&#34;&#34;&#34;Write string&#34;&#34;&#34;</span>
+        self<span style="color:#f92672">.</span>fd<span style="color:#f92672">.</span>write(text<span style="color:#f92672">.</span>encode(<span style="color:#e6db74">&#39;utf-8&#39;</span>))
+        self<span style="color:#f92672">.</span>fd<span style="color:#f92672">.</span>flush()
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> __init__(self, serial_instance, echo<span style="color:#f92672">=</span>False, eol<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;crlf&#39;</span>, filters<span style="color:#f92672">=</span>()):
+    self<span style="color:#f92672">.</span>console <span style="color:#f92672">=</span> FileConsole()
+</code></pre></div><p>运行之后文件会被保存在 <code>/var/log/wifi_sniffer.log</code></p>
+<p>但是，尝试用其他日志分析软件，如：<code>filebeat</code> 监控，读取和上传就会发现，很多行都被打断了。</p>
+<p>因为 <code>reader</code> 方法里面调用 <code>self.serial.read</code> 读取串口数据，这种方式本身非常高效，但是缺点也显而易见，基本没几行完整的。</p>
+<p>我们需要修改 <code>reader</code> 方法</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">datas <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>serial<span style="color:#f92672">.</span>readlines(self<span style="color:#f92672">.</span>serial<span style="color:#f92672">.</span>in_waiting <span style="color:#f92672">or</span> <span style="color:#ae81ff">1</span>)
+<span style="color:#66d9ef">for</span> data <span style="color:#f92672">in</span> datas:
+    <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>raw:
+        self<span style="color:#f92672">.</span>console<span style="color:#f92672">.</span>write_bytes(data)
+    <span style="color:#66d9ef">else</span>:
+        text <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>rx_decoder<span style="color:#f92672">.</span>decode(data)
+        <span style="color:#66d9ef">for</span> transformation <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>rx_transformations:
+            text <span style="color:#f92672">=</span> transformation<span style="color:#f92672">.</span>rx(text)
+        self<span style="color:#f92672">.</span>console<span style="color:#f92672">.</span>write(text)
+</code></pre></div><p>完美！</p>
+<p>如果写个 <code>LoggingConsole</code> 然后利用 <code>logging</code> 库将整个流程再一次封装也是极好的。虽然我已经试过了，但是懒的写。</p>
+<p>之后，Python 整个库太大，编译下也麻烦。以及手贱想用 <code>rust</code> 感受下。但是限于时间，我还是用 <code>golang</code> 摸个鱼吧。不过顺手记录下可能有用的模块 <a href="https://github.com/dcuddeback/serial-rs">dcuddeback/serial-rs</a></p>
+<ul>
+<li><input disabled="" type="checkbox"> : Rust 坑 +1</li>
+</ul>
+<p>以下用 <code>golang</code> 开发，参照 <a href="https://reprage.com/post/using-golang-to-connect-raspberrypi-and-arduino">Using Golang to connect Raspberry PIs and Arduinos over serial</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;github.com/gitaiqaq/serial&#34;</span>
+	<span style="color:#e6db74">&#34;io/ioutil&#34;</span>
+	<span style="color:#e6db74">&#34;time&#34;</span>
+	<span style="color:#e6db74">&#34;github.com/elastic/beats/libbeat/common&#34;</span>
+	<span style="color:#e6db74">&#34;strings&#34;</span>
+	<span style="color:#e6db74">&#34;strconv&#34;</span>
+	<span style="color:#e6db74">&#34;bufio&#34;</span>
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;log&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">is_Number</span>(<span style="color:#a6e22e">b</span> <span style="color:#66d9ef">byte</span>) <span style="color:#66d9ef">bool</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">48</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">57</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">is_Frame</span>(<span style="color:#a6e22e">b</span> []<span style="color:#66d9ef">byte</span>) <span style="color:#66d9ef">bool</span> {
+	<span style="color:#66d9ef">if</span> (len(<span style="color:#a6e22e">b</span>) &lt; <span style="color:#ae81ff">54</span>) {
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">is_Number</span>(<span style="color:#a6e22e">b</span>[<span style="color:#ae81ff">0</span>]) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">b</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> <span style="color:#ae81ff">124</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+        <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">serial</span>.<span style="color:#a6e22e">Config</span>{<span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;/dev/ttyUSB0&#34;</span>, <span style="color:#a6e22e">Baud</span>: <span style="color:#ae81ff">115200</span>}
+        <span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">serial</span>.<span style="color:#a6e22e">OpenPort</span>(<span style="color:#a6e22e">c</span>)
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+                <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+        }
+
+		<span style="color:#a6e22e">scanner</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bufio</span>.<span style="color:#a6e22e">NewScanner</span>(<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">File</span>())
+	    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Scan</span>() {
+	    	<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">is_Frame</span>(<span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Bytes</span>())){
+		    	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Text</span>())
+	    	}
+	    }
+
+	    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Err</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+	        <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+	    }
+}
+
+</code></pre></div>
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

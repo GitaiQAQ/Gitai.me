@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>从高级语言到基本电路 | Gitai.me</title>
+
+<meta property='og:title' content='从高级语言到基本电路 - Gitai.me'>
+<meta property='og:description' content='计算机的可编程性主要是指对中央处理器的编程。通过预设的指令集，和储存设备记录的指令序列，实现可编程性。 本文广泛借鉴了 《大话处理器处理器基础知'>
+<meta property='og:url' content='https://gitai.me/2019/09/program-to-hardcode/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='CPU'><meta property='article:published_time' content='2019-09-20T00:00:00Z'/><meta property='article:modified_time' content='2019-09-20T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2019/09/program-to-hardcode/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/cpu/">#CPU</a>
+
+
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">September 20, 2019</h2>
+    <h1 class="title">从高级语言到基本电路</h1>
+    
+    <div class="content">
+      <p>计算机的可编程性主要是指对中央处理器的编程。通过预设的指令集，和储存设备记录的指令序列，实现可编程性。</p>
+<p>本文广泛借鉴了 《大话处理器处理器基础知识读本》，更准确的来说是对其中的某些细节进行丰富，并连贯在一起，从另一个角度理解程序到物理电路的关系。</p>
+<!-- raw HTML omitted -->
+<h2 id="体系架构">体系架构</h2>
+<p>冯·诺伊曼结构：将存储设备与中央处理器分开的概念。
+哈佛架构：将程序数据与普通数据分开存储的设计概念，但是它并未完全突破冯.诺伊曼架构。
+修正哈佛架构：允许将指令存储器的内容作为数据进行访问。</p>
+<h2 id="指令集2-1">指令集<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>早期的计算机没有指令集这种东西，都是软硬件绑定耦合。每次用户购买就是整套产品，直到 IBM 秉持着“加一层的设计理念”，弄出了 ISA，用于抽离程序和底层 CPU 的强耦合，随后 CPU 的内部实现，被称之为 微架构（Microarchitecture），而对上层暴露的接口称之为 架构（Architecture）。</p>
+<p>OISC/URISC：（One/Ultimate Reduced Instruction Set Computer） 单一指令集/最简指令集计算机</p>
+<p>CISC: （Complex Instruction Set Computer）复杂指令集，对程序逻辑的高级封装，通过对精简指令的复合，加速程序执行</p>
+<ol>
+<li>计算机发展早期，人们用汇编语言进行编程，自然喜好强大好用的指令集（类似高阶语言的各种语法糖）。</li>
+<li>CISC 指令集中包含高级语言的某些特性，如复杂的寻址模式，直接对应指针的运算。</li>
+<li>那时的存储器速度慢且昂贵，因此 CISC 的指令是变长指令，以节约存储空间。由一条指令完成很多功能，对内存访问减少了。</li>
+</ol>
+<p>RISC: （Reduced Instruction Set Computing）精简指令集</p>
+<ol>
+<li>IBM 发现，CISC 中的大量复杂寻址方式和大量指令不会被经常用到。常用的指令只占 20%。</li>
+<li>RISC 的指令大部分时间能在一个 cycle 内完成，因此处理器频率得到大幅度提升。</li>
+<li>RISC 利于扩展，但 RISC 采用定长指令，使得存储空间变大。程序空间较大会降低 cache 的命中率，降低程序的执行效率。</li>
+</ol>
+<p>举个例子</p>
+<p>在 CISC 架构和 RISC 实现加法，会有如下差异</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-asm" data-lang="asm"><span style="color:#a6e22e">add</span> (<span style="color:#66d9ef">reg</span>) <span style="color:#ae81ff">0x08</span> <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#960050;background-color:#1e0010">直接将存储器单元</span>(<span style="color:#66d9ef">reg</span>)<span style="color:#960050;background-color:#1e0010">中的值加</span><span style="color:#ae81ff">0x08</span><span style="color:#960050;background-color:#1e0010">，结果仍然存放在该存储器单元中</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-asm" data-lang="asm"><span style="color:#a6e22e">ld</span> <span style="color:#66d9ef">reg2</span> (<span style="color:#66d9ef">reg</span>) <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#960050;background-color:#1e0010">将存储器单元</span> (<span style="color:#66d9ef">reg</span>) <span style="color:#960050;background-color:#1e0010">中的值加载到寄存器</span> <span style="color:#66d9ef">reg2</span> <span style="color:#960050;background-color:#1e0010">中</span>
+<span style="color:#a6e22e">add</span> <span style="color:#66d9ef">reg2</span> <span style="color:#ae81ff">0x08</span> <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#960050;background-color:#1e0010">将寄存器</span> <span style="color:#66d9ef">reg2</span> <span style="color:#960050;background-color:#1e0010">中的值加</span> <span style="color:#ae81ff">0x08</span><span style="color:#960050;background-color:#1e0010">，结果存到在寄存器</span> <span style="color:#66d9ef">reg2</span> <span style="color:#960050;background-color:#1e0010">中</span>
+<span style="color:#a6e22e">store</span> (<span style="color:#66d9ef">reg</span>) <span style="color:#66d9ef">reg2</span> <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#960050;background-color:#1e0010">将寄存器</span> <span style="color:#66d9ef">reg2</span> <span style="color:#960050;background-color:#1e0010">中的值放回存储器单元</span> (<span style="color:#66d9ef">reg</span>) <span style="color:#960050;background-color:#1e0010">中</span>
+</code></pre></div><p>然后对上面 2 种指令集从以下 2 个角度理解</p>
+<p>第一种，RISC 能满足所有需求，但是 CISC 提供了一系列通过硬件提升性能的拓展指令。</p>
+<p>第二种，CISC 是高阶的抽象，对 RISC 进一步封装，所以我们也可以在上层完成这个阶段，通过预编译将 CISC 预先转化为 RISC，然后进一步执行。（Intel 就是这么整的）</p>
+<p>ZISC：（Zero Instruction Set Computing） 零指令集，用于教学环境下的 CPU 模拟。</p>
+<h2 id="机器字长">机器字长</h2>
+<p>在各种架构之下，我们常常能听到 x86, x64 这种对 CPU 架构的简称，x64 实际上是 x86-64，而这里就包含一个叫机器字长的特性。</p>
+<p>这里有相对完整的<a href="https://en.wikipedia.org/wiki/Comparison_of_instruction_set_architectures">CPU 架构比较表</a></p>
+<p>可以清晰的发现各种架构的共同点和差异，比如：</p>
+<ul>
+<li>x86 存在 16-&gt;32-&gt;64 位</li>
+<li>而 ARM 在 32 和 64 则是 2 套，A32 和 A64</li>
+<li>MIPS 则只有 32-&gt;64</li>
+<li>RISC-V 非常 nb，但是不知道咋回事的东西</li>
+</ul>
+<p>其 32 就是每个寄存器可以储存的数据长度，以及 CPU 单次处理的数据量。</p>
+<h2 id="高阶语言---汇编语言">高阶语言 -&gt; 汇编语言</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">19</span>;
+    <span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> <span style="color:#ae81ff">918</span>;
+    <span style="color:#66d9ef">int</span> c <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b <span style="color:#f92672">*</span> b <span style="color:#f92672">/</span> a;
+    <span style="color:#66d9ef">return</span> c;
+}
+</code></pre></div><p>首先使用 [Compilter Explorer]: (<a href="https://gcc.godbolt.org/">https://gcc.godbolt.org/</a>) 瞅一眼他们的生成的汇编代码。</p>
+<p>最好是先弄出来编译生成的二进制可执行文件，并使用逆向工具 IDA，获取它的机器码和汇编吗。</p>
+<p>在此使用 <a href="https://github.com/dockcross/dockcross">dockcross</a> 这个项目来处理这个问题。这也是为了符合我自己定义的环境分发的理念。</p>
+<p>最后得到如下一堆文件</p>
+<ul>
+<li><code>main.s</code> gcc -S 生成的汇编代码</li>
+<li><code>a.out</code> 目标文件</li>
+<li><code>a.strip.out</code> 经过 strip 处理后的目标文件</li>
+<li><code>a.strip.asm</code> 通过 IDA 逆向得到的汇编文件</li>
+</ul>
+<p>把最重要的抽出来，大概是下面这堆东西；为了提升可读性，和 <code>main.s</code> 和 <code>a.strip.asm</code> 均有巨大差异。</p>
+<p>因为汇编和编译器和物理硬件有着强依赖性，所以这个简单的例子还是太复杂；我们从更简单的 Intel 8086 开始简单入门汇编。</p>
+<p>拿阮一峰的这篇文章来看看 <a href="http://www.ruanyifeng.com/blog/2018/01/assembly-language-primer.html">汇编语言入门教程</a>，<code>i++</code> 这是如何执行的。</p>
+<pre><code class="language-assembly" data-lang="assembly"># int i[] = [2];
+push 2
+loopStart:
+# ax = i[0];
+pop AX
+# tmp = 1;
+push 1
+pop BX
+# i = i + tmp;
+add AX, BX
+# i = tmp
+push AX
+# goto
+jmp loopStart
+</code></pre><p><img src="/img/2019/09/jiHpKWkBxgnJCqz.gif" alt="1568885131699.gif"></p>
+<p>大概就是这么回事，这样看起来好像写个模拟器很简单的样子。</p>
+<p>接下来分析一下上面通过反汇编得到的汇编代码 (GAS / AT &amp; T)。</p>
+<pre><code class="language-assembly" data-lang="assembly"># $19 立即数寻址
+# -4(%rbp) = *(rbp - 4) (基址 + 偏移值) 寻址
+# movl S,D 对 4 字节整数进行传送 D = S
+movl	$19, -4(%rbp)
+movl	$918, -8(%rbp)
+movl	-8(%rbp), %eax
+# 无符号 64位乘
+# R[%edx]:R[%eax] = S * R[%eax]
+# 高 32 位放在 edx，低 32 位放在 eax
+imull	-8(%rbp)
+# https://www.cnblogs.com/zuoxiaolong/p/computer17.html
+cltd
+# 有符号除法，保存余数和商
+# eax 商，edx 余数
+idivl	-4(%rbp)
+movl	%eax, %edx
+movl	-4(%rbp), %eax
+# 求和赋值，addl S,D; D = D + S
+addl	%edx, %eax
+movl	%eax, -12(%rbp)
+movl	-12(%rbp), %eax
+</code></pre><p>好像也不是很难，看起来写个模拟器不是很难的样子。</p>
+<h2 id="汇编语言---机器语言">汇编语言 -&gt; 机器语言</h2>
+<p>查看 Objdump 生成的汇编代码(<code>main.s.dec</code>)，左侧是对应的机器码。右侧的汇编代码均以 16 进制表示。所以下面的代码等效于上面的 <code>main.s</code></p>
+<pre><code class="language-assembly" data-lang="assembly">664:   c7 45 fc 13 00 00 00    movl   $0x13,-0x4(%rbp)
+66b:   c7 45 f8 96 03 00 00    movl   $0x396,-0x8(%rbp)
+672:   8b 45 f8                mov    -0x8(%rbp),%eax
+675:   0f af 45 f8             imul   -0x8(%rbp),%eax
+679:   99                      cltd
+67a:   f7 7d fc                idivl  -0x4(%rbp)
+67d:   89 c2                   mov    %eax,%edx
+67f:   8b 45 fc                mov    -0x4(%rbp),%eax
+682:   01 d0                   add    %edx,%eax
+684:   89 45 f4                mov    %eax,-0xc(%rbp)
+687:   8b 45 f4                mov    -0xc(%rbp),%eax
+</code></pre><p>因为左侧的机器码都是机器相关的，所以需要参照 Intel 的参考文档才能阅读。</p>
+<p>比如：<code>movl $0x13, -0x4(%rbp)</code> 为什么会编译成 <code>c7 45 fc 13 00 00 00</code>，而 <code>movl $0x396,-0x8(%rbp)</code> 为什么编译成 <code>c7 45 f8 96 03 00 00</code>。</p>
+<p>姑且猜测一下：</p>
+<ul>
+<li><code>c7</code>是操作符 <code>movl</code></li>
+<li><code>fc/f8</code> 是 <code>-0x4(%rbp)</code></li>
+<li><code>13 00</code> 是 <code>19</code> 的 16 进制</li>
+<li><code>96 03</code> 是 <code>918</code> 的 16 进制</li>
+<li><code>8b</code> 是 <code>mov &lt;reg&gt;</code>，第二个地址可能存在一个默认值 <code>%eax</code></li>
+<li><code>0f af</code> 是 <code>imul</code></li>
+<li><code>fc</code> 是 <code>idivl</code></li>
+</ul>
+<p>不猜了，还是看官方的定义吧。</p>
+<p>下面参考的那文章当时是 <strong>1, 2A, 2B, 2C, 3A, 3B, and 3C</strong>，不知道过去了多少年，现在已经是 <strong>1, 2A, 2B, 2C, 3A, 3B, 3C, 3D and 4</strong>，也从 3k 页变成了近 5k 页；所以目录是个好东西，比如下图在 <strong>Vol 2, 2.1 INSTRUCTION FORMAT&hellip;</strong></p>
+<p><img src="/img/2019/09/tUyvDzQElOjSo6i.png" alt="指令语句格式"></p>
+<p>关于操作符的定义都在 <strong>Vol 2, 3-5</strong> 下面，对应的 <strong>A-L</strong>, <strong>M-U</strong>, <strong>V-Z</strong>，比如： <code>mov</code> 就在 **Vol 2, 4.3 INSTRUCTIONS (M-U) ** 的 <strong>MOVE</strong> 下面。</p>
+<p>但是上面我们得到的汇编代码是 GAS 语法的，而 Intel 手册提供的是 Intel 的 NASM 语法。</p>
+<p>因为花了几秒钟没找到自动转换的工具，所以对此人肉转化一下</p>
+<pre><code class="language-assembly" data-lang="assembly">664:   c7 45 fc 13 00 00 00    mov   [rbp - 4], 13
+66b:   c7 45 f8 96 03 00 00    mov   [rbp - 8], 396
+672:   8b 45 f8                mov    eax, [rbp - 8]
+675:   0f af 45 f8             imul   [rbp - 8], eax
+679:   99                      cltd
+67a:   f7 7d fc                idiv  [rbp - 4]
+67d:   89 c2                   mov    edx, eax
+67f:   8b 45 fc                mov    eax, [rbp - 4]
+682:   01 d0                   add    edx, eax
+684:   89 45 f4                mov    [rbp - 0xc], eax
+687:   8b 45 f4                mov    eax, [rbp - 0xc]
+</code></pre><p>先对必要的 Opcode 定义进行摘要</p>
+<table>
+<thead>
+<tr>
+<th>Opcode</th>
+<th>Instruction</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>89 /r</td>
+<td>MOV r/m32,r32</td>
+<td>Move r32 to r/m32</td>
+</tr>
+<tr>
+<td>8B /r</td>
+<td>MOV r32,r/m32 R</td>
+<td>Move r/m32 to r32.</td>
+</tr>
+<tr>
+<td>C7 /0 id</td>
+<td>MOV r/m32, imm32</td>
+<td>Move imm32 to r/m32.</td>
+</tr>
+<tr>
+<td>REX.W + C7 /0 id</td>
+<td>MOV r/m64, imm32</td>
+<td>Move imm32 sign extended to 64-bits to r/m64.</td>
+</tr>
+<tr>
+<td>0F AF /r</td>
+<td>IMUL r32, r/m32</td>
+<td>doubleword register ← doubleword register ∗ r/m32.</td>
+</tr>
+<tr>
+<td>F7 /7</td>
+<td>IDIV r/m32</td>
+<td>Signed divide EDX:EAX by r/m32, with result stored in EAX ← Quotient, EDX ← Remainder.</td>
+</tr>
+<tr>
+<td>01 /r</td>
+<td>ADD r/m32, r32</td>
+<td>Add r32 to r/m32</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>/digit</strong> — A digit between 0 and 7 indicates that the ModR/M byte of the instruction uses only the r/m (register or memory) operand. The reg field contains the digit that provides an extension to the instruction&rsquo;s opcode.</li>
+<li><strong>/r</strong> — Indicates that the ModR/M byte of the instruction contains a register operand and an r/m operand.</li>
+<li><strong>ib, iw, id, io</strong> — A 1-byte (ib), 2-byte (iw), 4-byte (id) or 8-byte (io) immediate operand to the instruction that follows the opcode, ModR/M bytes or scale-indexing bytes. The opcode determines if the operand is a signed value. All words, doublewords and quadwords are given with the low-order byte first.</li>
+</ul>
+<h3 id="通用寄存器">通用寄存器</h3>
+<table>
+<thead>
+<tr>
+<th>Register Type</th>
+<th>Without REX</th>
+<th>With REX</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Byte Registers</td>
+<td>AL, BL, CL, DL, AH, BH, CH, DH</td>
+<td>AL, BL, CL, DL, DIL, SIL, BPL, SPL, R8L - R15L</td>
+</tr>
+<tr>
+<td>Word Registers</td>
+<td>AX, BX, CX, DX, DI, SI, BP, SP</td>
+<td>AX, BX, CX, DX, DI, SI, BP, SP, R8W - R15W</td>
+</tr>
+<tr>
+<td>Doubleword Registers</td>
+<td>EAX, EBX, ECX, EDX, EDI, ESI, EBP, ESP</td>
+<td>EAX, EBX, ECX, EDX, EDI, ESI, EBP, ESP, R8D - R15D</td>
+</tr>
+<tr>
+<td>Quadword Registers</td>
+<td>N.A.</td>
+<td>RAX, RBX, RCX, RDX, RDI, RSI, RBP, RSP, R8 - R15</td>
+</tr>
+</tbody>
+</table>
+<p>举个例子：</p>
+<pre><code class="language-assembly" data-lang="assembly">664:   c7 45 fc 13 00 00 00    mov   [rbp - 4], 13
+</code></pre><p>首先找到 MOVE，有个对应的 <code>MOV r/m64, imm32</code>，<code>rbp</code> 是寄存器上表中的关键字，<code>imm64</code> 是 32 位立即数，即 13.</p>
+<p>所以选中的 <strong>Opcode</strong>是 <code>REX.W + C7 /0 id</code>，因为没有 <strong>SIB</strong>，所以忽略 <code>REX.W</code>；其中 <code>/0</code> 是在下一个阶段 <strong>ModR/W</strong> 中使用。</p>
+<blockquote>
+<p>这块咋回事等等把 <strong>A Beginners’ Guide to x86-64 Instruction Encoding</strong> 翻译了再看。</p>
+</blockquote>
+<p>参照最开始的 指令语句格式，在 <strong>Reg/Opcode</strong> 中，当 <strong>Opcode</strong> 段包含 <strong>/digit</strong> 时，其 <strong>Reg/Opcode</strong> 为拓展的 <strong>Opcode</strong>;</p>
+<p>而 <strong>Mod</strong> 段为 <code>[RBP - 4]</code>，在 Intel 的手册中并没有关于 64 位寄存器的表格，所以通过 <strong>Vol. 2A 3-2</strong> 下面的 <strong>Reg Field</strong> 进行推导，也就是 <strong>R/M</strong> 为 <code>101</code>，而 <strong>Mod</strong> 因为<code>-4</code> 所为 <code>01</code>；之后加上 <strong>Displacement</strong> 字段进行偏移，即 <code>-4</code> 的补码 <code>1111 1100</code>，即 <code>FC</code>。</p>
+<p>最后是 <strong>Immediate</strong> 段，也就是 <code>13H</code>。</p>
+<p>最后把几个段，拼接起来就是 <code>C7 45 FC 13 00 00 00</code>。</p>
+<p>分析不动了，直接看 [Intel汇编指令格式解析]<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> 下面的例子比较靠谱。**</p>
+<h2 id="机器语言---物理电路">机器语言 -&gt; 物理电路</h2>
+<p>首先是通过规范化（布尔函数），解决电压不稳定的问题，转化为 01，赋予了电路表达<strong>状态</strong>的能力；并随后通过逻辑门的组合进行计算。</p>
+<p>简要概括 CPU 的作用原理就是 <strong><code>Clock</code> 驱动 <code>Control Unit</code>，从 <code>RAM</code> 中读取指令，调度 <code>ALU</code> 计算结果，操作 <code>Register</code>，并写入 <code>RAM</code>，整个流程称之为一个时钟周期（1Hz）。</strong></p>
+<p>通过上面这句话就不难发现 CPU 在物理层面上，至少包含 <code>Clock</code>, <code>Control Unit</code>, <code>ALU</code>, <code>Register</code>。以及在计算时需要一个外部的 <code>RAM</code>，甚至在哈佛架构，需要更多个 <code>RAM</code>。</p>
+<p><code>Clock</code> 就是晶体振荡器；给予电路有节律的脉冲信号，这信号赋予电路改变其<strong>状态</strong>的能力。</p>
+<p><code>Register</code> 和 <code>RAM</code> 本是一家，只是按照需求被分割 2 地，都是对寄存器和多路复用器的封装，用于将可变的脉冲信号持久化。寄存器来源于锁存器，锁存器能把用户的输入储存下来，而寄存器对他增加了可编辑的能力；多路复用器是为了简化对寄存器矩阵的操作。</p>
+<p><code>Control Unit</code> 是 CPU 的调度器，它加载和写入 <code>RAM</code> 的数据，并调度 <code>ALU</code> 计算结果。</p>
+<p><code>ALU</code> 是 CPU 的计算核心，在我们通过 <code>Control Unit</code> 选择了合适的 <code>ALU</code> 之后，就会把需要处理的 <code>Register</code>，立即数 丢进去处理。</p>
+<p>举个例子：</p>
+<p><img src="/img/2019/09/hqlt2FbnimTj8rG.png" alt="1569166047375.png"></p>
+<p>无力拓展，这个视频讲的无比形象，<a href="https://www.bilibili.com/video/av48237550">《8、中央处理器 CPU（The Central Processing Unit (CPU)）》</a></p>
+<h2 id="算数逻辑单元---逻辑门">算数逻辑单元 -&gt; 逻辑门</h2>
+<p>通过晶体管控制信号流动，来改变输出。再通过组合实现下面几个基本逻辑开关。</p>
+<p><code>AND</code>,<code>OR</code>（并联）, <code>NOT</code>（接地短路）, <code>XOR</code></p>
+<p>A <code>XOR</code> B = (<code>NOT</code> A <code>AND</code> B) <code>AND</code> (A <code>OR</code> B)</p>
+<p>之后再通过上述 4 个基本逻辑，实现下面的组合逻辑。</p>
+<h3 id="例子加法器">例子：加法器</h3>
+<p>$$
+\begin{equation}
+\begin{split}
+19 + 918 &amp;= 0\times13 + 0\times396\<br>
+&amp;= 0001\space0011 + 0011\space1001\space0110\<br>
+&amp;= (0011)(0001 + 1001)(0011+0110)\<br>
+&amp;= 0011\space1010\space1001\<br>
+&amp;= 0\times3A9\<br>
+&amp;= 937
+\end{split}
+\end{equation}
+$$</p>
+<p><code>HALF ADDER</code>（<code>XOR</code> + <code>AND</code> 组合）</p>
+<p><code>FULL ADDER</code>（<code>HALF ADDER</code> + <code>OR</code> + <code>HALF ADDER</code> 组合）</p>
+<p><code>8-BIT RIPPLE CARRY ADDER</code>（<code>HALF ADDER</code> + 7 * <code>FULL ADDER</code> 组合）</p>
+<p><img src="/img/2019/09/NWfuFR9Oj7vP4mp.png" alt="1569076200936.png"></p>
+<h3 id="例子检查是否为-0">例子：检查是否为 0？</h3>
+<p><img src="/img/2019/09/3ziCKtkJsFTGfjp.png" alt="1569125755153.png"></p>
+<h2 id="逻辑门---晶体管">逻辑门 -&gt; 晶体管</h2>
+<p>最早的计算机，所有的开关均是使用机械结构，通电控制开关的闭合；直到真空管解决的机械结构的损耗和速率问题；随后二极管出现，推进了计算机小型化和性能的巨大提升。</p>
+<p><img src="/img/2019/09/udwU1yi2BEGKxml.png" alt="1569166335470.png"></p>
+<p>无论采用什么方案，最原始的机械结构的作用一直没有发生变化。</p>
+<p><img src="/img/2019/09/WGlVhSCnXsBDTzr.png" alt="1569166395357.png"></p>
+<p>当控制输入输入高电平，会形成磁场，吸引周围的开关闭合，形成通路。</p>
+<p>最后的二极管，也只是改变了开关的材料和原理，具体原理参见 <a href="%5Bhttp://www.i-element.org/%E6%99%B6%E4%BD%93%E7%AE%A1%E7%9A%84%E5%8E%9F%E7%90%86/%5D(http://www.i-element.org/%E6%99%B6%E4%BD%93%E7%AE%A1%E7%9A%84%E5%8E%9F%E7%90%86/)">晶体管的原理</a>。</p>
+<h2 id="参考">参考</h2>
+<h2 id="附录">附录</h2>
+<h3 id="mcumicrocontroller-vs-microprocessor">MCU(Microcontroller) VS Microprocessor</h3>
+<p>MCU 微型控制器，包含 Microprocessor(CPU), ROM,  RAM 和 I/O 设备，但是被封装在单个封装中。</p>
+<p><a href="https://circuitdigest.com/article/what-is-the-difference-between-microprocessor-and-microcontroller">What is the difference between microprocessor and microcontroller?</a></p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>]<a href="https://www.4hou.com/web/17446.html">终于有人把各个指令集之间的关系和发展讲清楚了</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+ <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></li>
+</ol>
+</section>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

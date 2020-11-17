@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on Gitai.me</title>
+    <link>https://gitai.me/tags/linux/</link>
+    <description>Recent content in Linux on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Sun, 03 Feb 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>利用 Hyper-V 直接安装 ArchLinux</title>
+      <link>https://gitai.me/2019/02/hyper-v/</link>
+      <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/02/hyper-v/</guid>
+      <description>Windows 环境都配的差不多了，总有点小问题，WSL 太底层的又没实现；Hyper-V 虽然家庭版给他弄开了，但是没有分布式的共享磁盘支持，还是差了点啥，</description>
+    </item>
+    
+    <item>
+      <title>Q&amp;A of polybar</title>
+      <link>https://gitai.me/2017/03/sdk-qa-of-polybar/</link>
+      <pubDate>Fri, 17 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/03/sdk-qa-of-polybar/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/jaagr/polybar&#34;&gt;https://github.com/jaagr/polybar&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Uninstall OpenJDK and install Oracle JDK on Linux</title>
+      <link>https://gitai.me/2015/07/linux-jdk-install/</link>
+      <pubDate>Mon, 06 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2015/07/linux-jdk-install/</guid>
+      <description>&lt;p&gt;Java is a programming technology originally developed by Sun Microsystems and later acquired by Oracle. Oracle Java is a proprietary implementation for Java that is free to download and use for commercial use, but not to redistribute, therefore it is not included in a officially maintained repository.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>升级到最新的SSD Firmware</title>
+      <link>https://gitai.me/2014/11/ssdoptimization/</link>
+      <pubDate>Sun, 16 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2014/11/ssdoptimization/</guid>
+      <description>&lt;p&gt;使用&lt;code&gt;sudo smartctl -a /dev/sda&lt;/code&gt;命令查看Firmware版本。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.smartmontools.org/&#34;&gt;Smartmontools&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install smartmontools
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

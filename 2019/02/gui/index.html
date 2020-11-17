@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>睁眼说瞎话 —— GUI | Gitai.me</title>
+
+<meta property='og:title' content='睁眼说瞎话 —— GUI - Gitai.me'>
+<meta property='og:description' content='还记得很多年前，用着 WFC 拖界面，简单粗暴但是勉强能用，在 XP 下看看也还行，因为调用 .Net 的接口，体积也就 200kb。（但是真的丑 学到了 GDI&#43;，一发'>
+<meta property='og:url' content='https://gitai.me/2019/02/gui/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:published_time' content='2019-02-08T00:00:00Z'/><meta property='article:modified_time' content='2019-02-08T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2019/02/gui/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+    </div>
+    <h2 class="subtitle is-6">February 8, 2019</h2>
+    <h1 class="title">睁眼说瞎话 —— GUI</h1>
+    
+    <div class="content">
+      <p>还记得很多年前，用着 WFC 拖界面，简单粗暴但是勉强能用，在 XP 下看看也还行，因为调用 .Net 的接口，体积也就 200kb。（但是真的丑</p>
+<p>学到了 GDI+，一发不可收拾，自然也就没接触过 WPF 了，到后面的 Windows 8， XML 写界面，但是我已经是 Linux 3年用户了。</p>
+<!-- raw HTML omitted -->
+<p>在我还用 Windows 的时候，当时有个大佬写了个 SUI 界面引擎，现在已经因为当时硬盘损坏丢失了全部代码，看到第一眼就惊艳了。迅雷也整了个界面引擎 XUI，但是用起来总是感觉怪怪的，后来才知道这类叫做 DirectUI，通过继承控件，修改渲染方法，提供更好看的绘制方案。同类的有 SkinUI， Duilib，这类 DLL 为当时野蛮生长的家用机领域，提供了最为广泛的审美支持。</p>
+<p>为了做外包项目，写过 QT 和 Java，都是巨大的依赖包，简直丧心病狂。</p>
+<p>之后开始入了 HTML 写界面的大坑，最早是见过一个叫 HTMLLayout.dll 的库，短小精悍，虽然功能欠缺，但是还是很好用的。</p>
+<blockquote>
+<p>HTMLayout used its own lightweight HTML rendering engine that had:</p>
+<ul>
+<li>Fast HTML rendering with very short readiness times.
+HTML and CSS enhanced for screen layout tasks. %% units and expandable backgrounds allow to use more flexible and “screen oriented” layout schemas.</li>
+<li>Custom behaviors API allow you to define how HTML elements will be drawn, react on keyboard and mouse events.</li>
+<li>Low level interaction with the host application. No intermediate component technologies involved. Just pure API calls, like in any other native Windows common controls. HtmLayout uses WM_NOTIFY mechanism for interacting with the host window.</li>
+<li>Small distribution size: HtmLayout.dll is about 600KB uncompressed.</li>
+<li>No dependencies from installed browsers on client PC.
+<a href="https://terrainformatica.com/a-homepage-section/htmlayout/">Terra Informatica Software - HTMLayout</a></li>
+</ul>
+</blockquote>
+<p>后来升级整了个 <a href="https://sciter.com/">Sciter</a>，官方称之为 &ldquo;Embeddable HTML/CSS/script engine
+for modern UI development&rdquo;，虽然这个是我 17 年听人推荐才知道的，因为中间那几年都去写 Android 去了。</p>
+<p>写 Android 的时候还没有 Native &amp; Web 这种区分，反正套个 Webview 是很常见的操作，以至于后面的 jQuery Mobile，Ionic，现在称之为 Hybrid 混合应用。然后又写了大半年 Node JS 的后端，也就顺便入了 Node-WebKit 写桌面端的坑，没过 2 年 Atom Shell 出现了，我还一直以为他们 2 有啥关系，到了改名 Electron，而 Atom 成为编辑器，才去碰它。中间还有段时间试了试网易有道的 heX，感觉是残了的一个产品。</p>
+<p>Google 这些年一直在出系统，Chrome 也越来越强大，最近有了大一统界面引擎的趋势，carlo 蹦了出来，还记得前面最早的 MFC，那时候打包的程序小就是因为 .Net 框架集成在系统里面，也是如此没法 Windows 独占；所以才有了 Qt， GDK 各类界面引擎。这几年被前端捧着起来的就是 HTMLLayout 这类，carlo 这个项目的 README 下面有这一句话。</p>
+<blockquote>
+<p>Q: What is the minimum Chrome version that Carlo supports?
+Chrome Stable channel, versions 70.* are supported.</p>
+</blockquote>
+<p>来看看 Chrome 的市场占有率</p>
+<p><img src="http://n.sinaimg.cn/translate/274/w688h386/20181104/Y83s-hmhswin3832446.jpg" alt=""></p>
+<p>再看看 Windows 市场占有率</p>
+<p><img src="https://i.loli.net/2019/02/09/5c5e549036649.png" alt=""></p>
+<p>emmm，首先 Chrome 是加了移动端的，其次 Windows 肯定都有 .Net，而 PC 不一定都有 Chrome。</p>
+<p>所以还是观望一下未来，或许有那么一天，Chrome 成为 .Net 一样必备的界面解决方案。</p>
+<p>（如果不被 Google 阉割的话，自然那是不可能的</p>
+<p>不过现在这样在也是很方便了，毕竟一次开发，Google 帮你兼容。夹带点 Wasm 的私货不是美滋滋</p>
+<p>反正前端越来越没边界，大前端趋势不可避。</p>
+<h2 id="小小的汇总">小小的汇总</h2>
+<ol>
+<li>2006，<a href="https://terrainformatica.com/">HTMLayout &amp; Sciter</a>，&ldquo;UI and frontend software design and consulting since 1991.&rdquo;</li>
+<li>2008，<a href="https://zh.wikipedia.org/wiki/Adobe_AIR">Adobe AIR</a></li>
+<li>2009，<a href="https://github.com/neam/TideSDK">Titanium Desktop</a></li>
+<li>2009，<a href="https://en.wikipedia.org/wiki/Chromium_Embedded_Framework">Chromium Embedded Framework，CEF</a></li>
+<li>2010，<a href="https://code.google.com/archive/p/onering-desktop">onering-desktop</a>，豆瓣写的</li>
+<li>2011，<a href="https://github.com/nwjs/nw.js">NW.js</a></li>
+<li>2013，<a href="http://hex.youdao.com/">heX</a></li>
+<li>2013，<a href="https://electronjs.org/">electron.js</a></li>
+<li>2016，<a href="https://github.com/weolar/miniblink49">miniblink49</a>，一个巨 tm 小的 CEF 兼容实现</li>
+<li>2018，<a href="https://www.reddit.com/r/programming/comments/8biqo0/ultralight_lightweight_puregpu_html_renderer/">Ultralight</a>，reddit 上被吐槽，哈哈哈哈</li>
+<li>2019，<a href="https://github.com/cztomsik/node-webrender">Webrender bindings</a>，NB</li>
+</ol>
+<h2 id="大目标">大目标</h2>
+<p>整个更有意思的跨平台界面解决方案</p>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

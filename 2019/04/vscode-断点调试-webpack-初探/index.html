@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>VSCode 断点调试 &amp; Webpack 初探 | Gitai.me</title>
+
+<meta property='og:title' content='VSCode 断点调试 &amp; Webpack 初探 - Gitai.me'>
+<meta property='og:description' content='  webpack
+  |- package.json
+  |- webpack.config.js
+  |- /src
+  |  |- index.js
+  |- /dist
+    |- index.js
+const path = require(&#39;path&#39;);
+
+module.exports = {
+    entry: &#39;./src/index.js&#39;,
+    output: {
+        filename: &#39;index.js&#39;,
+        path: path.resolve(__dirname, &#39;dist&#39;)
+    }
+};
+这是一个最简单的 Webpack Demo，如果参照官方的教程（写的一塌糊涂），可能还在 package.json 的 script 定义了 build 命令。
+从 webpack build 开始都发生了什么，来从 node_modules/webpack/bin/webpack 开始看。'>
+<meta property='og:url' content='https://gitai.me/2019/04/vscode-%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95-webpack-%E5%88%9D%E6%8E%A2/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='Webpack'><meta property='article:published_time' content='2019-04-25T00:00:00Z'/><meta property='article:modified_time' content='2019-04-25T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2019/04/vscode-%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95-webpack-%E5%88%9D%E6%8E%A2/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/webpack/">#Webpack</a>
+
+
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">April 25, 2019</h2>
+    <h1 class="title">VSCode 断点调试 &amp; Webpack 初探</h1>
+    
+    <div class="content">
+      <pre><code>  webpack
+  |- package.json
+  |- webpack.config.js
+  |- /src
+  |  |- index.js
+  |- /dist
+    |- index.js
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">path</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;path&#39;</span>);
+
+<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+    <span style="color:#a6e22e">entry</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;./src/index.js&#39;</span>,
+    <span style="color:#a6e22e">output</span><span style="color:#f92672">:</span> {
+        <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;index.js&#39;</span>,
+        <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#39;dist&#39;</span>)
+    }
+};
+</code></pre></div><p>这是一个最简单的 Webpack Demo，如果参照官方的教程（写的一塌糊涂），可能还在 <code>package.json</code> 的 <code>script</code> 定义了 <code>build</code> 命令。</p>
+<p>从 <code>webpack build</code> 开始都发生了什么，来从 <code>node_modules/webpack/bin/webpack</code> 开始看。</p>
+<p>因为里面没写啥，主要就是检查 <code>webpack-cli</code> 是否存在，然后调用它。</p>
+<p>从 <code>webpack</code> 的 <code>package.json</code> 也能发现最后暴露出来的的是 <code>lib/webpack.js</code>，所以<code>webpack-cli</code>做了执行目录下<code>webpack.config.js</code>的读取和转化，然后初始化编译器实例。</p>
+<p>在<code>lib/webpack.js</code>下通过<code>console</code>输出上面那个文件的转化结果，可见如下输出：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ npm run build
+
+&gt; transer@1.0.0 build C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\A</span>dministrator<span style="color:#ae81ff">\D</span>esktop<span style="color:#ae81ff">\t</span>ranser
+&gt; webpack --config webpack.config.js
+
+<span style="color:#f92672">{</span> mode: <span style="color:#e6db74">&#39;development&#39;</span>,
+  entry: <span style="color:#e6db74">&#39;./src/index.js&#39;</span>,
+  output:
+   <span style="color:#f92672">{</span> filename: <span style="color:#e6db74">&#39;index.js&#39;</span>,
+     path: <span style="color:#e6db74">&#39;C:\\Users\\Administrator\\Desktop\\transer\\dist&#39;</span> <span style="color:#f92672">}</span>,
+  context: <span style="color:#e6db74">&#39;C:\\Users\\Administrator\\Desktop\\transer&#39;</span> <span style="color:#f92672">}</span>
+</code></pre></div><p>也就提供了个执行上下文而已。</p>
+<p>为了更优雅的调试，先修改一点配置，增加个断点。</p>
+<p>或许有人不知道，webpack 的各项配置都是支持 Promise 的，所以可以给初始化加个延迟，然后通过 VSCode 的 Debugger 注入调试器。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+    <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#960050;background-color:#1e0010">Use</span> <span style="color:#960050;background-color:#1e0010">IntelliSense</span> <span style="color:#960050;background-color:#1e0010">to</span> <span style="color:#960050;background-color:#1e0010">learn</span> <span style="color:#960050;background-color:#1e0010">about</span> <span style="color:#960050;background-color:#1e0010">possible</span> <span style="color:#960050;background-color:#1e0010">attributes.</span>
+    <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#960050;background-color:#1e0010">Hover</span> <span style="color:#960050;background-color:#1e0010">to</span> <span style="color:#960050;background-color:#1e0010">view</span> <span style="color:#960050;background-color:#1e0010">descriptions</span> <span style="color:#960050;background-color:#1e0010">of</span> <span style="color:#960050;background-color:#1e0010">existing</span> <span style="color:#960050;background-color:#1e0010">attributes.</span>
+    <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#960050;background-color:#1e0010">For</span> <span style="color:#960050;background-color:#1e0010">more</span> <span style="color:#960050;background-color:#1e0010">information,</span> <span style="color:#960050;background-color:#1e0010">visit:</span> <span style="color:#960050;background-color:#1e0010">https://go.microsoft.com/fwlink/?linkid=830387</span>
+    <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;0.2.0&#34;</span>,
+    <span style="color:#f92672">&#34;configurations&#34;</span>: [
+        {
+            <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;node&#34;</span>,
+            <span style="color:#f92672">&#34;request&#34;</span>: <span style="color:#e6db74">&#34;attach&#34;</span>,
+            <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Attach by Process ID&#34;</span>,
+            <span style="color:#f92672">&#34;processId&#34;</span>: <span style="color:#e6db74">&#34;${command:PickProcess}&#34;</span>
+        }
+    ]
+}
+</code></pre></div><p>这段是 VSCode 自动生成的，通过</p>
+<p><img src="https://i.loli.net/2019/04/29/5cc71eb78a42a.png" alt="1556529871964.png"></p>
+<p>运行之后会探查所有进程，将可被注入的进程显示出来，让用户选择，也就是这个命令的操作 <code>command:PickProcess</code></p>
+<p><img src="https://i.loli.net/2019/04/29/5cc71eb80ed39.png" alt="1556529883371.png"></p>
+<p>但是因为可能运行多个 node 进程，所以建议开始执行 <code>npm run build</code> 之前先关闭或检视一下。</p>
+<p>然后在 <code>webpack.config.js</code> 中用 Promise + setTimeout 包裹起来，给定一个合适的延迟。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">path</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;path&#39;</span>);
+
+<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#a6e22e">resolve</span> =&gt; {
+    <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+        <span style="color:#a6e22e">resolve</span>({
+            <span style="color:#a6e22e">mode</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;development&#39;</span>,
+            <span style="color:#a6e22e">entry</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;./src/index.js&#39;</span>,
+            <span style="color:#a6e22e">output</span><span style="color:#f92672">:</span> {
+                <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;index.js&#39;</span>,
+                <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#39;dist&#39;</span>)
+            }
+        })
+    }, <span style="color:#ae81ff">5000</span>);
+});
+</code></pre></div><p>或者用 <code>stdin</code> 阻塞一下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">path</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;path&#39;</span>);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">readline</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;readline&#39;</span>).<span style="color:#a6e22e">createInterface</span>({
+    <span style="color:#a6e22e">input</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">process</span>.<span style="color:#a6e22e">stdin</span>,
+    <span style="color:#a6e22e">output</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">process</span>.<span style="color:#a6e22e">stdout</span>
+})
+
+<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#a6e22e">resolve</span> =&gt; {
+    <span style="color:#a6e22e">readline</span>.<span style="color:#a6e22e">question</span>(<span style="color:#e6db74">`Are you ready?`</span>, () =&gt; {
+
+        <span style="color:#a6e22e">resolve</span>({
+            <span style="color:#a6e22e">mode</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;development&#39;</span>,
+            <span style="color:#a6e22e">entry</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;./src/index.js&#39;</span>,
+            <span style="color:#a6e22e">output</span><span style="color:#f92672">:</span> {
+                <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;index.js&#39;</span>,
+                <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#39;dist&#39;</span>)
+            }
+        })
+        
+        <span style="color:#a6e22e">readline</span>.<span style="color:#a6e22e">close</span>()
+    })
+});
+</code></pre></div><p>自然第二种优雅一点。</p>
+<p><img src="https://i.loli.net/2019/04/29/5cc71df9478f4.png" alt="1556529644042.png"></p>
+<p>趁着被阻塞，赶快点击 Debugger 的 <code>Run Attach by Process ID</code> ，选中那个名字最奇葩的如果通过全局的 webpack 启动，这里的路径是不同的。</p>
+<p><img src="https://i.loli.net/2019/04/29/5cc71df95f71e.png" alt="1556529669333.png"></p>
+<p>等变成这样就是注入成功了，至于问什么不用 <code>Launch via NPM</code> 之类的方法，因为他们简单啊。（其实是我从来没启动成功过）</p>
+<p><img src="https://i.loli.net/2019/04/29/5cc71df960817.png" alt="1556529678123.png"></p>
+<p>然后回车触发 <code>readline</code> 的回调，继续执行，但是很神奇的结束了。</p>
+<p><img src="https://i.loli.net/2019/04/29/5cc71df965de5.png" alt="1556529688570.png"></p>
+<p>因为没有设定调试器打断的条件，也没有手动暂停程序的运行。点击暂停可以实现，然后再触发上面的 <code>readline</code>回调。</p>
+<p><img src="https://i.loli.net/2019/04/29/5cc71df95aaa0.png" alt="1556529737104.png"></p>
+<p>但是正如上图的文件名称，所示，根据时机不同，可能会被暂停在任意位置，不如手动触发调试器。</p>
+<p>这需要在 <code>node_modules/webpack/lib/webpack.js</code> 中加上 <code>debugger</code> ，然后继续上面的操作，等回车之后就会暂停了。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * @param {WebpackOptions} options options object
+</span><span style="color:#75715e"> * @param {function(Error=, Stats=): void=} callback callback
+</span><span style="color:#75715e"> * @returns {Compiler | MultiCompiler} the compiler object
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">webpack</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">options</span>, <span style="color:#a6e22e">callback</span>) =&gt; {
+	
+	<span style="color:#66d9ef">debugger</span>;
+	...
+}
+</code></pre></div><p>断点成功长这样</p>
+<p><img src="https://i.loli.net/2019/04/29/5cc71df98631e.png" alt="1556529745344.png"></p>
+<p>接下来瞅瞅里面咋写的，先是对传入的参数对象进行模式验证，通过在 <code>schemas/WebpackOptions.json</code> 定义好的约束， <code>ajv</code> 这个库，会根据它进行校验，输出优雅的错误提示。但是不知道为啥，一般开发中，并没人用它来做参数校验，可能因为前端组件化之后，这种完整的数据结构的校验难以整合，或者为了几行校验，引入这种专业性极强的库，没有太大收益？</p>
+<blockquote>
+<p>曾经在 <a href="https://swagger.io/tools/swagger-editor/">Swagger Editor</a> 见过这种东西，它是使用 Yaml 定义接口，然后生成相关的 SDK，文档和测试工具</p>
+</blockquote>
+<p>不过还是写个 Hello World 试试看，毕竟复杂的我也不会。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// src/test.js
+</span><span style="color:#75715e">// 引入单元测试
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">test</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;tape&#39;</span>);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Ajv</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;ajv&#39;</span>);
+
+<span style="color:#75715e">// 定义模式
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">schema</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;object&#39;</span>,
+  <span style="color:#a6e22e">required</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;email&#39;</span>, <span style="color:#e6db74">&#39;password&#39;</span>],
+  <span style="color:#a6e22e">properties</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">email</span><span style="color:#f92672">:</span> {
+      <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;string&#39;</span>,
+      <span style="color:#a6e22e">format</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;email&#39;</span>
+    },
+    <span style="color:#a6e22e">password</span><span style="color:#f92672">:</span> {
+      <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;string&#39;</span>,
+      <span style="color:#a6e22e">maxLength</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">64</span>,
+      <span style="color:#a6e22e">minLength</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">6</span>
+    },
+    <span style="color:#a6e22e">username</span><span style="color:#f92672">:</span> {
+      <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;string&#39;</span>,
+      <span style="color:#a6e22e">minLength</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">5</span>
+    }
+  }
+};
+
+<span style="color:#75715e">// 初始化验证实例
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">validate</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Ajv</span>().<span style="color:#a6e22e">compile</span>(<span style="color:#a6e22e">schema</span>);
+
+<span style="color:#75715e">// 错误的电子邮箱格式验证
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">test</span>(<span style="color:#e6db74">&#39;Email format&#39;</span>, (<span style="color:#a6e22e">assert</span>) =&gt; {
+
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">valid</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">validate</span>({
+        <span style="color:#a6e22e">email</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;email&#39;</span>
+    });
+
+    <span style="color:#a6e22e">assert</span>.<span style="color:#66d9ef">false</span>(<span style="color:#a6e22e">valid</span>, <span style="color:#a6e22e">validate</span>.<span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">err</span> =&gt; <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">message</span>));
+    <span style="color:#a6e22e">assert</span>.<span style="color:#a6e22e">end</span>();
+});
+
+<span style="color:#75715e">// 缺少必要的参数验证
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">test</span>(<span style="color:#e6db74">&#39;Required property&#39;</span>, (<span style="color:#a6e22e">assert</span>) =&gt; {
+
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">valid</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">validate</span>({
+        <span style="color:#a6e22e">email</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;email@example.com&#39;</span>
+    });
+
+    <span style="color:#a6e22e">assert</span>.<span style="color:#66d9ef">false</span>(<span style="color:#a6e22e">valid</span>, <span style="color:#a6e22e">validate</span>.<span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">err</span> =&gt; <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">message</span>));
+    <span style="color:#a6e22e">assert</span>.<span style="color:#a6e22e">end</span>();
+});
+
+<span style="color:#75715e">// 字段长度越界
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">test</span>(<span style="color:#e6db74">&#39;Too longer password&#39;</span>, (<span style="color:#a6e22e">assert</span>) =&gt; {
+
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">valid</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">validate</span>({
+        <span style="color:#a6e22e">email</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;email@example.com&#39;</span>,
+        <span style="color:#a6e22e">password</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>.<span style="color:#a6e22e">padEnd</span>(<span style="color:#ae81ff">65</span>, <span style="color:#e6db74">&#39;0&#39;</span>),
+    });
+
+    <span style="color:#a6e22e">assert</span>.<span style="color:#66d9ef">false</span>(<span style="color:#a6e22e">valid</span>, <span style="color:#a6e22e">validate</span>.<span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">err</span> =&gt; <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">message</span>));
+    <span style="color:#a6e22e">assert</span>.<span style="color:#a6e22e">end</span>();
+});
+
+</code></pre></div><p>执行 <code>node src/test.js</code> 会得到如下结果；</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ node src/test.js
+TAP version <span style="color:#ae81ff">13</span>
+<span style="color:#75715e"># Email format</span>
+ok <span style="color:#ae81ff">1</span> should match format <span style="color:#e6db74">&#34;email&#34;</span>
+<span style="color:#75715e"># Required field</span>
+ok <span style="color:#ae81ff">2</span> should have required property <span style="color:#e6db74">&#39;password&#39;</span>
+<span style="color:#75715e"># Too long password</span>
+ok <span style="color:#ae81ff">3</span> should NOT be longer than <span style="color:#ae81ff">64</span> characters
+
+1..3
+<span style="color:#75715e"># tests 3</span>
+<span style="color:#75715e"># pass  3</span>
+
+<span style="color:#75715e"># ok</span>
+</code></pre></div><p><code>tape</code> 的输出好像没有 <code>mocha</code> 好看，讲道理是不是自己包装一下，实现一个类似的东西。</p>
+<p>轮子喜 +1，Promise 真好用，25 行包装一个<a href="https://gist.github.com/GitaiQAQ/51cd10d1ef03305cc52b70d9b46a1562">单元测试</a>出来，实际上最后完善一下，多了不少行。具体内容，再写一篇细说。</p>
+<p>完了到这里，以及忘了初衷是什么。哦 好像是看看 Webpack 源码。</p>
+<p>一串下一步，发下一个 <code>compiler</code> 实例，来源于 <code>MultiCompiler</code> 或者 <code>Compiler</code>，估摸着对整体流程没啥影响，所以只看 <code>Compiler</code> 即可。</p>
+<p>在 <code>Compiler.js</code> 开始注册了很多钩子，在执行到对应的位置，会触发这些钩子，这也就是继承自 <code>Tapable</code> 的原因。<code>Tapable</code> 提供了整套事件注册和调用机制，实际上就是普通的注册-发布模型，参考 <a href="https://juejin.im/post/5abf33f16fb9a028e46ec352" title="webpack4.0源码分析之Tapable ">webpack4.0源码分析之Tapable</a>。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> {
+	<span style="color:#a6e22e">Tapable</span>,
+	<span style="color:#a6e22e">SyncHook</span>,			<span style="color:#75715e">// 最基本的钩子
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">SyncBailHook</span>,		<span style="color:#75715e">// 同时执行队列的所有回调，出现结果直接返回
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">AsyncParallelHook</span>,	<span style="color:#75715e">// 异步并向
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">AsyncSeriesHook</span>		<span style="color:#75715e">// 异步串行
+</span><span style="color:#75715e"></span>} <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;tapable&#34;</span>);
+
+<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">hooks</span> <span style="color:#f92672">=</span> {
+    <span style="color:#75715e">/** @type {SyncBailHook&lt;string, Entry&gt;} */</span>
+    <span style="color:#a6e22e">entryOption</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SyncBailHook</span>([<span style="color:#e6db74">&#34;context&#34;</span>, <span style="color:#e6db74">&#34;entry&#34;</span>])
+    
+    <span style="color:#75715e">/** @type {AsyncSeriesHook&lt;Stats&gt;} */</span>
+    <span style="color:#a6e22e">done</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">AsyncSeriesHook</span>([<span style="color:#e6db74">&#34;stats&#34;</span>]),
+
+    <span style="color:#75715e">/** @type {SyncHook&lt;CompilationParams&gt;} */</span>
+    <span style="color:#a6e22e">compile</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SyncHook</span>([<span style="color:#e6db74">&#34;params&#34;</span>]),
+    
+    <span style="color:#75715e">/** @type {AsyncParallelHook&lt;Compilation&gt;} */</span>
+    <span style="color:#a6e22e">make</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">AsyncParallelHook</span>([<span style="color:#e6db74">&#34;compilation&#34;</span>])
+};
+</code></pre></div><p>在这里就用到这 4 个钩子，类似的插件机制其实很早就有了，最早在 WordPress 里面见到过，也是它为什么那么灵活的原因。把整个系统通过事件模型分散成小部件，这种解耦方式在在分布式，解决数据竟态问题，工作流上面都有运用。</p>
+<p>初始化完成之后就开始调用定义的钩子了，<code>environment/afterEnvironment</code> 刚刚初始化环境完成，可以<a href="https://github.com/acrazing/webpack-amd-plugin/blob/97fbd2d972901d7bbee1da166855b8d9dfca2130/src/AmdPlugin.ts#L28">修改编译器的配置</a>。</p>
+<p>接下来陆续执行的是 <code>Compiler.js</code> 中定义的钩子，也穿插了一些 <code>Compilation.js</code> 定义的钩子。</p>
+<p><img src="https://i.loli.net/2019/04/29/5cc71df98b916.png" alt="1556529782917.png"></p>
+<p>虽然知道会走钩子来回跳，但是阅读起来太麻烦，你看上面梳理一下就这么点钩子，整体流程虽然跑完了，咋感觉啥都没发生（其实还是太菜，于是在 <code>Compilation.js</code> 的 <code>addEntry</code> 打断点。</p>
+<p><img src="https://i.loli.net/2019/04/29/5cc71df9796b7.png" alt="1556529792077.png"></p>
+<p>获取了这么个鬼东西，原来走了内部注册的 <code>SingleEntryPlugin</code> 插件。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">exportPlugins</span>(<span style="color:#a6e22e">exports</span>, {
+    <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">SingleEntryPlugin</span><span style="color:#f92672">:</span> () =&gt; <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;./SingleEntryPlugin&#34;</span>),
+    <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>通过上面的调用栈，还能发现所有的 Hook 都会走 <code>lazyCompileHook</code> 这个方法，相比给所有的方法打断点，不如给它来一个，重新运行。</p>
+<p>每次到了断点的地方，看左侧的调用栈或者逐行执行下去<img src="https://i.loli.net/2019/04/29/5cc71df9683dd.png" alt="1556529801314.png"></p>
+<p>然后得到下面这个插件的调用流程</p>
+<ul>
+<li>Compiler:environment (<code>webpack\lib\webpack.js:51:30</code>)</li>
+<li>Compiler:afterEnvironment (<code>webpack\lib\webpack.js:52:35</code>)</li>
+<li>Compiler:entryOption (<code>webpack\lib\WebpackOptionsApply.js:281:30</code>)</li>
+<li>Compiler:afterPlugins (<code>webpack\lib\WebpackOptionsApply.js:492:31</code>)</li>
+<li>Compiler:afterResolvers (<code>webpack\lib\WebpackOptionsApply.js:530:33</code>)</li>
+<li>Compiler:beforeRun (<code>webpack\lib\Compiler.js:275:24</code>)</li>
+<li>Compiler:run (<code>webpack\lib\Compiler.js:278:19</code>)</li>
+<li>Compiler:normalModuleFactory (<code>webpack\lib\Compiler.js:591:34</code>)</li>
+<li>Compiler:contextModuleFactory (<code>webpack\lib\Compiler.js:597:35</code>)</li>
+<li>Compiler:beforeCompile (<code>webpack\lib\Compiler.js:612:28</code>)</li>
+<li>Compiler:compile (<code>webpack\lib\Compiler.js:615:23</code>)</li>
+<li>Compiler:thisCompilation (<code>webpack\lib\Compiler.js:580:30</code>)</li>
+<li>Compiler:compilation (<code>webpack\lib\Compiler.js:581:26</code>)</li>
+<li>Compiler:make (<code>webpack\lib\Compiler.js:619:20</code>)
+<ul>
+<li>Compilation:addEntry (<code>webpack\lib\Compilation.js:1053:23</code>)
+<ul>
+<li>NormalModuleFactory:beforeResolve (<code>webpack\lib\NormalModuleFactory.js:377:28</code>)</li>
+<li>NormalModuleFactory:factory (<code>webpack\lib\NormalModuleFactory.js:391:40</code>)</li>
+<li>NormalModuleFactory:resolver (<code>webpack\lib\NormalModuleFactory.js:124:39</code>)
+<ul>
+<li>ResolverFactory:resolveOptions.for(loader) (<code>webpack\lib\ResolverFactory.js:59:56</code>)</li>
+<li>ResolverFactory:resolver.for(loader) (<code>webpack\lib\ResolverFactory.js:74:33</code>)</li>
+<li>ResolverFactory:resolveOptions.for(normal) (<code>webpack\lib\ResolverFactory.js:59:56</code>)</li>
+<li>ResolverFactory:resolver.for(normal) (<code>webpack\lib\ResolverFactory.js:74:33</code>)</li>
+<li>Resolver:resolveStep (<code>enhanced-resolve\lib\Resolver.js:227:26</code>)</li>
+<li>Resolver:resolve (<code>enhanced-resolve\lib\Resolver.js:235:16</code>)</li>
+<li>Resolver:newResolve (<code>enhanced-resolve\lib\Resolver.js:235:16</code>)</li>
+<li>Resolver:parsedResolve (<code>enhanced-resolve\lib\Resolver.js:235:16</code>)</li>
+<li>Resolver:describedResolve (<code>enhanced-resolve\lib\Resolver.js:235:16</code>)</li>
+<li>Resolver:relative (<code>enhanced-resolve\lib\Resolver.js:235:16</code>)</li>
+<li>Resolver:describedRelative (<code>enhanced-resolve\lib\Resolver.js:235:16</code>)</li>
+<li>Resolver:rawFile (<code>enhanced-resolve\lib\Resolver.js:235:16</code>)</li>
+<li>Resolver:file (<code>enhanced-resolve\lib\Resolver.js:235:16</code>)</li>
+<li>Resolver:existingFile (<code>enhanced-resolve\lib\Resolver.js:235:16</code>)</li>
+<li>Resolver:resolved (<code>enhanced-resolve\lib\Resolver.js:235:16</code>)</li>
+<li>Resolver:result (<code>enhanced-resolve\lib\ResultPlugin.js:16:26</code>)</li>
+</ul>
+</li>
+<li>NormalModuleFactory:createParser.for(javascript/auto) (<code>webpack\lib\NormalModuleFactory.js:481:52</code>)</li>
+<li>NormalModuleFactory:parser.for(javascript/auto) (<code>webpack\lib\NormalModuleFactory.js:485:31</code>)</li>
+<li>NormalModuleFactory:createGenerator.for(javascript/auto) (<code>webpack\lib\NormalModuleFactory.js:510:5</code>)</li>
+<li>NormalModuleFactory:generator.for(javascript/auto) (<code>webpack\lib\NormalModuleFactory.js:514:34</code>)</li>
+<li>NormalModuleFactory:afterResolve (<code>webpack\lib\NormalModuleFactory.js:138:29</code>)</li>
+<li>NormalModuleFactory:createModule (<code>webpack\lib\NormalModuleFactory.js:144:50</code>)</li>
+<li>NormalModuleFactory:module (<code>webpack\lib\NormalModuleFactory.js:153:40</code>)</li>
+</ul>
+</li>
+<li>Compilation:buildModule (<code>webpack\lib\Compilation.js:634:26</code>)</li>
+<li>Compilation:normalModuleLoader (<code>webpack\lib\NormalModule.js:221:40</code>)
+<ul>
+<li>Parser:program (<code>webpack\lib\Parser.js:2134:26</code>)</li>
+<li>Parser:statement (<code>webpack\lib\Parser.js:928:28</code>)</li>
+<li>Parser:evaluate.for(<code>MemberExpression</code>) (<code>webpack\lib\Parser.js:1998:25</code>)</li>
+</ul>
+</li>
+<li>Compilation:succeedModule (<code>webpack\lib\Compilation.js:677:30</code>)</li>
+<li>Compilation:succeedEntry (<code>webpack\lib\Compilation.js:1094:29</code>)</li>
+<li>Compilation:finishModules (<code>webpack\lib\Compilation.js:1163:28</code>)</li>
+<li>Compilation:seal (<code>webpack\lib\Compilation.js:1193:19</code>)</li>
+<li>Compilation:optimizeDependenciesBasic (<code>webpack\lib\Compilation.js:1196:41</code>)</li>
+<li>Compilation:optimizeDependencies (<code>webpack\lib\Compilation.js:1197:36</code>)</li>
+<li>Compilation:optimizeDependenciesAdvanced (<code>webpack\lib\Compilation.js:1198:44</code>)</li>
+<li>Compilation:afterOptimizeDependencies (<code>webpack\lib\Compilation.js:1202:40</code>)</li>
+<li>Compilation:beforeChunks (<code>webpack\lib\Compilation.js:1204:27</code>)</li>
+<li>Compilation:afterChunks (<code>webpack\lib\Compilation.js:1226:26</code>)</li>
+<li>Compilation:optimize (<code>webpack\lib\Compilation.js:1228:23</code>)</li>
+<li>Compilation:optimizeModulesBasic (<code>webpack\lib\Compilation.js:1231:36</code>)</li>
+<li>Compilation:optimizeModules (<code>webpack\lib\Compilation.js:1232:31</code>)</li>
+<li>Compilation:optimizeModulesAdvanced (<code>webpack\lib\Compilation.js:1233:39</code>)</li>
+<li>Compilation:afterOptimizeModules (<code>webpack\lib\Compilation.js:1237:35</code>)</li>
+<li>Compilation:optimizeChunksBasic (<code>webpack\lib\Compilation.js:1240:35</code>)</li>
+<li>Compilation:optimizeChunks (<code>webpack\lib\Compilation.js:1241:30</code>)</li>
+<li>Compilation:optimizeChunksAdvanced (<code>webpack\lib\Compilation.js:1242:38</code>)</li>
+<li>Compilation:afterOptimizeChunks (<code>webpack\lib\Compilation.js:1246:34</code>)</li>
+<li>Compilation:optimizeTree (<code>webpack\lib\Compilation.js:1248:27</code>)</li>
+<li>Compilation:afterOptimizeTree (<code>webpack\lib\Compilation.js:1253:33</code>)</li>
+<li>Compilation:optimizeChunkModulesBasic (<code>webpack\lib\Compilation.js:1256:42</code>)</li>
+<li>Compilation:optimizeChunkModules (<code>webpack\lib\Compilation.js:1257:37</code>)</li>
+<li>Compilation:optimizeChunkModulesAdvanced (<code>webpack\lib\Compilation.js:1258:45</code>)</li>
+<li>Compilation:afterOptimizeChunkModules (<code>webpack\lib\Compilation.js:1262:41</code>)</li>
+<li>Compilation:shouldRecord (<code>webpack\lib\Compilation.js:1264:49</code>)</li>
+<li>Compilation:reviveModules (<code>webpack\lib\Compilation.js:1266:29</code>)</li>
+<li>Compilation:optimizeModuleOrder (<code>webpack\lib\Compilation.js:1267:35</code>)</li>
+<li>Compilation:advancedOptimizeModuleOrder (<code>webpack\lib\Compilation.js:1268:43</code>)</li>
+<li>Compilation:beforeModuleIds (<code>webpack\lib\Compilation.js:1269:31</code>)</li>
+<li>Compilation:moduleIds (<code>webpack\lib\Compilation.js:1270:25</code>)</li>
+<li>Compilation:optimizeModuleIds (<code>webpack\lib\Compilation.js:1272:33</code>)</li>
+<li>Compilation:afterOptimizeModuleIds (<code>webpack\lib\Compilation.js:1273:38</code>)</li>
+<li>Compilation:reviveChunks (<code>webpack\lib\Compilation.js:1277:28</code>)</li>
+<li>Compilation:optimizeChunkOrder (<code>webpack\lib\Compilation.js:1278:34</code>)</li>
+<li>Compilation:beforeChunkIds (<code>webpack\lib\Compilation.js:1279:30</code>)</li>
+<li>Compilation:optimizeChunkIds (<code>webpack\lib\Compilation.js:1281:32</code>)</li>
+<li>Compilation:afterOptimizeChunkIds (<code>webpack\lib\Compilation.js:1282:37</code>)</li>
+<li>Compilation:recordModules (<code>webpack\lib\Compilation.js:1287:30</code>)</li>
+<li>Compilation:recordChunks (<code>webpack\lib\Compilation.js:1288:29</code>)</li>
+<li>Compilation:beforeHash (<code>webpack\lib\Compilation.js:1291:26</code>)
+<ul>
+<li>MainTemplate:hash (<code>webpack\lib\MainTemplate.js:519:19</code>)
+<ul>
+<li>ChunkTemplate:hash (<code>webpack\lib\ChunkTemplate.js:71:19</code>)</li>
+<li>ModuleTemplate:hash (<code>webpack\lib\ModuleTemplate.js:91:19</code>)</li>
+<li>ModuleTemplate:hash (<code>webpack\lib\ModuleTemplate.js:91:19</code>)</li>
+</ul>
+</li>
+<li>MainTemplate:hashForChunk (<code>webpack\lib\MainTemplate.js:533:27</code>)</li>
+<li>MainTemplate:bootstrap (<code>webpack\lib\MainTemplate.js:387:25</code>)</li>
+<li>MainTemplate:localVars (<code>webpack\lib\MainTemplate.js:395:33</code>)</li>
+<li>MainTemplate:require (<code>webpack\lib\MainTemplate.js:399:47</code>)</li>
+<li>MainTemplate:moduleObj (<code>webpack\lib\MainTemplate.js:188:42</code>)</li>
+<li>MainTemplate:moduleRequire (<code>webpack\lib\MainTemplate.js:455:35</code>)</li>
+<li>MainTemplate:requireExtensions (<code>webpack\lib\MainTemplate.js:403:51</code>)</li>
+<li>MainTemplate:assetPath (<code>webpack\lib\MainTemplate.js:501:31</code>)</li>
+<li>MainTemplate:beforeStartup (<code>webpack\lib\MainTemplate.js:406:55</code>)</li>
+<li>MainTemplate:startup (<code>webpack\lib\MainTemplate.js:407:49</code>)</li>
+</ul>
+</li>
+<li>Compilation:chunkHash (<code>webpack\lib\Compilation.js:2335:26</code>)</li>
+<li>Compilation:contentHash (<code>webpack\lib\Compilation.js:2339:28</code>)</li>
+<li>Compilation:afterHash (<code>webpack\lib\Compilation.js:1293:25</code>)</li>
+<li>Compilation:recordHash (<code>webpack\lib\Compilation.js:1296:27</code>)</li>
+<li>Compilation:beforeModuleAssets (<code>webpack\lib\Compilation.js:1299:34</code>)</li>
+<li>Compilation:shouldGenerateChunkAssets (<code>webpack\lib\Compilation.js:1301:45</code>)</li>
+<li>Compilation:beforeChunkAssets (<code>webpack\lib\Compilation.js:1302:34</code>)
+<ul>
+<li>MainTemplate:renderManifest (<code>webpack\lib\MainTemplate.js:371:29</code>)</li>
+<li>MainTemplate:globalHashPaths (<code>webpack\lib\MainTemplate.js:545:44</code>)</li>
+<li>MainTemplate:globalHash (<code>webpack\lib\MainTemplate.js:546:33</code>)</li>
+<li>MainTemplate:render (<code>webpack\lib\MainTemplate.js:425:34</code>)</li>
+<li>MainTemplate:modules (<code>webpack\lib\MainTemplate.js:160:25</code>)
+<ul>
+<li>ModuleTemplate:content (<code>webpack\lib\ModuleTemplate.js:59:55</code>)</li>
+<li>ModuleTemplate:module (<code>webpack\lib\ModuleTemplate.js:65:53</code>)</li>
+<li>ModuleTemplate:render (<code>webpack\lib\ModuleTemplate.js:71:53</code>)</li>
+<li>ModuleTemplate:package (<code>webpack\lib\ModuleTemplate.js:77:30</code>)</li>
+</ul>
+</li>
+<li>MainTemplate:renderWithEntry (<code>webpack\lib\MainTemplate.js:436:40</code>)</li>
+</ul>
+</li>
+<li>Compilation:chunkAsset (<code>webpack\lib\Compilation.js:2459:28</code>)</li>
+<li>Compilation:additionalChunkAssets (<code>webpack\lib\Compilation.js:1305:37</code>)</li>
+<li>Compilation:record (<code>webpack\lib\Compilation.js:1308:23</code>)</li>
+<li>Compilation:additionalAssets (<code>webpack\lib\Compilation.js:1311:32</code>)</li>
+<li>Compilation:optimizeChunkAssets (<code>webpack\lib\Compilation.js:1315:36</code>)</li>
+<li>Compilation:afterOptimizeChunkAssets (<code>webpack\lib\Compilation.js:1319:42</code>)</li>
+<li>Compilation:optimizeAssets (<code>webpack\lib\Compilation.js:1320:32</code>)</li>
+<li>Compilation:afterOptimizeAssets (<code>webpack\lib\Compilation.js:1324:38</code>)</li>
+<li>Compilation:needAdditionalSeal (<code>webpack\lib\Compilation.js:1325:41</code>)</li>
+<li>Compilation:afterSeal (<code>webpack\lib\Compilation.js:1329:35</code>)</li>
+</ul>
+</li>
+<li>Compiler:afterCompile (<code>webpack\lib\Compiler.js:628:31</code>)</li>
+<li>Compiler:shouldEmit (<code>webpack\lib\Compiler.js:230:30</code>)</li>
+<li>Compiler:emit (<code>webpack\lib\Compiler.js:441:19</code>)</li>
+<li>Compiler:afterEmit (<code>webpack\lib\Compiler.js:432:27</code>)</li>
+<li>Compiler:needAdditionalPass (<code>webpack\lib\Compiler.js:244:46</code>)</li>
+<li>Compiler:done (<code>webpack\lib\Compiler.js:267:22</code>)</li>
+</ul>
+<p>列表太长一个个断点，还不知道到啥时候，面向 <code>Debugger</code> 编程，怎么可以这么菜。于是有了下面这段操作，利用 <code>Error</code> 产生调用栈，然后用正则取出需要的方法名。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">try</span> {
+    <span style="color:#66d9ef">let</span> [<span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">func</span>, <span style="color:#a6e22e">file</span>, <span style="color:#a6e22e">line</span>, <span style="color:#a6e22e">pos</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Error().<span style="color:#a6e22e">stack</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;\n&#39;</span>)[<span style="color:#ae81ff">2</span>].<span style="color:#a6e22e">substr</span>(<span style="color:#ae81ff">7</span>).<span style="color:#a6e22e">match</span>(<span style="color:#e6db74">/(^[.\w+]*)\s\(.*?node_modules\\?(.*):(\d+):(\d+)\)/</span>);
+    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">source</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;fs&#39;</span>).<span style="color:#a6e22e">readFileSync</span>(<span style="color:#e6db74">&#34;node_modules/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">/\\/g</span>, <span style="color:#e6db74">&#34;/&#34;</span>)).<span style="color:#a6e22e">toString</span>();
+    <span style="color:#75715e">// 假定每个文件只有一个继承自 Tapable 的类，要不就得引入 AST 了。
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">className</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">source</span>.<span style="color:#a6e22e">match</span>(<span style="color:#e6db74">/class (.*)? extends Tapable/</span>);
+    <span style="color:#a6e22e">className</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">className</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">className</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;[TODO]&#39;</span>;
+    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">hooks</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">source</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;\n&#39;</span>)[<span style="color:#a6e22e">line</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>].<span style="color:#a6e22e">substring</span>(<span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">pos</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>).<span style="color:#a6e22e">match</span>(<span style="color:#e6db74">/hooks.(.*)/</span>)[<span style="color:#ae81ff">1</span>];
+    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">hooks</span>.<span style="color:#a6e22e">indexOf</span>(<span style="color:#e6db74">&#39;(&#39;</span>) <span style="color:#f92672">!==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+        <span style="color:#66d9ef">debugger</span>;
+    }
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">className</span><span style="color:#e6db74">}</span><span style="color:#e6db74">:</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">hooks</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> (</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">file</span><span style="color:#e6db74">}</span><span style="color:#e6db74">:</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">line</span><span style="color:#e6db74">}</span><span style="color:#e6db74">:</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">pos</span><span style="color:#e6db74">}</span><span style="color:#e6db74">)`</span>);
+} <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">err</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;[TODO]&#39;</span>);
+}
+</code></pre></div><p><img src="https://i.loli.net/2019/04/29/5cc71df973802.png" alt="1556529815438.png"></p>
+<p>上面的流程没有经过校对，估计肯定有错的，毕竟上面的假设就有问题。更好的处理方法，应该是给 <code>Compiler</code>/<code>NormalModuleFactory</code>/<code>ResolverFactory</code>/<code>Resolver</code>/<code>Compilation</code>/<code>Parser</code>/<code>MainTemplate</code>/<code>ChunkTemplate</code>/<code>ModuleTemplate</code> 的构造方法加上钩子，完成之后生成 Hooks 映射关系表，再用上面获取到的 hooks 方法反查其所属模块，但是这个问题并不是很重要。</p>
+<p>上面这个就是截至 <code>4.30.0</code> Webpack 工作流程的全部 134 个注入点。官方那个文档在流程这块，写的晦涩难懂，画个流程图不好吗，实在不行整个上面的这种注入点列表也好很多。</p>
+<p>透过上面这张表，再来看看例子。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// 在 `Compiler:normalModuleFactory` 进行初始化，获取解析器的 Hooks
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">compiler</span>.<span style="color:#a6e22e">hooks</span>.<span style="color:#a6e22e">normalModuleFactory</span>.<span style="color:#a6e22e">tap</span>(<span style="color:#e6db74">&#39;DemoPlugin&#39;</span>, <span style="color:#a6e22e">factory</span> =&gt; {
+    
+    <span style="color:#75715e">// 在 `NormalModuleFactory:parser.for(javascript/auto)` 获取表达式的 Hooks
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">factory</span>.<span style="color:#a6e22e">hooks</span>.<span style="color:#a6e22e">parser</span>.<span style="color:#66d9ef">for</span>(<span style="color:#e6db74">&#39;javascript/auto&#39;</span>).<span style="color:#a6e22e">tap</span>(<span style="color:#e6db74">&#39;DemoPlugin&#39;</span>, (<span style="color:#a6e22e">parser</span>, <span style="color:#a6e22e">options</span>) =&gt; {
+        
+        <span style="color:#75715e">// 在 `Parser:evaluate.for(`MemberExpression`)` 注入，获取具体的 statement
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">parser</span>.<span style="color:#a6e22e">hooks</span>.<span style="color:#a6e22e">evaluate</span>.<span style="color:#66d9ef">for</span>(<span style="color:#e6db74">&#39;MemberExpression&#39;</span>).<span style="color:#a6e22e">tap</span>(<span style="color:#e6db74">&#39;DemoPlugin&#39;</span>, <span style="color:#a6e22e">statement</span> =&gt; {
+            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">statement</span>);
+        });
+    });
+});
+</code></pre></div><p>在这里用到了 <code>evaluate</code> 这个钩子，他需要使用 <code>for</code> 传递一个参数进去，然后再遍历 AST 的时候会根据表达式类型进行触发。传递的这个参数是 <a href="https://github.com/estree/estree" title="The ESTree Spec">ESTree Spec</a> 中定义的表达式类型，但是有删减，只能使用如下几个标签。</p>
+<ul>
+<li><code>'ArrowFunctionExpression'</code> 箭头表达式</li>
+<li><code>'AssignmentExpression' </code> 赋值表达式</li>
+<li><code>'AwaitExpression'</code> 异步阻塞的语法糖</li>
+<li><code>'BinaryExpression'</code> 二元运算表达式</li>
+<li><code>'CallExpression'</code> 函数调用表达式</li>
+<li><code>'ClassExpression'</code>  类的语法糖</li>
+<li><code>'ConditionalExpression'</code> 条件表达式</li>
+<li><code>'FunctionExpression'</code> 函数表达式</li>
+<li><code>'Identifier'</code> 标识符</li>
+<li><code>'LogicalExpression'</code> 逻辑表达式</li>
+<li><code>'MemberExpression'</code> 成员表达式节点，<code>obj.xxx</code> 或者 <code>obj[xxx]</code></li>
+<li><code>'NewExpression'</code> <code>new</code> 表达式</li>
+<li><code>'ObjectExpression'</code> 对象表达式，<code>{xxx: xxx}</code></li>
+<li><code>'SequenceExpression'</code> 序列表达式，逗号分隔的一组表达式</li>
+<li><code>'SpreadElement' </code> <code>...args</code> 的迭代展开表达式</li>
+<li><code>'TaggedTemplateExpression'</code>  没明白是啥</li>
+<li><code>'TemplateLiteral' </code>模板字符串</li>
+<li><code>'ThisExpression' </code> <code>this</code> 表达式</li>
+<li><code>'UnaryExpression'</code>  一元运算表达式</li>
+<li><code>'UpdateExpression'</code> 更新运算表达式，i++/&ndash;</li>
+</ul>
+<p>但是 Webpack 用的 <a href="https://juejin.im/post/582425402e958a129926fcb4" title="使用 Acorn 来解析 JavaScript">Acorn 还包含了很多标签</a>，至于为什么没有暴露出来，我也没明白。比如最近想用的 <code>Literal</code>。</p>
+<p>比起为什么没有暴露出来，更疑惑的是为什么写了钩子缺无法被调用。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">initializeEvaluating</span>() {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">hooks</span>.<span style="color:#a6e22e">evaluate</span>.<span style="color:#66d9ef">for</span>(<span style="color:#e6db74">&#34;Literal&#34;</span>).<span style="color:#a6e22e">tap</span>(<span style="color:#e6db74">&#34;Parser&#34;</span>, <span style="color:#a6e22e">expr</span> =&gt; {
+    });
+}
+</code></pre></div><p>继续回到源码，既然上面已经知道 <code>Parser:evaluate</code> 在 <code>Parser.js:1998</code> 去看看为啥<code>Literal</code>不会被触发。</p>
+<p><img src="https://i.loli.net/2019/04/29/5cc71eb8137d3.png" alt="1556529827255.png"></p>
+<p>再找一个<code>Literal</code>被遍历到的方法</p>
+<p><img src="https://i.loli.net/2019/04/29/5cc71eb8174d7.png" alt="1556529832456.png"></p>
+<p>发现在 <code>walkExpression</code> 中并不会触发 <code>evaluateExpression</code>，所以这种事件也并不会被触发。但是这并不能解释为什么官方最开头定义的那个钩子是如何被调用的。</p>
+<p>当测试的脚本如下时：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">test</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;test&#34;</span>;
+</code></pre></div><p>给上面的 <code>evaluate.for(&quot;Literal&quot;)</code> 加上断点，果然被触发了</p>
+<p><img src="https://i.loli.net/2019/04/29/5cc71eb81a46e.png" alt="1556529842688.png"></p>
+<p>直接通过<code>getRenameIdentifier</code>被触发，这函数干嘛的，没有注释的代码看的充满了绝望。</p>
+<p>估摸着是用来处理字符字面量的，并且还只处理特定情况下的，比如直接赋值，触发的<code>getRenameIdentifier</code>，逻辑表达式，二元运算表达式，一元运算表达式，比较运算符，以及部分作为部分方法的参数。大概其他时候字面量并不参与计算，直接原样输出就好了，所以没留钩子。</p>
+<p>本来准备用 AST 写个代码汉化的工具，然后想试试 Webpack。发现这封装逻辑，还是得自己从 AST 相关的库开始往上封装，不过这种插件思路可以借鉴。</p>
+<p>关于 AST 还有几个小工具，<a href="http://esprima.org/demo/parse.html">Esprima</a> 高性能的标准 ES 解析器；<a href="https://astexplorer.net/">AST Explorer</a> 是对多个解析式的整合，并写了个美观的可视化界面。</p>
+<p>至于其他阶段的例子，因为我暂时用不上，安利一个 <a href="http://www.alloyteam.com/2016/03/how-to-write-a-plug-in-webpack/">如何写一个webpack插件</a>，自个看吧。</p>
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

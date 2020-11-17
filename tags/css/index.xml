@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CSS on Gitai.me</title>
+    <link>https://gitai.me/tags/css/</link>
+    <description>Recent content in CSS on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Tue, 22 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/css/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>前端杂谈</title>
+      <link>https://gitai.me/2019/01/fe-notes/</link>
+      <pubDate>Tue, 22 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/01/fe-notes/</guid>
+      <description>作用域和闭包：你知道JavaScript的词法作用域是基于编译器（而非解释器！）语义的吗？ 你能解释词法作用域和作为值的函数这两者的直接结果之</description>
+    </item>
+    
+  </channel>
+</rss>

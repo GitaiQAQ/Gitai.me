@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Entity Component System | Gitai.me</title>
+
+<meta property='og:title' content='Entity Component System - Gitai.me'>
+<meta property='og:description' content='ECS 架构1是建立在渲染引擎、物理引擎之上的，主要解决的问题是如何建立一个模型来处理游戏对象 (Game Object) 的更新操作。 相比传统的面向对象模式，其复用性更高'>
+<meta property='og:url' content='https://gitai.me/2017/09/ecs-example/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:published_time' content='2017-09-14T00:00:00Z'/><meta property='article:modified_time' content='2017-09-14T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2017/09/ecs-example/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+    </div>
+    <h2 class="subtitle is-6">September 14, 2017</h2>
+    <h1 class="title">Entity Component System</h1>
+    
+    <div class="content">
+      <p>ECS 架构<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>是建立在渲染引擎、物理引擎之上的，主要解决的问题是如何建立一个模型来处理游戏对象 (Game Object) 的更新操作。</p>
+<p>相比传统的面向对象模式，其复用性更高，其中也有一点面向数据的思想。</p>
+<p><img src="https://i.loli.net/2018/04/19/5ad76e79266d7.png" alt=""><sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
+<p>相比传统的面向对象，ECS 将对象复用部分进行更深一层的抽象，这是一种更为直观的采用属性和行为进行耦合的方法。</p>
+<p>举个栗子：Entity(Component)</p>
+<ul>
+<li>Rock(Appearance, Position, Collision)</li>
+<li>Ball(Appearance, Position, Collision, Movetion)</li>
+<li>Player(Appearance, Position, Collision, Movetion, Health, Player)</li>
+</ul>
+<!-- raw HTML omitted -->
+<p>Rock 是个可碰撞的静态类实体， Ball 相比则多了移动特性（Movetion），而 Player 又增加了活性（Health）和可控制（Player）这些颗粒度极低的操作。</p>
+<p>而 System 则是根据 Component 对 Entity 进行控制和处理。</p>
+<ul>
+<li>Movememt(Position, Movetion)</li>
+<li>Health(Health)</li>
+<li>Collision(Position)</li>
+</ul>
+<p>以上几个部分就能完成一个简单的弹幕游戏。</p>
+<h2 id="ecs-弹幕游戏">ECS 弹幕游戏</h2>
+<p>因为 JAVA 结课需要一个弹幕游戏，这也是本篇的起源。</p>
+<p>为了防止引入太多模块被扣分，于是只是引入了 Slick2D 这个游戏基础封装。</p>
+<p>不过，Slick2D 对 lwjgl 封装的非常简单，所以先写个 Buttom 再说。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> me.gitai.demo.Sklick2d<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> org.newdawn.slick.*<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> org.newdawn.slick.Graphics<span style="color:#f92672">;</span>
+
+<span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Created by Gitai.me(i@gitai.me) on 9/5/17.
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Demo</span> <span style="color:#66d9ef">extends</span> BasicGame <span style="color:#f92672">{</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> SlickException <span style="color:#f92672">{</span>
+        AppGameContainer app <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> AppGameContainer<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Demo<span style="color:#f92672">());</span>
+        app<span style="color:#f92672">.</span><span style="color:#a6e22e">start</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Demo</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">super</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;PlayState&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init</span><span style="color:#f92672">(</span>GameContainer gameContainer<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> SlickException <span style="color:#f92672">{</span>
+
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">int</span> mI <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">update</span><span style="color:#f92672">(</span>GameContainer gameContainer<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> i<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> SlickException <span style="color:#f92672">{</span>
+        mI <span style="color:#f92672">=</span> i<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">render</span><span style="color:#f92672">(</span>GameContainer gameContainer<span style="color:#f92672">,</span> Graphics graphics<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> SlickException <span style="color:#f92672">{</span>
+        graphics<span style="color:#f92672">.</span><span style="color:#a6e22e">drawString</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Hello World!&#34;</span><span style="color:#f92672">,</span> 100f<span style="color:#f92672">,</span> 100f<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+</code></pre></div><p>至此，简答的试用结束。开始编写 ECS 架构。</p>
+<p>首先完成基类 Entity, Component, System</p>
+<ul>
+<li>Entity{init, render}</li>
+<li>Component{init}</li>
+<li>System{init, update}</li>
+</ul>
+<p>主 loop 调用 System.update 来更新 Entity 的 Component 数据。之后 render 在枚举 Entities 调用 Entity.render 来渲染 Component 所附加的属性和行为。</p>
+<p>对于复杂而且常用的 Entity，比如子弹，我们可以继续使用对象集成 Entity，在构造函数中附加 Components。</p>
+<p>写一堆 Components 继承自 Component，然后 补充对应的 System，以下以移动系统（Movememt）为例。</p>
+<p>对于一个移动系统，需要提供实体的位置，方向和速度。并伴随时间，对其进行计算推导。</p>
+<p>于是产生如下结构：</p>
+<ul>
+<li>AirPlaneEntity(Appearance, Position, Movetion)</li>
+<li>Components
+<ul>
+<li>Appearance(angle, width, height)</li>
+<li>Position(x, y)</li>
+<li>Movetion(velocity, angle)</li>
+</ul>
+</li>
+<li>MovememtSystem
+<ul>
+<li>update(Appearance, Position, Movetion)</li>
+</ul>
+</li>
+</ul>
+<p>然后将上述系统进行整合，就是简单的在 init 初始化实例，在 update 调用 System 更新数据，在 rander 进行渲染和绘制。</p>
+<p>具体参见： <a href="https://github.com/GitaiQAQ/ECS">ECS@Gitai</a></p>
+<h2 id="增加所有权系统">增加所有权系统</h2>
+<p>对于简单的碰撞系统，上述内容就能完成。</p>
+<p>但是敌我识别，则又要引入新的 Component，也就是所有权系统，但是这个组件会对 Collision 产生强影响，暂时只能强行写入 Collision 系统。等有优雅的耦合方法，再来升级。</p>
+<h2 id="总结">总结</h2>
+<p>使用了 ECS 架构之后，我们可以避免使用大量的类了。实体就是你游戏中存在的物体，它隐式的使用一系列的组件进行定义，这些组件都是纯粹的数据，只有系统才能够操作他们。熟悉面向数据开发的小伙伴也不难发现，这也就是面向数据的架构。</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://blog.codingnow.com/2017/06/overwatch_ecs.html">浅谈《守望先锋》中的 ECS 构架</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p><a href="http://blog.csdn.net/i_dovelemon/article/details/25798677">理解 组件-实体-系统 （ECS \CES）游戏编程模型</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

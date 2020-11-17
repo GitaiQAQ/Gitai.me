@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>直接从硬盘运行 ISO 文件 | Gitai.me</title>
+
+<meta property='og:title' content='直接从硬盘运行 ISO 文件 - Gitai.me'>
+<meta property='og:description' content='相比其他 Linux 发行版，Ubuntu 及其衍生版可以更容易的完成支持。
+
+ISO 镜像只能通过 GNU GRUB 启动，所以需要在 Linux 环境下启动。
+live 环境下只支持发行版的 live CD 版本
+'>
+<meta property='og:url' content='https://gitai.me/2017/02/linux-iso-boot/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='记录'><meta property='article:published_time' content='2017-02-25T00:00:00Z'/><meta property='article:modified_time' content='2017-02-25T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2017/02/linux-iso-boot/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/%E8%AE%B0%E5%BD%95/">#记录</a>
+
+
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">February 25, 2017</h2>
+    <h1 class="title">直接从硬盘运行 ISO 文件</h1>
+    
+    <div class="content">
+      <p>相比其他 Linux 发行版，Ubuntu 及其衍生版可以更容易的完成支持。</p>
+<ul>
+<li>ISO 镜像只能通过 GNU GRUB 启动，所以需要在 Linux 环境下启动。</li>
+<li>live 环境下只支持发行版的 live CD 版本</li>
+</ul>
+<h2 id="检查-iso-内容">检查 ISO 内容</h2>
+<p>live CD 通过 VirtIO，内核镜像启动系统，在新的 Ubuntu Live CD 中，内核被存放在 /casper 目录，并且命名为 vmlinuz.efi 。如果你使用的是其它系统，可能会没有 .efi 扩展名或内核被存放在其它地方 (可以使用归档管理器打开 ISO 文件在 /casper 中查找确认)。</p>
+<p><img src="https://i.loli.net/2018/04/18/5ad762904414d.png" alt="xubuntu iso"></p>
+<h2 id="取得-iso-镜像路径">取得 ISO 镜像路径</h2>
+<p>GRUb 有一套不同的路径方案，(hd0,1) 意味着 /dev/sda0，0 表示第一个硬盘，1 表示第一个分区。</p>
+<p>你可以使用</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># fdisk -l</span>
+</code></pre></div><p>查看自己环境下的参数</p>
+<p><img src="https://i.loli.net/2018/04/18/5ad762edd6440.png" alt="grub fs"></p>
+<h2 id="创建-grub-入口">创建 GRUB 入口</h2>
+<p>最简单的增加方式为修改 <code>/etc/grub.d/40_custom</code> 文件，这个文件被设计为用户自定义增加入口。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># gedit /etc/grub.d/40_custom</span>
+</code></pre></div><p><img src="https://i.loli.net/2018/04/18/5ad76303a179f.png" alt="grub edit"></p>
+<p>除非添加了其他自定义启动项，否则文件基本为空。 在注释行下面的文件中添加一个或多个 ISO 引导部分。</p>
+<pre><code>menuentry “Ubuntu 14.04 ISO” {
+    set isofile=”/home/name/Downloads/ubuntu-14.04.1-desktop-amd64.iso”
+    loopback loop (hd0,1)$isofile
+    linux (loop)/casper/vmlinuz.efi boot=casper iso-scan/filename=${isofile} quiet splash
+    initrd (loop)/casper/initrd.lz
+}
+</code></pre><ul>
+<li><a href="https://www.gnu.org/software/grub/manual/html_node/loopback.html#loopback">loopback</a></li>
+<li><a href="https://www.gnu.org/software/grub/manual/html_node/linux.html#linux">linux</a></li>
+<li><a href="https://www.gnu.org/software/grub/manual/html_node/initrd.html#initrd">initrc</a></li>
+</ul>
+<p>在更新完 grub 之后（<code>sudo update-grub</code>）</p>
+<p><code>/etc/defaults/grub</code> 和 <code>/etc/grub.d</code> 将被构造成 <code>/boot/grub/grub.cfg</code>， 该文件因为自动生成，而不需要手动编写。</p>
+<blockquote>
+<p>不同的 Linux 发行版具有不同的入口文件，以及不同的引导参数。GRUB Live ISO Multiboot 为不同的发行版提供了入口菜单<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>。</p>
+</blockquote>
+<h2 id="rancher-os">Rancher OS</h2>
+<p>官方提供了 live CD 的镜像<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>，接下来挂载镜像分析结构</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># mount -o loop [path_of_iso] [path_mounted] </span>
+</code></pre></div><p>用 <code>tree</code> 查看</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ tree
+.
+|-- boot
+|   |-- global.cfg
+|   |-- initrd-v0.8.1
+|   |-- isolinux
+|   |   |-- boot.cat
+|   |   |-- isolinux.bin
+|   |   |-- isolinux.cfg
+|   |   <span style="color:#e6db74">`</span>-- ldlinux.c32
+|   |-- linux-current.cfg
+|   <span style="color:#e6db74">`</span>-- vmlinuz-4.9.12-rancher
+<span style="color:#e6db74">`</span>-- rancheros
+    |-- Dockerfile.amd64
+    <span style="color:#e6db74">`</span>-- installer.tar.gz
+
+<span style="color:#ae81ff">3</span> directories, <span style="color:#ae81ff">10</span> files
+</code></pre></div><pre><code>menuentry &quot;Rancher OS v0.8.1&quot; --class ubuntu {
+  set isoname=&quot;rancheros_0.8.1.iso&quot;
+  set isofile=&quot;/boot/${isoname}&quot;
+  echo &quot;Using ${isofile}...&quot;
+  loopback loop (hd0,msdos1)$isofile
+  linux (loop)/boot/vmlinuz-4.9.12-rancher 
+  initrd (loop)/boot/initrd-v0.8.1
+}
+</code></pre><h2 id="qa">Q＆A</h2>
+<h3 id="grub-live-iso-multiboot">GRUB Live ISO Multiboot</h3>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="http://git.marmotte.net/git/glim/tree/grub2">http://git.marmotte.net/git/glim/tree/grub2</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p><a href="https://github.com/rancher/os">https://github.com/rancher/os</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

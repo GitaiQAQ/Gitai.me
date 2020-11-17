@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>利用 Hyper-V 直接安装 ArchLinux | Gitai.me</title>
+
+<meta property='og:title' content='利用 Hyper-V 直接安装 ArchLinux - Gitai.me'>
+<meta property='og:description' content='Windows 环境都配的差不多了，总有点小问题，WSL 太底层的又没实现；Hyper-V 虽然家庭版给他弄开了，但是没有分布式的共享磁盘支持，还是差了点啥，'>
+<meta property='og:url' content='https://gitai.me/2019/02/hyper-v/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='Linux'><meta property='article:tag' content='虚拟化'><meta property='article:published_time' content='2019-02-03T00:00:00Z'/><meta property='article:modified_time' content='2019-02-03T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2019/02/hyper-v/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/linux/">#Linux</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">#虚拟化</a>
+  
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">February 3, 2019</h2>
+    <h1 class="title">利用 Hyper-V 直接安装 ArchLinux</h1>
+    
+    <div class="content">
+      <p>Windows 环境都配的差不多了，总有点小问题，WSL 太底层的又没实现；Hyper-V 虽然家庭版给他弄开了，但是没有分布式的共享磁盘支持，还是差了点啥，最后还是装个 Linux 吧。</p>
+<p>一般安装其他系统都得走，U盘引导，或者 NT6 硬盘引导，反正各种麻烦；这时候想起来 Hyper-V 可以直接挂载物理磁盘，然后按照标准流程走不就好了，最后在 BIOS 设置启动引导，美滋滋。</p>
+<p>而且这样我们可以同时让这个系统，运行在裸机或者 Hyper-V 上，简直太方便（有点厉害）。</p>
+<blockquote>
+<p>非常重要的提示！！</p>
+<p>虚拟机记得先关机，再关 Windows；要不从物理机进入 Linux 操作产生的变更，会在下一次启动 Hyper-V 时产生物理储存上的冲突，然后就等着重装吧。。。</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<h2 id="启用-hyper-v">启用 Hyper-V</h2>
+<p>这是我这穷逼家庭版才需要的操作，专业版直接启用就行了。</p>
+<p>忘了我怎么启动的了，反正比网上那个文件简单，一行解决。最后还有和 VM 冲突的问题。</p>
+<p>无法启动监控程序，除了网上那卸载重装，还有个最重要的。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bat" data-lang="bat">bcdedit /set hypervisorlaunchtype Auto
+</code></pre></div><h2 id="脱机物理磁盘">脱机物理磁盘</h2>
+<p>虽然不明白问什么，我的磁盘管理就是没有脱机这个选项，只能求助于 CMD。有个 <code>diskpart</code> 的磁盘处理工具。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bat" data-lang="bat">Microsoft DiskPart 版本 10.0.17134.1
+
+Copyright (C) Microsoft Corporation.
+在计算机上: GITAI-PC
+
+DISKPART&gt; list disk
+
+  磁盘 ###  状态           大小     可用     Dyn  Gpt
+  --------  -------------  -------  -------  ---  ---
+  磁盘 0    联机              476 GB   868 MB        *
+  磁盘 1    脱机              119 GB   117 GB        *
+  磁盘 2    联机              931 GB   100 MB        *
+  磁盘 3    联机             2048 MB  1984 KB        *
+
+DISKPART&gt; select disk 1
+
+磁盘 1 现在是所选磁盘。
+
+DISKPART&gt; offline disk
+
+虚拟磁盘服务错误:
+该磁盘已脱机。
+</code></pre></div><p>大概就是这么个流程，然后就可以去磁盘管理看到磁盘状态变成脱机了。</p>
+<p><img src="https://i.loli.net/2019/02/03/5c568d03ec809.png" alt=""></p>
+<h2 id="虚拟机绑定">虚拟机绑定</h2>
+<p>新建虚拟机，注意最后一步，暂时不要创建虚拟磁盘。</p>
+<p>然后进入设置，挂载物理磁盘和 Linux 的安装引导光盘。</p>
+<p><img src="https://i.loli.net/2019/02/03/5c568d84a2862.png" alt=""></p>
+<p>直接启动会遇到，“提示存在传递硬盘，无法创建检查点” 相关的错误，关闭检查点即可。</p>
+<p><img src="https://i.loli.net/2019/02/03/5c568e0bd94f7.png" alt=""></p>
+<p>最后调整启动顺序，默认从 EFI 分区启动；我们需要让他走光驱引导。</p>
+<p><img src="https://i.loli.net/2019/02/03/5c568ea0547e0.png" alt=""></p>
+<h2 id="分区格式化">分区&amp;格式化</h2>
+<p>因为我们就挂载了一块磁盘，直接 <code>parted</code>，进入磁盘管理。</p>
+<p><img src="https://i.loli.net/2019/02/03/5c568f957b90d.png" alt=""></p>
+<p>弄完长这样，处理磁盘大小，如果有不同的参照下面的。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rm <span style="color:#ae81ff">1</span> <span style="color:#75715e"># 删除分区 1</span>
+mkpart <span style="color:#75715e"># 创建新分区</span>
+set <span style="color:#ae81ff">1</span> boot <span style="color:#75715e"># 设置 esp, boot 标记</span>
+</code></pre></div><p>至于分区格式，不要在这处理，等这完成了，用 <code>mkfs</code> 格式化磁盘。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 格式化成 ext4</span>
+mkfs.ext4 /dev/sda3 
+
+<span style="color:#75715e"># 格式化成 fat32，efi 分区必要的</span>
+mkfs.vfat -F32 /dev/sda1 
+
+<span style="color:#75715e"># 交换分区</span>
+mkswap /dev/sda2
+swapon /dev/sda2 
+</code></pre></div><p>之后挂载到 <code>/mnt</code>，进入安装流程。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 挂载 rootfs</span>
+mount /dev/sda3 /mnt
+
+<span style="color:#75715e"># 创建引导位置</span>
+mkdir -p /mnt/boot/efi
+
+<span style="color:#75715e"># 挂载引导分区，虽然也有挂载到 boot 的，但是为了后面 GRUB 好写，这样容易一些。</span>
+mount /dev/sda1 /mnt/boot/efi
+</code></pre></div><p>最后 <code>pacstrap /mnt base</code>，安装 Arch Linux。</p>
+<p>生成 UUID 或者卷标 <code>genfstab -U /mnt &gt;&gt; /mnt/etc/fstab</code></p>
+<p>这时候光盘已经没啥用了，用 <code>arch-chroot</code> 将 <code>/mnt</code> 设置为根目录。</p>
+<h2 id="配置系统">配置系统</h2>
+<p>参照官方 <a href="https://wiki.archlinux.org/index.php/Installation_guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)">Wiki</a></p>
+<p>如果最后 <code>date</code> 和 <code>hwclock</code> 结果不一致，使用 <code>hwclock -u</code> 同步。</p>
+<p>记住设置密码 <code>passwd</code></p>
+<p>可能需要启动 <code>dhcpcd</code>，要不下次启动可能没网。</p>
+<h2 id="生成-grub-引导">生成 GRUB 引导</h2>
+<p>看看 <code>ls /boot</code> 是否存在那几个 <code>img</code> 和 <code>vmlinuz-linux</code>，没有的话就可能被挂载时覆盖了，通过 <code>pacman -S linux</code> 安装。</p>
+<p>之后安装 <code>grub</code> 和 <code>efibootmgr</code>，使用  <code>grub-install</code> 安装引导，之后查看 <code>/boot/efi/EFI/arch</code> 是否存在。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">grub-mkconfig -o /boot/grub/grub.cfg
+</code></pre></div><p>不配置 <code>grub.cfg</code> 会进入 mini bash 环境，那就需要手动引导。</p>
+<p>重启，完成。</p>
+<p><img src="https://i.loli.net/2019/02/03/5c56970e6105e.png" alt="OJBK"></p>
+<p>之后可以在虚拟机继续配置，Hyper-V 没法粘贴（可能我配置问题），可以先装 <code>openssh</code>，然后远程进去配置。突然意识到，这样我们就得到一个 Arch Linux 和 Windows 里面的虚拟 Arch Linux，突然有点厉害啊。</p>
+<h2 id="手动引导">手动引导</h2>
+<p>这把直接进去了，写一下大概。</p>
+<p>先看环境变量，<code>prefix</code> 和 <code>root</code>，<code>prefix</code> 设置到 <code>(hd0,gpt3)/boot</code>， 如果 <code>linux</code> 命令存在，直接 <code>linux /vmlinuz-linux root=/dev/sda3</code>，然后设置内核 <code>initrc /initraxxxx </code>，最后 <code>boot</code>。</p>
+<h2 id="安装后无法识别启动设备">安装后无法识别启动设备</h2>
+<p>网上那些复制粘贴的，没几个有用的，不是第三方修复工具，就是改 BIOS。</p>
+<p>部分 BIOS 固件无法识别，上面的 <code>/EFI/arch/grubx64.efi</code>，他们只支持 <code>/EFI/BOOT/BOOTX64.EFI</code> 这个硬编码路径。所以如果无法识别（即 UEFI 无法检测到该硬盘），需要复制到上述路径。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir -p /boot/efi/EFI/BOOT/
+cp /boot/efi/EFI/arch/grubx64.efi /boot/efi/EFI/BOOT/BOOTX64.EFI
+</code></pre></div><p>参考 <a href="https://www.qubes-os.org/doc/uefi-troubleshooting/">Troubleshooting UEFI related problems</a></p>
+<h2 id="startx-失效">startx 失效</h2>
+<p>Hyper-V 和 裸机用的不是同一个显卡驱动，而内核内置一个开源的 nvdia 驱动，需要先通过修改启动的内核参数来关闭，<code>nouveau.modeset=0 rd.driver.blacklist=nouveau video=vesa:off</code>。</p>
+<p>而 Hyper-V 使用的是 <code>xf86-video-fbdev</code></p>
+<p>intel 裸机用的是 <code>xf86-video-intel</code></p>
+<h2 id="奇奇怪怪的-bug">奇奇怪怪的 BUG</h2>
+<p>ERROR: device '' not found. Skipping fsck</p>
+<p><a href="https://wusiyu.me/archlinux-remove-initramfs-linux-fallback-img/">在Arch Linux中禁止生成/boot/initramfs-linux-fallback.img以节省/boot分区空间</a></p>
+<p>直接使用 fallback 加载就好了，具体缺了啥，有空再看。</p>
+<p>而如果在裸机运行之后通过 <code>pacman -S linux</code> 更新内核，重新生成 initramfs，这个 initramfs 又会无法在 Hyper-V 上面运行。</p>
+<p>应该是虚拟化导致的底层差异。</p>
+<h2 id="其他杂七杂八">其他杂七杂八</h2>
+<p>参见 <a href="https://huangwenshan1999.github.io/2018/04/01/ArchLinux-install/">Archlinux安裝指南（uefi+gpt）</a></p>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

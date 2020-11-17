@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>JavaScript 萌新指北 | Gitai.me</title>
+
+<meta property='og:title' content='JavaScript 萌新指北 - Gitai.me'>
+<meta property='og:description' content='发现一个比我写的还多的文章1 顺手塞个大纲进来世界顶级公司的前端面试都问些什么 首先我要好好批判批判，是谁给我的勇气，3月份写了个 JavaScript 原型和继承 这'>
+<meta property='og:url' content='https://gitai.me/2018/12/getting-started-for-js/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:published_time' content='2018-12-21T00:00:00Z'/><meta property='article:modified_time' content='2018-12-21T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2018/12/getting-started-for-js/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+    </div>
+    <h2 class="subtitle is-6">December 21, 2018</h2>
+    <h1 class="title">JavaScript 萌新指北</h1>
+    
+    <div class="content">
+      <blockquote>
+<p>发现一个比我写的还多的文章<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<p>顺手塞个大纲进来<a href="https://juejin.im/post/5c414bbe518825247c724268">世界顶级公司的前端面试都问些什么</a></p>
+</blockquote>
+<p>首先我要好好批判批判，是谁给我的勇气，3月份写了个 <a href="http://gitai.me/2018/03/js-prototype/">JavaScript 原型和继承</a> 这篇智障文章出来。（大概就和每次重构代码一样的感觉。</p>
+<p>经过前些日子 BAM 的面试，发现我的确是个假前端，知识储备不足，经验也不够。真是浪费了大好的面试机会，不过经验还是有滴。至少知道了面经这种东西，只能作为提纲，如何细化还得自行揣度。</p>
+<p>写这篇文章的时候，发现各种资料都不管用，各种 Spec，解释器源码和 Demo 才是实际的。还有前端发展比较缓慢，09 才有 ES5，所以大到虚拟机，小到控制流基本都是借鉴系统或者啥服务的特性弄出来的，本身 JS 就这么点东西，而那些背景才是大头，大概优秀的前端er也是深入理解各种底层，分布式balabala的，而且因为和用户最近，还不能过于偏激；总的来说，挺难的。</p>
+<p>在吹这篇文章的时候看到了这么一张图，突然觉得有那么一点合适。<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
+<p><img src="https://cdn-images-1.medium.com/max/1000/1*4lHHyfEhVB0LnQ3HlhSs8g.png" alt="The Runtime"></p>
+<!-- raw HTML omitted -->
+<h2 id="数据类型--内存堆memory-heap">数据类型 &amp; 内存堆（Memory Heap）</h2>
+<p>先是数据类型，基本的 <code>boolean</code>，<code>number</code> 大家都有，被吐槽为设计失败的 <code>null</code> <sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>，被误以为可以修改而实际上只能重新分配的 <code>string</code>，还有无比强大的 <code>object</code>，以及在变量提升时会反复出现的<code>undefined</code>，和ES6 增加的表示独一无二的 <code>symbol</code>。类型检查使用 <code>typeof</code>，对象类型检查需要使用 <code>Object.prototype.toString</code> 因为如同 <code>Array</code> 会对从 <code>Object</code> 继承下来的该方法进行重写这样，大多数子对象都是无法通过<code>toString</code> 直接返回 <code>[object XXX]</code> 这样的类型标识的。</p>
+<p>让我们从内存模型来看这几个类型，先明确以下几点：</p>
+<ol>
+<li>所有对变量的赋值操作都是值复制</li>
+<li>栈是连续的，所有储存的都是<strong>定长</strong>数据；而堆是动态分配的，需要手动回收（JS 由 GC 回收）。</li>
+<li><code>object</code> 是唯一的引用类型</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s1</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;s1&#34;</span>;
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">s1</span>; <span style="color:#75715e">// 在这里是对 &#34;s1&#34; 这个基本类型的复制
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">o1</span> <span style="color:#f92672">=</span> {}; <span style="color:#75715e">// o1 是对 {} 的堆地址的引用，姑且把这个引用也理解成基本类型
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">o2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">o1</span>; <span style="color:#75715e">// 所以这里的 o2 也是 o1 即 {} 的引用
+</span></code></pre></div><p><img src="https://i.loli.net/2019/01/07/5c335ab098486.png" alt="复制之前"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">s2</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;s2&#34;</span>; <span style="color:#75715e">// s1 依然是 s1
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">o2</span> <span style="color:#f92672">=</span> []; <span style="color:#75715e">// 这里对 o2 下 o1 的引用进行修改，变成堆内 [] 的引用，而 o1 无变化
+</span></code></pre></div><p><img src="https://i.loli.net/2019/01/07/5c335ab084e37.png" alt="复制之后"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">o2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">o1</span>; <span style="color:#75715e">// 重新将 o2 的值修改为对 {} 的引用
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">o2</span>.<span style="color:#a6e22e">s1</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;s1&#34;</span>; <span style="color:#75715e">// 通过 . 操作符修改 o2，增加 s1 属性为 &#34;s1&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">o1</span>); <span style="color:#75715e">// o1.s1 也同样被添加为 &#34;s1&#34;
+</span></code></pre></div><p><img src="https://i.loli.net/2019/01/07/5c335ab0831db.png" alt="堆内对象的修改"></p>
+<p>上面这个例子是内存模型中最重要的几点。</p>
+<p>在 JS 中，存在字面量这一类写法，将会被直接转化为对应原始类型。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">typeof</span> <span style="color:#e6db74">&#34;字符字面量&#34;</span> <span style="color:#75715e">// string
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">typeof</span> <span style="color:#66d9ef">false</span> <span style="color:#75715e">// boolean
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">typeof</span> <span style="color:#ae81ff">1</span> <span style="color:#75715e">// number
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">typeof</span> <span style="color:#66d9ef">null</span> <span style="color:#75715e">// object ???
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">typeof</span> <span style="color:#66d9ef">undefined</span> <span style="color:#75715e">// undefined
+</span></code></pre></div><p>那上面有个反直觉的 <code>null</code>，为什么会是 <code>object</code>？</p>
+<blockquote>
+<p>原理是这样的，不同的对象在底层都表示为二进制，在 Javascript 中二进制前三位都为 0 的话会被判断为 Object 类型，null 的二进制表示全为 0，自然前三位也是 0，所以执行 typeof 时会返回&quot;object&quot;。《你不知道的 Javascript》</p>
+</blockquote>
+<blockquote>
+<p>从逻辑角度来看，null值表示一个空对象指针，而这正是使用typeof操作符检测null值时会返回“object”的原因。《JavaScript高级程序设计》</p>
+</blockquote>
+<p>实际上这是个历史遗留的 BUG，参见 <a href="https://segmentfault.com/q/1010000011846328">JavaScript 中 typeof 原理探究？</a></p>
+<p>之后看看 <code>const</code> 这个在 ES5 中增加的特性，为了弥补 var 的一些缺陷而设计出来的。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">s1</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;s1&#34;</span>;
+<span style="color:#a6e22e">s1</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;s2&#34;</span>; <span style="color:#75715e">// Uncaught TypeError: Assignment to constant variable.
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">o1</span> <span style="color:#f92672">=</span> {};
+<span style="color:#a6e22e">o1</span>.<span style="color:#a6e22e">s1</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;s1&#34;</span>;
+<span style="color:#75715e">// {s1: &#34;s1&#34;}
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">o2</span> <span style="color:#f92672">=</span> {};
+<span style="color:#a6e22e">o2</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">01</span>; <span style="color:#75715e">// Uncaught TypeError: Assignment to constant variable.
+</span></code></pre></div><p>结合上面的内存模型不难发现，<code>const</code> 仅仅会约束栈内存的值和地址，而 <code>object</code> 类型因为只在栈内存了对堆的引用，所所以可以修改其 “内容”，如果要保护堆内对象的数据，则需要使用 <code>seal</code>，<code>freeze</code> 这 2 个方法。</p>
+<p>在 <a href="https://github.com/Constellation/iv/blob/64c3a9c7c517063f29d90d449180ea8f6f4d946f/iv/lv5/jsobject_fwd.h#L113">jsobject_fwd.h#L113</a> 中有这 2 个方法的实现原理，就是调用了 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty"><code>Object.defineProperty</code></a> 来修改对象的 <code>configurable</code> 和 <code>writable</code> 属性，按照 MDN 的介绍还有 <code>get</code> 和 <code>set</code> ，这 2 个属性就是现在广泛用于<code>react</code>, <code>vue</code>这类 MVVM 框架，通过 Hook 这对象的这 2 个方法来监测数据变化并触发对应的动作。</p>
+<p>因为栈中的资源会通过 LIFO 被清理，而堆中的对象在物理上不具有连续性，没法这样被清理而容易产生内存泄漏。于是有了各种各样的垃圾回收算法，最简单但是昙花一现的引用计数算法，和广泛使用的标记-清理算法，这段发展史还是从 R 大的虚拟机介绍<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>上看到的，所以细节我也不复制了。</p>
+<p><code>number</code>, <code>string</code>, <code>boolean</code> 这三种基本类型都有对应的包装对象，用于增强这些基本类型的功能，所以在诸如 <code>&quot;s&quot;.startsWith</code> 这样的方法被调用时，是对 <code>new String(&quot;s&quot;).startsWith</code> 的调用，并且在调用完成后，会销毁这个包装对象，所以 <code>&quot;s&quot;.prop = &quot;test&quot;;</code>，这条语句没有效果但是的确生效了，只是作用的对象在调用完成之后就被销毁了。</p>
+<p>Function 通过其 object 的属性进行拓展，而 object 又通过 Function 进行构造，这个构造流程就需要了解 JS 里面对于构造器的实现。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">TestObj</span>(<span style="color:#a6e22e">name</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
+}
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">TestObj</span>(<span style="color:#e6db74">&#34;testObj&#34;</span>));
+</code></pre></div><p><img src="https://i.loli.net/2019/01/10/5c3707f3110d2.png" alt="Chrome DevTools - console"></p>
+<p>显而易见的就是个普通对象，但是原型的构造器是上述函数，所以可以这样手动构造。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">TestObj</span>(<span style="color:#a6e22e">name</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
+}
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">testObj</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Object();
+<span style="color:#a6e22e">testObj</span>.<span style="color:#a6e22e">__proto__</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Object();
+<span style="color:#a6e22e">testObj</span>.<span style="color:#a6e22e">__proto__</span>.<span style="color:#a6e22e">constructor</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TestObj</span>;
+<span style="color:#a6e22e">TestObj</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">testObj</span>, <span style="color:#e6db74">&#34;testObj&#34;</span>);
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">testObj</span>);
+</code></pre></div><p><img src="https://i.loli.net/2019/01/10/5c3707f3110d2.png" alt="Chrome DevTools - console"></p>
+<p>然后来把他们塞到 TestObj 里，也就是 jQuery 的无 new 构造。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">TestObj</span>(<span style="color:#a6e22e">name</span>) {
+	<span style="color:#75715e">// 无 new 调用的函数内 this 指向 Global，即 window 或者 global，在严格模式下为 undefined
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">_this</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Object();
+    <span style="color:#a6e22e">_this</span>.<span style="color:#a6e22e">__proto__</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Object();
+    <span style="color:#a6e22e">_this</span>.<span style="color:#a6e22e">__proto__</span>.<span style="color:#a6e22e">constructor</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">arguments</span>.<span style="color:#a6e22e">callee</span>; <span style="color:#75715e">// TestObj，arguments.callee 在严格模式下会报错
+</span><span style="color:#75715e"></span>    
+    <span style="color:#a6e22e">_this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">_this</span>;
+}
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">TestObj</span>(<span style="color:#e6db74">&#34;testObj&#34;</span>));
+</code></pre></div><p>但是 __proto__ 并不是标准的方法，虽然被现代的浏览器支持了，在 ES 6 增加了 <code>setPrototypeOf</code>；顺手加上对 new 构造的判断。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">TestObj</span>(<span style="color:#a6e22e">name</span>) {
+    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">_this</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span> <span style="color:#f92672">===</span> window<span style="color:#f92672">?</span>Object.<span style="color:#a6e22e">setPrototypeOf</span>({}, {
+        <span style="color:#a6e22e">constructor</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">arguments</span>.<span style="color:#a6e22e">callee</span>
+    })<span style="color:#f92672">:</span><span style="color:#66d9ef">this</span>;
+    <span style="color:#a6e22e">_this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">_this</span>;
+}
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">TestObj</span>(<span style="color:#e6db74">&#34;testObj&#34;</span>));
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">TestObj</span>(<span style="color:#e6db74">&#34;testObj by new&#34;</span>));
+</code></pre></div><p>上面已经构造了一个这样的继承链 <code>testObj</code> -&gt; <code>{constructor}</code> -&gt; Object</p>
+<p>现在弄个 ChildObj 覆盖父对象的 <code>name</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">ChildObj</span>(<span style="color:#a6e22e">name</span>) {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
+}
+
+<span style="color:#a6e22e">ChildObj</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">TestObj</span>();
+<span style="color:#a6e22e">ChildObj</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">constructor</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ChildObj</span>;
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ChildObj</span>(<span style="color:#e6db74">&#34;childObj&#34;</span>));
+</code></pre></div><p>使用 <code>new TestObj()</code> 来构造原型是有问题滴，应该使用 <code>Object.create(TestObj.prototype)</code>，最好直接用 <code>Object.setPrototypeOf</code>（出自《你所不知的的 JavaScript》5.3 （原型）继承）</p>
+<p><img src="https://i.loli.net/2019/01/10/5c373da4971cc.png" alt="Chrome DevTools - console"></p>
+<p>蓝色线表示直接原型，而红色则是通过原型链产生的间接原型。其 instanceof 是通过递归检查原型链来判断继承关系的。</p>
+<blockquote>
+<p>插播：如何理解 prototype 和 __proto__</p>
+<p>我们已经知道 JS 所有的对象都有 __proto__ 来标记原型，形成原型链。那么 prototype 又是干啥的？直接看 ES Spec <sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>写的明明白白，函数创建的对象需要写明继承关系，而这个继承关系就是通过  prototype 来约定的；所以我们可以修改函数的 prototype 让生成的对象都继承自某个对象。</p>
+</blockquote>
+<p>接下来看看鸡和蛋的问题，Function 和 Object 错综复杂的继承关系。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Object();
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">fn</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Function();
+<span style="color:#75715e">// 理所应当
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">obj</span> <span style="color:#66d9ef">instanceof</span> Object); <span style="color:#75715e">// True
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">fn</span> <span style="color:#66d9ef">instanceof</span> Function); <span style="color:#75715e">// True 
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 自然而然
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">obj</span> <span style="color:#66d9ef">instanceof</span> Function); <span style="color:#75715e">// False
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">fn</span> <span style="color:#66d9ef">instanceof</span> Object); <span style="color:#75715e">// True 除了基本类型，一切都是对象
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 鸡和蛋的问题
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Object <span style="color:#66d9ef">instanceof</span> Function) <span style="color:#75715e">// True
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Function <span style="color:#66d9ef">instanceof</span> Object) <span style="color:#75715e">// True
+</span></code></pre></div><p>首先 Object 是所有对象的父级，所有的非基本类型都是 instance 于它的；而 Object 本身是个函数，这个函数自然继承了 Function 所以有了互相继承的关系；而 Object 生成的实例是不具备再次被调用的能力的，自然不是继承自 Function；而 fn 继承自 Function，自然也继承自 Object。</p>
+<p>至此，JS 的原型和继承就结束了，之前文章写的又杂又乱，啥都有就是自个都看不懂；尤其那张原型关系图，实际上就是几条规则，阐述一下就是上面这几个 Demo。（小声 BB，就假装我现在已经完全理解了。</p>
+<p>作用域链是个大坑，自个都没整明白，最简单的就是 <code>var</code> 声明的变量会绑定到最近的作用域，而相对于 <code>var</code> 没有块级作用域，只有函数作用域；其次 <code>let</code> 对块级作用域提供了支持。以及 JS 使用的是静态词法分析作用域，其静态是相对于动态作用域而来的，详细参见《你所不知道的 JavaScript》的第二部分 1.3</p>
+<p>闭包即使立即执行，只有一个入口和返回值，通过匿名函数隔离外部环境，并且可以通过延申作用域来作为函数工厂生成函数。在 ES 5 增加的 <code>Function.prototype.bind</code> 就是把前一次传入的参数延申到闭包里面，生成一个构造方法；而其本质就是闭包 + <code>Function.prototype.call/apply</code>。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">BindTest</span>() {
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">bind</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ok&#34;</span>; 		<span style="color:#75715e">// 增加新的属性作为测试，这里的 this 是下面 bind 传入的 obj
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>;			<span style="color:#75715e">// 因为不是构造方法，不会默认返回 this
+</span><span style="color:#75715e"></span>}
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">bindFn</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">BindTest</span>.<span style="color:#a6e22e">bind</span>({<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;test&#34;</span>});<span style="color:#75715e">// this = {name:&#34;test&#34;};
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">bindFn</span>());		<span style="color:#75715e">// {name:&#34;test&#34;, bind:&#34;ok&#34;}
+</span></code></pre></div><p>用闭包 + <code>Function.prototype.apply</code> 实现一下这个小东西；</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">BindTest</span>.<span style="color:#a6e22e">__proto__</span>.<span style="color:#a6e22e">customBind</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">ctx</span>) {
+	<span style="color:#75715e">// 这个 return 会把匿名函数丢出去
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> (<span style="color:#66d9ef">function</span>() {
+    	<span style="color:#75715e">// 外部作用域会被缓存在这
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">BindTest</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">arguments</span>);
+    })
+}
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">customBindFn</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">BindTest</span>.<span style="color:#a6e22e">customBind</span>({<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;test&#34;</span>});
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">customBindFn</span>());		<span style="color:#75715e">// {name:&#34;test&#34;, bind:&#34;ok&#34;}
+</span></code></pre></div><p><img src="https://i.loli.net/2019/01/10/5c374adeb2043.png" alt="Chrome DevTools - console"></p>
+<p>打印 <code>customBindFn</code> 看看会发现，输出的就是上面 return 的匿名函数，但是因为作用域的延申 <code>ctx</code> 被我们上面传入的 <code>{}</code> 取代了；闭包最重要的特性就是<strong>内部作用域</strong>导出，就是把构造闭包时的作用域打包了给其他地方用。</p>
+<p>// TODO: 暂时没想到还有啥可以瞎BB的，本节暂时结束</p>
+<h2 id="并行--事件循环event-loop">并行 &amp; 事件循环（Event Loop）</h2>
+<blockquote>
+<p>理解不足，建议去看【朴灵评注】JavaScript 运行机制详解：再谈Event Loop</p>
+</blockquote>
+<p>先来了解程序的运行流程，有调度系统之前的程序设计就是个大 loop，可以参照一些单片机在 NoOS 下的写法，一个 sleep 就是多少个时钟周期的空循环，而这段时间内整个系统都停止不动了，这就是发生了阻塞。在这段 sleep 时的 CPU 资源就被浪费了；于是有了分时复用，在上面这个 sleep 发生时，将 CPU 资源交给另一个程序，而把 sleep 转化为定时器，由上层系统维护，其中 NoOS 则交由硬件定时器维护；等定时器清零，重新把 CPU 交给第一个程序。</p>
+<p>平时开发也可能调用到各种资源，比如读取一个文件，这个文件可能是在 6GB/s 读写的 PCIE/NVMe 的本地磁盘上，也可能通过 56Kbps 的拨号上网获取，总不能让系统吊死在这。</p>
+<p>于是我们可以开启一个子线程慢慢的从 TCP 中读取，写入缓冲区，等 EOF 的出现，并在下一个 loop 的开始检查子线程任务是否完成。</p>
+<p>JS 引擎只是浏览器这个 loop 的一部分，所以浏览器会负责调度各子系统，检测各种事件是否完成，并在合适的事件回收动态分配的内存。</p>
+<p>程序本身都是同步的，只是局限于特定的时空观下呈现出异步的特性<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>。</p>
+<p>异步的也不是 JS，是为了保障用户体验，将耗时操作交给浏览器，并由在结束时将控制权重新交给 JS。</p>
+<p>当算法复杂度足够高或者是个黑盒的时候，我们是无法简单的预测解决的时间，当这个算法被托管给浏览器，浏览器也不能保证其完成的时间，于是无法在程序上合适的位置作出处理，一不小心还会打乱现有的程序流程。</p>
+<p>为了协调事件、用户交互、脚本、UI 渲染和网络处理等行为，重新安排上面这些不可控流程，防止主线程的阻塞，Event Loop 的方案应用而生。</p>
+<p>这个事件循环机制涉及到调用栈，任务队列，现在最为广泛的说法是</p>
+<blockquote>
+<p>从全局上下文进入函数调用栈开始，直到调用栈清空，然后执行所有的<code>micro-task（微任务）</code>，当所有的<code>micro-task（微任务）</code>执行完毕之后，再执行<code>macro-task（宏任务）</code>，其中一个<code>macro-task（宏任务）</code>的任务队列执行完毕（例如<code>setTimeout</code> 队列），再次执行所有的<code>micro-task（微任务）</code>，一直循环直至执行完毕。</p>
+<p>作者：梁音 <a href="https://juejin.im/post/5bc1adc45188255c82553921">https://juejin.im/post/5bc1adc45188255c82553921</a></p>
+</blockquote>
+<p><img src="https://camo.githubusercontent.com/a12555cbe873831500e20955075d50558735a5f8/68747470733a2f2f706963312e7a68696d672e636f6d2f76322d61643161323531636239316433373632353138356134666238373434393466635f622e706e67" alt="The event loop"></p>
+<p>细节可以从从 WHATWG SPEC<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup> 上面看，不过新版本的已经没有<code>microtask</code> 这种说法，现在被称之为 <code>task</code>， 这里还有个动态演示<sup id="fnref:8"><a href="#fn:8" class="footnote-ref" role="doc-noteref">8</a></sup>。</p>
+<p>macrotasks: Script,  setTimeout, setInterval, setImmediate*, requestAnimationFrame, I/O, UI rendering
+microtasks: process.nextTick*<sup id="fnref:9"><a href="#fn:9" class="footnote-ref" role="doc-noteref">9</a></sup>, Promises, <del>Object.observe</del>, MutationObserver</p>
+<ol>
+<li>每个循环有一个或者多个任务，任务实际上就是宏任务（macrotask）</li>
+<li>每个循环都只有一个微任务队列（microtask）</li>
+<li>浏览器只保证各队列 FIFO，但是多个队列会交替执行，来保证用户体验</li>
+<li>只有当前任务完成才会进行下一个</li>
+<li>不是所有的 Event 都通过任务队列</li>
+</ol>
+<blockquote>
+<p>小贴士： Node.js 的 <code>process.nextTick</code> 会通过 <code>process.maxTickDepth</code> 设置打断 microtask 的运行，其他浏览器在实现上也会对过多的 microtask 做出处理。</p>
+</blockquote>
+<p>知乎上有个优先级顺序<sup id="fnref:10"><a href="#fn:10" class="footnote-ref" role="doc-noteref">10</a></sup>的测试，来简单分析一下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">setImmediate</span>(<span style="color:#66d9ef">function</span>() {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">1</span>);
+}, <span style="color:#ae81ff">0</span>);
+<span style="color:#a6e22e">setTimeout</span>(<span style="color:#66d9ef">function</span>() {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">2</span>);
+}, <span style="color:#ae81ff">0</span>);
+<span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">resolve</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">3</span>);
+    <span style="color:#a6e22e">resolve</span>();
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">4</span>);
+}).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>() {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">5</span>);
+});
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">6</span>);
+<span style="color:#a6e22e">process</span>.<span style="color:#a6e22e">nextTick</span>(<span style="color:#66d9ef">function</span>() {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">7</span>);
+});
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">8</span>);
+</code></pre></div><p>程序主体是当前栈的，在结束之前都不会执行任何异步任务；
+<code>setImmediate</code> 无论何时都是最后的，它需要等宏任务，微任务，JS 调用栈全部清空才会执行；<code>setTimeout</code> 会被加入宏队列，至少在所有的微任务和 JS 调用栈都完成，并且达到要求的延迟才会执行，其中最小的间隔为 4ms；
+<code>process.nextTick</code> 会插入下一个任务队列开头的位置；
+Promise 其实是一种语法糖，下面来用回调重新编写一下。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">fn</span>(<span style="color:#a6e22e">resolve</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">3</span>);
+    <span style="color:#a6e22e">setTimeout</span>(<span style="color:#a6e22e">resolve</span>, <span style="color:#ae81ff">0</span>);
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">4</span>);
+}
+<span style="color:#a6e22e">fn</span>(<span style="color:#66d9ef">function</span>() {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">5</span>);
+})
+</code></pre></div><p>Promise 实现了一个状态机，但是可以简单的这样理解上述情况。不难发现 fn 被立即调用，而 <code>resolve</code> 即传入的回调，被 <code>setTimeout</code> 延迟到最后执行。</p>
+<p>综合上述，输出顺序为 3, 4, 6, 8, 7, 2, 5, 1</p>
+<p>但是实际上，原生 Promise.then 的优先级高于 <code>setTimeout</code>，所以应该输出 3, 4, 6, 8, 7, <strong>5, 2</strong>, 1</p>
+<p>除了这些常见事件，还有一个之前广泛运用的 <code>requestAnimationFrame</code>，因为浏览器均未实现 <code>setImmediate</code> ，所以在浏览器上将其替换，并删除 Node.js 私有的 <code>process.nextTick</code> 。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">requestAnimationFrame</span>(<span style="color:#66d9ef">function</span>() {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">1</span>);
+});
+<span style="color:#a6e22e">setTimeout</span>(<span style="color:#66d9ef">function</span>() {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">2</span>);
+}, <span style="color:#ae81ff">0</span>);
+<span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">resolve</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">3</span>);
+    <span style="color:#a6e22e">resolve</span>();
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">4</span>);
+}).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>() {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">5</span>);
+});
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">6</span>);
+</code></pre></div><p>测试输出：3, 4, 6, 5, 2, 1</p>
+<p><code>requestAnimationFrame</code> 是个比较奇怪的事件<sup id="fnref:11"><a href="#fn:11" class="footnote-ref" role="doc-noteref">11</a></sup>，不过就当<code>setImmediate</code>用吧。</p>
+<p>写完这些东西，突然觉得之前听说的虚拟 DOM 比直接操作 DOM 快估计是谣言，于是求证了一下<sup id="fnref:12"><a href="#fn:12" class="footnote-ref" role="doc-noteref">12</a></sup>；所以 v-dom 应该有其他价值，那就是加一层抽象，提供了跨平台这一特性；比如 Flipboard 的 <code>react-canvas</code> 为了提高移动端的用户体验；为什么不提 RN，因为官方的无论在哪一层做处理都不奇怪；但是优秀的解耦合可以让社区轻易的开发出对应的功能，这就厉害了。</p>
+<p>之后就得说说浏览器和 Node.js 环境的差异，Node.js 使用 libuv 作为事件驱动模型。</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*lkkdFLw5vh1bZJl8ysOAng.jpeg" alt="libuv & JavaScript"></p>
+<p>上图只包含之前说的那些微队列，而没有微队列的处理时机。在网上广泛的说法<sup id="fnref:13"><a href="#fn:13" class="footnote-ref" role="doc-noteref">13</a></sup>是上述 6 个阶段（Idle, prepare 合并）的每个阶段之前会检测微队列，并及时处理。还有一种说法是他们的处理发生在 idle 阶段<sup id="fnref:11"><a href="#fn:11" class="footnote-ref" role="doc-noteref">11</a></sup>。</p>
+<p>对此我只能设法写个黑盒测试或者去翻翻 Node.js 的源代码，源码和官方的说明没看明白<sup id="fnref:14"><a href="#fn:14" class="footnote-ref" role="doc-noteref">14</a></sup>。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">fs</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;fs&#34;</span>);
+
+<span style="color:#a6e22e">process</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#34;exit&#34;</span>, <span style="color:#66d9ef">function</span> () {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">1</span>);
+});
+
+<span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFile</span>(<span style="color:#a6e22e">__filename</span>, () =&gt; {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">2</span>);
+
+    Promise.<span style="color:#a6e22e">resolve</span>().<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span> () {
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">3</span>);
+    });
+});
+
+<span style="color:#a6e22e">setTimeout</span>(<span style="color:#66d9ef">function</span> () {
+    Promise.<span style="color:#a6e22e">resolve</span>().<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span> () {
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">4</span>);
+    });
+    
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">5</span>);
+}, <span style="color:#ae81ff">0</span>);
+
+Promise.<span style="color:#a6e22e">resolve</span>().<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span> () {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">6</span>);
+});
+
+<span style="color:#a6e22e">process</span>.<span style="color:#a6e22e">nextTick</span>(<span style="color:#66d9ef">function</span>() {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">7</span>);
+});
+
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">8</span>);
+</code></pre></div><p>于是写了这么一个黑盒测试，来推测一下输出结果，假定每个阶段之后会执行 <code>process.nextTick</code> 和 其他 microtask 。</p>
+<p><code>process.on(&quot;exit&quot;)</code> 发生在 close callbacks 阶段，所以应该在最后；
+<code>fs.readFile</code> 的回调应该发生在 I/O poll 阶段，等待 I/O 的读取；
+<code>setTimeout</code> 发生在 timers 阶段，应该在当前脚本，即 JS 栈和 microtask 全部清空之后执行；
+<code>promise.then</code> 在 <code>nextTick</code> 之后被调用<sup id="fnref:9"><a href="#fn:9" class="footnote-ref" role="doc-noteref">9</a></sup>，而 <code>nextTick</code> 会被插入当前队列的结尾，microtask 的开头；</p>
+<p>所以上面的运行结果应该是：8, 7, 6, 5, 4, 2, 3, 1</p>
+<p>由此可以印证，官方文档<sup id="fnref:14"><a href="#fn:14" class="footnote-ref" role="doc-noteref">14</a></sup>写的每个阶段都有一个微队列，每个队列完成才会进入下一个阶段。</p>
+<p>再回去看看这绕来绕去的事件循环机制，以及那些官方和三方的流程控制库，在《七周七并发》里面介绍过一种 CSP 模型，golang 就是借用了一部分实现非常好用的 go 块。而 JS 也一直有对打破这种诡异控制流程的尝试，诸如 Promise<sup id="fnref:15"><a href="#fn:15" class="footnote-ref" role="doc-noteref">15</a></sup>和 <code>async/await</code>，以及 Generator 。</p>
+<p>Promise 是将 then 注册的方法缓存，然后等待当前流程结束，在取出执行，由此循环来进行链式调用；而 <code>async/await</code> 这个语法糖可以将异步方法，转化成同步，实际上是将同步的写法重新组合成异步。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">sleep</span>(<span style="color:#a6e22e">ms</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">resolve</span>) {
+        <span style="color:#a6e22e">setTimeout</span>(<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">ms</span>)
+    });
+}
+
+<span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">time</span>(<span style="color:#e6db74">&#34;sleep&#34;</span>);
+    <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">sleep</span>(<span style="color:#ae81ff">10</span>);
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">timeEnd</span>(<span style="color:#e6db74">&#34;sleep&#34;</span>);
+}
+</code></pre></div><p>上面的语句块运行时会被转化成这样</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main</span>() <span style="color:#75715e">/* Thenable */</span> {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">time</span>(<span style="color:#e6db74">&#34;sleep&#34;</span>);
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">sleep</span>(<span style="color:#ae81ff">10</span>).<span style="color:#a6e22e">then</span>(() =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">timeEnd</span>(<span style="color:#e6db74">&#34;sleep&#34;</span>));
+}
+</code></pre></div><p>同样的可以把 then 也给转化成回调</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">sleep</span>(<span style="color:#a6e22e">ms</span>, <span style="color:#a6e22e">callback</span>) {
+    <span style="color:#a6e22e">setTimeout</span>(<span style="color:#a6e22e">callback</span>, <span style="color:#a6e22e">ms</span>);
+}
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main</span>(<span style="color:#a6e22e">callback</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">time</span>(<span style="color:#e6db74">&#34;sleep&#34;</span>);
+    <span style="color:#a6e22e">sleep</span>(<span style="color:#ae81ff">10</span>, () =&gt; {<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">timeEnd</span>(<span style="color:#e6db74">&#34;sleep&#34;</span>);<span style="color:#a6e22e">callback</span>();})
+}
+<span style="color:#a6e22e">main</span>(() =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;end&#34;</span>));
+</code></pre></div><p>又见到了许久未见的回调地狱，而 Promise 和  <code>async/await</code> 的好处不止如此，为了应对错误，还要在回调每一层加上错误处理，但是 Promise 内部已经将其封装在 <code>then</code> 的第二个方法，或者通过链式调用传递到最后的 <code>catch</code>。</p>
+<p>Generator 语法已经许久不见人提，当年 Koa 上可是风生水起，把程序通过 <code>yield</code> 拆分成几块，逐步递归调用，巧妙的实现了异步的同步写法。而随着  <code>async/await</code> 的出现，已经没有必要通过 Generator+Promise<sup id="fnref:16"><a href="#fn:16" class="footnote-ref" role="doc-noteref">16</a></sup> 这种方法来处理了。一直觉得生成器和迭代器有关系，毕竟接口一样，受到某本书的提点，果然有关系。<sup id="fnref:17"><a href="#fn:17" class="footnote-ref" role="doc-noteref">17</a></sup></p>
+<h2 id="web-apis">Web APIs</h2>
+<p>这些 API 是浏览器（Browser）或者（Document），提供给 JS 引擎调用的，所以被称之为 BOM 和 DOM。</p>
+<p>而浏览器实际上是对硬件和主机的一层抽象，加上对窗口这一实体的状态控制，所以大概有这么几类接口。</p>
+<ul>
+<li>环境信息（系统，浏览器和插件的相关接口<code>screen</code>，<code>navigator</code>）</li>
+<li>窗口管理（窗口可能是标签或者 <code>frame</code>，<code>window</code>）</li>
+<li>浏览状态（<code>location</code>， <code>history</code>，<code>performance</code>）</li>
+</ul>
+<p>其中<code>screen</code>是和显示有关的一堆只读属性； <code>navigator</code> 常用于兼容性检查；<code>window</code>是环境，所有对象都是它的属性；<code>location</code> 是 URL 对象；<code>history</code> 是浏览过程的抽象，SPA 的路由就是框架操作他；<code>performance</code> 是性能监测的接口，用于分析，但是支持情况还不太好。</p>
+<p>而主要的就是 DOM（文档对象模型），用于操纵 DOM 和 CSSOM，从而影响渲染树，触发 <code>reflow</code> 和 <code>reprint</code>；所以盲目的修改 DOM 和 CSSOM 会导致性能急速下降。</p>
+<p>学习过 Java 的可能了解，Java 有非常详细的接口文档生成工具；但是暂时我还没找到类似的接口文档，只在 VSCode/WebStrom 上，使用 TypeScript 时会调用 TypeScript 的库，而它有个 <code>d.ts</code> 的定义文件，包含了接口，结构和函数的定义，在 IDE 上还可以使用 <code>Ctrl</code> 进行跳转。暂时也没弄明白 JS 的继承关系图咋生成，所以就直接看别人的吧。</p>
+<p><img src="https://img-blog.csdn.net/20170621090720130?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaXRwaW5wYWk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="对象继承关系"></p>
+<p><a href="https://github.com/Microsoft/TypeScript/blob/v3.2.2/lib/lib.dom.d.ts#L5058"><code>EventTarget</code></a> 是所有浏览器内部对象的根对象，前面已经知道 JS 的原型链，通过反查也能发现这套继承关系。（有空整个脚本出来，生成继承关系图）</p>
+<p><img src="https://i.loli.net/2019/01/13/5c3ac6f69742d.png" alt="window 的原型链"></p>
+<p>在此以 <code>window</code> 为例，它被封装了几层，暂时不知道干嘛的，其他只包含了一堆从其他对象上弄过来的 shortcode；然后从根元素开始看起。（UML 类图真方便，假装这里有图）</p>
+<p><a href="https://github.com/Microsoft/TypeScript/blob/v3.2.2/lib/lib.dom.d.ts#L5058"><code>EventTarget</code></a> 提供了一个非常方便的，订阅/发布模型，通过 <code>addEventListener</code> 绑定监听器，并通过 <code>dispatchEvent</code> 触发事件；事件流（event-flow）有 2 个调用阶段，捕获的自上而下，冒泡的自下而上；因为继承自这个对象，浏览器中的所有对象都支持事件绑定。</p>
+<blockquote>
+<p><code>addEventListener</code> 的第三个参数是是否在捕获阶段调用，为 <code>false</code> 时，等效于 <code>attachEvent</code> 或者 <code>on*</code>。</p>
+<p>但 <code>on*</code> 事件是 DOM 0 级，其只能定义一个回调，但是具有极好的兼容性。</p>
+<p>这也是事件冒泡在 IE 和标准浏览器差异。</p>
+</blockquote>
+<p>事件委托其实就是只绑定父元素，让子元素的事件通过冒泡被父元素捕获，来减少资源使用；</p>
+<p>在 TS 的 <code>dom.d.ts</code> 里面搜索 <code>extends EventTarget</code> 会得到非常多的结果，只要是 JS 和其他东西有点交互的都有这东西；不过其中最为重要的可能是 <code>Node</code> 对象；这是生成节点树的基础，之后的 <code>Document</code>，<code>Element</code> 都是继承自它。</p>
+<p>它也提供了最基础的节点属性和操作方法，先是节点关系，有这么一张图</p>
+<p><img src="https://image-static.segmentfault.com/866/502/866502812-59e4b8fd9ec4e" alt="DOM 树关系"></p>
+<p><code>nodeName</code> 是节点的名字，后面继承会对其通过原型链进行覆盖，而 <code>nodeType</code> 是个枚举结构；包含定义的全部 Node 类型。</p>
+<p>Node 被 <code>CharacterData</code>，<code>Document</code>，<code>Element</code> 等对象继承； <code>CharacterData</code> 为后面的字符类型（<code>Text</code>，<code>Comment</code>）的对象定义了接口；<code>Document</code> 是对文档的抽象，包含了文档具有的属性和操作方法，以及必要的事件回调；<code>Element</code> 由于解析后的语法 差异分为 <code>HTMLElement</code> 和 <code>SVGElement</code>；<code>HTMLElement</code> 是所有 HTML 标签的原型对象，其增加了显示和交互上的属性；之后的节点就不必细说，上面提供的文档写的清清楚楚，MDN 介绍的更为详细。</p>
+<h2 id="总结">总结</h2>
+<p>本文不过是通读《JavaScript 高级程序设计》，《你所不知道的 JavaScript》的粗俗总结。</p>
+<p>目前觉得弄明白这几点，对于前端本身只是唯手熟而了；但是这只是其他领域知识的在前端的运用，那么前端自己究竟有啥？</p>
+<p>之前的一个统计，名校的走前端的比较少，因为难度没那么高嘛？可能是因为前端本身被浏览器和服务器夹在中间，又因为底子不够厚实，所以偏向工程化，主要就是协调浏览器，服务器和用户。估计今年 WASM 得大火，先把 Rust 弄熟了再说。</p>
+<p>还有这几年特别流行加一层，为了抢占原生市场，RN和小程序啊都是前端的子集，加个抽象层处理跨平台问题。只说 JS 的预编译器和新语言能转化的 JS 轮子就是一堆，TS 已经站在风口，Dart 估计也快了。。。不过都是工程实践，切图仔已经变成泛前端，要是算上 WebGL ，WebRTC 这些东西。。。坑越来越大，慢慢学吧</p>
+<p>安利入门阅读顺序</p>
+<ol>
+<li>《HTML5与CSS3权威指南》（通识）</li>
+<li>《你不知道的JavaScript（下卷）》（配合其他 2 卷）</li>
+<li>《JavaScript 高级程序设计》</li>
+<li>&hellip;CSS + HTML 进阶的还没看</li>
+</ol>
+<h2 id="参考">参考</h2>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://juejin.im/post/5ba34e54e51d450e5162789b">https://juejin.im/post/5ba34e54e51d450e5162789b</a> 2万5千字大厂面经 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p><a href="https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf">https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf</a> How JavaScript works: an overview of the engine, the runtime, and the call stack <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p><a href="https://en.wikipedia.org/wiki/Tony_Hoare">https://en.wikipedia.org/wiki/Tony_Hoare</a>  Speaking at a software conference called QCon London in 2009 <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p><a href="https://hllvm-group.iteye.com/group/topic/37596">https://hllvm-group.iteye.com/group/topic/37596</a> JavaScript引擎的简介，及相关资料/博客收集帖 <a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5" role="doc-endnote">
+<p><a href="https://www.ecma-international.org/ecma-262/5.1/#sec-4.3.4">https://www.ecma-international.org/ecma-262/5.1/#sec-4.3.4</a> 4.3.4 constructor <a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6" role="doc-endnote">
+<p><a href="http://aju.space/2016/09/20/blocking-nonblocking-sync-async.html">http://aju.space/2016/09/20/blocking-nonblocking-sync-async.html</a> 阻塞、非阻塞、同步、异步 <a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:7" role="doc-endnote">
+<p><a href="https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model">https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model</a> 8.1.4.2 Processing model <a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:8" role="doc-endnote">
+<p><a href="https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/">https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/</a> Tasks, microtasks, queues and schedules <a href="#fnref:8" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:9" role="doc-endnote">
+<p><a href="http://howtonode.org/understanding-process-next-tick">http://howtonode.org/understanding-process-next-tick</a> 理解 Node.js 里的 process.nextTick() <a href="#fnref:9" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:10" role="doc-endnote">
+<p><a href="https://www.zhihu.com/question/36972010">https://www.zhihu.com/question/36972010</a> Promise的队列与setTimeout的队列有何关联？ <a href="#fnref:10" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:11" role="doc-endnote">
+<p><a href="http://www.alloyteam.com/2016/05/javascript-timer/">http://www.alloyteam.com/2016/05/javascript-timer/</a> JavaScript定时器与执行机制解析 <a href="#fnref:11" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:12" role="doc-endnote">
+<p><a href="https://www.zhihu.com/question/67479886">https://www.zhihu.com/question/67479886</a> 既然用 virtual dom 可以提高性能，为什么浏览器不直接自带这个功能呢？ <a href="#fnref:12" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:13" role="doc-endnote">
+<p><a href="https://segmentfault.com/a/1190000016022069">https://segmentfault.com/a/1190000016022069</a> 微任务、宏任务与Event-Loop <a href="#fnref:13" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:14" role="doc-endnote">
+<p><a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/">https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/</a> The Node.js Event Loop, Timers, and process.nextTick() <a href="#fnref:14" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:15" role="doc-endnote">
+<p><a href="https://www.kancloud.cn/kancloud/promises-book/44233">https://www.kancloud.cn/kancloud/promises-book/44233</a> 4.4. Deferred和Promise <a href="#fnref:15" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:16" role="doc-endnote">
+<p><a href="http://www.ruanyifeng.com/blog/2015/05/co.html">http://www.ruanyifeng.com/blog/2015/05/co.html</a> co 函数库的含义和用法 <a href="#fnref:16" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:17" role="doc-endnote">
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Iterators_and_Generators">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Iterators_and_Generators</a> 迭代器和生成器 <a href="#fnref:17" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

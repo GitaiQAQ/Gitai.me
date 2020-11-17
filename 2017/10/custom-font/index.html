@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>从自定义字体来看编码和显示的低耦合性 | Gitai.me</title>
+
+<meta property='og:title' content='从自定义字体来看编码和显示的低耦合性 - Gitai.me'>
+<meta property='og:description' content='编程作业中难免不出现做计算器这种然并卵，但是涉及知识复杂，又难拔高的任务。 对于本文，不过就是我在这瞎说，给这个月凑一篇，不过也希望可以产生新'>
+<meta property='og:url' content='https://gitai.me/2017/10/custom-font/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:published_time' content='2017-10-28T00:00:00Z'/><meta property='article:modified_time' content='2017-10-28T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2017/10/custom-font/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+    </div>
+    <h2 class="subtitle is-6">October 28, 2017</h2>
+    <h1 class="title">从自定义字体来看编码和显示的低耦合性</h1>
+    
+    <div class="content">
+      <p><img src="https://i.loli.net/2017/10/28/59f42a350e2fd.png" alt="Glyphr Studio"></p>
+<p>编程作业中难免不出现做计算器这种然并卵，但是涉及知识复杂，又难拔高的任务。</p>
+<p>对于本文，不过就是我在这瞎说，给这个月凑一篇，不过也希望可以产生新的启发。</p>
+<!-- raw HTML omitted -->
+<p>首先，按照我的理解，对整个程序进行解耦</p>
+<ol>
+<li>编译输入内容，构造中缀表达式序列</li>
+<li>构造二叉树</li>
+<li>后序遍历，生成后缀表达式</li>
+<li>用栈计算结果</li>
+</ol>
+<p>细节在北大 C 语言程序设计（二），这个 MOOC 项目中有叙说。</p>
+<p>但是中缀表达式是可以直接转换成后缀表达式的，上述流程直接缩短成 3 步。</p>
+<p>自然看标题就发现，我也不是在说这个。</p>
+<p>在第一步构造中缀表达式序列，之前的分割输入内容可能会遇到这样的例子</p>
+<p>$x^2,tan30,sin^{-1}{30}$</p>
+<p>看这几个例子就让人头大，我们从显示和计算 2 个角度的讨论他。</p>
+<ol>
+<li>正常的界面组件，哪有能显示上标这种东西的，修改通用的编辑框，成本不得不说略高。</li>
+<li>在看上面的表达式，虽然可以用一堆判断拆开，但不免让代码更加混乱。</li>
+</ol>
+<p>自定义字体常用于制作各种图标等&rsquo;歧途'，那不妨在这里试试。</p>
+<p>首先总结常见数学表达式用得上的各种符号，然后丢一边。</p>
+<ul>
+<li>0～9</li>
+<li>+-*/</li>
+<li>部分小写字母(e)</li>
+</ul>
+<p>遂将 A~Z 直接替换成我们需要的特殊字形</p>
+<ul>
+<li>A: $sin$</li>
+<li>B: $sin^{-1}$</li>
+<li>C: $cos$</li>
+<li>D: $cos^{-1}$</li>
+<li>E: $tan$</li>
+<li>F: $tan^{-1}$</li>
+</ul>
+<p>于是上述表达式就变成这样</p>
+<ul>
+<li>$x^2$: 平方符号早就存</li>
+<li>$tan30$: E30</li>
+<li>$sin^{-1}{30}$: B30</li>
+</ul>
+<p>相比 <code>sin^{-1}{30}</code> 可见 <code>B30</code>， 解析起来是毫无压力。</p>
+<p>对于该方法，可以继续拓展到诸如 $log,ln$，以及更多多字符组成的表达式。</p>
+<p>于是就用自定义字符解决了多字符表达式的 2 个小问题。</p>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

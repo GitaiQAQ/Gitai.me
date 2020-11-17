@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>如何计算首屏加载时间 | Gitai.me</title>
+
+<meta property='og:title' content='如何计算首屏加载时间 - Gitai.me'>
+<meta property='og:description' content='统计页面加载的各项时间点是前端优化上非常重要的一项，W3C 和各厂商也为此开放了很多有用的接口。 API 及描述其功能 API 名称 功能 Navigation Timing 导航计时 能够帮助网'>
+<meta property='og:url' content='https://gitai.me/2018/04/fp/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:published_time' content='2018-04-12T00:00:00Z'/><meta property='article:modified_time' content='2018-04-12T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2018/04/fp/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+    </div>
+    <h2 class="subtitle is-6">April 12, 2018</h2>
+    <h1 class="title">如何计算首屏加载时间</h1>
+    
+    <div class="content">
+      <p>统计页面加载的各项时间点是前端优化上非常重要的一项，W3C 和各厂商也为此开放了很多有用的接口。</p>
+<h2 id="api-及描述其功能">API 及描述其功能</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">API</th>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Navigation Timing</td>
+<td style="text-align:left">导航计时</td>
+<td style="text-align:left">能够帮助网站开发者检测真实用户数据（RUM），例如带宽、延迟或主页的整体页面加载时间。</td>
+</tr>
+<tr>
+<td style="text-align:left">Resource Timing</td>
+<td style="text-align:left">资源计时</td>
+<td style="text-align:left">对单个资源的计时，可以对细粒度的用户体验进行检测。</td>
+</tr>
+<tr>
+<td style="text-align:left">High Resolution Timing</td>
+<td style="text-align:left">高精度计时</td>
+<td style="text-align:left">该API规范所定义的JavaScript接口能够提供精确到微秒级的当前时间，并且不会受到系统时钟偏差或调整的影响。</td>
+</tr>
+<tr>
+<td style="text-align:left">Performance Timeline</td>
+<td style="text-align:left">性能时间线</td>
+<td style="text-align:left">以一个统一的接口获取由Navigation Timing、Resourcing Timing和User Timing所收集的性能数据。</td>
+</tr>
+</tbody>
+</table>
+<!-- raw HTML omitted -->
+<h2 id="paint-timing">Paint Timing</h2>
+<p>最新的 [PerformancePaintTiming]<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> API 可以很优雅的解决这个问题。</p>
+<p>但是还只是实验性特性，截至 18-04-11 除了 Chrome 基本都<a href="https://developer.mozilla.org/en-US/docs/Web/API/PerformancePaintTiming#Browser_compatibility">不支持</a>。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">firstPaintTime</span>() { 
+	<span style="color:#66d9ef">if</span> (window.<span style="color:#a6e22e">performance</span>) { 
+		<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fpEntry</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">performance</span>.<span style="color:#a6e22e">getEntriesByType</span>(<span style="color:#e6db74">&#39;paint&#39;</span>)[<span style="color:#ae81ff">0</span>]; 
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fpEntry</span>.<span style="color:#a6e22e">startTime</span>; 
+	}
+}
+<span style="color:#75715e">// 670.9000000009837
+</span></code></pre></div><p>代码结尾的加载时间实例均为在 Chrome v65.0.3325.181 上对于 <a href="https://www.google.com/">https://www.google.com/</a> 的测试结果</p>
+<h2 id="chrome-私有方法">Chrome 私有方法</h2>
+<h3 id="loadtimes"><code>loadTimes</code></h3>
+<blockquote>
+<p>该接口已经被废弃，但是为了兼容旧版本，一般需要同时使用
+chrome.loadTimes() is deprecated, instead use standardized API: Paint Timing. <a href="https://www.chromestatus.com/features/5637885046816768">https://www.chromestatus.com/features/5637885046816768</a>.</p>
+</blockquote>
+<p>包含如下属性：</p>
+<ul>
+<li>requestTime	请求时间</li>
+<li>startLoadTime	开始加载时间（底层和上面一样，都是 NavigationStart）</li>
+<li>commitLoadTime <a href="https://chromium.googlesource.com/chromium/src.git/+/lkcr/chrome/renderer/loadtimes_extension_bindings.cc#159">响应开始时间</a></li>
+<li>firstPaintTime 首次渲染时间</li>
+<li><del>firstPaintAfterLoadTime</del></li>
+<li>finishDocumentLoadTime 文档树加载结束事件触发时间（DomContentLoadedEventEnd）</li>
+<li>finishLoadTime 页面加载完成事件触发时间（LoadEventEnd）</li>
+</ul>
+<p>下面几个和时间就无关了</p>
+<ul>
+<li>connectionInfo 连接协议（http/1.1, h2, quic/1+spdy/3）</li>
+<li>navigationType 打开类型（Reload/Other）</li>
+<li>npnNegotiatedProtocol ALPN 协议</li>
+<li>wasAlternateProtocolAvailable</li>
+<li>wasFetchedViaSpdy 是否通过 spdy 协议传输</li>
+<li>wasNpnNegotiated</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">firstPaintTime</span>() { 
+	<span style="color:#66d9ef">if</span> (window.<span style="color:#a6e22e">chrome</span>) { 
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">loadTimes</span> <span style="color:#f92672">=</span>  window.<span style="color:#a6e22e">chrome</span>.<span style="color:#a6e22e">loadTimes</span>();
+		<span style="color:#a6e22e">fpTime</span> <span style="color:#f92672">=</span>  <span style="color:#a6e22e">loadTimes</span>.<span style="color:#a6e22e">firstPaintTime</span>  <span style="color:#f92672">-</span>  <span style="color:#a6e22e">loadTimes</span>.<span style="color:#a6e22e">startLoadTime</span>;
+		<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">fpTime</span> <span style="color:#f92672">&gt;</span>  <span style="color:#ae81ff">3600</span>) {
+			<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;chrome.loadTimes() reported impossible values&#34;</span>, <span style="color:#a6e22e">loadTimes</span>);
+			<span style="color:#66d9ef">return</span>;
+		}
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fpTime</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>;
+	}
+}
+<span style="color:#75715e">// 671.0000038146973
+</span></code></pre></div><p>结果和 Paint Timing 基本一致</p>
+<h3 id="csi"><code>csi</code></h3>
+<ul>
+<li>onloadT<a href="https://chromium.googlesource.com/chromium/src.git/+/lkcr/chrome/renderer/loadtimes_extension_bindings.cc#372"> <em>DOMContentLoaded</em> 事件触发的时间戳</a></li>
+<li>pageT 页面打开时间（<code>csi</code> 对象生成时间 - <code>NavigationStart</code> 获取的间隔）</li>
+<li>startE 浏览开始的时间戳（<code>NavigationStart</code>）</li>
+<li>tran 打开类型（同 navigationType，Reload/Other）</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">pageLoadTime</span>() { 
+	<span style="color:#66d9ef">if</span> (window.<span style="color:#a6e22e">chrome</span>) { 
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">csi</span> <span style="color:#f92672">=</span>  window.<span style="color:#a6e22e">chrome</span>.<span style="color:#a6e22e">csi</span>();
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">csi</span>.<span style="color:#a6e22e">onloadT</span> <span style="color:#f92672">-</span>  <span style="color:#a6e22e">csi</span>.<span style="color:#a6e22e">startE</span>;
+	}
+}
+<span style="color:#75715e">// 712
+</span></code></pre></div><p>这 onloadT 实际上对应的 loadTimes.finishDocumentLoadTime，既页面完成加载时的时间戳</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">loadTimes</span>.<span style="color:#a6e22e">finishDocumentLoadTime</span>  <span style="color:#f92672">-</span>  <span style="color:#a6e22e">loadTimes</span>.<span style="color:#a6e22e">startLoadTime</span>);
+<span style="color:#75715e">// 0.7119998931884766
+</span></code></pre></div><p>实际上这 2 个对象均是使用同一组数据生成。<a href="https://chromium.googlesource.com/chromium/src.git/+/lkcr/chrome/renderer/loadtimes_extension_bindings.cc">loadtimes_extension_bindings.cc</a></p>
+<h2 id="performance-timingnavigation-timing-api">Performance Timing/Navigation Timing API</h2>
+<p><code>window.performance.timing</code> 属性用于监控 windows 行为获得的是一个时间戳对象。并且具有良好的<a href="https://caniuse.com/#feat=nav-timing">兼容性</a>。</p>
+<p>可以使用下述代码将其打印出来。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">performance</span>.<span style="color:#a6e22e">timing</span>){
+	<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">performance</span>.<span style="color:#a6e22e">timing</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">performance</span>.<span style="color:#a6e22e">timing</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">-</span> <span style="color:#a6e22e">performance</span>.<span style="color:#a6e22e">timing</span>.<span style="color:#a6e22e">navigationStart</span>, <span style="color:#e6db74">&#34;ms&#34;</span>)
+}
+</code></pre></div><p>相关的接口可以参照下图，详细的文字描述参见 <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
+<p><img src="https://www.w3.org/TR/navigation-timing/timing-overview.png" alt="timing overview"></p>
+<h3 id="普适的方法">普适的方法</h3>
+<p>前述的 Chrome 私有接口也基本是对于该接口的封装。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">domLoadedTime</span>() { 
+	<span style="color:#66d9ef">if</span> (window.<span style="color:#a6e22e">performance</span> <span style="color:#f92672">&amp;&amp;</span> window.<span style="color:#a6e22e">performance</span>.<span style="color:#a6e22e">timing</span>) { 
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">oTiming</span> <span style="color:#f92672">=</span>  window.<span style="color:#a6e22e">performance</span>.<span style="color:#a6e22e">timing</span>;
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">oTiming</span>.<span style="color:#a6e22e">domContentLoadedEventStart</span> <span style="color:#f92672">-</span>  <span style="color:#a6e22e">oTiming</span>.<span style="color:#a6e22e">navigationStart</span>;
+	}
+}
+<span style="color:#75715e">// 703
+</span></code></pre></div><h3 id="某应用检测服务">某应用检测服务</h3>
+<p>国内的一个应用检测服务商的这段是用最长资源加载时间来统计的，摘录如下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">firstPaintTime</span>() { 
+	<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">performance</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">performance</span>.<span style="color:#a6e22e">timing</span>) { 
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">timing</span> <span style="color:#f92672">=</span> [];
+		<span style="color:#a6e22e">timing</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">performance</span>.<span style="color:#a6e22e">timing</span>.<span style="color:#a6e22e">domLoading</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">performance</span>.<span style="color:#a6e22e">timing</span>.<span style="color:#a6e22e">navigationStart</span>);
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">getEntriesTiming</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">entries</span>) {
+			<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">entries</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">performance</span>.<span style="color:#a6e22e">getEntriesByName</span>(<span style="color:#a6e22e">entries</span>);
+			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">entries</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">entries</span> [<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">responseEnd</span>;
+		}
+		document.<span style="color:#a6e22e">querySelectorAll</span>(<span style="color:#e6db74">&#34;head&gt;link,head&gt;script&#34;</span>)
+			.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">r</span> =&gt; 
+				<span style="color:#e6db74">&#34;LINK&#34;</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">tagName</span> <span style="color:#f92672">?</span> 
+					<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">href</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">timing</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">getEntriesTiming</span>(<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">href</span>))<span style="color:#f92672">:</span> 
+					<span style="color:#e6db74">&#34;SCRIPT&#34;</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">tagName</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">defer</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">r</span>.<span style="color:#66d9ef">async</span> <span style="color:#f92672">||</span> (<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">src</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">timing</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">getEntriesTiming</span>(<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">src</span>))));
+		<span style="color:#66d9ef">return</span> Math.<span style="color:#a6e22e">max</span>(...<span style="color:#a6e22e">timing</span>);
+	}
+}
+<span style="color:#75715e">// firstPaintTime： 42
+</span></code></pre></div><p>emmmm, 无言以对。。。不知道哪出了问题。。。反正这个结果比较感人。。。</p>
+<p><a href="https://gist.github.com/GitaiQAQ/118ab631a6f98ae26637db5e1b060e52#file-tingyun-js-L521-L535">完整源码</a></p>
+<h3 id="巨硬的私有接口">巨硬的私有接口</h3>
+<p>仅仅通过该接口只能获取绘制完成既 DOM 完成加载时的时间间隔。因为 W3C 标准中并没有在该对象提供首屏绘制的时间戳，而是在前文所述的 PerformancePaintTiming 之中，对此在 Chrome 可以使用 PerformancePaintTiming 接口，而微软则在 IE(&gt;9)/Edge 提供了一个私有属性 <code>msFirstPaint</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">firstPaintTimeInMS</span>() { 
+	<span style="color:#66d9ef">if</span> (window.<span style="color:#a6e22e">performance</span> <span style="color:#f92672">&amp;&amp;</span> window.<span style="color:#a6e22e">performance</span>.<span style="color:#a6e22e">timing</span> <span style="color:#f92672">&amp;&amp;</span> window.<span style="color:#a6e22e">performance</span>.<span style="color:#a6e22e">timing</span>.<span style="color:#a6e22e">msFirstPaint</span>) { 
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">oTiming</span> <span style="color:#f92672">=</span>  window.<span style="color:#a6e22e">performance</span>.<span style="color:#a6e22e">timing</span>;
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">oTiming</span>.<span style="color:#a6e22e">msFirstPaint</span> <span style="color:#f92672">-</span>  <span style="color:#a6e22e">oTiming</span>.<span style="color:#a6e22e">navigationStart</span>;
+	}
+}
+<span style="color:#a6e22e">firstPaintTimeInMS</span>()
+<span style="color:#75715e">// firstPaintTimeInMS: 760
+</span><span style="color:#75715e">// domLoadedTime: 751
+</span></code></pre></div><p>（估计缓存机制差异，IE 这几个时间点浮动贼大，甚至出现过 7000ms，但是并没成功复现</p>
+<h2 id="精确好用的方案raf">精确好用的方案(RAF)</h2>
+<p>浏览器用于定时循环操作的一个接口，主要用途是按帧对网页进行重绘。只要捕捉到第一次绘制。。。</p>
+<p>嗯，就是首屏加载时间。</p>
+<p>首先处理兼容性问题。。。和 CSS 一样一堆前缀，重定向到标准接口上。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">window.<span style="color:#a6e22e">requestAnimFrame</span> <span style="color:#f92672">=</span> (<span style="color:#66d9ef">function</span>(){
+  <span style="color:#66d9ef">return</span>  window.<span style="color:#a6e22e">requestAnimationFrame</span>       <span style="color:#f92672">||</span> 
+          window.<span style="color:#a6e22e">webkitRequestAnimationFrame</span> <span style="color:#f92672">||</span> 
+          window.<span style="color:#a6e22e">mozRequestAnimationFrame</span>    <span style="color:#f92672">||</span> 
+          window.<span style="color:#a6e22e">oRequestAnimationFrame</span>      <span style="color:#f92672">||</span> 
+          window.<span style="color:#a6e22e">msRequestAnimationFrame</span>     <span style="color:#f92672">||</span> 
+          <span style="color:#66d9ef">function</span>( <span style="color:#a6e22e">callback</span> ){
+            window.<span style="color:#a6e22e">setTimeout</span>(<span style="color:#a6e22e">callback</span>, <span style="color:#ae81ff">1000</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">60</span>);
+          };
+})();
+</code></pre></div><p>然后在 head 定义一下</p>
+<pre><code>requestAnimationFrame(function(){
+	var firstPaintTime = Date.now() - performance.timing.navigationStart;    
+	console.log(firstPaintTime);
+});
+// 698
+</code></pre><p>非常精确。。。</p>
+<h2 id="历史悠久但是最不可靠的方案"><del>历史悠久但是最不可靠的方案</del></h2>
+<p>上面的几个 demo 以及可以获取 IE9, Edge, Chrome （TODO: loadTimes 开始的版本）</p>
+<p>以下内容将接着广为流传的【在浏览器地址栏输入一个URL后回车，背后会进行哪些技术步骤？】来叙述。</p>
+<p><img src="https://i.loli.net/2018/04/22/5adc49ffb5e71.png" alt="1_FjnCt0TCWaxY91E0WQq2DQ.png"></p>
+<p>以下只会阐述 <strong>Rendering</strong> 阶段</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE HTML&gt;</span>
+&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">head</span>&gt;
+	&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;style.css&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/css&#34;</span>/&gt;
+	&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;script.js&#34;</span>/&gt;
+&lt;/<span style="color:#f92672">head</span>&gt;
+&lt;<span style="color:#f92672">body</span>&gt;
+	...
+&lt;/<span style="color:#f92672">body</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><p>下图为 <strong>Chrome DevTools</strong> - <strong>Performance</strong> - <strong>Event Log</strong> 下的记录</p>
+<p><img src="https://i.loli.net/2018/04/22/5adc49fcb9cf5.png" alt="Event Log"></p>
+<ol>
+<li><strong>开始</strong>解析 HTML</li>
+<li>请求 <em>head</em> 定义的 CSS/JS 文件</li>
+<li>解析 CSS 文件，构建 CSSDOM， 阻塞其他流程</li>
+<li>执行 JS</li>
+<li><strong>继续</strong>解析 HTML</li>
+<li>文件末尾资源文件加载</li>
+<li>定义延迟加载的文件开始加载</li>
+<li>AJAX 请求</li>
+</ol>
+<p>至于为什么 CSS 建议放在 <code>head</code> 上，而 JS 应该放在文档流结尾，请参见其他前端优化的文章。</p>
+<p>对于不支持新接口的浏览器，就需要使用不是那么精确的方法来进行监控了。通过之前对于渲染部分的分析，不难发现，首屏渲染是在渲染树构建完，而渲染树依赖 CSSOM。所以可以在第 1/4/6/7/8 这几个阶段执行脚本，获取需要的时间戳，虽然存在 JS 执行损耗，但是基本已经可以用了。实例如下<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></p>
+<p>这方法当没有好了。。。误差挺大的。。。不写了。。。</p>
+<h2 id="数据上报">数据上报</h2>
+<h3 id="sendbeacon">sendBeacon</h3>
+<p>参见： <a href="http://csbun.github.io/blog/2014/12/send-beacon/">http://csbun.github.io/blog/2014/12/send-beacon/</a></p>
+<p>不想写了。。。日后补充</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>[Performance Paint Timing](<a href="https://developer.mozilla.org/en-US/docs/Web/API/PerformancePaintTiming">https://developer.mozilla.org/en-US/docs/Web/API/PerformancePaintTiming</a>） <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p><a href="https://segmentfault.com/a/1190000004010453">使用性能API快速分析web前端性能</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p><a href="http://fex.baidu.com/blog/2014/05/build-performance-monitor-in-7-days/">7 天打造前端性能监控系统</a> <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

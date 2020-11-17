@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>通用项目容器化小记 | Gitai.me</title>
+
+<meta property='og:title' content='通用项目容器化小记 - Gitai.me'>
+<meta property='og:description' content='Linux 容器(LXC) 和 Docker 技术可以提供一致的和可扩展的环境。 低损耗的运行环境带来微服务化和云端迁移的快速普及。但是多数应用和所属生态并不能直接迁移'>
+<meta property='og:url' content='https://gitai.me/2017/08/containerized/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:published_time' content='2017-08-28T00:00:00Z'/><meta property='article:modified_time' content='2017-08-28T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2017/08/containerized/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+    </div>
+    <h2 class="subtitle is-6">August 28, 2017</h2>
+    <h1 class="title">通用项目容器化小记</h1>
+    
+    <div class="content">
+      <p>Linux 容器(LXC) 和 Docker 技术可以提供一致的和可扩展的环境。</p>
+<p>低损耗的运行环境带来微服务化和云端迁移的快速普及。但是多数应用和所属生态并不能直接迁移到容器中来。对此，以下将简单阐述一些一己之见。</p>
+<ul>
+<li><strong>运行时</strong> 环境构建</li>
+<li>数据 <strong>持久化</strong>（无状态）</li>
+</ul>
+<!-- raw HTML omitted -->
+<h2 id="诡异的接口">诡异的接口</h2>
+<p>微服务首先需要对系统进行解耦，然后暴露通用接口进行调度。但是总有那么些作品将一切进行高度封装，自成体系。简单用起来尚且算是优雅，想二次封装就较为繁琐。</p>
+<p>用 Flarum 和 Octobercms 来解释说一下容器封装</p>
+<p><a href="https://github.com/mondediefr/docker-flarum">mondediefr/docker-flarum</a> 是一个 Flarum 的封装镜像。</p>
+<p>这个镜像姑且算是不错了，首先打理一下他的运行时环境:</p>
+<ul>
+<li>
+<p><code>nginx-php:7.1</code> 这个基础镜像基于 <code>Alpine</code> 缩小了整个镜像的体积。并且采用 <code>PHP 7.1</code>，性能也是非常好的，不过预设 <code>Nginx</code> 算是败笔，对于测试使用这样并没什么大碍，但是对于整个包含数据库，前端负载均衡，多个服务的大型环境来说 <code>Nginx</code> 复数存在对性能必然造成损害，对此 <code>Wordpress</code> 官方提供的构建方案<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>就是非常完美的，存在只暴露 <code>fpm</code> 接口的 <code>Apline</code> 方案。</p>
+</li>
+<li>
+<p>下载安装一气呵成，之后将自定义的配置模板文件覆盖在 <code>rootf</code> 路径，这一步的模板将在 <code>run</code> 时被覆写，看起来非常简单好用，实际上也是可圈可点，毕竟脚本不能面面俱到，就像百度 gcc 被三体人锁死 3.4.5 一样，只能重建镜像或者通过外部卷覆盖上去，但是既然要使用外部卷，那这模板又有何用？</p>
+</li>
+<li>
+<p>自定义 <code>run</code> 和 <code>extension</code>，这个封装就是非常 nice 的，首先在 <code>extension</code> 会记录用户操作，把这个记录持久化，之后在 <code>run</code> 中会读取这个记录，自动安装 <code>extension</code>，但是这个操作建立在 <code>flarum</code> 完全契合 <code>composer</code> 和 <code>composer</code> 有个优秀的 <code>cli</code> 组件的基础之上。</p>
+</li>
+</ul>
+<p>之后我们再来看看如何把上述经验运用到 October CMS 上</p>
+<p>同样基于 <code>Laravel PHP Framework</code> 却抛弃了 <code>composer</code> 转而采用古老的 <code>plugins</code> 文件夹，至此 <code>composer</code> 近似于残废。</p>
+<p>不过 October 提供了优秀的拓展管理系统和仓库，但是 GUI 本身就是会使机器可读性和 KISS 原则产生冲突，而仅仅提供一套并不完全通用（无法直接安装第三方包，官方仓库更新慢了不止一年），也无机器可读性的管理工具，实在无力吐槽，好在储存结构单一，可以自行写个脚本完全这些工作。</p>
+<h2 id="杂乱的文件树">杂乱的文件树</h2>
+<p>Andrew Phillips 是 Xebia Labs 产品管理部门的副总裁将容器储存这个问题放在了第一位。<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
+<p>然后持久化数据，这个问题不做讨论，毕竟除了市场上那几个持久化方案，我也啥都不知道。</p>
+<p>我们一直在尝试新的引用结构，但是文件树越来越乱。需要持久化的和静态运行时加载的都堆在一起，这给容器化带来相当多的不便。</p>
+<p>于是可能出现光外部维护的配置卷，就能写一页，就更加麻烦了。</p>
+<p>如：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Dockerfile" data-lang="Dockerfile">  volumes:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    - ./dokuwiki/conf:/var/www/html/conf<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    - ./dokuwiki/data/pages:/var/www/html/data/pages<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    - ./dokuwiki/data/meta:/var/www/html/data/meta<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    - ./dokuwiki/data/attic:/var/www/html/data/attic<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    - ./dokuwiki/data/media:/var/www/html/data/media<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    - ./dokuwiki/data/media_meta:/var/www/html/data/media_meta<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    - ./dokuwiki/data/media_attic:/var/www/html/data/media_attic<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    - ./dokuwiki/lib:/var/www/html/lib<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>以上还存在部分不需要持久化的资料，但是挑拣出来太费劲了。</p>
+<p>目前看来容器化最麻烦的就是这几个问题，解决了这些也就能很容易的迁移了。所以即使不用容器技术，对于日常的架构来说，用容器的思想来规范和约束，或许能增加系统的鲁棒性。</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://github.com/docker-library/wordpress">Docker Official Image packaging for WordPress</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p><a href="http://blog.xebialabs.com/2014/12/31/8-questions-need-ask-microservices-containers-docker-2015/">8 Questionsneed Ask Microservices Containers Docker 2015</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

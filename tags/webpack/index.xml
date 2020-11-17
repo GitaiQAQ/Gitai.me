@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Webpack on Gitai.me</title>
+    <link>https://gitai.me/tags/webpack/</link>
+    <description>Recent content in Webpack on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Wed, 07 Aug 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/webpack/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>按需加载和自定义 require</title>
+      <link>https://gitai.me/2019/08/webpack-loadable/</link>
+      <pubDate>Wed, 07 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/08/webpack-loadable/</guid>
+      <description>Webpack 都写了那么多篇了，发现还有一些东西没写，所以这里补一篇。关于 Webpack 的按需加载，以及和他没啥关系的自定义 require 过程。 按需加载 先说按需加载，Webpa</description>
+    </item>
+    
+    <item>
+      <title>HTMLWebpackPlugin 增加新模板会遇到的坑</title>
+      <link>https://gitai.me/2019/07/webpackhtmlplugin/</link>
+      <pubDate>Thu, 25 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/07/webpackhtmlplugin/</guid>
+      <description>想用 Webpack 作为静态站点生成器，其优点不必多说，生态好。举个例子 多种多样的模板引擎，互相嵌套 JS/CSS 的各种预处理 资源文件的统一化？无论远程还是本地资源，</description>
+    </item>
+    
+    <item>
+      <title>Webpack 动态 import 实现原理 —— 附：蹭个 PR</title>
+      <link>https://gitai.me/2019/07/webpack-lazyload/</link>
+      <pubDate>Sat, 13 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/07/webpack-lazyload/</guid>
+      <description>本文主要因为以下这段代码并不符合预期，chunk 名字，没有生效 // @ts-ignore import( /* webpackChunkName: &amp;#34;[request]&amp;#34; */ &amp;#34;../docs/parcel.md&amp;#34; ).then( ({ default: html }) =&amp;gt; {} ); 但是下面这样就可以生效了 let parcel = &amp;#34;parcel&amp;#34;; import( /* webpackChunkName: &amp;#34;[request]&amp;#34; */ &amp;#34;../docs/&amp;#34; +</description>
+    </item>
+    
+    <item>
+      <title>VSCode 断点调试 &amp; Webpack 初探</title>
+      <link>https://gitai.me/2019/04/vscode-%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95-webpack-%E5%88%9D%E6%8E%A2/</link>
+      <pubDate>Thu, 25 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2019/04/vscode-%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95-webpack-%E5%88%9D%E6%8E%A2/</guid>
+      <description>&lt;pre&gt;&lt;code&gt;  webpack
+  |- package.json
+  |- webpack.config.js
+  |- /src
+  |  |- index.js
+  |- /dist
+    |- index.js
+&lt;/code&gt;&lt;/pre&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;path&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;require&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;path&amp;#39;&lt;/span&gt;);
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;module&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;exports&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;entry&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;./src/index.js&amp;#39;&lt;/span&gt;,
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;output&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;filename&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;index.js&amp;#39;&lt;/span&gt;,
+        &lt;span style=&#34;color:#a6e22e&#34;&gt;path&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;path&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;resolve&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;__dirname&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;dist&amp;#39;&lt;/span&gt;)
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这是一个最简单的 Webpack Demo，如果参照官方的教程（写的一塌糊涂），可能还在 &lt;code&gt;package.json&lt;/code&gt; 的 &lt;code&gt;script&lt;/code&gt; 定义了 &lt;code&gt;build&lt;/code&gt; 命令。&lt;/p&gt;
+&lt;p&gt;从 &lt;code&gt;webpack build&lt;/code&gt; 开始都发生了什么，来从 &lt;code&gt;node_modules/webpack/bin/webpack&lt;/code&gt; 开始看。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

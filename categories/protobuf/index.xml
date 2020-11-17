@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Protobuf on Gitai.me</title>
+    <link>https://gitai.me/categories/protobuf/</link>
+    <description>Recent content in Protobuf on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Mon, 08 Feb 2016 09:26:36 +0000</lastBuildDate><atom:link href="https://gitai.me/categories/protobuf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用「Protobuf」</title>
+      <link>https://gitai.me/2016/02/use-protobuf/</link>
+      <pubDate>Mon, 08 Feb 2016 09:26:36 +0000</pubDate>
+      
+      <guid>https://gitai.me/2016/02/use-protobuf/</guid>
+      <description>&lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/google/protobuf&#34;&gt;protobuf@google&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;依赖&#34;&gt;依赖&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;autoconf&lt;/li&gt;
+&lt;li&gt;automake&lt;/li&gt;
+&lt;li&gt;libtool&lt;/li&gt;
+&lt;li&gt;curl (used to download gmock)&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

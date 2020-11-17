@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>JavaScript 原型和继承 | Gitai.me</title>
+
+<meta property='og:title' content='JavaScript 原型和继承 - Gitai.me'>
+<meta property='og:description' content='JavaScript 对于具有面向对象语言开发经验的人(Java or C&#43;&#43;)来说是非常容易的，只是它是动态的并且不在语言本身提供类(Class) 的支持，在 ES2015 实现了'>
+<meta property='og:url' content='https://gitai.me/2018/03/js-prototype/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:published_time' content='2018-03-23T00:00:00Z'/><meta property='article:modified_time' content='2018-03-23T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2018/03/js-prototype/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+    </div>
+    <h2 class="subtitle is-6">March 23, 2018</h2>
+    <h1 class="title">JavaScript 原型和继承</h1>
+    
+    <div class="content">
+      <p>JavaScript 对于具有面向对象语言开发经验的人(Java or C++)来说是非常容易的，只是它是动态的并且不在语言本身提供类(Class) 的支持，在 ES2015 实现了 Class 这个关键字，但是只是个基于原型的语法糖。本质区别是 JavaScript 基于内存结构的描述来实现继承，C++ 基于具体的内存块实现。</p>
+<!-- raw HTML omitted -->
+<p>在准备这个话题<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>的时候发现几张图。</p>
+<p><img src="https://i.loli.net/2018/04/18/5ad711ddb3958.jpg" alt="javascript_object_layout"></p>
+<p>所以以下内容就大概可以围绕上图种的几个关键词描述。</p>
+<ul>
+<li><code>prototype</code></li>
+<li><code>[[prototype]]</code></li>
+<li><code>__proto__</code></li>
+<li><code>this</code></li>
+<li><code>constructor</code></li>
+</ul>
+<h2 id="必要的小知识">必要的小知识</h2>
+<h3 id="ecmascript-vs-javascript"><strong>ECMAScript</strong> vs <strong>JavaScript</strong></h3>
+<p><strong>ECMAScript</strong> 是 <strong>Ecma International</strong>这个组织制定的一套协议，规范和指导方针。</p>
+<p><strong>JavaScript</strong> 只是其中的一个实现，并且 Google/Firefox/Microsoft 等巨头都有对应的实现差异，这也是前端兼容性的一部分。对此目前最为流行的是 Google 实现的 V8 引擎，国内基本搬运并修改了该引擎进行本地化，Nodejs 也是基于 V8 虚拟机实现。当浏览器厂商完成私有方法的协调之后，就会慢慢并入 <strong>ECMAScript</strong> 协议当中。</p>
+<h2 id="基本对象创建objct">基本对象创建<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></h2>
+<p>来看对象的生成过程，熟悉其他面向对象语言的都基本知道，对象通过构造器/函数生成。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">foo</span> <span style="color:#f92672">=</span> {
+	<span style="color:#a6e22e">bar</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>
+}
+</code></pre></div><p>本质上上述对象字面量的创建方法和下面的 <code>new</code> 方法一致。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">foo</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Object();
+<span style="color:#a6e22e">foo</span>.<span style="color:#a6e22e">bar</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</code></pre></div><p>但是也有细微的差异，将于下文叙述</p>
+<h2 id="自定义对象创建字面量">自定义对象创建<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></h2>
+<p>首先使用函数构造对象（原理见原型链章节叙述）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Foo</span>() {
+	<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">bar</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+};
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">foo</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Foo</span>();
+</code></pre></div><p>接下来使用 ES6 增加的 <code>class</code> 关键字</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Foo</span> {
+	<span style="color:#a6e22e">constructor</span>() {
+		<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">bar</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; 
+	}
+};
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">foo</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Foo</span>();
+</code></pre></div><p>同样 <code>class</code> 也只是个语法糖，虽然并不对等，比如 <code>class</code> 会在作用域链上增加一层 <code>Script</code></p>
+<h2 id="原型和继承---属性查找">原型和继承 - 属性查找</h2>
+<p>当谈到继承时，JavaScript 只有一种结构：对象。每个对象都有一个私有属性<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>（称之为隐式原型 <code>[[Prototype]]</code>），它指向它的原型对象（<strong>prototype</strong>）。该 prototype 对象又具有一个自己的 prototype ，层层向上直到一个对象的原型为 <code>null</code>。根据定义，<code>null</code> 没有原型，并作为这个<strong>原型链</strong>中的最后一个环节。<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup></p>
+<p>当通过 <code>obj.propName</code> 访问对象的属性时，引擎将会顺着 <code>__proto__</code> 递归查找，直到找到 <code>propName</code> 或者 <code>__proto__</code> 为 <code>null</code>，既原型链结束。返回 <code>undefined</code></p>
+<h3 id="构造函数">构造函数</h3>
+<p>构造函数拥有 <code>prototype</code> 属性<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>，这只是函数对象私有的一个属性，被称之为显式原型；因为函数也是一种特殊的对象，用于区分对象的 <code>[[Prototype]]</code>。派生对象和函数的 <code>prototype</code> 对象之间才存在属性、方法的继承/共享关系。</p>
+<p>构造函数的 <code>prototype</code> 属性指向需要构造的对象，在构造完新实例之后，会将新实例的 <code>[[Prototype]]</code> 指向构造函数的 <code>prototype</code>。</p>
+<p>并且在这里因为，Object 实现了 Function 的构造方法，但是 Function.prototype 继承了 Object.prototype，产生了一个鸡和蛋的问题。</p>
+<p>这个问题只要先构造完 Function.prototype 再产生 Object 就能解释了。</p>
+<p>接下来叙述一个对象是如何被建立的，但是在此之前需要作用域链的相关知识。</p>
+<h2 id="对象创建过程">对象创建过程</h2>
+<p>对象的创建过程，即函数对象的 <code>[[Construct]]</code> 方法处理逻辑</p>
+<ol>
+<li>创建一个空对象 tObj 作为容器</li>
+<li>如果函数存在 <code>prototype</code> 即为构造函数，将 tObj 的 <code>[[Prototype]]</code> 指向目标对象，以表明继承关系，继承相关属性和方法。若非构造函数，则使用 Object.prototype 作为初始值</li>
+<li>将 tObj 作为 this，使用 args 参数调用函数的内部 <code>[[Call]]</code> 方法
+3.1 <code>[[Call]]</code> 方法创建 <strong>执行环境/执行上下文</strong>(Execution context) 这一临时对象
+3.2 调用函数体
+3.3 销毁当前的执行上下文
+3.4 返回函数体的返回值，如果函数体没有返回值则返回 <code>undefined</code></li>
+<li>如果 <code>[[Call]]</code> 的返回值是 Object 类型，则返回这个值，否则返回 tObj</li>
+</ol>
+<h2 id="函数对象创建过程">函数对象创建过程</h2>
+<ol>
+<li>创建一个空对象 tFn 作为容器</li>
+<li>将 tFn 的 <code>[[Prototype]]</code> 设为 Function.prototype</li>
+<li>设置内部的 <code>[[Call]]</code> 属性，它是内部实现的一个方法，处理逻辑参考对象创建过程的步骤 3</li>
+<li>设置内部的 <code>[[Construct]]</code> 属性，它是内部实现的一个方法，处理逻辑参考对象创建过程的步骤 1,2,3,4</li>
+<li>设置 tFn.length 为 args.length，如果函数没有参数，则将 tFn.length 设置为 0</li>
+<li>使用 new Object() 同样的逻辑创建一个 Object 对象 fnProto</li>
+<li>将 fnProto.constructor 设为 tFn</li>
+<li>将 tFn.prototype 设为 fnProto</li>
+<li>返回 tFn</li>
+</ol>
+<h2 id="执行环境执行上下文execution-context"><strong>执行环境/执行上下文</strong>(Execution context)</h2>
+<h3 id="基本原理">基本原理</h3>
+<p>进入函数时，JavaScript 引擎在内部创建一个对象，叫做 Variable Object。对应函数的每一个参数，在 Variable Object 上添加一个属性，属性的名字、值与参数的名字、值相同。函数中每声明一个变量，也会在 Variable Object 上添加一个属性，名字就是变量名，因此为变量赋值就是给 Variable Object 对应的属性赋值。在函数中访问参数或者局部变量时，就是在 Variable Object 上搜索相应的属性，返回其值。<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup></p>
+<ol>
+<li><code>[[Scope]]</code> (Variable Object)
+1.1. <strong>this</strong> tObj
+1.2. args
+1.3. <strong>局部变量</strong>/<strong>具名函数</strong>/<strong>具名形参</strong></li>
+<li><code>[[Scope]]</code>作用域链
+2.1. 当前 <code>[[Scope]]</code>
+2.2. 上层 <code>[[Scope]]</code></li>
+</ol>
+<p><code>Activation Object</code> 只在函数中，实现上和 <code>Variable Object</code> 一致，因为只是会在函数进入是创建，并在结束时标记可回收。</p>
+<h2 id="作用域链和预编译js_scope">作用域链和预编译<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup></h2>
+<p>形如下代码段：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span><span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">b</span><span style="color:#f92672">=-</span><span style="color:#ae81ff">2</span>;
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">foo</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">foo</span> (<span style="color:#a6e22e">c</span>){
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Before:&#34;</span>, <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>);
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span><span style="color:#f92672">=-</span><span style="color:#ae81ff">3</span>;
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;After:&#34;</span>, <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>);
+}
+<span style="color:#a6e22e">foo</span>();
+</code></pre></div><p>按照其他语言的经验应该输出：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Before: 2 -2
+After: 2 -3
+</code></pre></div><p>但是 JS 存在预编译这一特性。会在进入函数时，先将变量抽出来，并赋值 <code>undefined</code>。所以在函数体内变量未被开发者定义也会覆盖上级作用域中的同名变量。</p>
+<blockquote>
+<p>TODO: 是否存在将变量定义在函数体头部规范？</p>
+</blockquote>
+<p>所以正确的应该是</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Before: 2 undefined
+After: 2 -3
+</code></pre></div><p>在执行 <code>Before</code> 时，会创建 <code>[[scope]]</code> 如下所示：</p>
+<p><img src="https://i.loli.net/2018/04/18/5ad711dd7feb7.png" alt="Snipaste_2018-03-26_18-30-57"></p>
+<p>当执行到 <code>After</code> 时，<code>b</code> 已经被赋值</p>
+<p><img src="https://i.loli.net/2018/04/18/5ad711dd7e8d8.png" alt="Snipaste_2018-03-26_18-30-36"></p>
+<h2 id="闭包-closuresjavascript-object-model-execution-model">闭包 <strong>Closures</strong><sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup></h2>
+<blockquote>
+<p>闭包是指有权访问另外一个函数作用域中的变量的函数</p>
+</blockquote>
+<ol>
+<li>闭包可以访问当前函数以外的变量<sup id="fnref:8"><a href="#fn:8" class="footnote-ref" role="doc-noteref">8</a></sup></li>
+<li>即使外部函数已经返回，闭包仍能访问外部函数定义的变量</li>
+<li>闭包可以更新外部变量的值</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">foo</span> (){
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>,<span style="color:#a6e22e">b</span><span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>;
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span>(){ <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">b</span>; };
+}
+</code></pre></div><p>foo 返回的是一个内嵌函数，内嵌函数使用了 foo 的局部变量 a 和 b。照理 foo 的局部变量在返回时就超出了作用域因此 foo() 调用无法使用才对。这就是闭包 Closure，即函数调用返回了一个内嵌函数，而内嵌函数引用了外部函数的局部变量、参数等这些应当被关闭(Close)了的资源。</p>
+<p>根据前面 Scope Chain 的理解可以解释，返回的内嵌函数已经持有了构造它时的 Scope Chain，虽然 foo 返回导致这些对象超出了作用域、生存期范围，但 JavaScript 使用<strong>自动垃圾回收来释放对象内存</strong>: 按照规则定期检查，对象没有任何引用才被释放。因此上面的代码能够正确运行。</p>
+<h2 id="thisjavascript-interview-questions-event-delegation"><code>this</code><sup id="fnref:9"><a href="#fn:9" class="footnote-ref" role="doc-noteref">9</a></sup></h2>
+<ul>
+<li>默认指向全局对象，其通常是 window</li>
+<li>若函数是一个对象的构造函数，this 指向新对象。</li>
+<li>若函数被定义在一个对象上，然后调用对象时，this 指向该对象。</li>
+<li>在异步编程中，this 可以很容易改变过程中一个功能操作。保持处理程序上下文的一个小技巧是将其设置到闭包内的一个变量(<code>$this</code> or <code>_this</code>)，当在上下文改变的地方调用一个函数时，如 setTimeout，你仍然可以通过该变量引用需要的对象。</li>
+<li>一个函数中运行了一个内联函数，比如一个事件监听器，则this指向内联函数的源代码。例如，当设置一个按钮的单击处理程序，this将引用匿名函数内的按钮。</li>
+</ul>
+<p>操作this的另一种方式是通过 call、apply 和 bind。三种方法都被用于调用一个函数，并能指定this的上下文，你可以让代码使用你规定的对象，而不是依靠浏览器去计算出this指向什么。Call、apply和bind本身是相当复杂的,应该有自己的文档记录，我们会把这当做未来待解决问题的一部分。下面是一个改变this指向方法的示</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain">Inheritance and the prototype chain</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object">Objct</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p><a href="https://blog.csdn.net/maomaolaoshi/article/details/77130970#t5">使用字面量创建变量对象都发生了什么？</a> <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p>部分浏览器使用私有属性 <code>__proto__</code> 可以访问，并于 ES6 可以通过 <code>getPrototypeOf</code> 访问 <a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5" role="doc-endnote">
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain">继承与原型链 - MDN</a> <a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6" role="doc-endnote">
+<p><a href="http://www.cnblogs.com/RicCC/archive/2008/02/15/JavaScript-Object-Model-Execution-Model.html">JavaScript对象模型-执行模型</a> <a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:7" role="doc-endnote">
+<p><a href="http://www.laruence.com/2009/05/28/863.html" title="Permanent Link to Javascript作用域原理">JavaScript 作用域原理</a> <a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:8" role="doc-endnote">
+<p><a href="https://github.com/dwqs/blog/issues/18">从作用域链谈闭包</a> <a href="#fnref:8" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:9" role="doc-endnote">
+<p><a href="https://github.com/dwqs/blog/issues/19">JavaScript面试问题：事件委托和this</a> <a href="#fnref:9" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

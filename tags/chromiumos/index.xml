@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ChromiumOS on Gitai.me</title>
+    <link>https://gitai.me/tags/chromiumos/</link>
+    <description>Recent content in ChromiumOS on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Thu, 23 Mar 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/chromiumos/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ChromiumOS 快速开始指南</title>
+      <link>https://gitai.me/2017/03/sdk-creation/</link>
+      <pubDate>Thu, 23 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/03/sdk-creation/</guid>
+      <description>&lt;h2 id=&#34;介绍&#34;&gt;介绍&lt;/h2&gt;
+&lt;p&gt;Chromium OS 项目有一个开发者工具包来提供一个独立的环境来构建目标系统。&lt;/p&gt;
+&lt;p&gt;当你使用它，它只是一个 Gentoo/Linux  chroot，有很多构建脚本，以简化和自动化的整体构建过程。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

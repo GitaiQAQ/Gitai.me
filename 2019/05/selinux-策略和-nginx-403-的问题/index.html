@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>SELinux 策略和 Nginx 403 的问题 | Gitai.me</title>
+
+<meta property='og:title' content='SELinux 策略和 Nginx 403 的问题 - Gitai.me'>
+<meta property='og:description' content='
+以此来纪念我加班的 5.20
+
+Nginx 之类的 Httpd 服务使用非 /var/www 产生的 Permission denied 错误，原因在于权限设置有误。
+2019/05/20 10:53:14 [error] 11262#0: *16 open() &#34;/sangfor/*/*/favicon.ico&#34; failed (13: Permission denied), client: 200.200.211.97, server: localhost, request: &#34;GET /favicon.ico HTTP/1.1&#34;, host: &#34;10.58.12.67&#34;, referrer: &#34;http://10.58.12.67/&#34;
+'>
+<meta property='og:url' content='https://gitai.me/2019/05/selinux-%E7%AD%96%E7%95%A5%E5%92%8C-nginx-403-%E7%9A%84%E9%97%AE%E9%A2%98/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='笔记'><meta property='article:published_time' content='2019-05-20T00:00:00Z'/><meta property='article:modified_time' content='2019-05-20T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2019/05/selinux-%E7%AD%96%E7%95%A5%E5%92%8C-nginx-403-%E7%9A%84%E9%97%AE%E9%A2%98/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>
+
+
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">May 20, 2019</h2>
+    <h1 class="title">SELinux 策略和 Nginx 403 的问题</h1>
+    
+    <div class="content">
+      <blockquote>
+<p>以此来纪念我加班的 5.20</p>
+</blockquote>
+<p>Nginx 之类的 Httpd 服务使用非 /var/www 产生的 Permission denied 错误，原因在于权限设置有误。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">2019/05/20 10:53:14 <span style="color:#f92672">[</span>error<span style="color:#f92672">]</span> 11262#0: *16 open<span style="color:#f92672">()</span> <span style="color:#e6db74">&#34;/sangfor/*/*/favicon.ico&#34;</span> failed <span style="color:#f92672">(</span>13: Permission denied<span style="color:#f92672">)</span>, client: 200.200.211.97, server: localhost, request: <span style="color:#e6db74">&#34;GET /favicon.ico HTTP/1.1&#34;</span>, host: <span style="color:#e6db74">&#34;10.58.12.67&#34;</span>, referrer: <span style="color:#e6db74">&#34;http://10.58.12.67/&#34;</span>
+</code></pre></div><p>首先 <code>ps -aux | grep nginx</code> 查看 Nginx 是以那个用户运行的，并查看 <code>cat /etc/nginx/nginx.conf | grep user</code> 配置的用户。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>root@node2 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ll /sangfor/*/*/</span>
+total <span style="color:#ae81ff">16</span>
+drwxr-xr-x.  <span style="color:#ae81ff">2</span> root root  <span style="color:#ae81ff">231</span> May  <span style="color:#ae81ff">8</span> 15:11 3parts
+-rwxr-xr-x.  <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">1406</span> May  <span style="color:#ae81ff">8</span> 15:11 favicon.ico
+-rwxr-xr-x.  <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">2555</span> May  <span style="color:#ae81ff">8</span> 15:11 index.html
+-rwxr-xr-x.  <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">1422</span> May  <span style="color:#ae81ff">8</span> 15:11 login.html
+-rwxr-xr-x.  <span style="color:#ae81ff">1</span> root root  <span style="color:#ae81ff">205</span> May  <span style="color:#ae81ff">8</span> 15:11 redirect.html
+drwxr-xr-x. <span style="color:#ae81ff">13</span> root root  <span style="color:#ae81ff">156</span> May  <span style="color:#ae81ff">8</span> 15:11 static
+
+
+<span style="color:#f92672">[</span>root@node2 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ps -aux | grep nginx</span>
+root     <span style="color:#ae81ff">11261</span>  0.0  0.0 <span style="color:#ae81ff">122896</span>  <span style="color:#ae81ff">2264</span> ?        Ss   10:36   0:00 nginx: master process /usr/sbin/nginx
+root     <span style="color:#ae81ff">11262</span>  0.0  0.0 <span style="color:#ae81ff">123280</span>  <span style="color:#ae81ff">3608</span> ?        S    10:36   0:00 nginx: worker process
+root     <span style="color:#ae81ff">11263</span>  0.0  0.0 <span style="color:#ae81ff">123280</span>  <span style="color:#ae81ff">3608</span> ?        S    10:36   0:00 nginx: worker process
+root     <span style="color:#ae81ff">11264</span>  0.0  0.0 <span style="color:#ae81ff">123280</span>  <span style="color:#ae81ff">3608</span> ?        S    10:36   0:00 nginx: worker process
+root     <span style="color:#ae81ff">11265</span>  0.0  0.0 <span style="color:#ae81ff">123280</span>  <span style="color:#ae81ff">3608</span> ?        S    10:36   0:00 nginx: worker process
+root     <span style="color:#ae81ff">26868</span>  0.0  0.0 <span style="color:#ae81ff">112652</span>   <span style="color:#ae81ff">952</span> pts/1    R+   11:34   0:00 grep --color<span style="color:#f92672">=</span>auto nginx
+
+<span style="color:#f92672">[</span>root@node2 ~<span style="color:#f92672">]</span><span style="color:#75715e"># cat /etc/nginx/nginx.conf | grep user</span>
+user root;
+    log_format  main  <span style="color:#e6db74">&#39;$remote_addr - $remote_user [$time_local] &#34;$request&#34; &#39;</span>
+                      <span style="color:#e6db74">&#39;&#34;$http_user_agent&#34; &#34;$http_x_forwarded_for&#34;&#39;</span>;
+
+</code></pre></div><p>目标目录的确是 <code>root</code>，且 Nginx 使用 <code>root</code> 用户启动，那么就可能是 SELinux 的问题。</p>
+<p>使用 <code>sestatus</code> 或者 <code>getemforce</code> 查看 SELinux 的状态</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  ~ getenforce
+Enforcing
+
+➜  ~ sestatus
+SELinux status:                 enabled
+SELinuxfs mount:                /sys/fs/selinux
+SELinux root directory:         /etc/selinux
+Loaded policy name:             targeted
+Current mode:                   enforcing
+Mode from config file:          enforcing
+Policy MLS status:              enabled
+Policy deny_unknown status:     allowed
+Max kernel policy version:      <span style="color:#ae81ff">28</span>
+
+</code></pre></div><p>SELinux 有三种模式：</p>
+<ul>
+<li><code>enforcing</code> 强制模式，该模式下会阻止部分操作</li>
+<li><code>permissive</code> 宽松模式，该模式下只会产生警告提示，并不会阻塞操作</li>
+<li><code>disabled</code> 禁用 SELinux</li>
+</ul>
+<p>上面的输出是就是完全启用了的 SELinux，对于部分 Linux 命令支持一个 <code>Z</code> 参数，比如我们来看看 <code>ls</code> 的。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">       -Z, --context
+              Display security context so it fits on most displays.  Displays only mode, user, group, security context and file name.
+</code></pre></div><p>显示 SELinux 上下文，那么我们用 <code>ls -Z</code> 查看刚刚被阻止的文件路径</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>root@node2 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ls -Z /sangfor/*/*/favicon.ico</span>
+-rwxr-xr-x. root root unconfined_u:object_r:default_t:s0 /sangfor/aBDI/sdp-web/favicon.ico
+</code></pre></div><p>而后我们去看看正常的 <code>var/www</code> 是什么样的配置。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>root@node2 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ls -Z /var | grep www</span>
+dr-xr-xr-x. www-data www-data system_u:object_r:httpd_sys_content_t:s0 www
+</code></pre></div><p>而 Nginx 所具有的权限又是什么样的？</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>root@node2 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ps -auxZ | grep nginx</span>
+system_u:system_r:httpd_t:s0    root     <span style="color:#ae81ff">11261</span>  0.0  0.0 <span style="color:#ae81ff">122896</span>  <span style="color:#ae81ff">2264</span> ?        Ss   10:36   0:00 nginx: master process /usr/sbin/nginx
+system_u:system_r:httpd_t:s0    root     <span style="color:#ae81ff">11262</span>  0.0  0.0 <span style="color:#ae81ff">123280</span>  <span style="color:#ae81ff">3608</span> ?        S    10:36   0:00 nginx: worker process
+system_u:system_r:httpd_t:s0    root     <span style="color:#ae81ff">11263</span>  0.0  0.0 <span style="color:#ae81ff">123280</span>  <span style="color:#ae81ff">3608</span> ?        S    10:36   0:00 nginx: worker process
+system_u:system_r:httpd_t:s0    root     <span style="color:#ae81ff">11264</span>  0.0  0.0 <span style="color:#ae81ff">123280</span>  <span style="color:#ae81ff">3608</span> ?        S    10:36   0:00 nginx: worker process
+system_u:system_r:httpd_t:s0    root     <span style="color:#ae81ff">11265</span>  0.0  0.0 <span style="color:#ae81ff">123280</span>  <span style="color:#ae81ff">3608</span> ?        S    10:36   0:00 nginx: worker process
+</code></pre></div><p>对比一下其他进程的配置，先用 vi 读取无权限的文件，并 <code>Ctrl + Z</code> 切到后台，然后 <code>ps -auxZ</code> 看看结果</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>root@node2 ~<span style="color:#f92672">]</span><span style="color:#75715e"># vi /sangfor/*/*/favicon.ico</span>
+
+<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>+  Stopped                 vi /sangfor/*/*/favicon.ico
+<span style="color:#f92672">[</span>root@node2 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ps -auxZ | grep favicon</span>
+unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023 root <span style="color:#ae81ff">3543</span> 0.0  0.0 <span style="color:#ae81ff">126436</span> <span style="color:#ae81ff">1816</span> pts/1 T 11:52   0:00 vi /sangfor/aBDI/sdp-web/favicon.ico
+</code></pre></div><p>问题找到了，接下来看看如何修改这个参数，这里通过上面的对比，自然能发现有 2 个思路。</p>
+<p>改变 Nginx 的配置或者改变目标目录的配置。</p>
+<p>而改变 Nginx 的配置可能存在安全性问题，本来就是为了防止操作，如果给他所有文件的读取权限，指不定啥时候就被人端了（其实是我还不会改这个）；那就只能改文件夹的配置了。</p>
+<p>上次写清理脚本留下的经验，这种资料比较难找，自己又不会，不如去 Github 抄。</p>
+<p>于是以 <code>httpd_sys_content_t</code> 这个关键词查找代码，就找到这么个文件 <code>/etc/selinux/targeted/contexts/files/file_contexts</code>。<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>root@node2 ~<span style="color:#f92672">]</span><span style="color:#75715e"># cat /etc/selinux/targeted/contexts/files/file_contexts | grep httpd_sys_content</span>
+/srv/<span style="color:#f92672">([</span>^/<span style="color:#f92672">]</span>*/<span style="color:#f92672">)</span>?www<span style="color:#f92672">(</span>/.*<span style="color:#f92672">)</span>?	system_u:object_r:httpd_sys_content_t:s0
+/var/www<span style="color:#f92672">(</span>/.*<span style="color:#f92672">)</span>?	system_u:object_r:httpd_sys_content_t:s0
+/etc/htdig<span style="color:#f92672">(</span>/.*<span style="color:#f92672">)</span>?	system_u:object_r:httpd_sys_content_t:s0
+/srv/gallery2<span style="color:#f92672">(</span>/.*<span style="color:#f92672">)</span>?	system_u:object_r:httpd_sys_content_t:s0
+/var/lib/trac<span style="color:#f92672">(</span>/.*<span style="color:#f92672">)</span>?	system_u:object_r:httpd_sys_content_t:s0
+/var/lib/htdig<span style="color:#f92672">(</span>/.*<span style="color:#f92672">)</span>?	system_u:object_r:httpd_sys_content_t:s0
+/var/www/icons<span style="color:#f92672">(</span>/.*<span style="color:#f92672">)</span>?	system_u:object_r:httpd_sys_content_t:s0
+/usr/share/glpi<span style="color:#f92672">(</span>/.*<span style="color:#f92672">)</span>?	system_u:object_r:httpd_sys_content_t:s0
+/usr/share/htdig<span style="color:#f92672">(</span>/.*<span style="color:#f92672">)</span>?	system_u:object_r:httpd_sys_content_t:s0
+/usr/share/drupal.*	system_u:object_r:httpd_sys_content_t:s0
+/usr/share/z-push<span style="color:#f92672">(</span>/.*<span style="color:#f92672">)</span>?	system_u:object_r:httpd_sys_content_t:s0
+/var/www/svn/conf<span style="color:#f92672">(</span>/.*<span style="color:#f92672">)</span>?	system_u:object_r:httpd_sys_content_t:s0
+/usr/share/icecast<span style="color:#f92672">(</span>/.*<span style="color:#f92672">)</span>?	system_u:object_r:httpd_sys_content_t:s0
+/var/lib/cacti/rra<span style="color:#f92672">(</span>/.*<span style="color:#f92672">)</span>?	system_u:object_r:httpd_sys_content_t:s0
+/usr/share/ntop/html<span style="color:#f92672">(</span>/.*<span style="color:#f92672">)</span>?	system_u:object_r:httpd_sys_content_t:s0
+/usr/share/doc/ghc/html<span style="color:#f92672">(</span>/.*<span style="color:#f92672">)</span>?	system_u:object_r:httpd_sys_content_t:s0
+/usr/share/openca/htdocs<span style="color:#f92672">(</span>/.*<span style="color:#f92672">)</span>?	system_u:object_r:httpd_sys_content_t:s0
+/usr/share/selinux-policy<span style="color:#f92672">[</span>^/<span style="color:#f92672">]</span>*/html<span style="color:#f92672">(</span>/.*<span style="color:#f92672">)</span>?	system_u:object_r:httpd_sys_content_t:s0
+</code></pre></div><p>看到了熟悉的 <code>/var/www</code> 或许是配置在这里？</p>
+<p>再去搜搜这个文件干啥的？<a href="https://serverfault.com/questions/752565/selinux-manually-changing-files-in-etc-selinux-targeted-contexts-files">SELinux: manually changing files in /etc/selinux/targeted/contexts/files/</a></p>
+<p>很不幸，没发现我这个环境有 <code>semanage </code>，安装一个试试，安装失败，大概我这个仓库没有</p>
+<p>姑且用 <code>chcon</code> 先用着好像也还 OK</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>root@node2 ~<span style="color:#f92672">]</span><span style="color:#75715e"># chcon -R -t httpd_sys_content_t /sangfor/*/*</span>
+<span style="color:#f92672">[</span>root@node2 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ls -lZ /sangfor/*/*</span>
+drwxr-xr-x. root root unconfined_u:object_r:httpd_sys_content_t:s0 3parts
+-rwxr-xr-x. root root unconfined_u:object_r:httpd_sys_content_t:s0 favicon.ico
+-rwxr-xr-x. root root unconfined_u:object_r:httpd_sys_content_t:s0 index.html
+-rwxr-xr-x. root root unconfined_u:object_r:httpd_sys_content_t:s0 login.html
+-rwxr-xr-x. root root unconfined_u:object_r:httpd_sys_content_t:s0 redirect.html
+drwxr-xr-x. root root unconfined_u:object_r:httpd_sys_content_t:s0 static
+</code></pre></div><p>问题虽然解决了，但是 <code>chcon</code> 和 <code>semanage</code> 有啥区别嘞。</p>
+<blockquote>
+<p>CentOS系统自带的chcon工具只能修改文件、目录等的文件类型和策略，无法对端口、消息接口和网络接口等进行管理，<strong>semanage 能有效胜任 SELinux 的相关配置工作。</strong><sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
+</blockquote>
+<p>以及 chcon 只是临时修改目录的 SELinux 属性，而 semanage 会把变更写入到 <code>/etc/selinux/targeted/contexts/files/file_contexts.local</code> 里面，这样才能使其永远生效。<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></p>
+<p>据 SO 上面说 <code>/etc/selinux/targeted/contexts/files/file_contexts</code> 会被某命令覆盖掉；所以并不是很确信，这是不是真的永远生效。</p>
+<p>其实对于这个问题，因为 SELinux 产生，那么关了 SELinux 或者修改状态，都能解决这个问题。只是或许存在安全性问题。</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://github.com/nsmithdev/docs/blob/ca735b8d88fd08f9d33ddcd04eb889b9352a1f09/docs/Linux/selinux.md">selinux.md</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p><a href="https://blog.csdn.net/u011630575/article/details/52068959">linux Selinux 管理工具 semanage</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p><a href="https://blog.51cto.com/stlong/1559468">文件的SELinux属性</a> <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

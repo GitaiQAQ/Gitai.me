@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ELK on Gitai.me</title>
+    <link>https://gitai.me/categories/elk/</link>
+    <description>Recent content in ELK on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Tue, 25 Apr 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/categories/elk/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ELK 部署</title>
+      <link>https://gitai.me/2017/04/elk-deploy/</link>
+      <pubDate>Tue, 25 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/04/elk-deploy/</guid>
+      <description>&lt;p&gt;按照官方文档&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.elastic.co/start&#34;&gt;https://www.elastic.co/start&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;或者这份相对完整的安装说明&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.ibm.com/developerworks/cn/opensource/os-cn-elk-filebeat/index.html&#34;&gt;https://www.ibm.com/developerworks/cn/opensource/os-cn-elk-filebeat/index.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;创建 elk 用户和用户组&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;groupadd elk          # 添加用户组
+useradd -g elk elk    # 添加用户到指定用户组
+passwd elk            # 为指定用户设置密码
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;以下只记录出现的坑&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

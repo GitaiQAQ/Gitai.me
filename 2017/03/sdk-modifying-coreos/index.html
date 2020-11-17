@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>修改 CoreOS | Gitai.me</title>
+
+<meta property='og:title' content='修改 CoreOS - Gitai.me'>
+<meta property='og:description' content='这些是构建 Container Linux 本身的说明。 在本指南结束时，您将构建一个可以在 KVM 下运行的开发版映像，并具有用于更改代码的工具。
+容器 Linux 是一个开源项目。 所有的容器 Linux 的源都可以在 github 上。 如果您发现这些文档或代码的问题，请发送pull请求。
+直接发问题和建议到IRC频道或邮件列表。'>
+<meta property='og:url' content='https://gitai.me/2017/03/sdk-modifying-coreos/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='CoreOS'><meta property='article:tag' content='Docker'><meta property='article:tag' content='记录'><meta property='article:published_time' content='2017-03-12T01:06:19Z'/><meta property='article:modified_time' content='2017-03-12T01:06:19Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2017/03/sdk-modifying-coreos/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/coreos/">#CoreOS</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/docker/">#Docker</a>
+  
+  | <a class="subtitle is-6" href="/tags/%E8%AE%B0%E5%BD%95/">#记录</a>
+  
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">March 12, 2017</h2>
+    <h1 class="title">修改 CoreOS</h1>
+    
+    <div class="content">
+      <p>这些是构建 Container Linux 本身的说明。 在本指南结束时，您将构建一个可以在 KVM 下运行的开发版映像，并具有用于更改代码的工具。</p>
+<p>容器 Linux 是一个开源项目。 所有的容器 Linux 的源都可以在 <a href="https://github.com/coreos/">github</a> 上。 如果您发现这些文档或代码的问题，请发送pull请求。</p>
+<p>直接发问题和建议到<a href="irc://irc.freenode.org:6667/#coreos">IRC频道</a>或<a href="https://groups.google.com/forum/#!forum/coreos-dev">邮件列表</a>。</p>
+<h2 id="开始">开始</h2>
+<p>让我们使用 SDK chroot 设置并构建 Container Linux 的可启动映像。 SDK chroot 有一个完整的工具链，并隔离构建过程中与主机系统之间的差异。 SDK 必须在 x86-64 Linux 机器上运行，发行版应该不重要（Ubuntu，Fedora等）。</p>
+<blockquote>
+</blockquote>
+<ul>
+<li>mount: docker 环境无法构建，需要特权</li>
+<li>portage: ChromeOS 无法编译</li>
+<li>需要 ChromiumOS 源码，外网可破</li>
+</ul>
+<h2 id="先决条件">先决条件</h2>
+<ul>
+<li>curl</li>
+<li>git</li>
+<li>python2</li>
+</ul>
+<p>你还需要一个适当的git设置：</p>
+<pre><code>git config --global user.email &quot;you@example.com&quot;
+git config --global user.name &quot;Your Name&quot;
+</code></pre><blockquote>
+<p>注意： 在普通用户并不使用 sudo 时配置</p>
+</blockquote>
+<h2 id="选项1使用-cork">选项1：使用 Cork</h2>
+<p>包含在 <code>CoreOS mantle</code> 项目中的 <code>cork</code> 程序可用于创建和使用 SDK chroot。</p>
+<p>为了使用此实用程序，您还必须正确安装和配置 <code>golang</code> 工具链。</p>
+<p>首先，安装 <code>cork</code> 程序：</p>
+<pre><code>git clone https://github.com/coreos/mantle
+cd mantle
+./build cork
+mkdir ~/bin
+mv ./bin/cork ~/bin
+export PATH=$PATH:$HOME/bin
+</code></pre><p>您可能希望将 <code>PATH</code> 导出添加到您的 shell 配置文件（例如 <code>.bashrc</code>）。</p>
+<p>接下来，可以使用cork实用程序创建SDK chroot：</p>
+<pre><code>mkdir coreos-sdk
+cd coreos-sdk
+cork create
+cork enter
+</code></pre><blockquote>
+<p>注意：<code>create</code> 和 <code>enter</code> 命令将通过 <code>sudo</code> 请求 <code>root</code> 权限。要在将来使用 SDK chroot，请从上述目录运行 cork enter。</p>
+</blockquote>
+<h2 id="选项2-repo-和-cros_sdk">选项2： <code>repo</code> 和 <code>cros_sdk</code></h2>
+<h3 id="安装-repo">安装 <code>Repo</code></h3>
+<p>repo 程序有助于管理构成 Container Linux 的 git 存储库的集合。</p>
+<p>对于较新的 Debian，Ubuntu 和其他基于 Debian 的系统，请从发行版仓库安装 repo 软件包：</p>
+<pre><code>sudo apt-get install repo
+</code></pre><p>对于没有打包的 <code>repo</code> 的系统，下载它并将其添加到 <code>$PATH</code>：</p>
+<pre><code>mkdir ~/bin
+export PATH=&quot;$PATH:$HOME/bin&quot;
+curl https://storage.googleapis.com/git-repo-downloads/repo &gt; ~/bin/repo
+chmod a+x ~/bin/repo
+</code></pre><p>您可能希望将 <code>PATH</code> 导出添加到 <code>.bashrc</code> 或 <code>/etc/profile.d/</code>，以便您不需要在每个新 <code>shell</code> 中设置 <code>$ PATH</code>。</p>
+<h3 id="引导sdk-chroot">引导SDK chroot</h3>
+<p>创建项目目录。 这将保存所有的 <code>git repo</code> 和 <code>SDK chroot</code> 。 需要几 GB 空间。</p>
+<pre><code>mkdir coreos; cd coreos
+</code></pre><p>使用描述开始所需的所有 <code>git repo</code> 的清单初始化 <code>.repo</code> 目录。</p>
+<pre><code>repo init -u https://github.com/coreos/manifest.git
+</code></pre><p>从清单同步所有必需的 <code>git repo</code> 。</p>
+<pre><code>repo sync
+</code></pre><h3 id="使用-cros_sdk-来配置-chroot">使用 <code>cros_sdk</code> 来配置 <code>chroot</code></h3>
+<p>下载并输入 <code>SDK chroot</code>，其中包含所有编译器和工具。</p>
+<pre><code>./chromite/bin/cros_sdk
+</code></pre><blockquote>
+<p>警告：要删除 <code>SDK chroot</code>，请使用 <code>./chromite/bin/cros_sdk --delete</code> 。 否则，您将删除绑定安装到 <code>chroot</code> 中的 <code>/dev</code> 条目。</p>
+</blockquote>
+<h2 id="使用-qemu-进行交叉编译">使用 QEMU 进行交叉编译</h2>
+<p>容器 Linux initramfs 是使用 <code>dracut</code> 工具生成的。 Dracut 假定它在目标系统上运行，并且只为该 CPU 架构产生输出。 为了为其他体系结构创建 initramfs 文件，dracut 在 QEMU 的目标 CPU 的用户模式下执行。</p>
+<h3 id="为64位arm二进制文件配置qemu">为64位ARM二进制文件配置QEMU</h3>
+<p>注意，“64位ARM” 通过两种简短的形式被知道：<code>aarch64</code>（如在QEMU的配置文件中所见）和 <code>arm64</code>（如同 Container Linux 和许多其他发行版如何引用该架构）。</p>
+<p>QEMU 二进制文件 <code>/usr/bin/qemu-aarch64-static</code> 不希望在主机工作站上。 它会在运行 <code>dracut</code> 之前进入 <code>arm64-usr build chroot</code>。</p>
+<p>配置基于Debian的系统
+对于 Debian，Ubuntu 和其他基于 Debian 的系统，安装以下软件包将配置主机系统，使 QEMU 将成为 64位ARM 二进制文件的运行时：</p>
+<pre><code>sudo apt-get install binfmt-support qemu-user-static
+</code></pre><p>配置其他基于 systemd 的系统
+在 systemd 系统上，配置文件控制如何处理给定架构的二进制文件。</p>
+<p>要将QEMU注册为64位ARM二进制文件的运行时，请在 <code>/etc/binfmt.d/qemu-aarch64.conf</code> 写入以下内容</p>
+<pre><code>:qemu-aarch64:M::\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\xb7:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff:/usr/bin/qemu-aarch64-static:
+</code></pre><p>然后运行:</p>
+<pre><code>systemctl restart systemd-binfmt.service
+</code></pre><h2 id="构建镜像">构建镜像</h2>
+<p>首先通过 <code>cork</code> 或 <code>cros_sdk</code> 进入 <code>chroot</code> 后，应该设置用户核心的密码：</p>
+<pre><code>./set_shared_user_password.sh
+</code></pre><p>这是您将用于登录到使用SDK构建和启动的图像控制台的密码。</p>
+<h3 id="选择要构建的体系结构">选择要构建的体系结构</h3>
+<p>64位 AMD：<code>amd64-usr</code> 目标 <code>--board</code> 选项可以设置为几个已知的目标体系结构之一，以及系统“板”，以构建给定的 CPU。</p>
+<p>要为目录 <code>/build/amd64-usr/</code> 下的 <code>amd64-usr</code> 目标创建根文件系统：</p>
+<pre><code>./setup_board --default --board=amd64-usr
+</code></pre><p>64位ARM：<code>arm64-usr</code> 目标
+类似地，对交叉编译的 ARM 目标使用 <code>arm64-usr</code>。 如果在单个 SDK 中在不同目标之间切换，可以向后续 <code>build_packages</code>， <code>build_image</code> 和其他类似命令添加 <code>--board=</code> 选项，以选择给定的目标体系结构和路径。</p>
+<pre><code>./setup_board --default --board=arm64-usr
+</code></pre><h3 id="编译和链接系统二进制文件">编译和链接系统二进制文件</h3>
+<p>构建所有目标二进制包：</p>
+<pre><code>./build_packages
+</code></pre><h3 id="渲染-coreos-容器-linux-映像">渲染 CoreOS 容器 Linux 映像</h3>
+<p>基于上面构建的二进制包构建映像，包括开发工具：</p>
+<pre><code>./build_image dev
+</code></pre><p><code>build_image</code> 完成后，它打印用于将原始  <code>bin</code> 转换为可引导虚拟机的命令。 运行 <code>image_to_vm.sh</code> 命令。</p>
+<h2 id="启动">启动</h2>
+<p>一旦你构建一个图像，你可以启动它与 KVM（指令将打印输出 <code>image_to_vm.sh</code> 运行后）。</p>
+<h1 id="进行更改">进行更改</h1>
+<h2 id="git-和-repo">git 和 repo</h2>
+<p>容器 Linux 由 <code>repo</code> 管理，<code>repo</code> 是一个为 Android 项目构建的工具，使得管理大量的 git 存储库更容易。 从 <code>repo</code> 通知博客：</p>
+<blockquote>
+<p><code>repo</code> 工具使用基于 XML 的清单文件描述上游资源库的位置，以及如何将它们合并到单个工作检查中。 <code>repo</code> 将递归所有的 <code>git</code> 子树，并处理上传，拉取和其他需要的项目。 <code>repo</code> 具有内置的主题分支知识，并使它们成为工作流程的重要组成部分。
+(from the <a href="http://google-opensource.blogspot.com/2008/11/gerrit-and-repo-android-source.html">Google Open Source Blog</a>)</p>
+</blockquote>
+<p>你可以通过访问 <a href="https://source.android.com/source/developing.html"><code>android.com</code>-开发</a> 找到完整的手册 <code>repo</code>。</p>
+<h2 id="更新-repo-清单">更新 repo 清单</h2>
+<p>Container Linux 的 <code>repo</code> 清单存在于<code>.repo/manifests</code> 中的 git 存储库中。 如果需要更新清单，请在此目录中编辑 <code>default.xml</code>。</p>
+<p><code>repo</code> 使用一个名为 <code>default</code> 的分支来跟踪在 <code>repo init</code> 中指定的上游分支，默认为 <code>origin/master</code>。 在进行更改时记住这一点，原始 git 存储库不应该有一个“默认”分支。</p>
+<h1 id="构造镜像">构造镜像</h1>
+<p>有单独的工作流程用于构建<a href="https://coreos.com/os/docs/latest/sdk-building-production-images.html">生产映像</a>和<a href="https://coreos.com/os/docs/latest/sdk-building-development-images.html">开发映像</a>。</p>
+<h1 id="提示和技巧">提示和技巧</h1>
+<p>我们已经编制了一个<a href="https://coreos.com/os/docs/latest/sdk-tips-and-tricks.html">提示和技巧的列表</a>，可以使使用SDK更容易。</p>
+<h1 id="测试镜像">测试镜像</h1>
+<p><a href="https://coreos.com/os/docs/latest/sdk-testing-with-mantle.html">Mantle</a> 是用于测试和启动 SDK 图像的实用程序集合。</p>
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>半虚拟化 on Gitai.me</title>
+    <link>https://gitai.me/tags/%E5%8D%8A%E8%99%9A%E6%8B%9F%E5%8C%96/</link>
+    <description>Recent content in 半虚拟化 on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Wed, 01 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/tags/%E5%8D%8A%E8%99%9A%E6%8B%9F%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何运行不可信代码？</title>
+      <link>https://gitai.me/2020/01/run-untrusted-javascript-2/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2020/01/run-untrusted-javascript-2/</guid>
+      <description>前一篇写了安全的 JavaScript 沙盘的分析，但是遗留了 IO 这个大问题，和内核调用会受到 ACL 的控制一样；我们平时瞎写的 JS 脚本中，总是缺少不了 fs, net 这些 IO 库的使用，</description>
+    </item>
+    
+  </channel>
+</rss>

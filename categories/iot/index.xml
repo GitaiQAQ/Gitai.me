@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>IoT on Gitai.me</title>
+    <link>https://gitai.me/categories/iot/</link>
+    <description>Recent content in IoT on Gitai.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans-CN</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/GitaiQAQ&#34;&gt;Gitai&lt;/a&gt; 2011</copyright>
+    <lastBuildDate>Tue, 02 May 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://gitai.me/categories/iot/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ESP8266 的小探针</title>
+      <link>https://gitai.me/2017/05/esp8266-sniffer/</link>
+      <pubDate>Tue, 02 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/05/esp8266-sniffer/</guid>
+      <description>&lt;h2 id=&#34;简述&#34;&gt;简述&lt;/h2&gt;
+&lt;p&gt;本文加入首先要有一个 X 系列，没有的麻烦隔壁淘宝。RMB 20 的是很稳的。&lt;/p&gt;
+&lt;p&gt;以及采用 C 编写，但是主要都是调用 API&lt;/p&gt;
+&lt;p&gt;糅合了以下几个小项目&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Sniffer mode&lt;/li&gt;
+&lt;li&gt;SmartConfig&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.penninkhof.com/2015/12/1610-over-the-air-esp8266-programming-using-platformio/&#34;&gt;OTA&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://community.blynk.cc/t/updating-ota-is-amazing/7649/87&#34;&gt;HttpUpdater&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>NodeMCU 开发入门</title>
+      <link>https://gitai.me/2017/04/getting-started-with-nodemcu/</link>
+      <pubDate>Mon, 17 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/04/getting-started-with-nodemcu/</guid>
+      <description>&lt;p&gt;入了个 nodemcu 来记一段初始化过程遇上的坑&lt;/p&gt;
+&lt;p&gt;先插线，恩，卖家送了根很粗的烧录线（不过很快就被我烧了。&lt;/p&gt;
+&lt;p&gt;全家福什么的我是不会拍的&lt;/p&gt;
+&lt;p&gt;先做好基本的准备工作&lt;/p&gt;
+&lt;p&gt;基础环境是 Chromebook 中的 Ubuntu，不过这其实并不重要&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>从 0 开始的 IoT 学习小记</title>
+      <link>https://gitai.me/2017/04/re-zero-starting-in-iot/</link>
+      <pubDate>Thu, 13 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://gitai.me/2017/04/re-zero-starting-in-iot/</guid>
+      <description>&lt;h2 id=&#34;iot-平台类型&#34;&gt;IoT 平台类型&lt;/h2&gt;
+&lt;p&gt;WoT.City 将 IoT 开发平台分为以下 3 种：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Single Board Computer － 例如：Intel Edison&lt;/li&gt;
+&lt;li&gt;High Performance MCU － 例如：ARM mbed&lt;/li&gt;
+&lt;li&gt;WiFi MCU － 例如：ESP8266 與 NodeMCU&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;一般来说，不同类型的 IoT 开发平台，也会有不同的 IoT Cloud 架构，以及不同的 IoT Diagram（Use Scenario）。WoT.City 的 Web of Things Framework 就是依靠不同 IoT 类型，设计出不同的 WoT Server 架构。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;IoT Node (Device Type)&lt;/th&gt;
+&lt;th&gt;Solution Platform&lt;/th&gt;
+&lt;th&gt;IoT Diagram (Use Scenario)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Single Board Computer (SBC)&lt;/td&gt;
+&lt;td&gt;Intel Edison、Qualcomm Dragonboard 410c etc.&lt;/td&gt;
+&lt;td&gt;IoT Router etc.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;High Performance MCU&lt;/td&gt;
+&lt;td&gt;ARM mbed OS、Neuclio&lt;/td&gt;
+&lt;td&gt;Sensor hub (Time-series Data Type) etc.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;WiFi MCU&lt;/td&gt;
+&lt;td&gt;ESP8266、NodeMCU、EMW3165 etc.&lt;/td&gt;
+&lt;td&gt;Sensor hub (Interrupt Type)、Network controller etc.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;: Device Types of IoT Node&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

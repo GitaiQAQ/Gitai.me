@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-Hans-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>激光测距 Adafruit VL53L0X | Gitai.me</title>
+
+<meta property='og:title' content='激光测距 Adafruit VL53L0X - Gitai.me'>
+<meta property='og:description' content='VL53L0X飞行时间测距传感器是ST第二代激光测距模块，采用市场尺寸最小的一种封装。VL53LOX是完全集成的传感器，配有嵌入式红外、人眼'>
+<meta property='og:url' content='https://gitai.me/2020/03/vl53l0x/'>
+<meta property='og:site_name' content='Gitai.me'>
+<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/d277f292abb792ca53d809be58cb3d85?s=256'><meta property='article:section' content='Posts'><meta property='article:tag' content='Arduino'><meta property='article:published_time' content='2020-03-16T00:00:00Z'/><meta property='article:modified_time' content='2020-03-16T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@_gitai'><meta name='twitter:creator' content='@_gitai'>
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gitai.me/2020/03/vl53l0x/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://gitai.me/">
+          
+            <img class="logo" src="/img/logo.gif" alt="Gitai.me"/>
+          
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/GitaiQAQ'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/_gitai'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="email" href='mailto:i@gitai.me'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <div class="dividing-line"></div>
+    <div class="content">
+      <blockquote>
+        <p>
+          系统更换中，可能存在不可预料的 BUG
+        </p>
+      </blockquote>
+    </div>
+
+    
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/arduino/">#Arduino</a>
+
+
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">March 16, 2020</h2>
+    <h1 class="title">激光测距 Adafruit VL53L0X</h1>
+    
+    <div class="content">
+      <p>VL53L0X飞行时间测距传感器是ST第二代激光测距模块，采用市场尺寸最小的一种封装。VL53LOX是完全集成的传感器，配有嵌入式红外、人眼安全激光，先进的滤波器和超高速光子探测阵列。VL53L0X增强了ST FlightSense™系列，测量距离更长，速度和精度更高，从而开启了新应用之门。</p>
+<p><a href="http://www.waveshare.net/w/upload/d/d8/VL53L0X-Distance-Sensor-User-Manual-CN.pdf">VL53L0X Distance Sensor 用户手册</a></p>
+<p>本文记录了一些小坑</p>
+<ul>
+<li>
+<p>官方的 Adafruit_VL53L0X 太大，2K RAM 只够给他，flash 也不够</p>
+</li>
+<li>
+<p>VL53L0X 经常连不上，因为 I2C address 改了之后，通过 XSHUT 复位是不会改回去的，断电也有可能没变化</p>
+</li>
+<li>
+<p>所以建立开发是配合以下几个 Example</p>
+<ul>
+<li>i2c_scanner 地址扫描</li>
+<li>VL53L0X-Single 单芯片的调试</li>
+<li>Adafruit_VL53L0X-vl53l0x_dual 多芯片的调试</li>
+</ul>
+</li>
+<li>
+<p>最后集成的时候用 VL53L0X 这个库</p>
+</li>
+</ul>
+<p>简单的说就是当你发现连不上芯片的时候，检查排线没问题之后，用 i2c_scanner 扫一下就知道设备在不在线了，顺便看看 I2C Address 是不是默认的 0x29。</p>
+<p>或者用我这个混合了 i2c_scanner 和 VL53L0X 连接的代码。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">pinMode(PIN_VL53L0X_Y_XSHUT, OUTPUT);
+digitalWrite(PIN_VL53L0X_Y_XSHUT, LOW);
+
+Wire.begin();
+
+loX.setTimeout(<span style="color:#ae81ff">50</span>);
+loY.setTimeout(<span style="color:#ae81ff">50</span>);
+
+<span style="color:#66d9ef">for</span> (byte address <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x29</span>; address <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0x40</span>; <span style="color:#f92672">++</span>address) {
+    loX.setAddress(address);
+    <span style="color:#66d9ef">if</span> (loX.init())
+    {
+        Serial.print(<span style="color:#e6db74">&#34;Initial VL53L0X_1 at &#34;</span>);
+        Serial.println(address, HEX);
+
+        loX.startContinuous();
+
+        Serial.println(<span style="color:#e6db74">&#34;Change Address of VL53L0X_1 to temp address 0x28&#34;</span>);
+        loX.setAddress(<span style="color:#ae81ff">0x28</span>);
+        <span style="color:#66d9ef">break</span>;
+    } <span style="color:#66d9ef">else</span> {
+        loX.last_status <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
+    }
+}
+
+<span style="color:#66d9ef">if</span> (<span style="color:#ae81ff">5</span> <span style="color:#f92672">==</span> loX.last_status) {
+    Serial.println(<span style="color:#e6db74">&#34;I2C address from 0x29 to 0x40 without device1&#34;</span>);
+    <span style="color:#66d9ef">while</span> (<span style="color:#ae81ff">1</span>);
+}
+
+Serial.println(<span style="color:#e6db74">&#34;Enable VL53L0X_2&#34;</span>);
+digitalWrite(PIN_VL53L0X_Y_XSHUT, HIGH);
+
+Serial.println(<span style="color:#e6db74">&#34;Initial VL53L0X_2&#34;</span>);
+<span style="color:#66d9ef">for</span> (byte address <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x29</span>; address <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0x40</span>; <span style="color:#f92672">++</span>address) {
+    loY.setAddress(address);
+    <span style="color:#66d9ef">if</span> (loY.init())
+    {
+        Serial.print(<span style="color:#e6db74">&#34;Initial VL53L0X_2 at &#34;</span>);
+        Serial.println(address, HEX);
+
+        loY.startContinuous();
+        <span style="color:#66d9ef">break</span>;
+    } <span style="color:#66d9ef">else</span> {
+        loY.last_status <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
+    }
+}
+
+<span style="color:#66d9ef">if</span> (<span style="color:#ae81ff">5</span> <span style="color:#f92672">==</span> loY.last_status) {
+    Serial.println(<span style="color:#e6db74">&#34;I2C address from 0x29 to 0x40 without device2&#34;</span>);
+    <span style="color:#66d9ef">while</span> (<span style="color:#ae81ff">1</span>);
+}
+
+Serial.print(<span style="color:#e6db74">&#34;Change Address of VL53L0X_1 to 0x&#34;</span>);
+byte address <span style="color:#f92672">=</span> ((loY.getAddress() <span style="color:#f92672">-</span> <span style="color:#ae81ff">28</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">10</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">29</span>;
+Serial.println(address);
+loX.setAddress(address);
+</code></pre></div>
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+    <script src="/js/copycode.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'gitaisblog';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/GitaiQAQ">Gitai</a> 2011</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+
+</body>
+</html>
+
