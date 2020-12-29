@@ -1,0 +1,11 @@
+<html>
+    <body>
+        <script>
+            async function test () {
+
+                document.body.innerHTML = JSON.stringify(await (await fetch('https://httpbin.org/ip')).json());
+            }
+            test();
+        </script>
+    </body>
+</html>
